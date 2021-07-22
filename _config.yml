@@ -9,12 +9,12 @@ author:
   name: Angeni Bai
   github: angenibai # GitHub username, used for GitHub icon on the top right
   linkedin: angeni-bai # Your LinkedIn profile url name, used for LinkedIn icon on the top right
-  email: # Used for email icon on the top right
+  email: false # Used for email icon on the top right
   homepage: https://angenibai.github.io # This links to your name in post meta
   twitter: # Twitter username, used for Twitter Card Analytics 
 
 disqus_name: # Setting this will turn on Disqus comments
-g_track_id: # Google Analytics tracking ID (e.g. UA-000000-2), setting this will turn on Google Analytics
+g_track_id: G-CYM1C4XG1B # Google Analytics tracking ID (e.g. UA-000000-2), setting this will turn on Google Analytics
 
 markdown: kramdown
 
