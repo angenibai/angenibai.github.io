@@ -1,8 +1,8 @@
 ---
 layout: page
 full_logo: true
-title: Title
-subtitle: Subtitle
+title:
+subtitle:
 description: The landing page for Angeni's website
 sitemap:
   priority: 1.0
