@@ -3,7 +3,7 @@ short_logo: Angeni # Shown in header on all pages by default unless full_logo: t
 
 description: > # The description for your site
   Angeni's website!
-url: "http://angeni.me" # Site base URL
+url: "https://angeni.me" # Site base URL
 
 author:
   name: Angeni Bai
