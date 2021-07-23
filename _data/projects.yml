@@ -1,6 +1,6 @@
 - name: This website 😁 # Project name, also used as heading
   id: website # Project id, must be unique amongst the projects
-  img_src: # Optional image
+  img_src: /assets/img/website/angeni-website-landing.png # Optional image
   description_less: Finally setting up my own corner of the internet # Description shown at all times, text only
   description_more: > # Description shown only when the project card is expanded, HTML only
     <p>This website was set up using:</p> 
@@ -20,11 +20,49 @@
   description_more: >
     <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://adaluong.me" target="_blank">Ada Luong</a></p>
     <p>Watch the pitch <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank">here</a>!</p>
+    <p>My contributions included:</p>
+    <ul>
+      <li>Setting up the backend Flask server to create an accessible API</li>
+      <li>Designing and implementing the frontend functionality using React</li>
+      <li>Contributing to implementing the algorithm that matched questions being asked and answered</li>
+      <li>Brainstorming ideas, researching the problem space, and constructing the pitch</li>
+    </ul>
   action_buttons: >
     <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Watch Pitch</a>
     <a href="https://github.com/adaluong/summarise-my-lecture-hackathon" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repository</a>
     <a href="#" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-align-right"></i> &nbsp Blog Post</a>
   tags: [hackathon, web-dev, react, python]
+
+- name: CSESoc Media
+  id: csesoc-media
+  description_less: Not a project - but I spend so much of my life on Media that I had to mention it somewhere :)
+  description_more: >
+    <p>In 2020, I was a subcommittee member, and in 2021 I've had the privilege of leading the team as a Media Director! With everything we do, we aim to create content that get the community talking, and highlight the varied voices of Computer Science at UNSW.</p>
+    <p>My favourite things I've worked on:</p>
+    <ul>
+      <li><a href="https://youtu.be/yjhXxX27jd0" target="_blank">Pride in Computer Science: LGBTQ+ Roundtable</a> podcast episode - hands down my favourite episode to host</li>
+      <li><a href="https://media.csesoc.org.au/author/angeni/" target="_blank">Beginner's Guide to Vim</a> series - I attempt to make basic Vim skills accessible to complete noobs</li>
+      <li><a href="https://open.spotify.com/episode/3zYEg2mHDND0qMrB8T48Ik?si=J-EluCqsT6CzPKVhBv5nSA&dl_branch=1" target="_blank">Personal Project Showcase</a> podcast series - over 1000 unique downloads!</li>
+      <li><a href="https://youtu.be/elJBKQWEVSo" target="_blank">CSESoc 2021 First Year Camp video</a> - I would even call it a documentary</li>
+      <li><a href="https://media.csesoc.org.au/first-year-guide/" target="_blank">CSESoc 2021 First Year Guide</a> - we've helped > 1.6k students find their bearings at uni!</li>
+    </ul>
+  action_buttons: >
+    <a href="https://media.csesoc.org.au/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Media website</a> 
+  tags:
+
+- name: Genie's Internet Playground
+  id: internet-playground
+  img_src: /assets/img/internet-playground/internet-playground-landing.png
+  description_less: A collection of React-based games
+  description_more: >
+    <p>Current games are:</p>
+    <ul>
+      <li>Tic-tac-toe</li>
+      <li>Minesweeper</li>
+    </ul>
+  action_buttons: >
+    <a href="https://github.com/angenibai/internet-playground" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repository</a> 
+  tags: [react, web-dev]
 
 - name: Can I Go Outside?
   id: csesoc-hackathon-2020
@@ -33,8 +71,25 @@
   description_more: >
     <p>Official COVID-19 advice for your DMs 😉 - a Facebook Messenger bot that keeps you up to date with current restrictions. Developed with Ada Luong, Edwina Adisusila, Ingrid Norton and Giuliana De Bellis</p>
     <p>Watch the live pitch <a href="https://youtu.be/cMP0vDdQhRY?t=4040" target="_blank">here</a>!</p>
+    <p>My contributions included:</p>
+    <ul>
+      <li>Conducting research into increasing the engagement of young people with COVID restrictions</li>
+      <li>Configuring the Facebook APIs and credentials with the Python-based bot</li>
+      <li>Setting up the development server and eventually deploying the bot to Heroku</li>
+      <li>Contributing to the logic of the Python code which would respond to user messages</li>
+    </ul>
   action_buttons: >
     <a href="https://youtu.be/cMP0vDdQhRY?t=4040" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Watch Pitch</a>
     <a href="https://github.com/angenibai/can-i-go-outside" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repository</a>
   tags: [hackathon, python]
 
+- name: The Celiac Paradox
+  id: celiac-paradox
+  description_less: Research into the genetic evolution of celiac disease
+  description_more: >
+    <p>A year-long independent research project for HSC Science Extension.</p>
+    <p>Read the <a href="/assets/other/celiac-paradox-report.pdf" target="_blank">report</a>, and check out the <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank">scripts</a> I used to process genetic data!</p>
+    <p><strong>TLDR:</strong> When I found out that predisposition to celiac disease was genetic, I thought I could find some cool evidence of natural selection - where ethnic groups from societies that started growing gluten-containing cereals earliest in history would have lower frequency of the target genes. Turns out I was wrong! Instead, I found evidence of some other genetic factors at play.</p>
+  action_buttons: >
+    <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repository</a>
+  tags: [data, python]
