@@ -3,7 +3,7 @@ short_logo: a/b # Shown in header on all pages by default unless full_logo: true
 
 description: > # The description for your site
   Angeni's website!
-url: "https://angenibai.github.io/" # Site base URL
+url: "https://angeni.me" # Site base URL
 
 author:
   name: Angeni Bai
