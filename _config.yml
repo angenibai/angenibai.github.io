@@ -1,5 +1,5 @@
-title: Angeni Bai # Shown in header on pages with full_logo: true
-short_logo: Angeni # Shown in header on all pages by default unless full_logo: true is set
+title: angeni bai # Shown in header on pages with full_logo: true
+short_logo: a/b # Shown in header on all pages by default unless full_logo: true is set
 
 description: > # The description for your site
   Angeni's website!
@@ -13,7 +13,7 @@ author:
   homepage: https://angenibai.github.io # This links to your name in post meta
   twitter: # Twitter username, used for Twitter Card Analytics 
 
-disqus_name: # Setting this will turn on Disqus comments
+disqus_name: angeni # Setting this will turn on Disqus comments
 g_track_id: G-CYM1C4XG1B # Google Analytics tracking ID (e.g. UA-000000-2), setting this will turn on Google Analytics
 
 markdown: kramdown
@@ -50,5 +50,5 @@ compress_html:
   startings: [html, head, body]
 
 rss: false # RSS feed icon on or off
-dark_mode: false # Dark mode icon
+dark_mode: true # Dark mode icon
 project_card_style: modal # Choose from masonry, modal, and flat

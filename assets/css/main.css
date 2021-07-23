@@ -1,16 +1,33 @@
 @charset "UTF-8";
 
+:root {
+  --raisin-black: #252329;
+  --sugar-plum: #834A75;
+  --sky-magenta: #C379B0;
+  --princeton-orange: #EC7D29;
+  --dark-liver: #45424D;
+}
+
+body {
+  font-family: 'Quattrocento Sans', sans-serif;
+}
+
 a {
-  color: #57a;
+  color: var(--princeton-orange);
   text-decoration: none;
+}
+
+a:hover {
+  color: #C379B0;
 }
 
 p,
 ul,
 ol,
 dl {
+  font-family: 'Quattrocento Sans', sans-serif;
   font-size: 100%;
-  line-height: 32px;
+  line-height: 22px;
 }
 
 h1,
@@ -19,7 +36,8 @@ h3,
 h4,
 h5,
 h6 {
-  color: #212529;
+  font-family: 'Noto Sans', sans-serif;
+  color: var(--dark-liver);
   padding-top: 20px;
   font-weight: 500;
 }
@@ -86,9 +104,10 @@ th {
 
 .logo,
 a.logo:hover {
+  font-family: 'Noto Sans', sans-serif;
   font-size: 300%;
   font-weight: 700;
-  color: #16a085;
+  color: var(--dark-liver);
   display: block;
   text-decoration: none;
 }
@@ -135,6 +154,7 @@ a.logo:hover {
 .page-title__text {
   font-weight: 700;
   font-size: 120%;
+  margin-block-end: 0.6rem;
 }
 
 .page-title__subtitle {
@@ -303,6 +323,9 @@ a.logo:hover {
   border-radius: 0.25rem;
   mix-blend-mode: difference;
   filter: brightness(98%);
+  display: block;
+  margin: auto;
+  max-height: 400px;
 }
 
 .caption {

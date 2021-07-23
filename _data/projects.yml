@@ -1,4 +1,4 @@
-- name: This website! # Project name, also used as heading
+- name: This website 😁 # Project name, also used as heading
   id: website # Project id, must be unique amongst the projects
   img_src: # Optional image
   description_less: Finally setting up my own corner of the internet # Description shown at all times, text only
@@ -15,24 +15,26 @@
 
 - name: Summarise My Lecture
   id: csesoc-hackathon-2021
-  img_src: 
+  img_src: /assets/img/summarise-my-lecture/summarise-my-lecture-intro.jpg
   description_less: 2021 CSESoc Hackathon 4th Place and People's Choice Winner
   description_more: >
-    <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://github.com/adaluong" target="_blank">Ada Luong</a></p>
+    <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://adaluong.me" target="_blank">Ada Luong</a></p>
     <p>Watch the pitch <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank">here</a>!</p>
   action_buttons: >
-    <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp View Project</a>
+    <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Watch Pitch</a>
     <a href="https://github.com/adaluong/summarise-my-lecture-hackathon" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repository</a>
     <a href="#" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-align-right"></i> &nbsp Blog Post</a>
   tags: [hackathon, web-dev, react, python]
 
 - name: Can I Go Outside?
   id: csesoc-hackathon-2020
-  img_src: /assets/img/can-i-go-outside-logo.png
+  img_src: /assets/img/can-i-go-outside/can-i-go-outside-logo.jpg
   description_less: 2020 CSESoc Hackathon Finalist
   description_more: >
     <p>Official COVID-19 advice for your DMs 😉 - a Facebook Messenger bot that keeps you up to date with current restrictions. Developed with Ada Luong, Edwina Adisusila, Ingrid Norton and Giuliana De Bellis</p>
+    <p>Watch the live pitch <a href="https://youtu.be/cMP0vDdQhRY?t=4040" target="_blank">here</a>!</p>
   action_buttons: >
+    <a href="https://youtu.be/cMP0vDdQhRY?t=4040" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Watch Pitch</a>
     <a href="https://github.com/angenibai/can-i-go-outside" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repository</a>
   tags: [hackathon, python]
 

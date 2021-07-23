@@ -9,7 +9,7 @@ sitemap:
 ---
 <p id="describe-text">Hey! I'm Angeni - most people just call me Genie 🧞‍♀️</p>
 <br>
-<p>I'm currently updating this website :)</p>
+This site is best enjoyed in light mode :)
 
 <br>
 <br>
