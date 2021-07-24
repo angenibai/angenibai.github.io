@@ -6,19 +6,46 @@
   --sky-magenta: #C379B0;
   --princeton-orange: #EC7D29;
   --dark-liver: #45424D;
+  --eerie-black: #242525;
+  --pale-silver: #CFC9BF;
+  --pale-silver-head: #BBB3A7;
+  --grullo: #9B9183;
+  --white: #fff;
+  --gray-web: #828282;
+  --charleston-green: #212529;
+}
+
+:root[dark-mode="light"] {
+  --link-color: var(--princeton-orange);
+  --link-hover-color: var(--sky-magenta);
+  --heading-color: var(--dark-liver);
+  --paragraph-color: var(--charleston-green);
+  --subtitle-color: var(--gray-web);
+  --background-color: var(--white);
+}
+
+:root[dark-mode="dark"] {
+  --link-color: var(--princeton-orange);
+  --link-hover-color: var(--sky-magenta);
+  --heading-color: var(--pale-silver-head);
+  --paragraph-color: var(--pale-silver);
+  --subtitle-color: var(--grullo);
+  --background-color: var(--eerie-black);
 }
 
 body {
   font-family: 'Quattrocento Sans', sans-serif;
+  background-color: var(--background-color);
+  transition: background-color .3s;
 }
 
 a {
-  color: var(--princeton-orange);
+  color: var(--link-color);
   text-decoration: none;
 }
 
 a:hover {
-  color: #C379B0;
+  color: var(--link-hover-color);
 }
 
 p,
@@ -28,6 +55,7 @@ dl {
   font-family: 'Quattrocento Sans', sans-serif;
   font-size: 100%;
   line-height: 22px;
+  color: var(--paragraph-color);
 }
 
 h1,
@@ -37,7 +65,7 @@ h4,
 h5,
 h6 {
   font-family: 'Noto Sans', sans-serif;
-  color: var(--dark-liver);
+  color: var(--heading-color);
   padding-top: 20px;
   font-weight: 500;
 }
@@ -107,7 +135,7 @@ a.logo:hover {
   font-family: 'Noto Sans', sans-serif;
   font-size: 300%;
   font-weight: 700;
-  color: var(--dark-liver);
+  color: var(--heading-color);
   display: block;
   text-decoration: none;
 }
@@ -136,7 +164,7 @@ a.logo:hover {
 .social-links {
   float: right;
   font-size: 150%;
-  color: #828282;
+  color: var(--subtitle-color);
   list-style-type: none;
 }
 
@@ -160,7 +188,7 @@ a.logo:hover {
 .page-title__subtitle {
   font-weight: 400;
   font-size: 60%;
-  color: #828282;
+  color: var(--subtitle-color);
 }
 
 /* =Post teasers */ /*************************************************************/
@@ -211,11 +239,11 @@ a.logo:hover {
 .post-title__subtitle {
   font-weight: 500;
   font-size: 100%;
-  color: #828282;
+  color: var(--subtitle-color);
 }
 
 .about {
-  color: #828282;
+  color: var(--subtitle-color);
   text-align: center;
   line-height: 24px;
 }
@@ -321,7 +349,6 @@ a.logo:hover {
 
 #splash-img {
   border-radius: 0.25rem;
-  mix-blend-mode: difference;
   filter: brightness(98%);
   display: block;
   margin: auto;

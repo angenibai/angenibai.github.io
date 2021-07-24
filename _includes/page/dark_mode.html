@@ -13,7 +13,26 @@ const options = {
     label: '🌓', // default: ''
     autoMatchOsTheme: false // default: true
     }
-const darkmode = new Darkmode(options);
-render_dark_mode_icon(darkmode, 'dark_mode_toggle');
+//const darkmode = new Darkmode(options);
+//render_dark_mode_icon(darkmode, 'dark_mode_toggle');
+
+const settings = {
+    brightness: 100,
+    contrast: 90,
+    sepia: 10
+}
+// DarkReader.setFetchMethod(window.fetch);
+// localStorage.setItem('dark-mode', 'true');
+//render_dark_mode_icon(settings, 'dark_mode_toggle');
+const body = document.getElementsByTagName("body")[0];
+const root = document.documentElement;
+window.addEventListener('storage', function() {
+    if (localStorage.darkModeCustom === "dark") {
+        root.setAttribute("dark-mode", "dark");
+    } else {
+        root.setAttribute("dark-mode", "light");
+    }
+}, false);
+render_dark_mode_icon('dark_mode_toggle');
 </script>
 {% endif %}
