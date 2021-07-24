@@ -1,10 +1,6 @@
 function switch_dark_mode_icon(settings, id) {
-    let newMode = '';
-    if (localStorage.getItem('dark-mode') === 'dark') {
-        newMode = 'light';
-    } else {
-        newMode = 'dark';
-    }
+    const newMode = localStorage.getItem('dark-mode') === 'dark' ? 'light' : 'dark';
+  
     render_dark_mode_icon(newMode, id);
     set_dark_mode(settings, newMode);
     localStorage.setItem('dark-mode', newMode);
