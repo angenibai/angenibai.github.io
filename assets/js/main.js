@@ -1,26 +1,26 @@
-function switch_dark_mode_icon(darkmode, id) {
-    darkmode.toggle();
-    render_dark_mode_icon(darkmode, id);
+function switch_dark_mode_icon(settings, id) {
+    const newMode = localStorage.getItem('dark-mode') === 'dark' ? 'light' : 'dark';
+  
+    render_dark_mode_icon(newMode, id);
+    set_dark_mode(settings, newMode);
+    localStorage.setItem('dark-mode', newMode);
 }
 
-function render_dark_mode_icon(darkmode, id) {
-    var x = document.getElementsByTagName("img");
-    var i;
+function set_dark_mode(settings, mode) {
+    if (mode === 'dark') {
+        DarkReader.enable(settings);
+    } else {
+        DarkReader.disable();
+    }
+}
 
-    console.log(x)
-    if (darkmode.isActivated()) {
+function render_dark_mode_icon(mode, id) {
+    if (mode === 'dark') {
         document.getElementById(id).classList.remove('fa-sun');
         document.getElementById(id).classList.add('fa-moon');
-        for (i = 0; i < x.length; i++) {
-            x[i].style["mix-blend-mode"] = "difference";
-        }
-
     } else {
         document.getElementById(id).classList.remove('fa-moon');
-        document.getElementById(id).classList.add('fa-sun');
-        for (i = 0; i < x.length; i++) {
-            x[i].style["mix-blend-mode"] = "normal";
-        }
+        document.getElementById(id).classList.add('fa-sun'); 
     }
 }
 
