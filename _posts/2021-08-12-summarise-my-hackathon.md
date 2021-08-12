@@ -5,7 +5,7 @@ title: Summarise My Hackathon # Post title
 date: 2021-08-12 # Publish date in YYYY-MM-DD format
 
 # Recommended front matter
-tags: [web-dev, hackathon] # A list of tags
+tags: [hackathon, web-dev] # A list of tags
 splash_img_source: /assets/img/summarise-my-lecture/summarise-my-lecture-intro.jpg # Splash image source, high resolution images with an aspect ratio close to 4:3 recommended
 splash_img_caption:  # Splash image caption
 
@@ -447,7 +447,7 @@ I bash out something coherent to say, speed read it and send the recording off t
 
 **Genie:** I am IMPRESSED by the pitch and very hyped because that was our 24hrs!! Smushed into a 3-minute video!! That doesn't look half bad!! The stress adrenaline is turning into happiness adrenaline :D 
 
-**Ada**: and we were DONE!!!! pitch SUBMITTED. GitHub LINKED. energy levels HIGH. I was READY for some lunch to celebrate!!!!
+**Ada**: and we were DONE!!!! pitch [SUBMITTED](https://www.youtube.com/watch?v=fJBVRQbtfBo). GitHub [LINKED](https://github.com/adaluong/summarise-my-lecture-hackathon). energy levels HIGH. I was READY for some lunch to celebrate!!!!
 
 **Genie:** Also remember the milestones we set like 24 hours ago? How did we go with those...
 
