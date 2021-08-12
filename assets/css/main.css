@@ -260,6 +260,7 @@ a.logo:hover {
   overflow: hidden;
   padding-top: 56.25%;
   position: relative;
+  margin-bottom: 1rem;
 }
 
 .iframe-container > iframe {
