@@ -357,7 +357,6 @@ a.logo:hover {
 
 #splash-img {
   border-radius: 0.25rem;
-  mix-blend-mode: difference;
   filter: brightness(98%);
   display: block;
   margin: auto;
