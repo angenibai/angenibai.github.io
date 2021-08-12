@@ -234,6 +234,42 @@ a.logo:hover {
   text-align: center;
 }
 
+/* styling inside posts */
+.post_wrapper > h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.post_wrapper > h2 {
+  font-size: 1.9rem;
+}
+
+.post_wrapper img {
+  margin: auto;
+  max-width: 700px;
+  width: 90%;
+  height: auto;
+}
+
+.post_wrapper figcaption {
+  text-align: center;
+  color: #7B7B77;
+}
+
+.iframe-container {
+  overflow: hidden;
+  padding-top: 56.25%;
+  position: relative;
+}
+
+.iframe-container > iframe {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 /* =Page navigation */ /*************************************************************/
 .PageNavigation {
   display: block;
