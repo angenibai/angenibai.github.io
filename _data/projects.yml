@@ -62,7 +62,7 @@
     </ul>
   action_buttons: >
     <a href="https://github.com/angenibai/internet-playground" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a> 
-  tags: [react, web-dev]
+  tags: [web-dev]
 
 - name: Can I Go Outside?
   id: csesoc-hackathon-2020

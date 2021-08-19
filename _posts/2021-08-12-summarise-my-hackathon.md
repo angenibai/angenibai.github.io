@@ -262,7 +262,7 @@ Here's the deal: we'll first find instances in the lecture transcript where the 
 
 Then comes the next question:
 
-__How can you tell if two statements are 'similar'?__
+<u>How can you tell if two statements are 'similar'?</u>
 
 I spiral down an internet rabbit hole looking for a solution and end up at [an interesting competition from 2017](https://www.kaggle.com/c/quora-question-pairs/code). It was a problem put forward by Quora, a public question-and-answer website based in Mountain View, California. The website has over 100 million people every month, so many people ask similarly worded questions — this makes it hard for seekers to find the best answer to their questions and makes writers feel they need to answer multiple versions of the same question.
 
