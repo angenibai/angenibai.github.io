@@ -1,0 +1,110 @@
+{% if site.reacts and page.comments %}
+<div class="reacts">
+    <h5>Reacc</h5>
+    <p class="totalCount"></p>
+    <div class="react-buttons">
+        <div class="react-div">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off" id="likeBtn">
+                👍 Like
+            </button>
+            <p class="likeCount"></p>
+        </div>
+        <div class="react-div">
+            <button class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off" id="laughBtn">
+                😆 Laugh
+            </button>
+            <p class="laughCount"></p>
+        </div> 
+        <div class="react-div">
+            <button class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off" id="loveBtn">
+                😍 Love
+            </button>
+            <p class="loveCount"></p>
+        </div> 
+        <div class="react-div">
+            <button class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off" id="surprisedBtn">
+                😮 Surprised
+            </button>
+            <p class="surprisedCount"></p>
+        </div>
+        <div class="react-div">
+            <button class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off" id="angryBtn">
+                😤 Angry
+            </button>
+            <p class="angryCount"></p>
+        </div>
+        <div class="react-div">
+            <button class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off" id="sadBtn">
+                😥 Sad
+            </button>
+            <p class="sadCount"></p>
+        </div> 
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyC_2RDdxV3ShObX1G8FpOiuIOLpHwtwRGw",
+        authDomain: "blog-reacts.firebaseapp.com",
+        projectId: "blog-reacts",
+        storageBucket: "blog-reacts.appspot.com",
+        messagingSenderId: "186133183760",
+        appId: "1:186133183760:web:5880ff7839a80d42557995",
+        measurementId: "G-ERK7C98S4X"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    var db = firebase.firestore();
+    const postRef = db.collection("reacts").doc(slugify(window.location.pathname));
+
+    const increment = firebase.firestore.FieldValue.increment(1);
+    const decrement = firebase.firestore.FieldValue.increment(-1);
+
+    const possibleReacts = ["like", "laugh", "love", "surprised", "angry", "sad"];
+
+    // buttons to trigger react or unreact
+    for (const react of possibleReacts) {
+        const btn = document.querySelector(`#${react}Btn`);
+        btn.addEventListener("click", (e) => {
+           // ariaPressed appears to return the previous state
+            const action = e.target.ariaPressed == "true" ? decrement : increment;
+
+            const payload = {total: action};
+            payload[react] = action;
+            postRef.update(payload).catch((error) => {
+                // undo toggle button if react didn't register in database
+                btn.classList.toggle("active");
+                btn.ariaPressed = btn.ariaPressed == "true" ? "false" : "true";
+                console.error(error);
+            });
+        })
+    }
+
+    // update the counts for each react
+    function updateCounts(countData) {
+        document.querySelector(".totalCount").textContent = countData.total ? countData.total : 0;
+        document.querySelector(".totalCount").textContent += countData.total == 1 ? " response" : " responses";
+        for (const react of possibleReacts) {
+            document.querySelector(`.${react}Count`).textContent = countData[react] ? countData[react] : 0;
+        }
+    }
+
+    // update as soon as page loads
+    postRef.get().then((doc) => {
+        updateCounts(doc.data())
+    });
+
+    // update counts whenever the like counts change
+    postRef.onSnapshot((doc) => {
+        updateCounts(doc.data());
+    });
+</script>
+{% endif %}
