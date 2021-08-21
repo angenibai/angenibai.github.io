@@ -304,6 +304,28 @@ a.logo:hover {
   font-size: 130%;
 }
 
+/* =Reacts */ /*************************************************************/
+.reacts {
+  text-align: center;
+}
+
+.react-buttons {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.react-div {
+  text-align: center;
+  margin: auto 0.5rem;
+}
+
+.react-div > button {
+  margin: 0.8rem auto;
+}
+
 /* =Small screen */ /*************************************************************/
 @media (max-width: 600px) {
   p,

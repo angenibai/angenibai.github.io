@@ -16,6 +16,8 @@ author:
 disqus_name: angeni # Setting this will turn on Disqus comments
 g_track_id: G-CYM1C4XG1B # Google Analytics tracking ID (e.g. UA-000000-2), setting this will turn on Google Analytics
 
+reacts: true # Enable reacts from firebase
+
 markdown: kramdown
 
 defaults: # Recommended defaults, you may set your own
