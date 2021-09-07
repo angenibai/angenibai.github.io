@@ -7,7 +7,7 @@ date: 2021-09-06 # Publish date in YYYY-MM-DD format
 # Recommended front matter
 tags: high-school # A list of tags
 splash_img_source: /assets/img/hsc-physics/rh-grip-rule.jpg # Splash image source, high resolution images with an aspect ratio close to 4:3 recommended
-splash_img_caption: found on slide 17 of HSC Physics revision lecture slides :) # Splash image caption
+splash_img_caption: found on slide 17 of the HSC Physics revision lecture 👀 # Splash image caption
 
 # Optional front matter
 updated: # Updated date in YYYY-MM-DD format
