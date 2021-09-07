@@ -18,7 +18,7 @@ a {
 }
 
 a:hover {
-  color: #C379B0;
+  color: var(--sky-magenta);
 }
 
 p,
@@ -26,7 +26,7 @@ ul,
 ol,
 dl {
   font-family: 'Quattrocento Sans', sans-serif;
-  font-size: 100%;
+  font-size: 1.1rem;
   line-height: 22px;
 }
 
