@@ -73,6 +73,7 @@ blockquote {
   max-width: 80%;
   max-width: 800px;
   margin: 60px auto;
+  margin-top: 20px;
 }
 
 table {
@@ -383,6 +384,7 @@ a.logo:hover {
   filter: brightness(98%);
   display: block;
   margin: auto;
+  margin-bottom: 0.5rem;
   max-height: 400px;
 }
 
