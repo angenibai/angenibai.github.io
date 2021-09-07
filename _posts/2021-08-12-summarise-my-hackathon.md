@@ -7,7 +7,7 @@ date: 2021-08-12 # Publish date in YYYY-MM-DD format
 # Recommended front matter
 tags: [hackathon, web-dev] # A list of tags
 splash_img_source: /assets/img/summarise-my-lecture/summarise-my-lecture-intro.jpg # Splash image source, high resolution images with an aspect ratio close to 4:3 recommended
-splash_img_caption:  # Splash image caption
+splash_img_caption: # Splash image caption
 
 # Optional front matter
 updated: # Updated date in YYYY-MM-DD format
