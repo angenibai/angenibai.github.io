@@ -275,7 +275,7 @@ a.logo:hover {
 /* =Custom page stuff */
 .cards-container {
   max-width: 600px;
-  margin: 1.5rem 0;
+  margin: 1.5rem auto;
 }
 
 .hsc-physics-card {
