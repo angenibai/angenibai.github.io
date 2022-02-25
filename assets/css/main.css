@@ -2,14 +2,14 @@
 
 :root {
   --raisin-black: #252329;
-  --sugar-plum: #834A75;
-  --sky-magenta: #C379B0;
-  --princeton-orange: #EC7D29;
-  --dark-liver: #45424D;
+  --sugar-plum: #834a75;
+  --sky-magenta: #c379b0;
+  --princeton-orange: #ec7d29;
+  --dark-liver: #45424d;
 }
 
 body {
-  font-family: 'Quattrocento Sans', sans-serif;
+  font-family: "Quattrocento Sans", sans-serif;
 }
 
 a {
@@ -25,7 +25,7 @@ p,
 ul,
 ol,
 dl {
-  font-family: 'Quattrocento Sans', sans-serif;
+  font-family: "Quattrocento Sans", sans-serif;
   font-size: 1.1rem;
   line-height: 22px;
 }
@@ -36,7 +36,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
   color: var(--dark-liver);
   padding-top: 20px;
   font-weight: 500;
@@ -105,7 +105,7 @@ th {
 
 .logo,
 a.logo:hover {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
   font-size: 300%;
   font-weight: 700;
   color: var(--dark-liver);
@@ -254,7 +254,7 @@ a.logo:hover {
 
 .post_wrapper figcaption {
   text-align: center;
-  color: #7B7B77;
+  color: #7b7b77;
 }
 
 .iframe-container {
@@ -386,7 +386,6 @@ a.logo:hover {
 }
 
 .card {
-
 }
 
 /* Card hover effect */
@@ -421,6 +420,12 @@ a.logo:hover {
 
 .darkmode-layer {
   z-index: 2000;
+}
+
+/* Hide Disqus ads */
+iframe[title="Disqus"]:nth-child(1),
+iframe[title="Disqus"]:nth-child(3) {
+  display: none;
 }
 
 /* =Glitch effect, Source: http://codepen.io/bulby97/pen/fcvay */ /*************************************************************/
