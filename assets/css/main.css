@@ -423,9 +423,14 @@ a.logo:hover {
 }
 
 /* Hide Disqus ads */
+/*
 iframe[title="Disqus"]:nth-child(1),
 iframe[title="Disqus"]:nth-child(3) {
   display: none;
+}
+*/
+iframe[sandbox]:not([sandbox=""]) {
+  display: none !important;
 }
 
 /* =Glitch effect, Source: http://codepen.io/bulby97/pen/fcvay */ /*************************************************************/
