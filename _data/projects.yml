@@ -1,3 +1,15 @@
+- name: Who Guessed
+  id: who-guessed
+  img_src: /assets/img/who-guessed/who-guessed-play.png
+  description_less: Play Guess Who online
+  description_more: >
+    <p>Generate a Guess Who board to play with friends!</p>
+    <p>Currently supports playing with pre-loaded character decks.</p>
+  action_buttons: >
+    <a href="https://who-guessed.web.app/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Site</a> 
+    <a href="https://github.com/angenibai/who-guessed" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
+  tags: [web-dev]
+
 - name: Mario-dle
   id: mario-dle
   img_src: /assets/img/mario-dle/mario-dle-main.png
@@ -37,7 +49,8 @@
   id: website # Project id, must be unique amongst the projects
   img_src: /assets/img/website/angeni-website-landing.png # Optional image
   description_less: Finally setting up my own corner of the internet # Description shown at all times, text only
-  description_more: > # Description shown only when the project card is expanded, HTML only
+  description_more:
+    > # Description shown only when the project card is expanded, HTML only
     <p>This website was set up using:</p> 
     <ul>
       <li>Jekyll</li>
@@ -62,7 +75,7 @@
       <li><a href="https://media.csesoc.org.au/first-year-guide/" target="_blank">CSESoc 2021 First Year Guide</a> - we've helped > 1.6k students find their bearings at uni!</li>
     </ul>
   action_buttons: >
-    <a href="https://media.csesoc.org.au/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Media website</a> 
+    <a href="https://media.csesoc.org.au/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Media website</a>
   tags: [misc]
 
 - name: Summarise My Lecture
@@ -97,7 +110,7 @@
     </ul>
   action_buttons: >
     <a href="https://angeni.me/internet-playground/#/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Site</a> 
-    <a href="https://github.com/angenibai/internet-playground" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a> 
+    <a href="https://github.com/angenibai/internet-playground" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
   tags: [web-dev]
 
 - name: Can I Go Outside?
