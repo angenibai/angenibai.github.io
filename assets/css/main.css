@@ -30,6 +30,10 @@ dl {
   line-height: 22px;
 }
 
+ul, ol li {
+  margin-bottom: 0.5rem;
+}
+
 h1,
 h2,
 h3,
