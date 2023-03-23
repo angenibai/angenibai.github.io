@@ -601,4 +601,4 @@ We also have a few extension ideas! Including the one Ada came up with on the sp
 
 <p style="text-align: center">---------</p>
 
-In the meantime, check out [Ada's blog](https://adaluong.notion.site/adaluong/blog-9490f1a8b50247ee81a1b50ebb7d1833) too!
+In the meantime, check out [Ada's blog](https://adaluong.me/blog/summarise-my-hackathon/) too!
