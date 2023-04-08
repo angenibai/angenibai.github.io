@@ -1,12 +1,12 @@
 ---
 # Required front matter
 layout: post # Posts should use the post layout
-title: How to get your money's worth at the Easter Show # Post title
+title: Easter Showbags for MAXIMUM VALUE # Post title
 date: 2023-04-02 # Publish date in YYYY-MM-DD format
 
 # Recommended front matter
-tags: [web-dev] # A list of tags
-splash_img_source: /assets/img/ # Splash image source, high resolution images with an aspect ratio close to 4:3 recommended
+tags: [data] # A list of tags
+splash_img_source: # Splash image source, high resolution images with an aspect ratio close to 4:3 recommended
 splash_img_caption: # Splash image caption
 
 # Optional front matter
@@ -19,13 +19,11 @@ listed: true # false if this post must NOT be included on the posts page, sitema
 index: true # When false, <meta name="robots" content="noindex"> is added to the page, default is true
 ---
 
-# Easter Showbags for MAXIMUM Value
-
-Created: March 17, 2023 5:37 PM
-
 The Easter Show is back and like the good enterprising bargain-hunter that I am, the biggest question I have before I go is: **_which showbag can I buy that will get me the most value for my money?_**
 
-Suppose this question occurs to you right before your ethics tutorial. Suppose your friend says “I bet you could find out with some code”. And crucially, suppose you weren’t really planning on paying that much attention in ethics anyways. Given those conditions, it appears logical that you would then spend the next couple hours on a journey towards discovering the most cost-effective showbag at the 2023 Royal Sydney Easter Show.
+Suppose this question occurs to you right before your ethics tutorial. Suppose your friend[^1] says “I bet you could find out with some code”. And crucially, suppose you weren’t really planning on paying that much attention in ethics anyways.
+
+Given those conditions, it appears logical that you would then spend the next couple hours on a journey towards discovering the most cost-effective showbag at the 2023 Royal Sydney Easter Show.
 
 So whether those are your current conditions or not, join me on the steps I took on that journey! And you too can go into the Easter Show confident that you will know exactly how to get the most value for your hard-earned cash.
 
@@ -63,10 +61,10 @@ So with Barbie Dreamtopia we’re more than _doubling_ the value of stuff we get
 
 A table to summarise:
 
-|                   | Low price                 | High price                          |
-| ----------------- | ------------------------- | ----------------------------------- |
-| Low retail value  | Low value to price ratio  | Very low value to price ratio (< 1) |
-| High retail value | High value to price ratio | Low value to price ratio            |
+|                       | Low price                 | High price                          |
+| --------------------- | ------------------------- | ----------------------------------- |
+| **Low retail value**  | Low value to price ratio  | Very low value to price ratio (< 1) |
+| **High retail value** | High value to price ratio | Low value to price ratio            |
 
 ## Step 1: figure out the structure of the web page
 
@@ -170,6 +168,8 @@ We know that a numerical price value will be made up of one or more numerical di
 If we use the `re` regex library in Python, a function to extract the float value of a price from a given string would look like this:
 
 ```python
+PRICE_PATTERN = r"\d+(\.\d{2})?"
+
 def extract_price(full_string):
     matched = re.search(PRICE_PATTERN, full_string)
     if matched:
@@ -335,7 +335,9 @@ Aaaand by now you’re more than ready to see the results! The best deal you can
 
 <img src="/assets/img/easter-show-value/aww-expanded.png" alt="The Australian Women's Weekly showbag with all contents" />
 
-For a very reasonable **$22**, you can get **$490.61** worth of stuff. And that stuff is made up of **34 individual items**. It’s not the only bag with a >20 value to price ratio though, so check out the rest of the top ten most valuable showbags.
+For a very reasonable **$22**, you can get **$490.61** worth of stuff. And that stuff is made up of **34 individual items**.
+
+It’s not the only bag with a >20 value to price ratio though, so check out the rest of the top ten most valuable showbags!
 
 ### 2. marie claire
 
@@ -450,8 +452,12 @@ For most showbags, there’s a pretty uniform pattern of having a value to price
 
 ---
 
-And that’s it! Go forth to the 2023 Royal Sydney Easter Show knowing you have the power to maximise your returns on the all-important showbags 💪
+So that’s it! Go forth to the 2023 Royal Sydney Easter Show knowing you have the power to maximise your returns on the all-important showbags 💪🤑
 
-If you’re curious, all of the code is accessible on [Github](https://github.com/angenibai/showbags-value) for you to run yourself.
+If you’re curious, all of the code is accessible on [Github](https://github.com/angenibai/showbags-value) for you to run yourself. But if you want to avoid code entirely, the sorted showbag CSV is on [Drive](https://docs.google.com/spreadsheets/d/1SP-DiNee-OPh57LAdwoXO--Mn0ces-EkhD1NfiH7yFE/edit?usp=sharing).
 
-If you want to avoid code entirely, the sorted showbag CSV is on [Drive](https://docs.google.com/spreadsheets/d/1SP-DiNee-OPh57LAdwoXO--Mn0ces-EkhD1NfiH7yFE/edit?usp=sharing).
+---
+
+Footnotes:
+
+[^1]: Thanks Truc :)

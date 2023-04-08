@@ -68,6 +68,10 @@ blockquote {
   quotes: "\201C""\201D""\2018""\2019";
 }
 
+hr {
+  margin: 2em auto;
+}
+
 .wrapper {
   max-width: 80%;
   margin: 60px auto;
