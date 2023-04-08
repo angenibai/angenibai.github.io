@@ -109,10 +109,7 @@
   getAnalytics();
 
   var db = getFirestore();
-  const postRef = doc(collection(db, slugify(window.location.pathname)));
-
-  const inc = increment(1);
-  const dec = increment(-1);
+  const postRef = doc(db, "reacts", slugify(window.location.pathname));
 
   const possibleReacts = ["like", "laugh", "love", "surprised", "angry", "sad"];
 
@@ -121,7 +118,8 @@
     const btn = document.querySelector(`#${react}Btn`);
     btn.addEventListener("click", (e) => {
       // ariaPressed appears to return the previous state
-      const action = e.target.ariaPressed == "true" ? dec : inc;
+      const action =
+        e.target.ariaPressed == "true" ? increment(-1) : increment(1);
 
       const payload = { total: action };
       payload[react] = action;
