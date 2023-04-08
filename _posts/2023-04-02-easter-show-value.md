@@ -6,7 +6,7 @@ date: 2023-04-02 # Publish date in YYYY-MM-DD format
 
 # Recommended front matter
 tags: [data] # A list of tags
-splash_img_source: # Splash image source, high resolution images with an aspect ratio close to 4:3 recommended
+splash_img_source: /assets/img/easter-show-value/easter-show-value-banner.png # Splash image source, high resolution images with an aspect ratio close to 4:3 recommended
 splash_img_caption: # Splash image caption
 
 # Optional front matter
@@ -366,73 +366,55 @@ It’s not the only bag with a >20 value to price ratio though, so check out the
 
 <img src="/assets/img/easter-show-value/marie-claire.png" alt="Marie Claire showbag" />
 
-Price: $30
-Total retail value: $605.62
-Value to price ratio: 20.19
+**Price:** $30, **Total retail value:** $605.62, **Value to price ratio:** 20.19
 
 ### 3. Better Homes and Gardens
 
 <img src="/assets/img/easter-show-value/bhg.png" alt="Better Homes and Gardens showbag" />
 
-Price: $30.0
-Total retail value: $418.64
-Value to price ratio: 13.95
+**Price:** $30.0, **Total retail value:** $418.64, **Value to price ratio:** 13.95
 
 ### 4. Stella Athletic (Autumn)
 
 <img src="/assets/img/easter-show-value/stella-autumn.png" alt="Stella Athletic (Autumn) showbag" />
 
-Price: $32.0
-Total retail value: $433.48
-Value to price ratio: 13.55
+**Price:** $32.0, **Total retail value:** $433.48, **Value to price ratio:** 13.55
 
 ### 5. Stella Athletic (Spring)
 
 <img src="/assets/img/easter-show-value/stella-spring.png" alt="Stella Athletic (Spring) showbag" />
 
-Price: $35.0
-Total retail value: $433.48
-Value to price ratio: 12.39
+**Price:** $35.0, **Total retail value:** $433.48, **Value to price ratio:** 12.39
 
 ### 6. Tasty
 
 <img src="/assets/img/easter-show-value/tasty.png" alt="Tasty showbag" />
 
-Price: $32
-Total retail value: $391.89
-Value to price ratio: 12.25
+**Price:** $32, **Total retail value:** $391.89, **Value to price ratio:** 12.25
 
 ### 7. Men’s Style
 
 <img src="/assets/img/easter-show-value/mens-style.png" alt="Men's Style showbag" />
 
-Price: $32
-Total retail value: $385.33
-Value to price ratio: 12.04
+**Price:** $32, **Total retail value:** $385.33, **Value to price ratio:** 12.04
 
 ### 8. Rural Aid - For Our Mates In the Bush
 
 <img src="/assets/img/easter-show-value/rural-aid.png" alt="Rural Aid showbag" />
 
-Price: $18
-Total retail value: $180.63
-Value to price ratio: 10.04
+**Price:** $18, **Total retail value:** $180.63, **Value to price ratio:** 10.04
 
 ### 9. Mega Showbag
 
 <img src="/assets/img/easter-show-value/mega.png" alt="Mega showbag" />
 
-Price: $30
-Total retail value: $297.00
-Value to price ratio: 9.9
+**Price:** $30, **Total retail value:** $297.00, **Value to price ratio:** 9.9
 
 ### 10. Women’s Health magazine
 
 <img src="/assets/img/easter-show-value/womens-health.png" alt="Women's Health showbag" />
 
-Price: $32
-Total retail value: $299.86
-Value to price ratio: 9.37
+**Price:** $32, **Total retail value:** $299.86, **Value to price ratio:** 9.37
 
 ## Bonus: analysis
 
@@ -477,7 +459,7 @@ For most showbags, there’s a pretty uniform pattern of having a value to price
 
 So that’s it! Go forth to the 2023 Royal Sydney Easter Show knowing you have the power to maximise your returns on the all-important showbags 💪🤑
 
-If you’re curious, all of the code is accessible on [Github](https://github.com/angenibai/showbags-value) for you to run yourself. But if you want to avoid code entirely, the sorted showbag CSV is on [Drive](https://docs.google.com/spreadsheets/d/1SP-DiNee-OPh57LAdwoXO--Mn0ces-EkhD1NfiH7yFE/edit?usp=sharing).
+If you’re curious, all of the code is accessible on [Github](https://github.com/angenibai/showbags-value) for you to run yourself. And if you want to avoid code entirely, the sorted showbag CSV is on [Drive](https://docs.google.com/spreadsheets/d/1SP-DiNee-OPh57LAdwoXO--Mn0ces-EkhD1NfiH7yFE/edit?usp=sharing).
 
 ---
 
