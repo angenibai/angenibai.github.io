@@ -37,13 +37,13 @@ Showbags come in all shapes and sizes, but they generally have a certain theme, 
 
 For example, there’s Barbie Dreamtopia, which contains a bunch of Barbie items - including a backpack, trinket boxes, and a wand.
 
-![Screen Shot 2023-04-06 at 12.31.06 am.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-06_at_12.31.06_am.png)
+<img src="/assets/img/easter-show-value/barbie-dreamtopia-expanded.png" alt="The Barbie Dreamtopia showbag" />
 
 Very magical.
 
 There’s also Allen’s Lollies, which contains - you guessed it - Allen’s lollies.
 
-![Screen Shot 2023-04-06 at 12.31.18 am.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-06_at_12.31.18_am.png)
+<img src="/assets/img/easter-show-value/allens-lollies-expanded.png" alt="The Allen's Lollies showbag" />
 
 Most important for us though, is the **retail value** and **price**.
 
@@ -74,11 +74,11 @@ Ok time to scope out how we might use some code to get the information that we w
 
 All of the showbags are accessible at this URL: [https://www.eastershow.com.au/explore/showbags/](https://www.eastershow.com.au/explore/showbags/)
 
-![Screen Shot 2023-04-07 at 12.07.21 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_12.07.21_pm.png)
+<img src="/assets/img/easter-show-value/showbag-page-1.png" alt="First page of showbags site" />
 
 If we click on a showbag, the section expands and we can see all of its info, including price, what’s included, and total retail value!
 
-![Screen Shot 2023-04-07 at 12.08.40 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_12.08.40_pm.png)
+<img src="/assets/img/easter-show-value/showbag-page-2.png" alt="First page of showbags site with showbag expanded" />
 
 Since we can access this extra info without navigating to a different page, I’m guessing that all the HTML is loaded with the page, and it’s just some Javascript and CSS in the background that’s showing and hiding sections as necessary.
 
@@ -86,33 +86,33 @@ Using the Inspect Element tool confirms this theory!
 
 The info for each showbag is inside a `showbagsCard` div.
 
-![Screen Shot 2023-04-07 at 12.43.45 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_12.43.45_pm.png)
+<img src="/assets/img/easter-show-value/showbag-highlight-card.png" alt="Highlighting the showbagsCard div" />
 
 The showbag details including total retail value is then inside a `showbagsCard-description` div.
 
-![Screen Shot 2023-04-07 at 12.43.58 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_12.43.58_pm.png)
+<img src="/assets/img/easter-show-value/showbag-highlight-description.png" alt="Highlighting an expanded description div" />
 
 We can see this `showbagsCard-description` div also exists under the Avengers Bag `showbagsCard`, but is currently hidden because I haven’t clicked on it yet.
 
-![Screen Shot 2023-04-07 at 12.44.02 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_12.44.02_pm.png)
+<img src="/assets/img/easter-show-value/showbag-highlight-description-collapsed.png" alt="Highlighting a collapsed description div" />
 
 This is good news! It looks like the HTML is very consistently structured, so we just need to figure out which divs contain the info important to us in each `showbagsCard`.
 
 Showbag **name** is in a `showbagsCard-product--name` heading.
 
-![Screen Shot 2023-04-07 at 12.44.58 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_12.44.58_pm.png)
+<img src="/assets/img/easter-show-value/showbag-highlight-name.png" alt="Highlighting a name heading" />
 
 **Price** is in a `showbagsCard-product--price` span.
 
-![Screen Shot 2023-04-07 at 12.47.23 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_12.47.23_pm.png)
+<img src="/assets/img/easter-show-value/showbag-highlight-price.png" alt="Highlighting a price span" />
 
-The list of included \***\*\*\*\*\***items\***\*\*\*\*\*** is within a `showbagsCard-description-copy--included` div.
+The list of included **items** within a `showbagsCard-description-copy--included` div.
 
-![Screen Shot 2023-04-07 at 12.45.55 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_12.45.55_pm.png)
+<img src="/assets/img/easter-show-value/showbag-highlight-items.png" alt="Highlighting an items div" />
 
-\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***Retail value\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\*** is the last paragraph within the `showbagsCard-description-copy--included` div, within `strong` tags.
+**Retail value** is the last paragraph within the `showbagsCard-description-copy--included` div, within `strong` tags.
 
-![Screen Shot 2023-04-07 at 12.45.58 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_12.45.58_pm.png)
+<img src="/assets/img/easter-show-value/showbag-highlight-value.png" alt="Highlighting the retail value strong tag" />
 
 ## Step 2: pull the info from the web page
 
@@ -296,9 +296,9 @@ I’ve also set the sort to be reversed because I want highest value ratio first
 
 ## Step 4: output
 
-So we **\*\***could**\*\*** just go `print(showbags_data)` and call it a day. But scrolling through hundreds of lines of data is no one’s idea of fun so we’ll be outputting it into a [CSV file](https://www.howtogeek.com/348960/what-is-a-csv-file-and-how-do-i-open-it/).
+So we _could_ just go `print(showbags_data)` and call it a day. But scrolling through hundreds of lines of data is no one’s idea of fun so we’ll be outputting it into a [CSV file](https://www.howtogeek.com/348960/what-is-a-csv-file-and-how-do-i-open-it/).
 
-Every single time I need to read and write CSV files I pretty much just follow the [Real Python tutorial](https://realpython.com/python-csv/). Since the data for each showbag is already conveniently stored as a dictionary, I’ll be using the `[DictWriter()` method](https://realpython.com/python-csv/#writing-csv-file-from-a-dictionary-with-csv).
+Every single time I need to read and write CSV files I pretty much just follow the [Real Python tutorial](https://realpython.com/python-csv/). Since the data for each showbag is already conveniently stored as a dictionary, I’ll be using the [`DictWriter()` method](https://realpython.com/python-csv/#writing-csv-file-from-a-dictionary-with-csv).
 
 ```python
 def write_to_csv(showbags_data, csvfile="showbags.csv"):
@@ -333,13 +333,13 @@ Aaaand by now you’re more than ready to see the results! The best deal you can
 
 **The Australian Women’s Weekly** showbag!
 
-![Screen Shot 2023-04-08 at 12.00.11 am.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-08_at_12.00.11_am.png)
+<img src="/assets/img/easter-show-value/aww-expanded.png" alt="The Australian Women's Weekly showbag with all contents" />
 
 For a very reasonable **$22**, you can get **$490.61** worth of stuff. And that stuff is made up of **34 individual items**. It’s not the only bag with a >20 value to price ratio though, so check out the rest of the top ten most valuable showbags.
 
 ### 2. marie claire
 
-![Screen Shot 2023-04-07 at 11.54.55 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_11.54.55_pm.png)
+<img src="/assets/img/easter-show-value/marie-claire.png" alt="Marie Claire showbag" />
 
 Price: $30
 Total retail value: $605.62
@@ -347,7 +347,7 @@ Value to price ratio: 20.19
 
 ### 3. Better Homes and Gardens
 
-![Screen Shot 2023-04-07 at 11.53.14 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_11.53.14_pm.png)
+<img src="/assets/img/easter-show-value/bhg.png" alt="Better Homes and Gardens showbag" />
 
 Price: $30.0
 Total retail value: $418.64
@@ -355,7 +355,7 @@ Value to price ratio: 13.95
 
 ### 4. Stella Athletic (Autumn)
 
-![Screen Shot 2023-04-07 at 11.53.48 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_11.53.48_pm.png)
+<img src="/assets/img/easter-show-value/stella-autumn.png" alt="Stella Athletic (Autumn) showbag" />
 
 Price: $32.0
 Total retail value: $433.48
@@ -363,7 +363,7 @@ Value to price ratio: 13.55
 
 ### 5. Stella Athletic (Spring)
 
-![Screen Shot 2023-04-07 at 11.54.18 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_11.54.18_pm.png)
+<img src="/assets/img/easter-show-value/stella-spring.png" alt="Stella Athletic (Spring) showbag" />
 
 Price: $35.0
 Total retail value: $433.48
@@ -371,7 +371,7 @@ Value to price ratio: 12.39
 
 ### 6. Tasty
 
-![Screen Shot 2023-04-07 at 11.57.01 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_11.57.01_pm.png)
+<img src="/assets/img/easter-show-value/tasty.png" alt="Tasty showbag" />
 
 Price: $32
 Total retail value: $391.89
@@ -379,7 +379,7 @@ Value to price ratio: 12.25
 
 ### 7. Men’s Style
 
-![Screen Shot 2023-04-07 at 11.52.36 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_11.52.36_pm.png)
+<img src="/assets/img/easter-show-value/mens-style.png" alt="Men's Style showbag" />
 
 Price: $32
 Total retail value: $385.33
@@ -387,7 +387,7 @@ Value to price ratio: 12.04
 
 ### 8. Rural Aid - For Our Mates In the Bush
 
-![Screen Shot 2023-04-07 at 11.57.52 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_11.57.52_pm.png)
+<img src="/assets/img/easter-show-value/rural-aid.png" alt="Rural Aid showbag" />
 
 Price: $18
 Total retail value: $180.63
@@ -395,7 +395,7 @@ Value to price ratio: 10.04
 
 ### 9. Mega Showbag
 
-![Screen Shot 2023-04-07 at 11.56.15 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_11.56.15_pm.png)
+<img src="/assets/img/easter-show-value/mega.png" alt="Mega showbag" />
 
 Price: $30
 Total retail value: $297.00
@@ -403,7 +403,7 @@ Value to price ratio: 9.9
 
 ### 10. Women’s Health magazine
 
-![Screen Shot 2023-04-07 at 11.52.56 pm.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-07_at_11.52.56_pm.png)
+<img src="/assets/img/easter-show-value/womens-health.png" alt="Women's Health showbag" />
 
 Price: $32
 Total retail value: $299.86
@@ -417,29 +417,29 @@ Since we have everything in a CSV file, it’ll be easy to pull it up in Google 
 
 We can make a histogram showing us the distribution of value to price ratio in the showbags.
 
-![Value to price ratio distribution.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Value_to_price_ratio_distribution.png)
+<img src="/assets/img/easter-show-value/chart-value-ratio-distribution.png" alt="Chart showing the distribution of value to price ratio" />
 
 This graph makes it very clear that our top 10 showbags are outliers compared to the other showbags. The vast majority seem to have a value to price ratio between 1.32 and 2.63.
 
-### What’s the **\***least**\*** worthwhile showbag to buy?
+### What’s the _least_ worthwhile showbag to buy?
 
-Ignoring the showbags with missing total retail values, there is a single showbag with a value to price ratio **\*\***\***\*\***less than 1.**\*\***\***\*\***
+Ignoring the showbags with missing total retail values, there is a single showbag with a value to price _less than 1_.
 
-![Screen Shot 2023-04-08 at 12.10.52 am.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-08_at_12.10.52_am.png)
+<img src="/assets/img/easter-show-value/csv-ratio-lowest.png" alt="CSV row with Big Smarties having value ratio of 0.9" />
 
 So basically, if you’re in the mood for smarties, you’re better off buying them yourself instead of the **BIG Smarties** showbag.
 
 There’s also only three showbags with a value to price ratio of exactly 1.
 
-![Screen Shot 2023-04-08 at 12.12.55 am.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Screen_Shot_2023-04-08_at_12.12.55_am.png)
+<img src="/assets/img/easter-show-value/csv-ratio-one.png" alt="CSV rows with three showbags having value ratio of 1" />
 
-Buying \***\*\*\*\*\***Allen’s Lollies\***\*\*\*\*\***, \***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***Snakes Alive\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***, and \***\*\*\*\*\*\*\***\*\*\*\*\***\*\*\*\*\*\*\***Allen’s Bites\***\*\*\*\*\*\*\***\*\*\*\*\***\*\*\*\*\*\*\*** showbags are all exactly equivalent to buying the individual iems literally anywhere else.
+Buying **Allen’s Lollies**, **Snakes Alive** and **Allen’s Bites** showbags are all exactly equivalent to buying the individual iems literally anywhere else.
 
 Luckily, it’s only those four showbags which would offer you either a negative or no return on your investment.
 
 ### Is there a general trend between value to price ratio, and the actual price of the showbag?
 
-![Value to price ratio vs showbag price.png](Easter%20Showbags%20for%20MAXIMUM%20Value%2029b9f5c6c911494c923a15fd7eaf9727/Value_to_price_ratio_vs_showbag_price.png)
+<img src="/assets/img/easter-show-value/chart-value-ratio-vs-price.png" alt="Chart showing value ratio against price" />
 
 For most showbags, there’s a pretty uniform pattern of having a value to price ratio somewhere between 1 and 5. However, the high value showbags tend to be the showbags that are more on the expensive end anyways. You’re not going to catch a bargain on a 15 dollar showbag, but if you’re willing to pay 30 dollars for a showbag, then you will have quite a few options for getting a good deal.
 
