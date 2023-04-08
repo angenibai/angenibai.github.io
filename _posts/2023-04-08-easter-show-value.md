@@ -2,7 +2,7 @@
 # Required front matter
 layout: post # Posts should use the post layout
 title: Easter Showbags for MAXIMUM VALUE # Post title
-date: 2023-04-02 # Publish date in YYYY-MM-DD format
+date: 2023-04-08 # Publish date in YYYY-MM-DD format
 
 # Recommended front matter
 tags: [data] # A list of tags
