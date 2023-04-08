@@ -104,11 +104,11 @@ Showbag **name** is in a `showbagsCard-product--name` heading.
 
 <img src="/assets/img/easter-show-value/showbag-highlight-price.png" alt="Highlighting a price span" />
 
-The list of included **items** within a `showbagsCard-description-copy--included` div.
+The list of included **items** is within a `showbagsCard-description-copy--included` div.
 
 <img src="/assets/img/easter-show-value/showbag-highlight-items.png" alt="Highlighting an items div" />
 
-**Retail value** is the last paragraph within the `showbagsCard-description-copy--included` div, within `strong` tags.
+**Retail value** is between `strong` tags in the last paragraph of the `showbagsCard-description-copy--included` div.
 
 <img src="/assets/img/easter-show-value/showbag-highlight-value.png" alt="Highlighting the retail value strong tag" />
 
@@ -129,7 +129,7 @@ n = 1
 page = requests.get(f"{SHOWBAGS_URL}/?page={n}")
 ```
 
-Right now, we’ll just fetch the first page. However, we will eventually start looping through values of n from 1 to 51.
+Right now, we’ll just fetch the first page. However, we will eventually start looping through values of `n` from 1 to 51.
 
 ### Find the right tags
 
@@ -156,6 +156,29 @@ showbags = soup.find_all("div", class_=SHOWBAG_DIV)
 I’m also defining the name of the showbag class as a constant at the top of the code just so it’s easy to update if something about the webpage changes.
 
 Using this idea, given a showbag `BeautifulSoup` object, this is how we grab the name, price, and total retail value.
+
+```python
+SHOWBAG_NAME_HEADING = "showbagsCard-product--name"
+SHOWBAG_PRICE_SPAN = "showbagsCard-product--price"
+SHOWBAG_VALUE_DIV = "showbagsCard-description-copy--included"  # retail value is in the last paragraph inside <strong> tags
+
+# showbag is a BeautifulSoup object with the content for a particular showbag
+
+# grab name
+name_heading = showbag.find("h3", class_=SHOWBAG_NAME_HEADING)
+name = name_heading.text.strip()
+
+# get price
+price_span = showbag.find("span", class_=SHOWBAG_PRICE_SPAN)
+
+# get list of all included items
+value_div = showbag.find("div", class_=SHOWBAG_VALUE_DIV)
+item_paragraphs = showbag.find_all("p")[:-2]
+all_items = [el.text for el in item_paragraphs]
+
+# get total retail value
+total_value_strong = value_div.find("strong")
+```
 
 ### Unavoidable regex to get price values properly
 
