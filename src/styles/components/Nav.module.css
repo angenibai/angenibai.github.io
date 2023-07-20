@@ -1,3 +1,25 @@
+.header {
+    padding: 1rem 2rem;
+}
+
 .websiteTitle {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.3rem;
+    width: fit-content;
+    margin: 0.3rem 0;
+}
+
+.navItem {
     font-size: 1.5rem;
+}
+
+.navItem a:hover {
+    text-decoration: underline;
 }
