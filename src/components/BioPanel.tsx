@@ -53,14 +53,14 @@ const BioPanel = () => {
         <div
           className={`${styles.bioPanelHeader} ${styles.bioPanelTitleHeader}`}
         >
-          <h4>{content.heading}</h4>
+          <h4 className="invertColor">{content.heading}</h4>
         </div>
         <div className={styles.bioPanelImgFrame}>
           {content.img ? (
             <Image src={content.img} alt={content.heading} placeholder="blur" />
           ) : (
             <div className={styles.bioPanelImgPlaceholder}>
-              <p>{"in progress :)"}</p>
+              <p>{"loading..."}</p>
             </div>
           )}
         </div>
@@ -71,7 +71,7 @@ const BioPanel = () => {
                 <div
                   className={`${styles.bioPanelHeader} ${styles.bioPanelSectionHeader}`}
                 >
-                  <h5>{section.title}</h5>
+                  <h5 className="invertColor">{section.title}</h5>
                 </div>
               )}
               <div className={styles.bioPanelSectionContent}>

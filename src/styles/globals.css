@@ -42,3 +42,56 @@ a {
   text-decoration: none;
 }
 
+.subheading {
+  font-size: 1.4rem;
+  margin-bottom: 1.4rem;
+}
+
+.pageheading {
+  font-size: 3.5rem;
+  margin-bottom: 1.4rem;
+}
+
+.invertColor {
+  color: var(--color-bg-white);
+}
+
+p::selection,
+ul::selection,
+ol::selection,
+dl::selection,
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+h5::selection,
+h6::selection,
+a::selection {
+  background: var(--color-primary);
+  color: var(--color-bg-white);
+}
+
+.invertColor::selection {
+  background: var(--color-bg-white);
+  color: var(--color-primary);
+}
+
+p::-moz-selection,
+ul::-moz-selection,
+ol::-moz-selection,
+dl::-moz-selection,
+h1::-moz-selection,
+h2::-moz-selection,
+h3::-moz-selection,
+h4::-moz-selection,
+h5::-moz-selection,
+h6::-moz-selection,
+a::-moz-selection {
+  background: var(--color-primary);
+  color: var(--color-bg-white);
+}
+
+.invertColor::-moz-selection {
+  background: var(--color-bg-white);
+  color: var(--color-primary);
+}

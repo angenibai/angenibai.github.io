@@ -11,7 +11,7 @@ const projects: ProjectContent[] = [
   },
   {
     name: "This website",
-    shortDescription: "My corner of the internet :)",
+    shortDescription: "Version 2.0",
     longDescription: "Stack:\n- Next.js",
     tags: ["web-dev"],
   },
@@ -33,7 +33,10 @@ const projects: ProjectContent[] = [
 const Projects = () => {
   return (
     <>
-      <h1>projects</h1>
+      <h1 className="pageheading">projects</h1>
+      <p className="subheading">
+        fun things I've made - sometimes with friends!
+      </p>
       <div className={styles.projectGrid}>
         {projects.map((project, idx) => {
           return <ProjectTile key={`project-${idx}`} content={project} />;

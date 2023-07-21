@@ -1,7 +1,8 @@
 const Posts = () => {
   return (
     <>
-      <h1>posts</h1>
+      <h1 className="pageheading">posts</h1>
+      <p className="subheading">some thoughts were thought</p>
     </>
   );
 };

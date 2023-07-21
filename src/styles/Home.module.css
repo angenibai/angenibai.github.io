@@ -1,6 +1,34 @@
 .homePage {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  column-gap: 2rem;
+  row-gap: 3rem;
   align-items: center;
+}
+
+.bioDiv {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.bioDiv > div {
+  margin: auto;
+}
+
+.contentDiv {
+  max-width: 650px;
+}
+
+.bigText {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.text {
+  font-size: 1.4rem;
 }
