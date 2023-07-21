@@ -33,10 +33,12 @@ const projects: ProjectContent[] = [
 const Projects = () => {
   return (
     <>
-      <h1 className="pageheading">projects</h1>
-      <p className="subheading">
-        fun things I've made - sometimes with friends!
-      </p>
+      <div className="pageHeader">
+        <h1 className="pageheading">projects</h1>
+        <p className="subheading">
+          fun things I've made - sometimes with friends!
+        </p>
+      </div>
       <div className={styles.projectGrid}>
         {projects.map((project, idx) => {
           return <ProjectTile key={`project-${idx}`} content={project} />;
