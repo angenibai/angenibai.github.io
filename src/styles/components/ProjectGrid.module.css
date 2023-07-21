@@ -1,0 +1,42 @@
+.projectGrid {
+    width: 100%;
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.projectTile {
+    border: var(--border-width) solid var(--color-primary);
+    box-shadow: 5px 5px var(--color-primary);
+    cursor: pointer;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+    padding: 1rem;
+}
+
+.projectTile:hover {
+    box-shadow: 0 0 var(--color-primary);
+}
+
+.tileContent > div {
+    margin-bottom: 0.5rem;
+}
+
+.tileHeader {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    height: auto;
+}
+
+.tileDescription {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+}

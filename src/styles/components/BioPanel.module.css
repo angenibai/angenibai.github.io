@@ -1,8 +1,8 @@
 .bioPanel {
-    border: 1px solid var(--color-primary);
-    width: 270px;
+    border: var(--border-width) solid var(--color-primary);
+    width: 290px;
     height: fit-content;
-    padding: 6px;
+    padding: 9px;
 }
 
 .bioPanelContent {
@@ -31,7 +31,7 @@
 }
 
 .bioPanelImgFrame {
-    border: 1px solid var(--color-primary);
+    border: var(--border-width) solid var(--color-primary);
     height: 320px;
     width: 240px;
     margin: 10px auto;
@@ -75,5 +75,5 @@
 }
 
 .bioPanelSectionEntryValue {
-    width: 165px;
+    width: 185px;
 }
