@@ -1,0 +1,75 @@
+.bioPanel {
+    border: 1px solid var(--color-primary);
+    width: 270px;
+    height: fit-content;
+    padding: 6px;
+}
+
+.bioPanelContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.bioPanelContent > * {
+    width: 100%;
+}
+
+.bioPanelHeader {
+    background-color: var(--color-primary);
+    color: var(--color-bg-white);
+    text-align: center;
+}
+
+.bioPanelTitleHeader {
+    padding: 0.6rem 0.2rem;
+}
+
+.bioPanelTitleHeader > h4 {
+    font-size: 1.2rem;
+}
+
+.bioPanelImgFrame {
+    border: 1px solid var(--color-primary);
+    height: 320px;
+    width: 240px;
+    margin: 10px auto;
+}
+
+.bioPanelImgPlaceholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.bioPanelSection {
+    margin: 4px 0;
+}
+
+.bioPanelSectionHeader {
+    padding: 0.4rem 0.2rem;
+    margin: 10px 0 6px 0;
+    margin: 6px 0;
+}
+
+.bioPanelSectionHeader > h5 {
+    font-size: 1rem;
+}
+
+.bioPanelSectionEntry {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.bioPanelSectionEntry > div {
+    padding: 2px 0;
+}
+
+.bioPanelSectionEntryLabel {
+    width: 80px;
+    font-weight: bold;
+}
