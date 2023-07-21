@@ -73,3 +73,7 @@
     width: 80px;
     font-weight: bold;
 }
+
+.bioPanelSectionEntryValue {
+    width: 165px;
+}

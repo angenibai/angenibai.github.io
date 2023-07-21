@@ -26,7 +26,7 @@ const content: BioPanelContent = {
       entries: [
         {
           label: "aka",
-          value: "genie 🧞",
+          value: "genie",
         },
       ],
     },
@@ -35,7 +35,7 @@ const content: BioPanelContent = {
       entries: [
         {
           label: "likes",
-          value: "kanzi apples",
+          value: "kanzi apples, bikeable cities, the colour green",
         },
         {
           label: "dislikes",
@@ -64,9 +64,9 @@ const BioPanel = () => {
             </div>
           )}
         </div>
-        {content.sections.map((section) => {
+        {content.sections.map((section, idx) => {
           return (
-            <div className={styles.bioPanelSection}>
+            <div className={styles.bioPanelSection} key={`section-${idx}`}>
               {section.title && (
                 <div
                   className={`${styles.bioPanelHeader} ${styles.bioPanelSectionHeader}`}
@@ -75,9 +75,12 @@ const BioPanel = () => {
                 </div>
               )}
               <div className={styles.bioPanelSectionContent}>
-                {section.entries.map((entry) => {
+                {section.entries.map((entry, idx) => {
                   return (
-                    <div className={styles.bioPanelSectionEntry}>
+                    <div
+                      className={styles.bioPanelSectionEntry}
+                      key={`entry-${idx}`}
+                    >
                       <div className={styles.bioPanelSectionEntryLabel}>
                         <p>{entry.label}</p>
                       </div>
