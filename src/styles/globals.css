@@ -42,6 +42,14 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
+.sneakyLink:hover {
+  text-decoration: none;
+}
+
 .subheading {
   font-size: 1.4rem;
 }

@@ -1,9 +1,10 @@
 import styles from "@/styles/components/BioPanel.module.css";
 import Image from "next/image";
+import { ReactNode } from "react";
 
 interface BioPanelEntry {
-  label: string;
-  value: string;
+  label: ReactNode;
+  value: ReactNode;
 }
 
 interface BioPanelSection {
@@ -35,7 +36,18 @@ const content: BioPanelContent = {
       entries: [
         {
           label: "likes",
-          value: "kanzi apples, bikeable cities, the colour green",
+          value: (
+            <>
+              <a
+                className="sneakyLink"
+                href="https://applerankings.com/kanzi-apple-review/"
+                target="_blank"
+              >
+                kanzi apples
+              </a>
+              , bikeable cities, the colour green
+            </>
+          ),
         },
         {
           label: "dislikes",

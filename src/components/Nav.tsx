@@ -6,7 +6,9 @@ const Nav = () => {
   return (
     <header className={styles.header}>
       <div className={styles.websiteTitle}>
-        <Link href="/">angeni bai</Link>
+        <Link className="sneakyLink" href="/">
+          angeni bai
+        </Link>
       </div>
       <nav className={styles.nav}>
         <div className={styles.navItem}>
