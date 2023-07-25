@@ -1,0 +1,14 @@
+.errorPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+}
+
+.heading {
+    font-size: 3rem;
+}
+
+.subheading {
+    font-size: 1.5rem;
+}
