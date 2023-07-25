@@ -1,18 +1,31 @@
 import styles from "@/styles/components/ProjectGrid.module.css";
 import ProjectTile from "@/components/ProjectTile";
+import { ProjectContent } from "@/types";
+import { useEffect, useState } from "react";
 
 const projects: ProjectContent[] = [
   {
     name: "Who Guessed",
     shortDescription: "Play Guess Who online",
-    longDescription:
-      "Generate a Guess Who board to play with friends!\nCurrently supports playing with pre-loaded character decks",
+    longDescription: (
+      <>
+        <p>Generate a Guess Who board to play with friends!</p>
+        <p>Currently supports playing with pre-loaded character decks</p>
+      </>
+    ),
     tags: ["web-dev"],
   },
   {
     name: "This website",
     shortDescription: "Version 2.0",
-    longDescription: "Stack:\n- Next.js",
+    longDescription: (
+      <>
+        <p>Stack:</p>
+        <ul>
+          <li>Next.js</li>
+        </ul>
+      </>
+    ),
     tags: ["web-dev"],
   },
   {
@@ -31,6 +44,21 @@ const projects: ProjectContent[] = [
 ];
 
 const Projects = () => {
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+
+  const handleProjectClick = (idx: number) => {
+    // close if already open
+    if (idx === selectedProject) {
+      setSelectedProject(null);
+    } else {
+      setSelectedProject(idx);
+    }
+  };
+
+  const handleClose = () => {
+    setSelectedProject(null);
+  };
+
   return (
     <>
       <div className="pageHeader">
@@ -41,7 +69,15 @@ const Projects = () => {
       </div>
       <div className={styles.projectGrid}>
         {projects.map((project, idx) => {
-          return <ProjectTile key={`project-${idx}`} content={project} />;
+          return (
+            <ProjectTile
+              key={`project-${idx}`}
+              content={project}
+              isExpanded={selectedProject !== null && selectedProject === idx}
+              onClick={() => handleProjectClick(idx)}
+              close={() => handleClose()}
+            />
+          );
         })}
       </div>
     </>

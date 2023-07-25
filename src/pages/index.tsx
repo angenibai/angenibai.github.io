@@ -18,7 +18,7 @@ export default function Home() {
             welcome to angeni's corner of the internet!
           </p>
           <p className={styles.text}>
-            {"This site is best enjoyed in light mode :)"}
+            {"this site is best enjoyed in light mode :)"}
           </p>
         </div>
         <div className={styles.bioDiv}>

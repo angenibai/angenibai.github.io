@@ -19,7 +19,7 @@ interface BioPanelContent {
 }
 
 const content: BioPanelContent = {
-  heading: "angeni",
+  heading: "/ˌæn’dʒiːniː /",
   img: null,
   sections: [
     {

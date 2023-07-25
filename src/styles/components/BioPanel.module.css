@@ -1,5 +1,6 @@
 .bioPanel {
     border: var(--border-width) solid var(--color-primary);
+    box-shadow: 10px 10px var(--color-primary);
     width: 290px;
     height: fit-content;
     padding: 9px;
@@ -72,6 +73,7 @@
 .bioPanelSectionEntryLabel {
     width: 80px;
     font-weight: bold;
+    hyphens: auto;
 }
 
 .bioPanelSectionEntryValue {
