@@ -17,8 +17,10 @@
   margin: 0.3rem 0;
 }
 
-.navItem {
+.navItem a {
   font-size: 1.5rem;
+  color: var(--color-black);
+  font-weight: 400;
 }
 
 .navItem a:hover {

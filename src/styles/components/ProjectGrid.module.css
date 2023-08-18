@@ -39,6 +39,10 @@
     margin-left: 1.2rem;
 }
 
+.fullWidthDescription p, .fullWidthDescription ul, .fullWidthDescription ol {
+    margin-bottom: 0.5rem;
+}
+
 .isHidden {
     display: none;
 }

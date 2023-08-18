@@ -32,11 +32,7 @@ const ProjectTile = (props: ProjectPanelTileProps) => {
             <h2>{content.name}</h2>
           </div>
           <div className={styles.tileDescription}>
-            {typeof content.shortDescription === "string" ? (
-              <p>{content.shortDescription}</p>
-            ) : (
-              content.shortDescription
-            )}
+            <p>{content.shortDescription}</p>
           </div>
         </div>
       </div>
@@ -47,13 +43,18 @@ const ProjectTile = (props: ProjectPanelTileProps) => {
           <div className={styles.fullWidthHeader}>
             <h2>{content.name}</h2>
           </div>
-          <div className={styles.fullWidthDescription}>
-            {typeof content.longDescription === "string" ? (
+          {content.longDescription && (
+            <div
+              className={styles.fullWidthDescription}
+              dangerouslySetInnerHTML={{ __html: content.longDescription }}
+            >
+              {/* {typeof content.longDescription === "string" ? (
               <p>{content.longDescription}</p>
             ) : (
               content.longDescription
-            )}
-          </div>
+            )} */}
+            </div>
+          )}
           <div className={styles.fullWidthFooter}></div>
         </div>
       </div>

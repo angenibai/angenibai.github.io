@@ -2,9 +2,11 @@ import { ReactNode } from "react";
 
 export interface ProjectContent {
   name: string;
-  shortDescription?: ReactNode;
-  longDescription?: ReactNode;
+  imgSrc?: string;
+  shortDescription?: string;
+  longDescription?: string;
   tags?: string[];
+  actionButtons?: string;
   repoLink?: string;
   demoLink?: string;
   blogLink?: string;

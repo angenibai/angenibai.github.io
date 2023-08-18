@@ -10,6 +10,7 @@
   --color-accent: #93748A;
   --color-bg-white: #F5EDE0;
   --color-bg-yellow: #FFF4D7;
+  --color-black: #292929;
 
   color: var(--color-primary);
 }
@@ -35,15 +36,22 @@ body {
 p, ul, ol, dl {
   font-size: 1.1rem;
   line-height: 1.4rem;
+  color: var(--color-black);
 }
 
 a {
-  color: inherit;
+  color: var(--color-primary);
+  font-weight: 500;
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
+}
+
+.sneakyLink {
+  color: inherit;
+  font-weight: inherit;
 }
 
 .sneakyLink:hover {

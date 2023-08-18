@@ -7,9 +7,9 @@ export default function Home() {
     <>
       <div className={styles.homePage}>
         <div className={styles.contentDiv}>
-          <p className={styles.bigText}>
+          <h3 className={styles.bigText}>
             welcome to angeni's corner of the internet!
-          </p>
+          </h3>
           <p className={styles.text}>
             {"this site is best enjoyed in light mode :)"}
           </p>
