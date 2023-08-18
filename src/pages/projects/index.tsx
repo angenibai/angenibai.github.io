@@ -2,6 +2,7 @@ import styles from "@/styles/components/ProjectGrid.module.css";
 import ProjectTile from "@/components/ProjectTile";
 import { ProjectContent } from "@/types";
 import { useEffect, useState } from "react";
+import { NextSeo } from "next-seo";
 
 const projects: ProjectContent[] = [
   {
@@ -61,6 +62,7 @@ const Projects = () => {
 
   return (
     <>
+      <NextSeo title="projects | angeni bai" description="projects by angeni" />
       <div className="pageHeader">
         <h1 className="pageheading">projects</h1>
         <p className="subheading">
