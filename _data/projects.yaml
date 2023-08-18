@@ -2,13 +2,13 @@
   id: will-i-miss-my-flight
   shortDescription: 2023 CSESoc Hackathon People's Choice Winner
   longDescription: >
-    <p>Machine-learning based predictions on whether you will miss your flight, based on security wait times and past flight delays</p>
+    <p>Machine-learning based predictions on whether you will miss your flight, based on security wait times and past flight delays. Developed with Caleb Park, Hayes Choy, Rachel Ahn, and Sally Sun.</p>
 
 - name: Savings Cat-culator
   id: savings-catculator
   shortDescription: 2022 CSESoc x Pearler Hackathon Winner
   longDescription: >
-    <p>Interactive calculator to help users keep track of their spending and saving</p>
+    <p>Interactive calculator to help users keep track of their spending and saving. Developed with Neel Dutta.</p>
   tags: [web-dev, hackathon]
 
 - name: Who Guessed
@@ -84,7 +84,7 @@
       <li><a href="https://media.csesoc.org.au/author/angeni/" target="_blank">Beginner's Guide to Vim</a> series</li>
       <li><a href="https://open.spotify.com/episode/3zYEg2mHDND0qMrB8T48Ik?si=J-EluCqsT6CzPKVhBv5nSA&dl_branch=1" target="_blank">Personal Project Showcase</a> podcast series</li>
       <li><a href="https://youtu.be/elJBKQWEVSo" target="_blank">CSESoc 2021 First Year Camp video</a></li>
-      <li><a href="https://media.csesoc.org.au/first-year-guide/" target="_blank">CSESoc 2021 First Year Guide</a></li>
+      <li><a href="https://media.csesoc.org.au/first-year-guide-2021/" target="_blank">CSESoc 2021 First Year Guide</a></li>
     </ul>
   actionButtons: >
     <a href="https://media.csesoc.org.au/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Media website</a>
@@ -95,7 +95,7 @@
   imgSrc: /assets/img/summarise-my-lecture/summarise-my-lecture-intro.jpg
   shortDescription: 2021 CSESoc Hackathon 4th Place and People's Choice Winner
   longDescription: >
-    <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://adaluong.me" target="_blank">Ada Luong</a></p>
+    <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://adaluong.me" target="_blank">Ada Luong</a>.</p>
     <p>Watch the pitch <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank">here</a>!</p>
     <p>My contributions included:</p>
     <ul>
