@@ -40,7 +40,11 @@
 }
 
 .fullWidthDescription p, .fullWidthDescription ul, .fullWidthDescription ol {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.fullWidthDescription li {
+    margin-bottom: 0.4rem;
 }
 
 .isHidden {
