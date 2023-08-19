@@ -19,10 +19,12 @@
 
 .projectTile:hover {
     box-shadow: 0 0 var(--color-primary);
+    transform: translate(5px, 5px);
 }
 
 .isSelected {
     box-shadow: none;
+    transform: translate(5px, 5px);
 }
 
 .fullWidthTile {
