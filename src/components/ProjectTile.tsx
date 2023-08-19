@@ -1,6 +1,7 @@
+import useTransitionHiddenElement from "@/hooks/useTransitionHiddenElement";
 import styles from "@/styles/components/ProjectGrid.module.css";
 import { ProjectContent } from "@/types";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 
 interface ProjectPanelTileProps {
   content: ProjectContent;
@@ -18,6 +19,26 @@ const defaultTileContent = {
 
 const ProjectTile = (props: ProjectPanelTileProps) => {
   const { content, isExpanded, onClick } = props;
+
+  const [fullContentVisible, setFullContentVisible] = useState(isExpanded);
+
+  const handleTransitionEnd = () => {
+    setFullContentVisible(false);
+  };
+
+  useEffect(() => {
+    if (isExpanded) {
+      setFullContentVisible(true);
+    } else {
+      // set hidden after 10 seconds
+      const timeout = setTimeout(() => {
+        setFullContentVisible(false);
+      }, 400);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [isExpanded]);
 
   // TODO: tag section, image for expanded, more buttons for expanded, close button, animation for expansion and contraction
 
@@ -37,7 +58,10 @@ const ProjectTile = (props: ProjectPanelTileProps) => {
         </div>
       </div>
       <div
-        className={`${styles.fullWidthTile} ${!isExpanded && styles.isHidden}`}
+        className={`${styles.fullWidthTile} ${!isExpanded && styles.isHidden}
+
+        `}
+        onTransitionEnd={handleTransitionEnd}
       >
         <div className={styles.tileContent}>
           <div className={styles.fullWidthHeader}>
