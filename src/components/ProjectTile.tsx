@@ -1,6 +1,7 @@
 import styles from "@/styles/components/ProjectGrid.module.css";
 import { ProjectContent } from "@/types";
 import { MouseEventHandler } from "react";
+import ButtonLink from "./ButtonLink";
 
 interface ProjectPanelTileProps {
   content: ProjectContent;
@@ -49,15 +50,23 @@ const ProjectTile = (props: ProjectPanelTileProps) => {
             <div
               className={styles.fullWidthDescription}
               dangerouslySetInnerHTML={{ __html: content.longDescription }}
-            >
-              {/* {typeof content.longDescription === "string" ? (
-              <p>{content.longDescription}</p>
-            ) : (
-              content.longDescription
-            )} */}
-            </div>
+            ></div>
           )}
-          <div className={styles.fullWidthFooter}></div>
+          <div className={styles.fullWidthFooter}>
+            {content.siteLink && (
+              <ButtonLink href={content.siteLink} external={true}>
+                Site
+              </ButtonLink>
+            )}
+            {content.repoLink && (
+              <ButtonLink href={content.repoLink} external={true}>
+                Repo
+              </ButtonLink>
+            )}
+            {content.blogLink && (
+              <ButtonLink href={content.blogLink}>Blog</ButtonLink>
+            )}
+          </div>
         </div>
       </div>
     </>

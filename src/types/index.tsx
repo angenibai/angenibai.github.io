@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export interface ProjectContent {
   name: string;
   imgSrc?: string;
@@ -8,6 +6,6 @@ export interface ProjectContent {
   tags?: string[];
   actionButtons?: string;
   repoLink?: string;
-  demoLink?: string;
+  siteLink?: string;
   blogLink?: string;
 }

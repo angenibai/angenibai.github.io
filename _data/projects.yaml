@@ -3,12 +3,16 @@
   shortDescription: 2023 CSESoc Hackathon People's Choice Winner
   longDescription: >
     <p>Machine-learning based predictions on whether you will miss your flight, based on security wait times and past flight delays. Developed with Caleb Park, Hayes Choy, Rachel Ahn, and Sally Sun.</p>
+  repoLink: https://github.com/hayeselnut/will-i-make-my-flight
 
 - name: Savings Cat-culator
   id: savings-catculator
   shortDescription: 2022 CSESoc x Pearler Hackathon Winner
   longDescription: >
-    <p>Interactive calculator to help users keep track of their spending and saving. Developed with Neel Dutta.</p>
+    <p>A web-app designed to make budgeting approachable and fun for teenagers and young adults!</p>
+    <p>Spend less and save more in order to purchase new items to deck out Gerald the savings cat 😎</p>
+  siteLink: https://savings-cat-culator.web.app/
+  repoLink: https://github.com/ndoot/tamatimeleft
   tags: [web-dev, hackathon]
 
 - name: Who Guessed
@@ -18,9 +22,8 @@
   longDescription: >
     <p>Generate a Guess Who board to play with friends!</p>
     <p>Currently supports playing with pre-loaded character decks.</p>
-  actionButtons: >
-    <a href="https://who-guessed.web.app/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Site</a> 
-    <a href="https://github.com/angenibai/who-guessed" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
+  siteLink: https://who-guessed.web.app/
+  repoLink: https://github.com/angenibai/who-guessed
   tags: [web-dev]
 
 - name: Mario-dle
@@ -30,9 +33,8 @@
   longDescription: >
     <p>Created as a puzzle challenge for the escape room at the Mario-themed CSESoc First Year Camp 2022.</p>
     <p>For the purposes of the escape room, there is only one target word :)</p>
-  actionButtons: >
-    <a href="https://mario-dle.web.app/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Site</a> 
-    <a href="https://github.com/angenibai/mario-dle" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
+  siteLink: https://mario-dle.web.app/
+  repoLink: https://github.com/angenibai/mario-dle
   tags: [web-dev]
 
 - name: Informatics Leaderboard
@@ -53,9 +55,8 @@
       <li>React frontend</li>
       <li>Firebase for hosting, auth, and storing the database</li>
     </ul>
-  actionButtons: >
-    <a href="https://informatics-leaderboard.web.app/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Site</a> 
-    <a href="https://github.com/angenibai/informatics-leaderboard" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
+  siteLink: https://informatics-leaderboard.web.app/
+  repoLink: https://github.com/angenibai/informatics-leaderboard
   tags: [web-dev]
 
 - name: This website 😁 # Project name, also used as heading
@@ -68,9 +69,7 @@
     <ul>
       <li>Next.js</li>
     </ul>
-  actionButtons: > # Action buttons for project, HTML only
-    <a href="https://github.com/angenibai/angenibai.github.io target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
-    <a href="#" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-align-right"></i> &nbsp Blog Post</a>
+  repoLink: https://github.com/angenibai/angenibai.github.io
   tags: [web-dev] # A list of tags
 
 - name: CSESoc Media
@@ -86,8 +85,7 @@
       <li><a href="https://youtu.be/elJBKQWEVSo" target="_blank">CSESoc 2021 First Year Camp video</a></li>
       <li><a href="https://media.csesoc.org.au/first-year-guide-2021/" target="_blank">CSESoc 2021 First Year Guide</a></li>
     </ul>
-  actionButtons: >
-    <a href="https://media.csesoc.org.au/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Media website</a>
+  siteLink: https://media.csesoc.org.au/
   tags: [misc]
 
 - name: Summarise My Lecture
@@ -104,10 +102,9 @@
       <li>Contributing to implementing the algorithm that matched questions being asked and answered</li>
       <li>Brainstorming ideas, researching the problem space, and constructing the pitch</li>
     </ul>
-  actionButtons: >
-    <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Pitch</a>
-    <a href="https://github.com/adaluong/summarise-my-lecture-hackathon" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
-    <a href="https://angeni.me/2021/08/12/summarise-my-hackathon.html" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-align-right"></i> &nbsp Blog Post</a>
+  siteLink: https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20
+  repoLink: https://github.com/adaluong/summarise-my-lecture-hackathon
+  blogLink: /summarise-my-hackathon
   tags: [hackathon, web-dev]
 
 - name: Genie's Internet Playground
@@ -120,9 +117,8 @@
       <li>Tic-tac-toe</li>
       <li>Minesweeper</li>
     </ul>
-  actionButtons: >
-    <a href="https://angeni.me/internet-playground/#/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Site</a> 
-    <a href="https://github.com/angenibai/internet-playground" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
+  siteLink: https://angeni.me/internet-playground/#/
+  repoLink: https://github.com/angenibai/internet-playground
   tags: [web-dev]
 
 - name: Can I Go Outside?
@@ -139,9 +135,8 @@
       <li>Setting up the development server and eventually deploying the bot to Heroku</li>
       <li>Contributing to the logic of the Python code which would respond to user messages</li>
     </ul>
-  actionButtons: >
-    <a href="https://youtu.be/cMP0vDdQhRY?t=4040" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Pitch</a>
-    <a href="https://github.com/angenibai/can-i-go-outside" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
+  siteLink: https://youtu.be/cMP0vDdQhRY?t=4040
+  repoLink: https://github.com/angenibai/can-i-go-outside
   tags: [hackathon]
 
 - name: The Celiac Paradox
@@ -151,6 +146,5 @@
     <p>A year-long independent research project for HSC Science Extension.</p>
     <p>Read the <a href="/assets/other/celiac-paradox-report.pdf" target="_blank">report</a>, and check out the <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank">scripts</a> I used to process genetic data!</p>
     <p><strong>TLDR:</strong> When I found out that predisposition to celiac disease was genetic, I thought I could find some cool evidence of natural selection - where ethnic groups from societies that started growing gluten-containing cereals earliest in history would have lower frequency of the target genes. Turns out I was wrong! Instead, I found evidence of some other genetic factors at play.</p>
-  actionButtons: >
-    <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
+  repoLink: https://github.com/angenibai/snp-population-frequencies
   tags: [data]

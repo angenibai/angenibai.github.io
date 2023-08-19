@@ -64,6 +64,10 @@
     margin-bottom: 0.4rem;
 }
 
+.tileContent {
+    width: 100%;
+}
+
 .tileContent > div {
     margin-bottom: 0.5rem;
 }
@@ -85,4 +89,11 @@
     display: -webkit-box;
     font-size: 1.1rem;
     line-height: 1.4rem;
+}
+
+.fullWidthFooter {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 0.7rem;
 }
