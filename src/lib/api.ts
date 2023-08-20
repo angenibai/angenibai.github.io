@@ -3,9 +3,18 @@ import path from "path";
 import YAML from "yaml";
 
 const projectsFile = path.join(process.cwd(), "_data/projects.yaml");
+const bioFile = path.join(process.cwd(), "_data/bio.yaml");
 
-export const getAllProjects = () => {
-  const fileContents = fs.readFileSync(projectsFile, "utf8");
+const getYAML = (filepath: string) => {
+  const fileContents = fs.readFileSync(filepath, "utf8");
 
   return YAML.parse(fileContents);
+};
+
+export const getAllProjects = () => {
+  return getYAML(projectsFile);
+};
+
+export const getBio = () => {
+  return getYAML(bioFile);
 };

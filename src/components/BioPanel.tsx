@@ -1,3 +1,4 @@
+import { getBio } from "@/lib/api";
 import styles from "@/styles/components/BioPanel.module.css";
 import Image from "next/image";
 import { ReactNode } from "react";
@@ -18,7 +19,7 @@ interface BioPanelContent {
   sections: BioPanelSection[];
 }
 
-const content: BioPanelContent = {
+const defaultContent: BioPanelContent = {
   heading: "/ˌæn’dʒiːniː /",
   img: null,
   sections: [
@@ -58,7 +59,11 @@ const content: BioPanelContent = {
   ],
 };
 
-const BioPanel = () => {
+interface BioPanelProps {
+  content?: BioPanelContent;
+}
+
+const BioPanel = ({ content = defaultContent }: BioPanelProps) => {
   return (
     <div className={styles.bioPanel}>
       <div className={styles.bioPanelContent}>
@@ -112,3 +117,12 @@ const BioPanel = () => {
 };
 
 export default BioPanel;
+
+// for some reason "fs" can't be imported
+// export const getStaticProps = async () => {
+//   const content = getBio();
+
+//   return {
+//     props: { content },
+//   };
+// };
