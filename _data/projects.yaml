@@ -18,7 +18,7 @@
 
 - name: Who Guessed
   id: who-guessed
-  imgSrc: /assets/img/who-guessed/who-guessed-play.png
+  imgSrc: /img/who-guessed/who-guessed-play.png
   shortDescription: Play Guess Who online
   longDescription: >
     <p>Generate a Guess Who board to play with friends!</p>
@@ -29,7 +29,7 @@
 
 - name: Mario-dle
   id: mario-dle
-  imgSrc: /assets/img/mario-dle/mario-dle-main.png
+  imgSrc: /img/mario-dle/mario-dle-main.png
   shortDescription: A Mario-themed Wordle clone
   longDescription: >
     <p>Created as a puzzle challenge for the escape room at the Mario-themed CSESoc First Year Camp 2022.</p>
@@ -40,7 +40,7 @@
 
 - name: Informatics Leaderboard
   id: informatics-leaderboard
-  imgSrc: /assets/img/informatics-leaderboard/informatics-profile-page.png
+  imgSrc: /img/informatics-leaderboard/informatics-profile-page.png
   shortDescription: Live leaderboard to track progress on informatics problems
   longDescription: >
     <p>An online leaderboard so that my high school informatics students can have a bit of friendly competition for solving problems.</p>
@@ -62,7 +62,7 @@
 
 - name: This website 😁 # Project name, also used as heading
   id: website # Project id, must be unique amongst the projects
-  imgSrc: /assets/img/website/angeni-website-landing.png # Optional image
+  imgSrc: /img/website/angeni-website-landing.png # Optional image
   shortDescription: Finally setting up my own corner of the internet # Description shown at all times, text only
   longDescription:
     > # Description shown only when the project card is expanded, HTML only
@@ -91,7 +91,7 @@
 
 - name: Summarise My Lecture
   id: csesoc-hackathon-2021
-  imgSrc: /assets/img/summarise-my-lecture/summarise-my-lecture-intro.jpg
+  imgSrc: /img/summarise-my-lecture/summarise-my-lecture-intro.jpg
   shortDescription: 2021 CSESoc Hackathon 4th Place and People's Choice Winner
   longDescription: >
     <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://adaluong.me" target="_blank">Ada Luong</a>.</p>
@@ -110,7 +110,7 @@
 
 - name: Genie's Internet Playground
   id: internet-playground
-  imgSrc: /assets/img/internet-playground/internet-playground-landing.png
+  imgSrc: /img/internet-playground/internet-playground-landing.png
   shortDescription: A collection of React-based games
   longDescription: >
     <p>Current games are:</p>
@@ -124,7 +124,7 @@
 
 - name: Can I Go Outside?
   id: csesoc-hackathon-2020
-  imgSrc: /assets/img/can-i-go-outside/can-i-go-outside-logo.jpg
+  imgSrc: /img/can-i-go-outside/can-i-go-outside-logo.jpg
   shortDescription: 2020 CSESoc Hackathon Finalist
   longDescription: >
     <p>Official COVID-19 advice for your DMs 😉 - a Facebook Messenger bot that keeps you up to date with current restrictions. Developed with Ada Luong, Edwina Adisusila, Ingrid Norton and Giuliana De Bellis</p>
@@ -145,7 +145,7 @@
   shortDescription: Research into the genetic evolution of celiac disease
   longDescription: >
     <p>A year-long independent research project for HSC Science Extension.</p>
-    <p>Read the <a href="/assets/other/celiac-paradox-report.pdf" target="_blank">report</a>, and check out the <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank">scripts</a> I used to process genetic data!</p>
+    <p>Read the <a href="/other/celiac-paradox-report.pdf" target="_blank">report</a>, and check out the <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank">scripts</a> I used to process genetic data!</p>
     <p><strong>TLDR:</strong> When I found out that predisposition to celiac disease was genetic, I thought I could find some cool evidence of natural selection - where ethnic groups from societies that started growing gluten-containing cereals earliest in history would have lower frequency of the target genes. Turns out I was wrong! Instead, I found evidence of some other genetic factors at play.</p>
   repoLink: https://github.com/angenibai/snp-population-frequencies
   tags: [data]

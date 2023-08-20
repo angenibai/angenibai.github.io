@@ -69,7 +69,14 @@
 }
 
 .tileContent > div {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tileImageDiv {
+    float: left;
+    margin-right: 1rem;
+    border: var(--border-width) solid var(--color-primary);
+    box-shadow: 2px 2px var(--color-primary);
 }
 
 .tileHeader {

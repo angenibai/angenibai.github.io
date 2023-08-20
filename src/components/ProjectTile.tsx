@@ -2,6 +2,7 @@ import styles from "@/styles/components/ProjectGrid.module.css";
 import { ProjectContent } from "@/types";
 import { MouseEventHandler } from "react";
 import ButtonLink from "./ButtonLink";
+import Image from "next/image";
 
 interface ProjectPanelTileProps {
   content: ProjectContent;
@@ -46,6 +47,16 @@ const ProjectTile = (props: ProjectPanelTileProps) => {
           <div className={styles.fullWidthHeader}>
             <h2>{content.name}</h2>
           </div>
+          {content.imgSrc && (
+            <div className={styles.tileImageDiv}>
+              <Image
+                src={content.imgSrc}
+                alt={`${content.name} image`}
+                width={300}
+                height={170}
+              />
+            </div>
+          )}
           {content.longDescription && (
             <div
               className={styles.fullWidthDescription}
