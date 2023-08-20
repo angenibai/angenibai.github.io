@@ -3,6 +3,12 @@
   margin-bottom: 2rem;
 }
 
+@media (max-width: 512px) {
+  .header {
+    padding: 1rem 1rem;
+  }
+}
+
 .websiteTitle {
   font-size: 3rem;
   margin-bottom: 1rem;
@@ -11,11 +17,11 @@
 
 .nav {
   display: flex;
-  justify-content: space-between;
   gap: 0.8rem;
   width: fit-content;
   margin: 0.3rem 0;
   font-size: 1.3rem;
+  flex-wrap: wrap;
 }
 
 .navItem a {
