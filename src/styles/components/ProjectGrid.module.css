@@ -68,15 +68,24 @@
     width: 100%;
 }
 
-.tileContent > div {
+/* .tileContent > div {
     margin-bottom: 1rem;
-}
+} */
 
 .tileImageDiv {
-    float: left;
-    margin-right: 1rem;
+    float: right;
+    margin: 0px 0px 24px 24px;
     border: var(--border-width) solid var(--color-primary);
-    box-shadow: 2px 2px var(--color-primary);
+    box-shadow: 3px 3px var(--color-primary);
+    width: 400px;
+    max-width: 98%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tileImage {
+    width: 100%;
 }
 
 .tileHeader {
@@ -86,6 +95,11 @@
     -webkit-line-clamp: 2;
     display: -webkit-box;
     height: auto;
+    margin-bottom: 0.5rem;
+}
+
+.fullWidthHeader {
+    margin-bottom: 1rem;
 }
 
 .tileDescription {
@@ -103,4 +117,6 @@
     width: 100%;
     justify-content: flex-end;
     gap: 0.7rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
 }

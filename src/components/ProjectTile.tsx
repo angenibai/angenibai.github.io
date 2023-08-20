@@ -44,19 +44,18 @@ const ProjectTile = (props: ProjectPanelTileProps) => {
         }`}
       >
         <div className={styles.tileContent}>
-          <div className={styles.fullWidthHeader}>
-            <h2>{content.name}</h2>
-          </div>
           {content.imgSrc && (
             <div className={styles.tileImageDiv}>
-              <Image
+              <img
+                className={styles.tileImage}
                 src={content.imgSrc}
                 alt={`${content.name} image`}
-                width={300}
-                height={170}
               />
             </div>
           )}
+          <div className={styles.fullWidthHeader}>
+            <h2>{content.name}</h2>
+          </div>
           {content.longDescription && (
             <div
               className={styles.fullWidthDescription}
