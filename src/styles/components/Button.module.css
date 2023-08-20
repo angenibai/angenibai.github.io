@@ -4,7 +4,7 @@
     box-shadow: 2px 2px var(--color-primary);
     cursor: pointer;
     text-align: center;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     text-decoration: none;
     width: fit-content;
 }
@@ -13,4 +13,9 @@
     box-shadow: 0 0 var(--color-primary);
     transform: translate(2px, 2px);
     text-decoration: none;
+}
+
+.selected {
+    background-color: var(--color-primary);
+    color: var(--color-bg-white);
 }

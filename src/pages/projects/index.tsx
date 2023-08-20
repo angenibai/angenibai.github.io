@@ -4,6 +4,7 @@ import { ProjectContent } from "@/types";
 import { useState } from "react";
 import { NextSeo } from "next-seo";
 import { getAllProjects } from "@/lib/api";
+import PageLayout from "@/components/PageLayout";
 
 interface ProjectsProps {
   projects: ProjectContent[];
@@ -27,26 +28,31 @@ const Projects = ({ projects }: ProjectsProps) => {
 
   return (
     <>
-      <NextSeo title="projects | angeni bai" description="projects by angeni" />
-      <div className="pageHeader">
-        <h1 className="pageheading">projects</h1>
-        <p className="subheading">
-          fun things I've made - sometimes with friends!
-        </p>
-      </div>
-      <div className={styles.projectGrid}>
-        {projects.map((project, idx) => {
-          return (
-            <ProjectTile
-              key={`project-${idx}`}
-              content={project}
-              isExpanded={selectedProject !== null && selectedProject === idx}
-              onClick={() => handleProjectClick(idx)}
-              close={() => handleClose()}
-            />
-          );
-        })}
-      </div>
+      <PageLayout>
+        <NextSeo
+          title="projects | angeni bai"
+          description="projects by angeni"
+        />
+        <div className="pageHeader">
+          <h1 className="pageheading">projects</h1>
+          <p className="subheading">
+            fun things I've made - sometimes with friends!
+          </p>
+        </div>
+        <div className={styles.projectGrid}>
+          {projects.map((project, idx) => {
+            return (
+              <ProjectTile
+                key={`project-${idx}`}
+                content={project}
+                isExpanded={selectedProject !== null && selectedProject === idx}
+                onClick={() => handleProjectClick(idx)}
+                close={() => handleClose()}
+              />
+            );
+          })}
+        </div>
+      </PageLayout>
     </>
   );
 };

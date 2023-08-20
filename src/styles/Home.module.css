@@ -4,8 +4,8 @@
   flex-wrap: wrap;
   width: 100%;
   column-gap: 2rem;
-  row-gap: 3rem;
   align-items: center;
+  min-height: 100vh;
 }
 
 .bioDiv {
@@ -20,6 +20,7 @@
 
 .contentDiv {
   max-width: 650px;
+  margin: 2rem auto;
 }
 
 .bigText {
@@ -31,4 +32,9 @@
 
 .text {
   font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.navLinks {
+  margin-top: 1.5rem;
 }
