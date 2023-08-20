@@ -2,15 +2,16 @@
   id: will-i-miss-my-flight
   shortDescription: 2023 CSESoc Hackathon People's Choice Winner
   longDescription: >
-    <p>Machine-learning based predictions on whether you will miss your flight, based on security wait times and past flight delays. Developed with Caleb Park, Hayes Choy, Rachel Ahn, and Sally Sun.</p>
+    <p>Machine-learning based predictions on whether you will miss your flight, based on security wait times and past flight delays.</p>
+    <p>Developed with Caleb Park, Hayes Choy, Rachel Ahn, and Sally Sun.</p>
   repoLink: https://github.com/hayeselnut/will-i-make-my-flight
 
 - name: Savings Cat-culator
   id: savings-catculator
   shortDescription: 2022 CSESoc x Pearler Hackathon Winner
   longDescription: >
-    <p>A web-app designed to make budgeting approachable and fun for teenagers and young adults!</p>
-    <p>Spend less and save more in order to purchase new items to deck out Gerald the savings cat 😎</p>
+    <p>A web-app designed to make budgeting approachable and fun for teenagers and young adults. Spend less and save more in order to purchase new items to deck out Gerald the savings cat 😎</p>
+    <p>Developed with Neel Dutta.</p>
   siteLink: https://savings-cat-culator.web.app/
   repoLink: https://github.com/ndoot/tamatimeleft
   tags: [web-dev, hackathon]
@@ -42,7 +43,7 @@
   imgSrc: /assets/img/informatics-leaderboard/informatics-profile-page.png
   shortDescription: Live leaderboard to track progress on informatics problems
   longDescription: >
-    <p>I teach students informatics at a high school club, and I made this website so that they could have a bit of friendly competition in completing problems!</p>
+    <p>An online leaderboard so that my high school informatics students can have a bit of friendly competition for solving problems.</p>
     <p>Features:</p>
     <ul>
       <li>Authentication using school Gmail accounts</li>
