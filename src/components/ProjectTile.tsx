@@ -46,10 +46,13 @@ const ProjectTile = (props: ProjectPanelTileProps) => {
         <div className={styles.tileContent}>
           {content.imgSrc && (
             <div className={styles.tileImageDiv}>
-              <img
+              <Image
                 className={styles.tileImage}
                 src={content.imgSrc}
                 alt={`${content.name} image`}
+                width={0}
+                height={0}
+                sizes="100vw"
               />
             </div>
           )}
