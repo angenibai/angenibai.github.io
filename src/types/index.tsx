@@ -9,3 +9,23 @@ export interface ProjectContent {
   siteLink?: string;
   blogLink?: string;
 }
+
+export interface PostMetadata {
+  layout: string;
+  title: string;
+  date: string;
+  tags?: string[];
+  splashImageSource?: string;
+  splashImageCaption?: string;
+  updated?: string;
+  author?: { name: string; email: string };
+  pin?: boolean;
+  listed?: boolean;
+  index?: boolean;
+}
+
+export interface Post {
+  slug: string | undefined;
+  source: any | undefined;
+  metadata: PostMetadata | undefined;
+}
