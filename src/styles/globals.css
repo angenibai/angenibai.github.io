@@ -9,6 +9,7 @@
   --color-primary-darker: #093426;
   --color-accent: #93748A;
   --color-bg-white: #F5EDE0;
+  --color-bg-white: #FAF8F0;
   --color-bg-yellow: #FFF4D7;
   --color-black: #292929;
 
@@ -30,7 +31,7 @@ body {
 
 body {
   background-color: var(--color-bg-white);
-  background-image: url("/noise.svg");
+  background-image: url("/noise-2.svg");
 }
 
 p, ul, ol, dl {
