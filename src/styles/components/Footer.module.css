@@ -1,0 +1,39 @@
+.footerContainer {
+    padding-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.footerBox {
+    border: var(--border-width) solid var(--color-primary);
+    box-shadow: 5px 5px var(--color-primary);
+    margin: auto;
+    max-width: 400px;
+    width: fit-content;
+    display: flex;
+    padding: 1rem;
+}
+
+.textBox {
+    border-right: 3px solid var(--color-primary);
+    padding-right: 0.8rem;
+    margin-right: 0.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.textBox p {
+    margin: 0;
+    color: var(--color-primary);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.linksBox {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
