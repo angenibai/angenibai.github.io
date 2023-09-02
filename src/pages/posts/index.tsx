@@ -36,6 +36,18 @@ export default Posts;
 export const getStaticProps = async () => {
   const posts = await getAllPosts();
 
+  // sort by decreasing date
+  posts.sort((a, b) => {
+    if (a.metadata && b.metadata) {
+      return (
+        new Date(b.metadata.date).getTime() -
+        new Date(a.metadata.date).getTime()
+      );
+    } else {
+      return 0;
+    }
+  });
+
   return {
     props: {
       posts,
