@@ -11,6 +11,28 @@
     min-height: 200px;
 }
 
+.postHeading {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.postTitle {
+    font-size: 3rem;
+}
+
+.postSubtitle {
+    margin-bottom: 1rem;
+}
+
+.postHeading img {
+    filter: brightness(98%);
+    display: block;
+    margin: auto;
+    margin-bottom: 0.5rem;
+    max-height: 400px;
+}
+
 .postContent {
     text-align: left;
     width: 100%;
@@ -21,13 +43,36 @@
     margin-bottom: 0.5rem;
 }
 
+.postContent h2 {
+    font-size: 1.9rem;
+    font-weight: 500;
+}
+
+.postContent h3 {
+    font-size: 1.4rem;
+}
+
+.postContent p, .postContent ul, .postContent ol, .postConcent dl {
+    font-size: 1.1rem;
+    line-height: 22px;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
 .postContent img {
     margin: auto;
     max-width: 700px;
     width: 90%;
     height: auto;
+    border-radius: 0.25rem;
+    display: block;
+}
+
+.postContent figure {
+    margin: 0 0 1rem;
 }
 
 .postContent figcaption {
     text-align: center;
+    margin-top: 0.5rem;
 }

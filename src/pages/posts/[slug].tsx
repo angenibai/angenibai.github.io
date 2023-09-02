@@ -28,7 +28,22 @@ const Post = ({ slug, source, metadata }: Post) => {
   return (
     <>
       <PageLayout>
-        <h2>{metadata.title}</h2>
+        <div className={styles.postHeading}>
+          <h1 className={styles.postTitle}>{metadata.title}</h1>
+          <p className={styles.postSubtitle}>
+            Published{" "}
+            {new Date(metadata.date).toLocaleDateString("en-au", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </p>
+          <img
+            src={metadata.splashImageSource}
+            alt={metadata.splashImageCaption}
+            loading="lazy"
+          />
+        </div>
         <div className={styles.postContent}>
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}

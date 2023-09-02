@@ -39,6 +39,75 @@ p, ul, ol, dl {
   color: var(--color-black);
 }
 
+ul, ol, dl {
+  padding-inline-start: 40px;
+}
+
+li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+  margin-bottom: 0.5rem;
+}
+
+.contains-task-list {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+.task-list-item {
+  list-style-type: none;
+}
+
+.task-list-item input[type="checkbox"] {
+  appearance: none;
+  background-color: transparent;
+  margin: 0;
+  margin-right: 0.25rem;
+  font: inherit;
+  color: var(--color-primary);
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 0.15rem solid var(--color-primary);
+  transform: translateY(0.1rem);
+}
+
+.task-list-item input[type="checkbox"]:checked {
+  background-color: var(--color-primary);
+}
+
+.task-list-item input[type="checkbox"]:checked::after {
+  content: "✔";
+  display: block;
+  text-align: center;
+  color: var(--color-bg-white);
+  font-size: 1.1rem;
+  transform: translateY(-0.2rem);
+}
+
+.iframe-container {
+  overflow: hidden;
+  padding-top: 56.25%;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.iframe-container > iframe {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+blockquote {
+  border-left: var(--border-width) solid var(--color-primary);
+  padding: 0 1rem;
+  margin-block-start: 1rem;
+  margin-block-end: 1rem;
+  margin-inline-start: 40px;
+  margin-inline-end: 40px;
+}
+
 a {
   color: var(--color-primary);
   font-weight: 500;
@@ -124,4 +193,8 @@ a::-moz-selection {
 .invertColor::-moz-selection {
   background: var(--color-bg-white);
   color: var(--color-primary);
+}
+
+img {
+  max-width: 100%;
 }

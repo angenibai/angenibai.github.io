@@ -86,11 +86,11 @@ so surely, we choose a specific feature to implement and spin that off into its 
 
 We're pretty excited because this seems to tick off our criteria!
 
-☑️ Tackles something tangible and specific
+- [x] Tackles something tangible and specific
 
-☑️ Easy to break down into achievable stages
+- [x] Easy to break down into achievable stages
 
-☑️ Something we want to use
+- [x] Something we want to use
 
 **Ada**: I think the idea is pretty cool. Genie thinks the idea is pretty cool. But the thing is, we both came up with the idea... so the next step would be to figure out if other people would also think the idea is 'pretty cool'. Asking our friends would be a solid next step, but I also want to ask someone from the outside. So, I settle back into my desk and check out the times available for the industry mentoring meetings scattered throughout the Hackathon. The only booking left for the day was in about 10 minutes ...
 
@@ -131,20 +131,14 @@ After some quick searching, I find a Python library that extracts the live chat 
   alt="Message showing mentoring starting"
 />
 
-<p style="text-align: center; font-weight: 600;">
-  ==== QUESTIONS FROM OUR MENTOR (thank you Livia from Canva!) ====
-</p>
+<p style="text-align: center; font-weight: 600;">==== QUESTIONS FROM OUR MENTOR (thank you Livia from Canva!) ====</p>
 
 - What is the product? Will it be a Chrome extension? A web app? Something else?
 - Who will pay for your product? How are you going to fund it or profit off it? Who is your product for?
 - What is the problem statement? Distil the problem you're solving into one sentence.
 - Who are your competitors? How is your product different to the Q&A section in Microsoft Teams or Google Meets or Zoom?
 
-<p style="text-align: center; font-weight: 600;">
-
-===========================================================
-
-</p>
+<p style="text-align: center; font-weight: 600;">============================================================</p>
 
 **Genie:** From the mentoring session, we realise we have a lot of things we need to think a bit harder about, but Liv seemed to think the idea was good at least! I am definitely even more excited about this lecture Q&A matching thing after this positive affirmation.
 
@@ -154,21 +148,25 @@ But for now, I am very aware that the deadlines for the fuzzer assignment (Sunda
 
 Before we go though, we make a few milestones for ourselves, so we know where to pick up:
 
-⬜️ Get transcript + live chat
+<blockquote>
 
-⬜️ Matches question and answer
+- [ ] Get transcript + live chat
 
-⬜️ Have a web page - look like a YouTube to mp4 converter
+- [ ] Matches question and answer
 
-⬜️ Optimising question and answer matching
+- [ ] Have a web page - look like a YouTube to mp4 converter
 
-⬜️ Deploy the server - flask server + react app
+- [ ] Optimising question and answer matching
 
-⬜️ Being able to save some of them (instead of generating each time)
+- [ ] Deploy the server - flask server + react app
 
-⬜️ ...
+- [ ] Being able to save some of them (instead of generating each time)
 
-⬜️ Video Pitch
+- [ ] ...
+
+- [ ] Video Pitch
+
+</blockquote>
 
 ## Step 1: Get started
 
@@ -278,9 +276,9 @@ For now, though, I had neglected my COMP6447 group for the last hour so it was t
 
 It's time to get serious and think about how we're going to implement the core functionality of our product: matching questions from the live lecture chats with answers from the lecturer in the recording.
 
-<u>
+<p><u>
   Firstly, How can you tell when a lecturer has answered something in the chat?
-</u>
+</u></p>
 
 I search for Marc Chee's COMP1511 (Programming Fundamentals) lectures — they're interactive, conveniently public on YouTube, and the live lecture chats are saved. By skipping through a few of his lectures and thinking about my own observations from lectures, I notice that lecturers tend to do one of a few things when answering questions from the chat:
 
@@ -291,10 +289,10 @@ I search for Marc Chee's COMP1511 (Programming Fundamentals) lectures — they'r
 
 So, the next question then is:
 
-<u>
+<p><u>
   How can you match the question in the chat with the answer from the course
   staff?
-</u>
+</u></p>
 
 > **EXHIBIT A: HACKATHON NOTES**
 >
@@ -333,7 +331,7 @@ Here's the deal: we'll first find instances in the lecture transcript where the 
 
 Then comes the next question:
 
-<u>How can you tell if two statements are 'similar'?</u>
+<p><u>How can you tell if two statements are 'similar'?</u></p>
 
 I spiral down an internet rabbit hole looking for a solution and end up at [an interesting competition from 2017](https://www.kaggle.com/c/quora-question-pairs/code). It was a problem put forward by Quora, a public question-and-answer website based in Mountain View, California. The website has over 100 million people every month, so many people ask similarly worded questions — this makes it hard for seekers to find the best answer to their questions and makes writers feel they need to answer multiple versions of the same question.
 
@@ -502,7 +500,7 @@ Context: this is from when we did the CSESoc Hackathon last year. We evidently h
 
 Here's the plan:
 
-✅️ ~~Make a plan~~
+- [x] ~~Make a plan~~
 
 Now, all we have to do is pitch the problem and introduce our product, come up with two user stories, record the voice-over for our business model, and do a short demo of our features...
 
@@ -588,21 +586,21 @@ I bash out something coherent to say, speed read it and send the recording off t
 
 **Genie:** Also remember the milestones we set like 24 hours ago? How did we go with those...
 
-✅ ~~Get transcript + live chat~~
+- [x] ~~Get transcript + live chat~~
 
-✅ ~~Matches question and answer~~
+- [x] ~~Matches question and answer~~
 
-✅️ ~~Have a web page - look like a YouTube to mp4 converter~~
+- [x] ~~Have a web page - look like a YouTube to mp4 converter~~
 
-⬜️ Optimising question and answer matching
+- [ ] Optimising question and answer matching
 
-⬜️ Deploy the server - flask server + react app
+- [ ] Deploy the server - flask server + react app
 
-⬜️ Being able to save some of them (instead of generating each time)
+- [ ] Being able to save some of them (instead of generating each time)
 
-⬜️ ...
+- [ ] ...
 
-✅️ ~~Video Pitch~~
+- [x] ~~Video Pitch~~
 
 4 out of 7 ain't terrible :))
 

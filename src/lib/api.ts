@@ -23,7 +23,7 @@ export const getBio = () => {
 };
 
 export const getPostBySlug = async (slug: string) => {
-  const source = fs.readFileSync(path.join(postsDirectory, `${slug}.mdx`));
+  const source = fs.readFileSync(path.join(postsDirectory, `${slug}.md`));
   const { content, data } = matter(source);
 
   return {
@@ -37,7 +37,7 @@ export const getPostBySlug = async (slug: string) => {
 };
 
 export const getFileData = (slug: string) => {
-  const data = fs.readFileSync(path.join(postsDirectory, `${slug}.mdx`), {
+  const data = fs.readFileSync(path.join(postsDirectory, `${slug}.md`), {
     encoding: "utf-8",
   });
   return data ? data : null;
@@ -48,7 +48,7 @@ export const getPaths = () => {
   return filenames.map((filename) => {
     return {
       params: {
-        slug: filename.replace(/\.mdx$/, ""),
+        slug: filename.replace(/\.md$/, ""),
       },
     };
   });
@@ -58,7 +58,7 @@ export const getAllPosts = async () => {
   const filenames = fs.readdirSync(postsDirectory);
   const allPostsData = await Promise.all(
     filenames.map(async (filename) => {
-      const slug = filename.replace(/\.mdx$/, "");
+      const slug = filename.replace(/\.md$/, "");
 
       const postData = await getPostBySlug(slug);
 

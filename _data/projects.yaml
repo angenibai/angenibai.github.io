@@ -1,8 +1,8 @@
-- name: Will I Miss My Flight?
-  id: will-i-miss-my-flight
+- name: Will I Make My Flight?
+  id: will-i-make-my-flight
   shortDescription: 2023 CSESoc Hackathon People's Choice Winner
   longDescription: >
-    <p>Machine-learning based predictions on whether you will miss your flight, based on security wait times and past flight delays.</p>
+    <p>Machine-learning based predictions on whether you will make it onto your flight, utilising data on security wait times and past flight delays.</p>
     <p>Developed with Caleb Park, Hayes Choy, Rachel Ahn, and Sally Sun.</p>
   repoLink: https://github.com/hayeselnut/will-i-make-my-flight
 
@@ -33,7 +33,7 @@
   shortDescription: A Mario-themed Wordle clone
   longDescription: >
     <p>Created as a puzzle challenge for the escape room at the Mario-themed CSESoc First Year Camp 2022.</p>
-    <p>For the purposes of the escape room, there is only one target word :)</p>
+    <p>For the purposes of the escape room, there is only one target word.</p>
   siteLink: https://mario-dle.web.app/
   repoLink: https://github.com/angenibai/mario-dle
   tags: [web-dev]
@@ -96,13 +96,6 @@
   longDescription: >
     <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://adaluong.me" target="_blank">Ada Luong</a>.</p>
     <p>Watch the pitch <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank">here</a>!</p>
-    <p>My contributions included:</p>
-    <ul>
-      <li>Setting up the backend Flask server to create an accessible API</li>
-      <li>Designing and implementing the frontend functionality using React</li>
-      <li>Contributing to implementing the algorithm that matched questions being asked and answered</li>
-      <li>Brainstorming ideas, researching the problem space, and constructing the pitch</li>
-    </ul>
   siteLink: https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20
   repoLink: https://github.com/adaluong/summarise-my-lecture-hackathon
   blogLink: /summarise-my-hackathon
@@ -129,13 +122,6 @@
   longDescription: >
     <p>Official COVID-19 advice for your DMs 😉 - a Facebook Messenger bot that keeps you up to date with current restrictions. Developed with Ada Luong, Edwina Adisusila, Ingrid Norton and Giuliana De Bellis</p>
     <p>Watch the live pitch <a href="https://youtu.be/cMP0vDdQhRY?t=4040" target="_blank">here</a>!</p>
-    <p>My contributions included:</p>
-    <ul>
-      <li>Conducting research into increasing the engagement of young people with COVID restrictions</li>
-      <li>Configuring the Facebook APIs and credentials with the Python-based bot</li>
-      <li>Setting up the development server and eventually deploying the bot to Heroku</li>
-      <li>Contributing to the logic of the Python code which would respond to user messages</li>
-    </ul>
   siteLink: https://youtu.be/cMP0vDdQhRY?t=4040
   repoLink: https://github.com/angenibai/can-i-go-outside
   tags: [hackathon]

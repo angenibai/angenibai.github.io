@@ -52,10 +52,6 @@
     display: none;
 }
 
-.fullWidthDescription li {
-    margin-left: 1.2rem;
-}
-
 .fullWidthDescription p, .fullWidthDescription ul, .fullWidthDescription ol {
     margin-bottom: 1rem;
 }
