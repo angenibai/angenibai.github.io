@@ -11,6 +11,7 @@ import {
 import styles from "@/styles/Post.module.css";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import Code from "@/components/markdown/Code";
 
 interface Params extends ParsedUrlQuery {
   slug: string;
@@ -48,6 +49,9 @@ const Post = ({ slug, source, metadata }: Post) => {
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw] as PluggableList}
+            components={{
+              code: Code,
+            }}
           >
             {source}
           </ReactMarkdown>

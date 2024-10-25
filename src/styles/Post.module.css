@@ -36,7 +36,8 @@
 
 .postContent {
     text-align: left;
-    width: 100%;
+    width: 96%;
+    max-width: 800px;
 }
 
 .postContent h1, .postContent h2, .postContent h3, .postContent h4, .postContent h5, .postContent h6 {
@@ -54,8 +55,8 @@
 }
 
 .postContent p, .postContent ul, .postContent ol, .postConcent dl {
-    font-size: 1.1rem;
-    line-height: 22px;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
     margin-top: 0;
     margin-bottom: 1rem;
 }

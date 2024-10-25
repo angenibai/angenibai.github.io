@@ -1,0 +1,10 @@
+.codeBlock {
+  background-color: var(--color-primary-darker);
+  padding: 0.5rem;
+  overflow: scroll;
+  margin-bottom: 1rem;
+}
+
+.codeBlock code {
+  color: var(--color-bg-white);
+}
