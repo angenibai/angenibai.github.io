@@ -2,6 +2,20 @@ import Layout from "@/components/Layout";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
+import { Newsreader } from "next/font/google";
+import { Work_Sans } from "next/font/google";
+
+const work_sans = Work_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-work-sans",
+});
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-newsreader",
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -22,7 +36,9 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         ]}
       />
-      <Component {...pageProps} />
+      <main className={`${work_sans.variable} ${newsreader.variable}`}>
+        <Component {...pageProps} />
+      </main>
     </>
   );
 }

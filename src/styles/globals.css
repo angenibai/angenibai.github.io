@@ -3,7 +3,8 @@
   --border-radius: 12px;
   --border-width: 3px;
 
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
+  font-family: var(--font-newsreader), 'Times New Roman', serif;
 
   --color-primary: #0D4B37;
   --color-primary-darker: #093426;
@@ -15,7 +16,6 @@
 
   color: var(--color-primary);
 }
-
 
 * {
   box-sizing: border-box;
@@ -34,10 +34,25 @@ body {
   background-image: url("/noise-2.svg");
 }
 
-p, ul, ol, dl {
+p, ul, ol, dl, table, div {
   font-size: 1.1rem;
-  line-height: 1.4rem;
+  line-height: 1.6rem;
   color: var(--color-black);
+  font-family: var(--font-newsreader);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-work-sans);
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+h1 {
+  line-height: 3.5rem;
+}
+
+h2 {
+  line-height: 2rem;
 }
 
 ul, ol, dl {
@@ -162,10 +177,15 @@ h3::selection,
 h4::selection,
 h5::selection,
 h6::selection,
-a::selection {
+a::selection,
+td::selection,
+th::selection,
+code::selection,
+span::selection {
   background: var(--color-primary);
   color: var(--color-bg-white);
 }
+
 
 .invertColor::selection {
   background: var(--color-bg-white);

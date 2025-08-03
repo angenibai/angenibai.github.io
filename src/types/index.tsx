@@ -24,7 +24,7 @@ export interface PostMetadata {
   index?: boolean;
 }
 
-export interface Post {
+export interface PostData {
   slug: string | undefined;
   source: any | undefined;
   metadata: PostMetadata | undefined;

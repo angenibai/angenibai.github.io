@@ -1,6 +1,6 @@
 import PageLayout from "@/components/PageLayout";
 import { getFileData, getPaths } from "@/lib/api";
-import { Post } from "@/types";
+import { PostData } from "@/types";
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import { ParsedUrlQuery } from "querystring";
 import matter from "gray-matter";
@@ -17,7 +17,7 @@ interface Params extends ParsedUrlQuery {
   slug: string;
 }
 
-const Post = ({ slug, source, metadata }: Post) => {
+const Post = ({ slug, source, metadata }: PostData) => {
   if (!slug || !source || !metadata) {
     return (
       <>
