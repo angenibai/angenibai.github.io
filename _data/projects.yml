@@ -1,3 +1,35 @@
+- name: Chomp - A Maze Game 🥕
+  id: chomp
+  img_src: /assets/img/chomp/chomp-title.png
+  description_less: Imagine Fireboy and Watergirl getting lost in endless mazes...
+  description_more: >
+    <p>A little two-player co-op game for a bit of fun and joy.</p>
+    <p>Started as a pre-employment refresher on how to code in Java. Became a lesson in why we don't make games in Java.</p>
+  action_buttons: >
+    <a href="https://epicgenie.itch.io/chomp" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Play</a> 
+  tags: [game-dev]
+
+- name: Will I Make My Flight?
+  id: will-i-make-my-flight
+  description_less: 2023 CSESoc Hackathon People's Choice Winner
+  description_more: >
+    <p>Machine-learning based predictions on whether you will make it onto your flight, utilising data on security wait times and past flight delays.</p>
+    <p>Developed with Caleb Park, Hayes Choy, Rachel Ahn, and Sally Sun.</p>
+  action_buttons: >
+    <a href="https://github.com/hayeselnut/will-i-make-my-flight" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
+  tags: [data, hackathon]
+
+- name: Savings Cat-culator
+  id: savings-catculator
+  description_less: 2022 CSESoc x Pearler Hackathon Winner
+  description_more: >
+    <p>A web-app designed to make budgeting approachable and fun for teenagers and young adults. Spend less and save more in order to purchase new items to deck out Gerald the savings cat 😎</p>
+    <p>Developed with Neel Dutta.</p>
+  action_bottoms: >
+    <a href="https://savings-cat-culator.web.app/" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Site</a> 
+    <a href="https://github.com/ndoot/tamatimeleft" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-code-branch"></i> &nbsp Repo</a>
+  tags: [web-dev, hackathon]
+
 - name: Who Guessed
   id: who-guessed
   img_src: /assets/img/who-guessed/who-guessed-play.png
