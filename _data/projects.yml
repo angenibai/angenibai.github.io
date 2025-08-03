@@ -5,6 +5,8 @@
   description_more: >
     <p>A little two-player co-op game for a bit of fun and joy.</p>
     <p>Started as a pre-employment refresher on how to code in Java. Became a lesson in why we don't make games in Java.</p>
+    <p>Hugely inspired by <a href="https://www.youtube.com/@RyiSnow" target="_blank">RyiSnow's Youtube series</a>.
+    Music by <a href="https://www.youtube.com/@Pixverses" target="_blank">Pix</a></p>
   action_buttons: >
     <a href="https://epicgenie.itch.io/chomp" target="_blank" class="btn btn-dark mb-1"><i class="fas fa-link"></i> &nbsp Play</a> 
   tags: [game-dev]
