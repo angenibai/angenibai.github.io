@@ -1,3 +1,15 @@
+- name: Chomp - A Maze Game 🥕
+  id: chomp
+  img_src: /img/chomp/chomp-title.png
+  shortDescription: Imagine Fireboy and Watergirl getting lost in endless mazes...
+  longDescription: >
+    <p>A little two-player co-op game for a bit of fun and joy.</p>
+    <p>Started as a pre-employment refresher on how to code in Java. Became a lesson in why we don't make games in Java.</p>
+    <p>Hugely inspired by <a href="https://www.youtube.com/@RyiSnow" target="_blank">RyiSnow's Youtube series</a>.
+    Music by <a href="https://www.youtube.com/@Pixverses" target="_blank">Pix</a></p>
+  siteLink: https://epicgenie.itch.io/chomp
+  tags: [game-dev]
+
 - name: Will I Make My Flight?
   id: will-i-make-my-flight
   shortDescription: 2023 CSESoc Hackathon People's Choice Winner
