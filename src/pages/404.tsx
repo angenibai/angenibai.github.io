@@ -12,7 +12,7 @@ const Custom404 = () => {
         <div className={styles.errorPage}>
           <h1 className={styles.heading}>404 NOT FOUND</h1>
           <p className={styles.subheading}>
-            it's ok, you can go <Link href="/">back home</Link>
+            it&apos;s ok, you can go <Link href="/">back home</Link>
           </p>
         </div>
       </PageLayout>

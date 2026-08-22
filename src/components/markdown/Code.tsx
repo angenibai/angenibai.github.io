@@ -25,7 +25,7 @@ const Code = ({ inline, className, children, ...props }: CodeProps) => {
 
   return !inline && match ? (
     <SyntaxHighlighter
-      style={prism}
+      style={prism as any}
       language={match[1]}
       PreTag="div"
       className={className}

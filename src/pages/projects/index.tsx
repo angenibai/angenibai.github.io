@@ -36,7 +36,7 @@ const Projects = ({ projects }: ProjectsProps) => {
         <div className="pageHeader">
           <h1 className="pageheading">projects</h1>
           <p className="subheading">
-            fun things I've made - sometimes with friends
+            fun things I&apos;ve made - sometimes with friends
           </p>
         </div>
         <div className={styles.projectGrid}>

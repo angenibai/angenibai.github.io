@@ -3,9 +3,9 @@ import { getAllPosts } from "@/lib/api";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import styles from "@/styles/Post.module.css";
-import { Post } from "@/types";
+import { PostData } from "@/types";
 
-const Posts = ({ posts }: { posts: Post[] }) => {
+const Posts = ({ posts }: { posts: PostData[] }) => {
   return (
     <>
       <PageLayout>
