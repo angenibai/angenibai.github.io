@@ -37,7 +37,7 @@
 .postContent {
     text-align: left;
     width: 96%;
-    max-width: 800px;
+    max-width: 640px;
 }
 
 .postContent h1, .postContent h2, .postContent h3, .postContent h4, .postContent h5, .postContent h6 {

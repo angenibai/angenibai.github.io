@@ -1,10 +1,39 @@
 .codeBlock {
   background-color: var(--color-primary-darker);
-  padding: 0.5rem;
-  overflow: scroll;
-  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  margin: 0 -1.5rem 1rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #EEC767 var(--color-primary);
 }
 
-.codeBlock code {
-  color: var(--color-bg-white);
+/* Chunky bookmark-ribbon scrollbar, matching the site's thick-border,
+   flat-color print aesthetic rather than a default thin rounded bar. */
+.codeBlock::-webkit-scrollbar {
+  height: 10px;
+}
+
+.codeBlock::-webkit-scrollbar-track {
+  background-color: var(--color-primary);
+}
+
+.codeBlock::-webkit-scrollbar-thumb {
+  background-color: #EEC767;
+  border: 2px solid var(--color-primary-darker);
+  border-radius: 4px;
+}
+
+.codeBlock::-webkit-scrollbar-thumb:hover {
+  background-color: #F5D687;
+}
+
+.inlineCode {
+  background-color: rgba(13, 75, 55, 0.3);
+  border: 1px solid rgba(13, 75, 55, 0.15);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 0.08em 0.3em;
+  border-radius: 0.6em;
+  color: var(--color-primary-darker);
 }
