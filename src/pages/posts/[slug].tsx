@@ -12,6 +12,7 @@ import styles from "@/styles/Post.module.css";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import Code from "@/components/markdown/Code";
+import Image from "@/components/markdown/Image";
 
 interface Params extends ParsedUrlQuery {
   slug: string;
@@ -30,20 +31,26 @@ const Post = ({ slug, source, metadata }: PostData) => {
     <>
       <PageLayout>
         <div className={styles.postHeading}>
-          <h1 className={styles.postTitle}>{metadata.title}</h1>
-          <p className={styles.postSubtitle}>
-            Published{" "}
-            {new Date(metadata.date).toLocaleDateString("en-au", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
-          </p>
-          <img
-            src={metadata.splashImageSource}
-            alt={metadata.splashImageCaption}
-            loading="lazy"
-          />
+          <div className={styles.postHeadingText}>
+            <h1 className={styles.postTitle}>{metadata.title}</h1>
+            <p className={styles.postSubtitle}>
+              Published{" "}
+              {new Date(metadata.date).toLocaleDateString("en-au", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </p>
+          </div>
+          {metadata.splashImageSource && (
+            <div className={styles.postHeadingImageWrap}>
+              <img
+                src={metadata.splashImageSource}
+                alt={metadata.splashImageCaption}
+                loading="lazy"
+              />
+            </div>
+          )}
         </div>
         <div className={styles.postContent}>
           <ReactMarkdown
@@ -51,6 +58,7 @@ const Post = ({ slug, source, metadata }: PostData) => {
             rehypePlugins={[rehypeRaw] as PluggableList}
             components={{
               code: Code,
+              img: Image,
             }}
           >
             {source}

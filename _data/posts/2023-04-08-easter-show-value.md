@@ -35,13 +35,13 @@ Showbags come in all shapes and sizes, but they generally have a certain theme, 
 
 For example, there’s Barbie Dreamtopia, which contains a bunch of Barbie items - including a backpack, trinket boxes, and a wand.
 
-<img src="/img/easter-show-value/barbie-dreamtopia-expanded.png" alt="The Barbie Dreamtopia showbag" />
+<img src="/img/easter-show-value/barbie-dreamtopia-expanded.png" alt="The Barbie Dreamtopia showbag" style="max-width: var(--easter-screenshot-width)" />
 
 Very magical.
 
 There’s also Allen’s Lollies, which contains - you guessed it - Allen’s lollies.
 
-<img src="/img/easter-show-value/allens-lollies-expanded.png" alt="The Allen's Lollies showbag" />
+<img src="/img/easter-show-value/allens-lollies-expanded.png" alt="The Allen's Lollies showbag" style="max-width: var(--easter-screenshot-width)" />
 
 Most important for us though, is the **retail value** and **price**.
 
@@ -356,7 +356,7 @@ Aaaand by now you’re more than ready to see the results! The best deal you can
 
 **The Australian Women’s Weekly** showbag!
 
-<img src="/img/easter-show-value/aww-expanded.png" alt="The Australian Women's Weekly showbag with all contents" />
+<img src="/img/easter-show-value/aww-expanded.png" alt="The Australian Women's Weekly showbag with all contents" style="max-width: var(--easter-screenshot-width)" />
 
 For a very reasonable **$22**, you can get **$490.61** worth of stuff. And that stuff is made up of **34 individual items**.
 
@@ -364,55 +364,55 @@ It’s not the only bag with a >20 value to price ratio though, so check out the
 
 ### 2. marie claire
 
-<img src="/img/easter-show-value/marie-claire.png" alt="Marie Claire showbag" />
+<img src="/img/easter-show-value/marie-claire.png" alt="Marie Claire showbag" style="max-width: var(--easter-screenshot-width)" />
 
 **Price:** $30, **Total retail value:** $605.62, **Value to price ratio:** 20.19
 
 ### 3. Better Homes and Gardens
 
-<img src="/img/easter-show-value/bhg.png" alt="Better Homes and Gardens showbag" />
+<img src="/img/easter-show-value/bhg.png" alt="Better Homes and Gardens showbag" style="max-width: var(--easter-screenshot-width)" />
 
 **Price:** $30.0, **Total retail value:** $418.64, **Value to price ratio:** 13.95
 
 ### 4. Stella Athletic (Autumn)
 
-<img src="/img/easter-show-value/stella-autumn.png" alt="Stella Athletic (Autumn) showbag" />
+<img src="/img/easter-show-value/stella-autumn.png" alt="Stella Athletic (Autumn) showbag" style="max-width: var(--easter-screenshot-width)" />
 
 **Price:** $32.0, **Total retail value:** $433.48, **Value to price ratio:** 13.55
 
 ### 5. Stella Athletic (Spring)
 
-<img src="/img/easter-show-value/stella-spring.png" alt="Stella Athletic (Spring) showbag" />
+<img src="/img/easter-show-value/stella-spring.png" alt="Stella Athletic (Spring) showbag" style="max-width: var(--easter-screenshot-width)" />
 
 **Price:** $35.0, **Total retail value:** $433.48, **Value to price ratio:** 12.39
 
 ### 6. Tasty
 
-<img src="/img/easter-show-value/tasty.png" alt="Tasty showbag" />
+<img src="/img/easter-show-value/tasty.png" alt="Tasty showbag" style="max-width: var(--easter-screenshot-width)" />
 
 **Price:** $32, **Total retail value:** $391.89, **Value to price ratio:** 12.25
 
 ### 7. Men’s Style
 
-<img src="/img/easter-show-value/mens-style.png" alt="Men's Style showbag" />
+<img src="/img/easter-show-value/mens-style.png" alt="Men's Style showbag" style="max-width: var(--easter-screenshot-width)" />
 
 **Price:** $32, **Total retail value:** $385.33, **Value to price ratio:** 12.04
 
 ### 8. Rural Aid - For Our Mates In the Bush
 
-<img src="/img/easter-show-value/rural-aid.png" alt="Rural Aid showbag" />
+<img src="/img/easter-show-value/rural-aid.png" alt="Rural Aid showbag" style="max-width: var(--easter-screenshot-width)" />
 
 **Price:** $18, **Total retail value:** $180.63, **Value to price ratio:** 10.04
 
 ### 9. Mega Showbag
 
-<img src="/img/easter-show-value/mega.png" alt="Mega showbag" />
+<img src="/img/easter-show-value/mega.png" alt="Mega showbag" style="max-width: var(--easter-screenshot-width)" />
 
 **Price:** $30, **Total retail value:** $297.00, **Value to price ratio:** 9.9
 
 ### 10. Women’s Health magazine
 
-<img src="/img/easter-show-value/womens-health.png" alt="Women's Health showbag" />
+<img src="/img/easter-show-value/womens-health.png" alt="Women's Health showbag" style="max-width: var(--easter-screenshot-width)" />
 
 **Price:** $32, **Total retail value:** $299.86, **Value to price ratio:** 9.37
 
@@ -424,7 +424,7 @@ Since we have everything in a CSV file, it’ll be easy to pull it up in Google 
 
 We can make a histogram showing us the distribution of value to price ratio in the showbags.
 
-<img src="/img/easter-show-value/chart-value-ratio-distribution.png" alt="Chart showing the distribution of value to price ratio" />
+<img src="/img/easter-show-value/chart-value-ratio-distribution.png" alt="Chart showing the distribution of value to price ratio" style="max-width: var(--easter-screenshot-width)" />
 
 This graph makes it very clear that our top 10 showbags are outliers compared to the other showbags. The vast majority seem to have a value to price ratio between 1.32 and 2.63.
 
@@ -446,7 +446,7 @@ Luckily, it’s only those four showbags which would offer you either a negative
 
 ### Is there a general trend between value to price ratio, and the actual price of the showbag?
 
-<img src="/img/easter-show-value/chart-value-ratio-vs-price.png" alt="Chart showing value ratio against price" />
+<img src="/img/easter-show-value/chart-value-ratio-vs-price.png" alt="Chart showing value ratio against price" style="max-width: var(--easter-screenshot-width)" />
 
 For most showbags, there’s a pretty uniform pattern of having a value to price ratio somewhere between 1 and 5. However, the high value showbags tend to be the showbags that are more on the expensive end anyways. You’re not going to catch a bargain on a 15 dollar showbag, but if you’re willing to pay 30 dollars for a showbag, then you will have quite a few options for getting a good deal.
 

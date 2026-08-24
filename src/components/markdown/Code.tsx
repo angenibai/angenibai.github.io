@@ -78,15 +78,17 @@ const Code = ({ inline, className, children, ...props }: CodeProps) => {
   const match = /language-(\w+)/.exec(className || "");
 
   return !inline && match ? (
-    <SyntaxHighlighter
-      style={codeTheme as any}
-      language={match[1]}
-      PreTag="div"
-      className={`${styles.codeBlock} ${className}`}
-      {...props}
-    >
-      {String(children).replace(/\n$/, "")}
-    </SyntaxHighlighter>
+    <div className={styles.codeBlockWrapper}>
+      <SyntaxHighlighter
+        style={codeTheme as any}
+        language={match[1]}
+        PreTag="div"
+        className={`${styles.codeBlock} ${className}`}
+        {...props}
+      >
+        {String(children).replace(/\n$/, "")}
+      </SyntaxHighlighter>
+    </div>
   ) : (
     <code
       className={`${styles.inlineCode} ${className || ""}`}

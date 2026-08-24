@@ -2,6 +2,7 @@
   --max-width: 1100px;
   --border-radius: 12px;
   --border-width: 3px;
+  --divider-width: 2px;
 
   /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
   font-family: var(--font-newsreader), 'Times New Roman', serif;
@@ -32,6 +33,7 @@ body {
 body {
   background-color: var(--color-bg-white);
   background-image: url("/noise-2.svg");
+  background-size: 400px 400px;
 }
 
 p, ul, ol, dl, table, div {

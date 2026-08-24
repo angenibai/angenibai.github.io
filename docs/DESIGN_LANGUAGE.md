@@ -48,7 +48,8 @@ consistent everywhere it appears.
 Structure is drawn with visible borders, not `box-shadow` or blur:
 - `--border-width: 3px` on nav links (`Nav.module.css`)
 - `1px solid #0d4b378d` hairlines on post tables
-- Code blocks are a flat panel with a hard `border-radius`, no drop shadow
+- Code blocks and post-body images are flat panels with a hard
+  `border-radius` (`0.5rem`), no drop shadow
 
 If something needs visual separation from what's around it, reach for a
 border or a solid color-block boundary before a shadow.

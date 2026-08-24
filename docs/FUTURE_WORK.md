@@ -21,8 +21,14 @@ frontmatter already carries `date`, `tags`, `splashImageSource`, and `pin`
 ## Per-post layout polish
 
 `src/pages/posts/[slug].tsx`:
-- The splash `<img>` (line ~42) has no `width`/`height`, so it causes layout
-  shift as it loads. Reserve space with explicit dimensions or `next/image`.
+- The splash `<img>` (line ~47) has no `width`/`height`, so it causes layout
+  shift as it loads (directly observed 2026-08-24 while reworking the
+  splash-image header layout - the box visibly grows once the lazy-loaded
+  image resolves). Reserve space with explicit dimensions or `next/image`.
+  Note the header now sizes this image from its own intrinsic aspect ratio
+  (`Post.module.css` `.postHeadingImageWrap img`, `height: auto`), so
+  whatever fix lands here needs to keep that ratio-driven sizing rather
+  than reintroducing a fixed/cropped box.
 
 ## Image optimization
 
@@ -32,16 +38,18 @@ this is optimized:
 
 - `BioPanel.tsx` and `ProjectTile.tsx` already use `next/image` — fine as-is.
 - Post splash images and every image inside post Markdown bodies are plain
-  `<img>` tags. Markdown images go through `react-markdown` with no custom
-  image renderer, so they bypass `next/image` entirely (Next's linter flags
-  this at `[slug].tsx:42`).
+  `<img>` tags, so both bypass `next/image`'s optimization (Next's linter
+  flags the splash image at `[slug].tsx:47`). Markdown body images now do
+  route through a custom renderer (`src/components/markdown/Image.tsx`,
+  wired up via `components={{ img: Image }}` in `[slug].tsx`) - that part of
+  the fix below is done - but that component still renders a plain `<img>`,
+  so the `next/image` swap itself is still outstanding.
 - Two-part fix:
   1. Compress/resize the source screenshots before they're committed — most
      are full-resolution macOS screenshots that could shrink 70–90% with no
      visible quality loss at display size.
-  2. Add a custom `img` renderer to the `ReactMarkdown` `components` prop in
-     `[slug].tsx`, the same pattern already used for `code` → `Code.tsx`, so
-     body images route through `next/image` too.
+  2. Swap the plain `<img>` in `src/components/markdown/Image.tsx` (and the
+     splash image in `[slug].tsx`) for `next/image`.
 
 ## SEO
 
