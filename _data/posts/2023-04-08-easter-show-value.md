@@ -63,7 +63,7 @@ A table to summarise:
 
 |                       | Low price                 | High price                          |
 | --------------------- | ------------------------- | ----------------------------------- |
-| **Low retail value**  | Low value to price ratio  | Very low value to price ratio (< 1) |
+| **Low retail value**  | Low value to price ratio  | Very low value to price ratio (ie. `< 1`) |
 | **High retail value** | High value to price ratio | Low value to price ratio            |
 
 ## Step 1: figure out the structure of the web page
@@ -360,7 +360,7 @@ Aaaand by now you’re more than ready to see the results! The best deal you can
 
 For a very reasonable **$22**, you can get **$490.61** worth of stuff. And that stuff is made up of **34 individual items**.
 
-It’s not the only bag with a >20 value to price ratio though, so check out the rest of the top ten most valuable showbags!
+It’s not the only bag with a `> 20` value to price ratio though, so check out the rest of the top ten most valuable showbags!
 
 ### 2. marie claire
 

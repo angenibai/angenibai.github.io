@@ -30,6 +30,26 @@ frontmatter already carries `date`, `tags`, `splashImageSource`, and `pin`
   whatever fix lands here needs to keep that ratio-driven sizing rather
   than reintroducing a fixed/cropped box.
 
+## Animation polish
+
+- Buttons should rise on hover, and only depress when clicked. Currently they
+  depress when hovered over.
+- Nav between pages could be more smooth than the current immediate switch
+- Custom pointer?
+
+## Responsive header
+
+- Rethink the layout of the header, currently too little spacing from the top
+  of the page.
+- Would be nice for it to be sticky or show up on the side when scrolling
+  down posts.
+
+## Loading profile image
+
+- Current home page profile has a loading... placeholder. It should be
+  clickable, and once clicked the tile flips over to reveal the profile
+  image.
+
 ## Image optimization
 
 `public/img` is ~52MB; several PNG screenshots run 2–2.6MB each (e.g.
