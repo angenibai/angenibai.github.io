@@ -1,17 +1,3 @@
-.postsContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    gap: 1rem;
-}
-
-.postTile {
-    border: var(--border-width) solid var(--color-primary);
-    width: 100%;
-    min-height: 200px;
-}
-
 .postHeading {
     text-align: left;
     width: 100%;

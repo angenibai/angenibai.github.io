@@ -8,6 +8,8 @@ date: 2021-08-12 # Publish date in YYYY-MM-DD format
 tags: [hackathon, web-dev] # A list of tags
 splashImageSource: /img/summarise-my-lecture/summarise-my-lecture-intro.jpg # Splash image source, high resolution images with an aspect ratio close to 4:3 recommended
 splashImageCaption: # Splash image caption
+blurb: Uni assignments, YouTube detours, and vote-counting drama. # One-sentence catalogue blurb, shown on the posts list page
+coauthors: [Ada Luong] # Short-form co-author names for the posts list page's WITH cell, one per line when rendered
 
 # Optional front matter
 updated: # Updated date in YYYY-MM-DD format

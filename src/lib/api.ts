@@ -4,6 +4,8 @@ import YAML from "yaml";
 
 import matter from "gray-matter";
 
+import { PostMetadata } from "@/types";
+
 const projectsFile = path.join(process.cwd(), "_data/projects.yaml");
 const bioFile = path.join(process.cwd(), "_data/bio.yaml");
 export const postsDirectory = path.join(process.cwd(), "_data/posts");
@@ -32,7 +34,7 @@ export const getPostBySlug = async (slug: string) => {
     metadata: {
       ...data,
       date: data.date.toISOString(),
-    },
+    } as PostMetadata,
   };
 };
 

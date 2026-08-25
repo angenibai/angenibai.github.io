@@ -18,10 +18,12 @@ export interface PostMetadata {
   splashImageSource?: string;
   splashImageCaption?: string;
   updated?: string;
-  author?: { name: string; email: string };
+  author?: { name: string; homepage: string };
   pin?: boolean;
   listed?: boolean;
   index?: boolean;
+  blurb?: string;
+  coauthors?: string[];
 }
 
 export interface PostData {

@@ -20,7 +20,6 @@ Every color in use is a named token in `src/styles/globals.css:9-15`:
 | `--color-primary-darker` | `#093426` | code block panels |
 | `--color-accent` | `#93748A` | dusty mauve — sparingly used accent |
 | `--color-bg-white` | `#FAF8F0` | warm cream — page background |
-| `--color-bg-yellow` | `#FFF4D7` | pale yellow — currently unused |
 | `--color-black` | `#292929` | body text |
 
 That's five hues, and green does most of the work. When a new UI element
@@ -67,6 +66,13 @@ serif body. It's sized relative to body text (~0.85–0.9em of the paragraph
 size) rather than at a fixed rem value, so it stays subordinate to prose
 even though it's visually distinct — see `src/components/markdown/Code.tsx`
 and `Post.module.css:58` for the reference sizing relationship.
+
+Mono has a second job: small letterspaced caps for metadata labels and
+figures — the `No. 02` index, the date, and the `FILED UNDER`/`WITH` labels
+on the posts list page's catalogue rows (`src/components/PostEntry.tsx`).
+`0.75rem`, `letter-spacing: 0.08em`, `text-transform: uppercase`. This is a
+deliberate extension of the system, not a fourth family — code and metadata
+are both "data" registers set against the serif prose.
 
 ## Where to be bold vs. where to be quiet
 

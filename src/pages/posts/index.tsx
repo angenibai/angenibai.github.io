@@ -1,11 +1,14 @@
 import PageLayout from "@/components/PageLayout";
+import PostEntry from "@/components/PostEntry";
 import { getAllPosts } from "@/lib/api";
 import { NextSeo } from "next-seo";
-import Link from "next/link";
-import styles from "@/styles/Post.module.css";
 import { PostData } from "@/types";
 
-const Posts = ({ posts }: { posts: PostData[] }) => {
+interface IndexedPostData extends PostData {
+  listIndex: number;
+}
+
+const Posts = ({ posts }: { posts: IndexedPostData[] }) => {
   return (
     <>
       <PageLayout>
@@ -14,15 +17,11 @@ const Posts = ({ posts }: { posts: PostData[] }) => {
           <h1 className="pageheading">posts</h1>
           <p className="subheading">some thoughts were thought</p>
         </div>
-        <div className={styles.postsContainer}>
+        <div>
           {posts.map(
             (post) =>
               post.slug && (
-                <div className={styles.postTile} key={post.slug}>
-                  <Link href={`/posts/${post.slug}`}>
-                    <h2>{post.metadata?.title}</h2>
-                  </Link>
-                </div>
+                <PostEntry post={post} index={post.listIndex} key={post.slug} />
               )
           )}
         </div>
@@ -34,19 +33,40 @@ const Posts = ({ posts }: { posts: PostData[] }) => {
 export default Posts;
 
 export const getStaticProps = async () => {
-  const posts = await getAllPosts();
+  const allPosts = await getAllPosts();
 
-  // sort by decreasing date
-  posts.sort((a, b) => {
-    if (a.metadata && b.metadata) {
+  const listedPosts = allPosts.filter(
+    (post) => post.metadata?.listed !== false
+  );
+
+  // Ascending by date so No. 01 is the oldest post, and index stays stable
+  // as new posts are added on top.
+  const byAscendingDate = [...listedPosts].sort(
+    (a, b) =>
+      new Date(a.metadata!.date).getTime() -
+      new Date(b.metadata!.date).getTime()
+  );
+
+  const listIndexBySlug = new Map(
+    byAscendingDate.map((post, i) => [post.slug, i + 1])
+  );
+
+  const posts: IndexedPostData[] = listedPosts
+    .map((post) => ({
+      ...post,
+      listIndex: listIndexBySlug.get(post.slug)!,
+    }))
+    .sort((a, b) => {
+      const aPinned = a.metadata?.pin ? 1 : 0;
+      const bPinned = b.metadata?.pin ? 1 : 0;
+      if (aPinned !== bPinned) {
+        return bPinned - aPinned;
+      }
       return (
-        new Date(b.metadata.date).getTime() -
-        new Date(a.metadata.date).getTime()
+        new Date(b.metadata!.date).getTime() -
+        new Date(a.metadata!.date).getTime()
       );
-    } else {
-      return 0;
-    }
-  });
+    });
 
   return {
     props: {

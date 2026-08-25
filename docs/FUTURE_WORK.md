@@ -6,17 +6,14 @@ each section except where noted.
 
 ## Blog post list page
 
-`src/pages/posts/index.tsx` currently renders just a linked title per post
-(see `src/styles/Post.module.css` — each tile is an empty 200px box). Post
-frontmatter already carries `date`, `tags`, `splashImageSource`, and `pin`
-(`src/types/index.tsx` `PostMetadata`), none of which are used on this page.
+Done — see `plans/POSTS_LIST_CATALOGUE_PLAN.md`. `src/pages/posts/index.tsx`
+now renders each post via `src/components/PostEntry.tsx`, a catalogue row
+with date, blurb, thumbnail, tags, and co-authors; `pin`/`listed` are
+respected in `getStaticProps`.
 
-- Show the publish date and a short excerpt/description per post.
-- Show a thumbnail (`splashImageSource`) per tile.
-- Respect `pin: true` (sort pinned posts first) and `listed: false` (exclude
-  from the list) — both are authored in post frontmatter but currently
-  ignored everywhere.
-- Consider showing tags, at least as a filter or visual label.
+Still open: tag filtering, pagination, and a tag-pill component were
+explicitly out of scope — tags render as plain text in the `FILED UNDER`
+cell.
 
 ## Per-post layout polish
 
