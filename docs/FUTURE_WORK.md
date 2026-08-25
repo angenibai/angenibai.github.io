@@ -39,10 +39,9 @@ frontmatter already carries `date`, `tags`, `splashImageSource`, and `pin`
 
 ## Responsive header
 
-- Rethink the layout of the header, currently too little spacing from the top
-  of the page.
 - Would be nice for it to be sticky or show up on the side when scrolling
   down posts.
+- Could also have more interesting styling aka border lines
 
 ## Loading profile image
 

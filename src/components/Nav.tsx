@@ -7,21 +7,11 @@ const Nav = () => {
   return (
     <header className={styles.header}>
       <div className={styles.websiteTitle}>
-        <Link className="sneakyLink" href="/">
+        <Link className="sneakyLink titleHeader" href="/">
           angeni bai
         </Link>
       </div>
-      {/* <nav className={styles.nav}>
-        <div className={styles.navItem}>
-          <Link href="/">home</Link>
-        </div>
-        <div className={styles.navItem}>
-          <Link href="/projects">projects</Link>
-        </div>
-        <div className={styles.navItem}>
-          <Link href="/posts">posts</Link>
-        </div>
-      </nav> */}
+      <div className={styles.slashDivider} aria-hidden="true"></div>
       <NavLinks />
     </header>
   );

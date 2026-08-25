@@ -1,25 +1,41 @@
 .header {
-  padding: 1rem 2rem;
-  margin-bottom: 2rem;
-}
-
-@media (max-width: 512px) {
-  .header {
-    padding: 1rem 1rem;
-  }
+  padding: 0.5rem 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .websiteTitle {
   font-size: 3rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.titleHeader {
+  line-height: 100%;
+}
+
+.slashDivider {
+  display: block;
+  width: 4px;
+  transform: skewX(-20deg);
+  align-self: stretch;
+  margin: -0.3rem 1.4rem;
+  margin-bottom: -0.2rem;
+  background-color: var(--color-primary-darker);
 }
 
 .nav {
   display: flex;
   gap: 0.8rem;
   width: fit-content;
-  margin: 0.3rem 0;
+  min-width: fit-content;
+  /* margin: 0.3rem 0; */
+  margin-top: 0.1rem;
+  margin-bottom: 0.5rem;
   font-size: 1.3rem;
   flex-wrap: wrap;
 }
@@ -32,4 +48,16 @@
 
 .navItem a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 1rem 1rem;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .slashDivider {
+    background-color: transparent;
+  }
 }
