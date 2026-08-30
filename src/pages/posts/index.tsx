@@ -3,6 +3,7 @@ import PostEntry from "@/components/PostEntry";
 import { getAllPosts } from "@/lib/api";
 import { NextSeo } from "next-seo";
 import { PostData } from "@/types";
+import styles from "@/styles/components/PostEntry.module.css";
 
 interface IndexedPostData extends PostData {
   listIndex: number;
@@ -17,12 +18,12 @@ const Posts = ({ posts }: { posts: IndexedPostData[] }) => {
           <h1 className="pageheading">posts</h1>
           <p className="subheading">some thoughts were thought</p>
         </div>
-        <div>
+        <div className={styles.postList}>
           {posts.map(
             (post) =>
               post.slug && (
                 <PostEntry post={post} index={post.listIndex} key={post.slug} />
-              )
+              ),
           )}
         </div>
       </PageLayout>
@@ -36,7 +37,7 @@ export const getStaticProps = async () => {
   const allPosts = await getAllPosts();
 
   const listedPosts = allPosts.filter(
-    (post) => post.metadata?.listed !== false
+    (post) => post.metadata?.listed !== false,
   );
 
   // Ascending by date so No. 01 is the oldest post, and index stays stable
@@ -44,11 +45,11 @@ export const getStaticProps = async () => {
   const byAscendingDate = [...listedPosts].sort(
     (a, b) =>
       new Date(a.metadata!.date).getTime() -
-      new Date(b.metadata!.date).getTime()
+      new Date(b.metadata!.date).getTime(),
   );
 
   const listIndexBySlug = new Map(
-    byAscendingDate.map((post, i) => [post.slug, i + 1])
+    byAscendingDate.map((post, i) => [post.slug, i + 1]),
   );
 
   const posts: IndexedPostData[] = listedPosts

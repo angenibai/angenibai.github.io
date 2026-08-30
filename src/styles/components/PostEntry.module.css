@@ -1,3 +1,11 @@
+.postList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 90%;
+    max-width: 880px;
+}
+
 .entry {
     display: flex;
     flex-direction: row;
@@ -9,13 +17,6 @@
     border-top: var(--divider-width) solid var(--color-primary);
     border-bottom: var(--divider-width) solid var(--color-primary);
     transition: background-color 0.15s ease;
-}
-
-/* Collapses adjacent rows' touching borders into a single divider instead
-   of a doubled line, while the first row's top and last row's bottom stay
-   intact. */
-.entry + .entry {
-    margin-top: calc(var(--divider-width) * -1);
 }
 
 .entry:hover {
