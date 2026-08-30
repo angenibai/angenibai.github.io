@@ -29,5 +29,10 @@ export interface PostMetadata {
 export interface PostData {
   slug: string | undefined;
   source: any | undefined;
+  excerpt?: string;
   metadata: PostMetadata | undefined;
 }
+
+// The list page never renders post bodies, and shipping them would put every
+// post's full markdown into __NEXT_DATA__.
+export type PostListItem = Omit<PostData, "source">;

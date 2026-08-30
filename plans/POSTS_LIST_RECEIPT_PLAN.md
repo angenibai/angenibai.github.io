@@ -496,3 +496,91 @@ Against the two real posts. `npm run build` first — it type-checks, and the
     with a legible marker, then revert.
 11. **Reduced motion** — with the OS setting on, the panel cuts in without
     transform or fade.
+
+---
+
+# As built — departures from this plan
+
+Recorded per step 9. Everything not listed here shipped as written above.
+
+## 1. `width: max-content` alone did not make the image drive panel width
+
+Step 8's premise was that `width: max-content` + the 240–360px clamp would let
+the image set the panel's width. Measured, it didn't: **both panels came out at
+exactly 360px.** The excerpt paragraph's max-content width is its *unwrapped*
+length (~600px at 100 characters), so the excerpt always won the measurement and
+every panel clamped to `max-width`. Verification step 3's "visibly different
+panel widths" failed.
+
+The fix keeps the intent and needs no JS. `.panel` becomes a grid with
+`grid-template-columns: max-content`, and the three text children opt out of the
+intrinsic measurement:
+
+```css
+.header, .excerpt, .with { width: 0; min-width: 100%; }
+```
+
+`width: 0` is what the column measures; `min-width: 100%` is what actually gets
+painted. Only `.imageFrame` is left contributing, so the column resolves to the
+image's width at a 180px height. Measured after the change:
+
+| Post | Splash ratio | Image rendered | Panel width |
+|---|---|---|---|
+| Easter Showbags | 1.333 (4:3) | 232×174 | **262px** |
+| Summarise My Hackathon | 1.778 (16:9) | 309×174 | **339px** |
+
+Rendered ratios match native to three decimals, so the `640×480` hint and
+`height`/`width: auto` do preserve the native ratio as described.
+
+## 2. The panel already overflows the bottom of the page — at two posts
+
+Part 3 assumed this could not happen yet: *"With two posts near the top of a
+tall page the panel cannot overflow the bottom."* The page isn't tall. At a
+1440×900 window `/posts` is **757px** of document with `scrollHeight ===
+clientHeight`, and the last row's panel runs to **787px** — so the bottom of it,
+including the `with Ada Luong` line and the offset shadow, is off the page and
+**cannot be scrolled to.** Widening the panel per departure 1 makes it taller,
+which makes this slightly worse.
+
+Left unfixed deliberately, because every available fix is a visible design
+tradeoff the plan didn't authorise: the `:nth-last-child(-n+2)` stopgap flips
+*both* rows when there are only two, sending the first row's panel up into the
+page header; and bottom-padding the list to lengthen the document opens a large
+gap above the footer for a hover-only benefit. This is the strongest argument
+for the deferred JS reimplementation — it is a live problem now, not a
+someday-when-the-list-grows one.
+
+## 3. Minor
+
+- **Pin marker at very narrow widths.** `.pin` at `left: -1.25rem` (20px) sits
+  in a gutter that is 5% of the viewport (the list is `width: 90%`). Below about
+  400px the gutter is under 20px and `body { overflow-x: hidden }` clips the
+  marker. Not reachable in a desktop browser (Chrome won't size a window below
+  ~500px) but real on a phone.
+- **Font variable.** Step 6 calls for Newsreader on `.date`/`.blurb`; the
+  variable is `--font-newsreader`. There is no `--font-serif`.
+- **Link accessible name.** Step 3 says keeping the panel outside the anchor
+  keeps the link's accessible name "to just the title". The panel is excluded as
+  intended, but the name is still title + date + blurb, since those are inside
+  the anchor. Unchanged from the previous design.
+- **The Summarise excerpt does echo its blurb**, since that post opens with a
+  `_..._` dek repeating it. Accepted deliberately rather than special-cased.
+  Whitespace collapsing joins it to the next paragraph, so the 100-char slice
+  runs past the echo into new prose.
+- Step 8's cross-reference to "the `640×480` hint in step 6" means step 7.
+
+## Verification results
+
+Passed: 1 (row layout), 2 (hover), 3 (panel content — after departure 1),
+4 (no flicker: the panel is never the hit-target at any point across its area,
+`pointer-events: none` confirmed computed), 5 (images `complete` before any
+hover), 6 (`__NEXT_DATA__` carries excerpts, no `source`; the page HTML dropped
+to ~9.9KB), 7 (`:focus-within` reveals on keyboard focus), 10 (pin sorts first,
+8×8 marker in the gutter), 11 (rule emitted).
+
+Partly verified: 8 — 1440/1000/900/899 checked directly (gate flips off at
+899px, no horizontal overflow at any width). Chrome will not size a window below
+~500px, so phone widths were exercised by narrowing the list container instead:
+at 420/340/280px the date drops to its own line and stays flush right. 9 (touch)
+was verified as the emitted `@media (hover: none) { display: none }` rule rather
+than by real device emulation.

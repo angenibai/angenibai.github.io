@@ -42,16 +42,25 @@ and `#0d4b378d` (primary green as an 8-digit hex, table borders in
 `Post.module.css`). Follow this convention — it's a small thing, but it's
 consistent everywhere it appears.
 
-## Borders and keylines, not shadows
+## Borders and keylines; shadows only solid and offset
 
-Structure is drawn with visible borders, not `box-shadow` or blur:
+Structure is drawn with visible borders, not blur:
 - `--border-width: 3px` on nav links (`Nav.module.css`)
+- `--divider-width: 2px`, including as a dotted dot leader between title and
+  date on the posts list rows (`PostEntry.module.css`)
 - `1px solid #0d4b378d` hairlines on post tables
 - Code blocks and post-body images are flat panels with a hard
   `border-radius` (`0.5rem`), no drop shadow
 
-If something needs visual separation from what's around it, reach for a
-border or a solid color-block boundary before a shadow.
+The rule is *no blurred* shadows, not no shadows. Solid zero-blur offset
+shadows in the primary green are used deliberately, at a scale that tracks how
+much the element should lift off the page: `2px` (Button), `3px` (ProjectGrid
+inner tiles), `5px` (Footer and tiles), `10px` (BioPanel, and the posts list
+hover panel).
+
+If something needs visual separation from what's around it, reach for a border
+or a solid color-block boundary before a shadow; if it needs to sit *above* the
+page, use a solid offset shadow at one of those steps.
 
 ## Typography pairing is the core signature
 
@@ -67,12 +76,12 @@ size) rather than at a fixed rem value, so it stays subordinate to prose
 even though it's visually distinct — see `src/components/markdown/Code.tsx`
 and `Post.module.css:58` for the reference sizing relationship.
 
-Mono has a second job: small letterspaced caps for metadata labels and
-figures — the `No. 02` index, the date, and the `FILED UNDER`/`WITH` labels
-on the posts list page's catalogue rows (`src/components/PostEntry.tsx`).
-`0.75rem`, `letter-spacing: 0.08em`, `text-transform: uppercase`. This is a
-deliberate extension of the system, not a fourth family — code and metadata
-are both "data" registers set against the serif prose.
+Mono is **code-only**. An earlier version of the posts list used it for a
+metadata register — letterspaced caps for a `No. 02` index and `FILED
+UNDER`/`WITH` labels — and the list redesign
+(`plans/POSTS_LIST_RECEIPT_PLAN.md`) removed it: dates there are Newsreader
+now. Keep it that way unless there's a strong reason. Metadata set in the
+serif reads as part of the page rather than as a second system bolted on.
 
 ## Where to be bold vs. where to be quiet
 

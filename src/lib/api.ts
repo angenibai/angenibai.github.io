@@ -24,6 +24,32 @@ export const getBio = () => {
   return getYAML(bioFile);
 };
 
+const EXCERPT_LENGTH = 100;
+
+// Post bodies don't start with clean prose, and rehype-raw means raw HTML is
+// legal anywhere in them - so strip the markup before truncating, otherwise the
+// slice can land inside a tag or a link target.
+const toExcerpt = (markdown: string) => {
+  const plain = markdown
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/<[^>]+>/g, "")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/[*_`>]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (plain.length <= EXCERPT_LENGTH) {
+    return plain;
+  }
+
+  const sliced = plain.slice(0, EXCERPT_LENGTH);
+  const lastSpace = sliced.lastIndexOf(" ");
+
+  return `${(lastSpace > 0 ? sliced.slice(0, lastSpace) : sliced).trimEnd()}\u2026`;
+};
+
 export const getPostBySlug = async (slug: string) => {
   const source = fs.readFileSync(path.join(postsDirectory, `${slug}.md`));
   const { content, data } = matter(source);
@@ -31,6 +57,7 @@ export const getPostBySlug = async (slug: string) => {
   return {
     slug,
     source: content,
+    excerpt: toExcerpt(content),
     metadata: {
       ...data,
       date: data.date.toISOString(),

@@ -1,181 +1,71 @@
-.postList {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 90%;
-    max-width: 880px;
-}
-
 .entry {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: stretch;
+    display: block;
     width: 100%;
     text-decoration: none;
     color: inherit;
-    border-top: var(--divider-width) solid var(--color-primary);
-    border-bottom: var(--divider-width) solid var(--color-primary);
-    transition: background-color 0.15s ease;
 }
 
-.entry:hover {
-    background-color: var(--color-primary);
-    text-decoration: none;
-}
-
-.entry:hover .title, .entry:hover .blurb, .entry:hover .metaCell, .entry:hover .metaLine, .entry:hover .metaValue, .entry:hover .eyebrow, .entry:hover .mono {
-    color: var(--color-bg-white);
-}
-
-.entry:hover .metaCell, .entry:hover .metaGrid {
-    border-color: var(--color-bg-white);
-}
-
-.entry:hover .blurb {
-    border-top-color: var(--color-bg-white);
-}
-
-.textColumn {
+.line {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1.25rem;
-    flex: 1 1 320px;
-    min-width: 320px;
-}
-
-.eyebrow {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 0.75rem;
-}
-
-.mono {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    flex-wrap: wrap;
+    gap: 0.75rem;
 }
 
 .title {
+    flex: 0 1 auto;
     font-size: 1.5rem;
+    color: var(--color-primary);
+}
+
+/* Nudged down off the baseline so the dots sit under the type rather than
+   through its descenders. When a title wraps, the spacer centres beside the
+   block instead of hanging off the last line - CSS can't reach that line box,
+   and truncating a title on an index page would be worse. */
+.leader {
+    flex: 1 1 2rem;
+    min-width: 2rem;
+    border-bottom: var(--divider-width) dotted var(--color-primary);
+    margin-bottom: 0.35em;
+}
+
+/* Right-aligned, so Newsreader's proportional figures can differ in width
+   without the right edge ragging - the leader absorbs the slack. */
+.date {
+    flex: 0 0 auto;
+    font-family: var(--font-newsreader);
+    font-size: 0.9rem;
+    color: var(--color-black);
+    text-align: right;
 }
 
 .blurb {
-    padding-top: 0.75rem;
-    margin-top: 0.75rem;
-    border-top: var(--divider-width) solid var(--color-primary);
+    font-family: var(--font-newsreader);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--color-black);
+    margin-top: 0.35rem;
 }
 
-.metaGrid {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid #0d4b378d;
-    width: fit-content;
-}
-
-.metaCell {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    padding: 0.6rem 0.85rem;
-}
-
-.metaCell + .metaCell {
-    border-left: 1px solid #0d4b378d;
-}
-
-.metaValue {
-    display: flex;
-    flex-direction: column;
-}
-
-.metaLine:not(:last-child) {
-    margin-bottom: 0.15rem;
-}
-
-/* Same flex-basis/min-width as the text column so at typical widths they
-   split the row evenly, but fixed rather than fluid - uniform thumbnail
-   rows are the point of a catalogue, unlike the post page's full-bleed
-   hero image. */
-.thumbWrap {
-    position: relative;
-    isolation: isolate;
-    flex: 0 0 260px;
-    width: 260px;
-    aspect-ratio: 4 / 3;
-    border-left: var(--divider-width) solid var(--color-primary);
-    background-color: var(--color-bg-white);
-    overflow: hidden;
-}
-
-.thumbWrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(1) contrast(1.08);
-    mix-blend-mode: multiply;
-    transition: filter 0.2s ease;
-}
-
-.thumbWrap::after {
-    content: "";
+.pin {
     position: absolute;
-    inset: 0;
+    left: -1.25rem;
+    top: 0.6rem;
+    width: 0.5rem;
+    height: 0.5rem;
     background-color: var(--color-primary);
-    mix-blend-mode: lighten;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
 }
 
-.entry:hover .thumbWrap img {
-    filter: none;
-    mix-blend-mode: normal;
-}
-
-.entry:hover .thumbWrap::after {
-    opacity: 0;
-}
-
-/* Touch devices never fire :hover, so the duotone would otherwise be stuck
-   on permanently - show full colour at rest instead. */
-@media (hover: none) {
-    .thumbWrap img {
-        filter: none;
-        mix-blend-mode: normal;
-    }
-
-    .thumbWrap::after {
-        opacity: 0;
-    }
+/* The site's own hover idiom (globals.css underlines every link), applied to
+   the two prose elements only - the date and the dotted leader stay clean, so
+   the underline is the single cue rather than two competing ones. */
+.entry:hover .title,
+.entry:hover .blurb {
+    text-decoration: underline;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .entry,
-    .thumbWrap img,
-    .thumbWrap::after {
-        transition: none;
-    }
-}
-
-@media (max-width: 1040px) {
     .entry {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .textColumn {
-        flex: 0 1 auto;
-        min-width: 0;
-        width: 100%;
-    }
-
-    .thumbWrap {
-        border-left: none;
-        border-top: var(--divider-width) solid var(--color-primary);
+        transition: none;
     }
 }
