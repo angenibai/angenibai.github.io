@@ -16,7 +16,7 @@
    `.row:hover .panel` written there would compile to two names from different
    files and match nothing. The data- attribute isn't hashed, so it bridges the
    two modules without :global. */
-@media (hover: hover) and (min-width: 900px) {
+@media (hover: hover) and (min-width: 640px) {
     .row:hover [data-post-panel],
     .row:focus-within [data-post-panel] {
         opacity: 1;
