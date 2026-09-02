@@ -6,21 +6,9 @@
     max-width: 880px;
 }
 
-/* Containing block for both the panel and the pin marker. */
+/* Still the containing block for PostEntry's absolutely-positioned .pin marker.
+   The preview panel no longer needs it - that's position: fixed now, placed
+   imperatively by usePostPreview. */
 .row {
     position: relative;
-}
-
-/* The panel's reveal has to live here rather than in
-   PostPreviewPanel.module.css: CSS Modules hashes class names per file, so a
-   `.row:hover .panel` written there would compile to two names from different
-   files and match nothing. The data- attribute isn't hashed, so it bridges the
-   two modules without :global. */
-@media (hover: hover) and (min-width: 640px) {
-    .row:hover [data-post-panel],
-    .row:focus-within [data-post-panel] {
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-    }
 }

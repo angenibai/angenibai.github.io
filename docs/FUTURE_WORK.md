@@ -10,8 +10,15 @@ Done — see `plans/POSTS_LIST_RECEIPT_PLAN.md`, which supersedes the catalogue
 design in `plans/POSTS_LIST_CATALOGUE_PLAN.md`. `src/pages/posts/index.tsx`
 renders each post as a bare two-line row (`src/components/PostEntry.tsx`:
 title, dotted leader, date, italic blurb) with the splash image moved into a
-CSS-only hover panel (`src/components/PostPreviewPanel.tsx`); `pin`/`listed`
+hover panel (`src/components/PostPreviewPanel.tsx`); `pin`/`listed`
 are respected in `getStaticProps`.
+
+The hover panel was **reimplemented in JS** — see
+`plans/POSTS_LIST_HOVER_PANEL_JS_PLAN.md`. `src/hooks/usePostPreview.ts` now
+places it cursor-anchored and viewport-aware: it flips above the cursor near
+the bottom of the viewport and clamps horizontally so the offset shadow can't
+be sliced by `body { overflow-x: hidden }`, with ~100ms/200ms dwell timers so
+sweeping the list stays calm. Touch and <640px are gated off exactly as before.
 
 Still open:
 
@@ -20,13 +27,6 @@ Still open:
   oversight, so re-adding them needs a reason beyond "the data exists".
 - **Tag filtering** — still wanted, and this layout takes it better than the
   card list did. A filtered receipt is still a receipt.
-- **Reimplement the hover panel in JS.** Pure CSS can't measure available
-  space, so the panel can't flip above the row near the bottom of the
-  viewport or nudge horizontally to stay in view. Wikipedia's `ext.popups`
-  also uses dwell timers — a delay before showing, a grace period before
-  hiding — which make sweeping a cursor down a list feel much calmer than a
-  raw `:hover`. Not urgent at two posts; a CSS stopgap if the list grows
-  first is `:nth-last-child(-n+2) .panel { top: auto; bottom: 100% }`.
 - **Real image dimensions at build time** via `image-size`, replacing the
   `640x480` upper-bound hint passed to `next/image` in `PostPreviewPanel`.
 - **Pagination** — still out of scope.

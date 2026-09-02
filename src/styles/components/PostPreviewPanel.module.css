@@ -1,10 +1,23 @@
+/* Placement layer. usePostPreview writes a translate3d() transform here on
+   every tracked cursor frame; there must be NO transition on this node or the
+   panel visibly trails the pointer. position: fixed so the hook's
+   viewport-relative placement math lands where it expects (no ancestor of
+   .postList creates a containing block). pointer-events: none is load-bearing:
+   the panel overlaps the rows below it, and without this it would steal hover
+   from the row underneath - lose :hover - hide - regain hover: a flicker loop.
+   It also keeps only one panel reachable at a time. */
+.anchor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
 /* Width follows the image (max-content) rather than being fixed, so a 16:9
    splash makes a wider panel than a 4:3 one; the clamp stops a portrait image
    squeezing the excerpt into a column of single words. */
 .panel {
-    position: absolute;
-    top: calc(100% + 0.25rem);
-    left: 0;
     /* Grid so the column can size to max-content while the text children below
        opt out of that measurement - see .header / .excerpt / .with. */
     display: grid;
@@ -12,7 +25,6 @@
     width: max-content;
     min-width: 240px;
     max-width: 360px;
-    z-index: 2;
     padding: 9px;
     border: var(--border-width) solid var(--color-primary);
     box-shadow: 10px 10px var(--color-primary);
@@ -20,19 +32,21 @@
     opacity: 0;
     /* Hidden this way rather than with display: none - a display: none panel
        never fetches its lazy image, so the first hover on each row would show
-       an empty frame while it downloaded. */
+       an empty frame while it downloaded; and getBoundingClientRect() on
+       .anchor would measure zero, so the hook couldn't place it. */
     visibility: hidden;
-    /* Load-bearing: the panel overlaps the rows below it. Without this it
-       steals hover from the row underneath, which loses :hover, which hides the
-       panel, which restores hover - a flicker loop. It also means the cursor
-       falls through to whichever row is beneath, so only one panel shows. */
-    pointer-events: none;
     transform: translateY(4px);
     transition: opacity 0.12s ease, transform 0.12s ease;
 }
 
-/* The reveal (:hover / :focus-within) lives in PostList.module.css, which owns
-   the .row wrapper - see the note there on why it can't be written here. */
+/* Reveal. Same module as .panel now, so the old cross-module data-post-panel
+   bridge in PostList.module.css is gone. data-visible is driven by
+   usePostPreview (hover, and focus for keyboard). */
+.anchor[data-visible="true"] .panel {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
 
 /* width: 0 + min-width: 100% is what keeps the prose out of the panel's
    max-content measurement: without it the excerpt's ~600px unwrapped width

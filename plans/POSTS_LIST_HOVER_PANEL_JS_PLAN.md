@@ -195,6 +195,36 @@ a one-line change if it reads as restless.
 - Set the placement transform on the *outer* node only. Any transition on
   `.anchor` reintroduces cursor lag.
 - Clear both timers and the rAF handle in the hook's cleanup.
+- **First placement per activation must be synchronous.** The show-timer
+  callback measures, writes the `translate3d()` to `.anchor`, *then* calls
+  `setActiveSlug`. If the state update ran first, the `fixed` `.anchor` would
+  paint one frame at its `top:0; left:0` origin (viewport top-left) before the
+  next rAF moved it to the cursor — a visible corner flash on every first hover.
+  rAF is only for the subsequent per-frame tracking updates. (`reveal()` in
+  `src/hooks/usePostPreview.ts`.)
+
+---
+
+## As built
+
+Shipped as planned. Notes:
+
+- **Not a bug — dev-only measurement artifact.** During browser verification
+  the panel appeared to collapse to `0×0` while hidden, which would have broken
+  both the `getBoundingClientRect()` measurement and the image prefetch. It was
+  a stuck `<style data-next-hide-fouc>body{display:none}</style>` — Next.js's
+  dev-mode FOUC guard, normally removed the moment hydration completes, left
+  behind by repeated rapid navigations plus a mid-session `next dev` restart. In
+  a clean tab (and in `npm run build`, which emits no such style) the hidden
+  panel measures `262×356`, `.imageFrame` measures `238×180` from the `640×480`
+  hint before the image loads, and the splash image reports `complete` on page
+  load with no hover. The `visibility: hidden` premise holds.
+- Verified: `npm run build` type-checks; bottom-flip (panel flips above the
+  cursor near the viewport bottom, shadow on-screen); right-edge clamp (panel
+  right + 10px shadow stays inside the viewport); cursor tracking; first-hover
+  image prefetch.
+- `computePlacement` returns `{ x, y }` only — no `flipped`; it had no consumer
+  and no standalone meaning.
 
 ---
 

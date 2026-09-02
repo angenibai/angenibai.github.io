@@ -437,21 +437,16 @@ so touch devices don't download the splash images at all. Plus
 
 Recorded so none of it gets lost:
 
-- **Reimplement the panel in JS, matching Wikipedia's behaviour.** *(the notable
-  one)* Verified from the live page: Wikipedia's previews are the `ext.popups`
-  ResourceLoader module — entirely JavaScript, with the preview content fetched
-  per-hover from the REST summary API rather than living in the HTML (article
-  links carry only a plain `title=` attribute). A version here would keep the
-  content pre-rendered (no fetch needed) but add what CSS structurally cannot do:
-  **measuring available space and repositioning** — flipping the panel above the
-  row near the bottom of the viewport, and nudging it horizontally to stay in
-  view. Also worth borrowing are its dwell timers (a short delay before showing,
-  a grace period before hiding) which make rapid cursor movement across a list
-  feel much calmer than a pure `:hover` reveal.
-- **Bottom-of-viewport flipping** — subsumed by the above. With two posts near
-  the top of a tall page the panel cannot overflow the bottom, so nothing is
-  written now. A pure-CSS stopgap if the list grows before the JS work happens:
-  `:nth-last-child(-n+2) .panel { top: auto; bottom: 100% }`.
+- ~~**Reimplement the panel in JS, matching Wikipedia's behaviour.**~~ **Done** —
+  see `plans/POSTS_LIST_HOVER_PANEL_JS_PLAN.md`. `src/hooks/usePostPreview.ts`
+  keeps the content pre-rendered (no fetch) and adds what CSS structurally
+  cannot: measuring available space and repositioning. The panel is now
+  cursor-anchored, tracks continuously, flips above the cursor near the bottom
+  of the viewport, and clamps horizontally so the offset shadow can't be sliced
+  by `body { overflow-x: hidden }`. Dwell timers are ~100ms before showing,
+  ~200ms grace before hiding.
+- ~~**Bottom-of-viewport flipping**~~ **Done** — folded into the JS
+  reimplementation above; the `:nth-last-child` stopgap was never needed.
 - **Real image dimensions at build time** via `image-size`, replacing the
   `640×480` hint in step 6.
 - **Tag filtering.** This layout takes it better than the card list did — a
@@ -542,13 +537,12 @@ including the `with Ada Luong` line and the offset shadow, is off the page and
 **cannot be scrolled to.** Widening the panel per departure 1 makes it taller,
 which makes this slightly worse.
 
-Left unfixed deliberately, because every available fix is a visible design
-tradeoff the plan didn't authorise: the `:nth-last-child(-n+2)` stopgap flips
-*both* rows when there are only two, sending the first row's panel up into the
-page header; and bottom-padding the list to lengthen the document opens a large
-gap above the footer for a hover-only benefit. This is the strongest argument
-for the deferred JS reimplementation — it is a live problem now, not a
-someday-when-the-list-grows one.
+**Resolved** by the JS reimplementation — `plans/POSTS_LIST_HOVER_PANEL_JS_PLAN.md`,
+`src/hooks/usePostPreview.ts`. `computePlacement` flips the panel above the
+cursor whenever `y + height + shadow + margin` would pass the bottom of the
+viewport, so the whole panel (offset shadow included) stays on-screen
+regardless of how short the document is. Verified at a short window: the last
+row's panel flips up and is fully visible.
 
 ## 3. Minor
 
@@ -568,6 +562,11 @@ someday-when-the-list-grows one.
   Whitespace collapsing joins it to the next paragraph, so the 100-char slice
   runs past the echo into new prose.
 - Step 8's cross-reference to "the `640×480` hint in step 6" means step 7.
+- **Breakpoint moved to 640px.** The Responsiveness section and "Partly
+  verified: 8" note say the gate is `min-width: 900px` (flipping off at 899px);
+  commit `b656b3b` shipped it at **640px**. The JS reimplementation
+  (`usePostPreview.ts`, `matchMedia("(hover: hover) and (min-width: 640px)")`)
+  matches the shipped 640.
 
 ## Verification results
 

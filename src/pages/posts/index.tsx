@@ -4,9 +4,15 @@ import PostPreviewPanel from "@/components/PostPreviewPanel";
 import { getAllPosts } from "@/lib/api";
 import { NextSeo } from "next-seo";
 import { PostListItem } from "@/types";
+import { usePostPreview } from "@/hooks/usePostPreview";
 import styles from "@/styles/PostList.module.css";
 
 const Posts = ({ posts }: { posts: PostListItem[] }) => {
+  // Client state at the page level, matching the precedent in
+  // src/pages/projects/index.tsx. getStaticProps below is untouched - the page
+  // is still SSG and no new data enters __NEXT_DATA__.
+  const { getRowProps, getPanelProps } = usePostPreview();
+
   return (
     <>
       <PageLayout>
@@ -19,9 +25,16 @@ const Posts = ({ posts }: { posts: PostListItem[] }) => {
           {posts.map(
             (post) =>
               post.slug && (
-                <div className={styles.row} key={post.slug}>
+                <div
+                  className={styles.row}
+                  key={post.slug}
+                  {...getRowProps(post.slug)}
+                >
                   <PostEntry post={post} />
-                  <PostPreviewPanel post={post} />
+                  <PostPreviewPanel
+                    post={post}
+                    {...getPanelProps(post.slug)}
+                  />
                 </div>
               ),
           )}
