@@ -112,13 +112,9 @@ no changes needed to `BioPanel` itself beyond removing `defaultContent`.
 - `src/components/ProjectTile.tsx` has a `// TODO: tag section, ...` comment
   — the `tags` field is authored in `_data/projects.yaml` but never rendered
   anywhere in the component.
-- `src/components/Nav.tsx` has a large commented-out nav block that can be
-  deleted now that `NavLinks` covers the same links.
 - Confirm the actual deploy target. The repo is named
   `angenibai.github.io` (GitHub Pages naming convention), but there's no
   `output: "export"` in `next.config.js` and no GitHub Actions workflow —
-  this is a full Next.js app, which GitHub Pages can't serve as-is. `angeni.me`
-  is a custom domain per the README, so it's likely actually deployed via
-  Vercel (there's a `public/vercel.svg` asset) with DNS pointed at it — but
-  worth confirming there's a working deploy pipeline before treating the
+  this is a full Next.js app, which GitHub Pages can't serve as-is.
+  Worth confirming there's a working deploy pipeline before treating the
   build passing as "the site is live."
