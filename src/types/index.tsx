@@ -34,6 +34,7 @@ export interface PostMetadata {
   index?: boolean;
   blurb?: string;
   coauthors?: string[];
+  externalLink?: string;
 }
 
 export interface PostData {

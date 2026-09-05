@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NextLink from "next/link";
 import styles from "@/styles/components/PostEntry.module.css";
 import { PostListItem } from "@/types";
 
@@ -22,8 +22,11 @@ const PostEntry = ({ post }: PostEntryProps) => {
     return null;
   }
 
+  const Link = metadata.externalLink ? "a" : NextLink;
+  const href = metadata.externalLink ? metadata.externalLink : `/posts/${slug}`;
+
   return (
-    <Link href={`/posts/${slug}`} className={styles.entry}>
+    <Link href={href} className={styles.entry}>
       {metadata.pin && <span className={styles.pin} aria-hidden="true" />}
       <span className={styles.line}>
         <h2 className={styles.title}>{metadata.title}</h2>
