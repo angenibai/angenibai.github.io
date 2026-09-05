@@ -17,8 +17,10 @@ const ButtonLink = ({
 }: PropsWithChildren<ButtonLinkProps>) => {
   const router = useRouter();
 
-  // Set on click rather than pointerdown so a press that gets dragged off and
-  // cancelled never latches.
+  // isSelected comes from the router, so it only flips once the route lands,
+  // leaving a gap after mouseup where the button would spring back up. .pressed
+  // holds it down across that gap. Set on click rather than pointerdown so a
+  // press that gets dragged off and cancelled never latches.
   const [pressed, setPressed] = useState(false);
 
   useEffect(() => {
@@ -27,9 +29,7 @@ const ButtonLink = ({
     }
   }, [isSelected]);
 
-  // Safety net for navigations that never leave this button selected (a failed
-  // route change, or one that resolves elsewhere) - without this it would stay
-  // depressed indefinitely.
+  // Release valve for navigations that never leave this button selected.
   useEffect(() => {
     if (!pressed) {
       return;

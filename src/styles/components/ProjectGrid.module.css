@@ -6,8 +6,9 @@
     grid-auto-flow: dense;
 }
 
-/* Same pressable model as Button.module.css, at tile scale: the shadow's outer
-   corner stays anchored while the tile rises and sinks. */
+/* Pressable tile - the model and its timings are documented in
+   Button.module.css. One difference: there is no .pressed state, because
+   selection is local React state with no navigation gap to bridge */
 .projectTile {
     --depth: 5px;
     --rise: 3px;
@@ -25,33 +26,30 @@
     padding: 1rem;
 }
 
+.projectTile:not(.isSelected):active,
+.projectTile.isSelected {
+    box-shadow: 0 0 var(--color-primary);
+    transform: translate(var(--depth), var(--depth));
+    transition: transform 34ms, box-shadow 0ms 34ms;
+    background-color: var(--color-primary);
+}
+
+/* globals.css colours h2 and p directly, so the fill is not inherited. */
+.projectTile:not(.isSelected):active h2,
+.projectTile:not(.isSelected):active p,
+.projectTile.isSelected h2,
+.projectTile.isSelected p {
+    color: var(--color-bg-white);
+}
+
+/* Keep last - see Button.module.css. */
 @media (hover: hover) {
     .projectTile:not(.isSelected):hover {
-        box-shadow: calc(var(--depth) + var(--rise)) calc(var(--depth) + var(--rise)) var(--color-primary);
+        box-shadow: var(--depth) var(--depth) var(--color-primary);
         transform: translate(calc(-1 * var(--rise)), calc(-1 * var(--rise)));
         transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5),
                     box-shadow 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
     }
-}
-
-.projectTile:not(.isSelected):active {
-    box-shadow: 0 0 var(--color-primary);
-    transform: translate(var(--depth), var(--depth));
-    transition: transform 34ms, box-shadow 34ms;
-}
-
-/* Selected stays depressed and filled while its modal is open. It keeps
-   cursor: pointer - clicking it again closes the modal. */
-.projectTile.isSelected {
-    box-shadow: 0 0 var(--color-primary);
-    transform: translate(var(--depth), var(--depth));
-    transition: transform 34ms, box-shadow 34ms;
-    background-color: var(--color-primary);
-}
-
-.projectTile.isSelected h2,
-.projectTile.isSelected p {
-    color: var(--color-bg-white);
 }
 
 @media (prefers-reduced-motion: reduce) {

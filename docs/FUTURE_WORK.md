@@ -45,8 +45,9 @@ Still open:
 
 ## Animation polish
 
-- Buttons should rise on hover, and only depress when clicked. Currently they
-  depress when hovered over.
+- Done — buttons rise on hover and only depress once pressed; the state model
+  is documented at the top of `src/styles/components/Button.module.css`, and
+  project tiles follow it in `ProjectGrid.module.css`.
 - Nav between pages could be more smooth than the current immediate switch
 - Custom pointer?
 
