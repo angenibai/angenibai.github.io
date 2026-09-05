@@ -22,7 +22,7 @@ const ProjectTile = (props: ProjectPanelTileProps) => {
   return (
     <>
       <div
-        className={`${styles.projectTile} ${isExpanded && styles.isSelected}`}
+        className={`${styles.projectTile} ${isExpanded ? styles.isSelected : ""}`}
         onClick={onClick}
       >
         <div className={styles.tileContent}>
