@@ -1,8 +1,6 @@
 import styles from "@/styles/components/ProjectGrid.module.css";
 import { ProjectContent } from "@/types";
 import { MouseEventHandler } from "react";
-import ButtonLink from "./ButtonLink";
-import Image from "next/image";
 
 interface ProjectPanelTileProps {
   content: ProjectContent;
@@ -21,8 +19,6 @@ const defaultTileContent = {
 const ProjectTile = (props: ProjectPanelTileProps) => {
   const { content, isExpanded, onClick } = props;
 
-  // TODO: tag section, image for expanded, more buttons for expanded, close button, animation for expansion and contraction
-
   return (
     <>
       <div
@@ -35,50 +31,6 @@ const ProjectTile = (props: ProjectPanelTileProps) => {
           </div>
           <div className={styles.tileDescription}>
             <p>{content.shortDescription}</p>
-          </div>
-        </div>
-      </div>
-      <div
-        className={`${styles.fullWidthTile} ${
-          !isExpanded && styles.displayNone
-        }`}
-      >
-        <div className={styles.tileContent}>
-          {content.imgSrc && (
-            <div className={styles.tileImageDiv}>
-              <Image
-                className={styles.tileImage}
-                src={content.imgSrc}
-                alt={`${content.name} image`}
-                width={0}
-                height={0}
-                sizes="100vw"
-              />
-            </div>
-          )}
-          <div className={styles.fullWidthHeader}>
-            <h2>{content.name}</h2>
-          </div>
-          {content.longDescription && (
-            <div
-              className={styles.fullWidthDescription}
-              dangerouslySetInnerHTML={{ __html: content.longDescription }}
-            ></div>
-          )}
-          <div className={styles.fullWidthFooter}>
-            {content.siteLink && (
-              <ButtonLink href={content.siteLink} external={true}>
-                Site
-              </ButtonLink>
-            )}
-            {content.repoLink && (
-              <ButtonLink href={content.repoLink} external={true}>
-                Repo
-              </ButtonLink>
-            )}
-            {content.blogLink && (
-              <ButtonLink href={content.blogLink}>Blog</ButtonLink>
-            )}
           </div>
         </div>
       </div>

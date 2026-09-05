@@ -5,6 +5,7 @@ import { useState } from "react";
 import { NextSeo } from "next-seo";
 import { getAllProjects } from "@/lib/api";
 import PageLayout from "@/components/PageLayout";
+import ProjectModal from "@/components/ProjectModal";
 
 interface ProjectsProps {
   projects: ProjectContent[];
@@ -52,6 +53,13 @@ const Projects = ({ projects }: ProjectsProps) => {
             );
           })}
         </div>
+        <ProjectModal
+          content={
+            selectedProject !== null ? projects[selectedProject] : projects[0]
+          }
+          onClose={() => handleClose()}
+          isOpen={selectedProject !== null}
+        />
       </PageLayout>
     </>
   );

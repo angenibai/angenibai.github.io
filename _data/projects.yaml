@@ -1,13 +1,16 @@
 - name: Chomp - A Maze Game 🥕
   id: chomp
-  img_src: /img/chomp/chomp-title.png
+  imgSrc: /img/chomp/chomp-title.png
   shortDescription: Imagine Fireboy and Watergirl getting lost in endless mazes...
   longDescription: >
     <p>A little two-player co-op game for a bit of fun and joy.</p>
     <p>Started as a pre-employment refresher on how to code in Java. Became a lesson in why we don't make games in Java.</p>
     <p>Hugely inspired by <a href="https://www.youtube.com/@RyiSnow" target="_blank">RyiSnow's Youtube series</a>.
     Music by <a href="https://www.youtube.com/@Pixverses" target="_blank">Pix</a></p>
-  siteLink: https://epicgenie.itch.io/chomp
+  links:
+    - label: Play
+      url: https://epicgenie.itch.io/chomp
+      text: itch.io/chomp
   tags: [game-dev]
 
 - name: Will I Make My Flight?
@@ -16,7 +19,11 @@
   longDescription: >
     <p>Machine-learning based predictions on whether you will make it onto your flight, utilising data on security wait times and past flight delays.</p>
     <p>Developed with Caleb Park, Hayes Choy, Rachel Ahn, and Sally Sun.</p>
-  repoLink: https://github.com/hayeselnut/will-i-make-my-flight
+  links:
+    - label: GitHub
+      url: https://github.com/hayeselnut/will-i-make-my-flight
+      text: hayeselnut/will-i-make-my-flight
+  tags: [hackathon, machine-learning]
 
 - name: Savings Cat-culator
   id: savings-catculator
@@ -24,8 +31,13 @@
   longDescription: >
     <p>A web-app designed to make budgeting approachable and fun for teenagers and young adults. Spend less and save more in order to purchase new items to deck out Gerald the savings cat 😎</p>
     <p>Developed with Neel Dutta.</p>
-  siteLink: https://savings-cat-culator.web.app/
-  repoLink: https://github.com/ndoot/tamatimeleft
+  links:
+    - label: Site
+      url: https://savings-cat-culator.web.app/
+      text: savings-cat-culator.web.app
+    - label: GitHub
+      url: https://github.com/ndoot/tamatimeleft
+      text: ndoot/tamatimeleft
   tags: [web-dev, hackathon]
 
 - name: Who Guessed
@@ -35,8 +47,13 @@
   longDescription: >
     <p>Generate a Guess Who board to play with friends!</p>
     <p>Currently supports playing with pre-loaded character decks.</p>
-  siteLink: https://who-guessed.web.app/
-  repoLink: https://github.com/angenibai/who-guessed
+  links:
+    - label: Play
+      url: https://who-guessed.web.app/
+      text: who-guessed.web.app
+    - label: GitHub
+      url: https://github.com/angenibai/who-guessed
+      text: angenibai/who-guessed
   tags: [web-dev]
 
 - name: Mario-dle
@@ -46,8 +63,13 @@
   longDescription: >
     <p>Created as a puzzle challenge for the escape room at the Mario-themed CSESoc First Year Camp 2022.</p>
     <p>For the purposes of the escape room, there is only one target word.</p>
-  siteLink: https://mario-dle.web.app/
-  repoLink: https://github.com/angenibai/mario-dle
+  links:
+    - label: Play
+      url: https://mario-dle.web.app/
+      text: mario-dle.web.app
+    - label: GitHub
+      url: https://github.com/angenibai/not-wordle
+      text: angenibai/not-wordle
   tags: [web-dev]
 
 - name: Informatics Leaderboard
@@ -55,21 +77,26 @@
   imgSrc: /img/informatics-leaderboard/informatics-profile-page.png
   shortDescription: Live leaderboard to track progress on informatics problems
   longDescription: >
-    <p>An online leaderboard so that my high school informatics students can have a bit of friendly competition for solving problems.</p>
-    <p>Features:</p>
+    <p>An online leaderboard for my high school informatics students to have a bit of friendly competition in solving problems.</p>
+    <p><strong>Features:</strong></p>
     <ul>
       <li>Authentication using school Gmail accounts</li>
       <li>Leaderboard showing everyone's scores</li>
       <li>User profiles showing graphs for score over time and progress so far</li>
       <li>Ability to submit tokens for each problem completed, which grants points</li>
     </ul>
-    <p>The webapp was set up using:</p>
+    <p><strong>Tech stack:</strong></p>
     <ul>
       <li>React frontend</li>
       <li>Firebase for hosting, auth, and storing the database</li>
     </ul>
-  siteLink: https://informatics-leaderboard.web.app/
-  repoLink: https://github.com/angenibai/informatics-leaderboard
+  links:
+    - label: Site
+      url: https://informatics-leaderboard.web.app/
+      text: informatics-leaderboard.web.app
+    - label: GitHub
+      url: https://github.com/angenibai/informatics-leaderboard
+      text: angenibai/informatics-leaderboard
   tags: [web-dev]
 
 - name: This website 😁 # Project name, also used as heading
@@ -82,7 +109,10 @@
     <ul>
       <li>Next.js</li>
     </ul>
-  repoLink: https://github.com/angenibai/angenibai.github.io
+  links:
+    - label: Site
+      url: https://angenibai.github.io/
+      text: angenibai.github.io
   tags: [web-dev] # A list of tags
 
 - name: CSESoc Media
@@ -98,7 +128,10 @@
       <li><a href="https://youtu.be/elJBKQWEVSo" target="_blank">CSESoc 2021 First Year Camp video</a></li>
       <li><a href="https://media.csesoc.org.au/first-year-guide-2021/" target="_blank">CSESoc 2021 First Year Guide</a></li>
     </ul>
-  siteLink: https://media.csesoc.org.au/
+  links:
+    - label: Site
+      url: https://media.csesoc.org.au/
+      text: media.csesoc.org.au
   tags: [misc]
 
 - name: Summarise My Lecture
@@ -108,9 +141,16 @@
   longDescription: >
     <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://adaluong.me" target="_blank">Ada Luong</a>.</p>
     <p>Watch the pitch <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank">here</a>!</p>
-  siteLink: https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20
-  repoLink: https://github.com/adaluong/summarise-my-lecture-hackathon
-  blogLink: /summarise-my-hackathon
+  links:
+    - label: Pitch
+      url: https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20
+      text: YouTube
+    - label: GitHub
+      url: https://github.com/adaluong/summarise-my-lecture-hackathon
+      text: adaluong/summarise-my-lecture-hackathon
+    - label: Blog post
+      url: /posts/2021-08-12-summarise-my-lecture
+      text: Summarise My Hackathon
   tags: [hackathon, web-dev]
 
 - name: Genie's Internet Playground
@@ -123,8 +163,13 @@
       <li>Tic-tac-toe</li>
       <li>Minesweeper</li>
     </ul>
-  siteLink: https://angeni.me/internet-playground/#/
-  repoLink: https://github.com/angenibai/internet-playground
+  links:
+    - label: Play
+      url: https://angeni.me/internet-playground/#/
+      text: angeni.me/internet-playground
+    - label: GitHub
+      url: https://github.com/angenibai/internet-playground
+      text: angenibai/internet-playground
   tags: [web-dev]
 
 - name: Can I Go Outside?
@@ -134,8 +179,13 @@
   longDescription: >
     <p>Official COVID-19 advice for your DMs 😉 - a Facebook Messenger bot that keeps you up to date with current restrictions. Developed with Ada Luong, Edwina Adisusila, Ingrid Norton and Giuliana De Bellis</p>
     <p>Watch the live pitch <a href="https://youtu.be/cMP0vDdQhRY?t=4040" target="_blank">here</a>!</p>
-  siteLink: https://youtu.be/cMP0vDdQhRY?t=4040
-  repoLink: https://github.com/angenibai/can-i-go-outside
+  links:
+    - label: Pitch
+      url: https://youtu.be/cMP0vDdQhRY?t=4040
+      text: YouTube
+    - label: GitHub
+      url: https://github.com/angenibai/can-i-go-outside
+      text: angenibai/can-i-go-outside
   tags: [hackathon]
 
 - name: The Celiac Paradox
@@ -145,5 +195,8 @@
     <p>A year-long independent research project for HSC Science Extension.</p>
     <p>Read the <a href="/other/celiac-paradox-report.pdf" target="_blank">report</a>, and check out the <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank">scripts</a> I used to process genetic data!</p>
     <p><strong>TLDR:</strong> When I found out that predisposition to celiac disease was genetic, I thought I could find some cool evidence of natural selection - where ethnic groups from societies that started growing gluten-containing cereals earliest in history would have lower frequency of the target genes. Turns out I was wrong! Instead, I found evidence of some other genetic factors at play.</p>
-  repoLink: https://github.com/angenibai/snp-population-frequencies
+  links:
+    - label: GitHub
+      url: https://github.com/angenibai/snp-population-frequencies
+      text: angenibai/snp-population-frequencies
   tags: [data]

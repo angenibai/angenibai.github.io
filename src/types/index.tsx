@@ -6,8 +6,18 @@ export interface ProjectContent {
   tags?: string[];
   actionButtons?: string;
   repoLink?: string;
+  repoLinkText?: string;
   siteLink?: string;
+  siteLinkText?: string;
   blogLink?: string;
+  blogLinkText?: string;
+  links?: Link[];
+}
+
+export interface Link {
+  label: string;
+  url: string;
+  text: string;
 }
 
 export interface PostMetadata {
