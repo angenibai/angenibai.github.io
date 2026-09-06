@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import YAML from "yaml";
+import { imageSize } from "image-size";
 
 import matter from "gray-matter";
 
@@ -81,6 +82,26 @@ export const getPaths = () => {
       },
     };
   });
+};
+
+// Reads intrinsic pixel dimensions for a root-relative /img/... path, so
+// next/image can be given real width/height instead of a guessed one. Only
+// handles local files under public/ - returns null (rather than throwing)
+// for anything else, or if the file is missing, so a bad path degrades to
+// a plain <img> instead of failing the build.
+export const getImageDimensions = (srcPath: string) => {
+  if (!srcPath.startsWith("/")) {
+    return null;
+  }
+
+  try {
+    const file = fs.readFileSync(path.join(process.cwd(), "public", srcPath));
+    const { width, height } = imageSize(file);
+
+    return width && height ? { width, height } : null;
+  } catch {
+    return null;
+  }
 };
 
 export const getAllPosts = async () => {

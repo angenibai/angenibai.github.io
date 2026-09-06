@@ -15,11 +15,14 @@ Angeni Bai's personal website (angeni.me), a Next.js (Pages Router) + TypeScript
 ## Commands
 
 ```
-npm run dev     # start dev server
-npm run build   # production build (also type-checks)
-npm run start   # serve the production build
-npm run lint    # next lint (eslint-config-next)
+npm run dev              # start dev server
+npm run build            # production build (also type-checks)
+npm run start            # serve the production build
+npm run lint             # next lint (eslint-config-next)
+npm run optimize-images  # resize/recompress oversized images under public/img (requires ImageMagick)
 ```
+
+Run `optimize-images` before committing new screenshots — see `scripts/optimize-images.sh` for flags (`--dry-run`, `--max-width`).
 
 There is no test suite configured in this repo.
 

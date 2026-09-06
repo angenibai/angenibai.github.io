@@ -1,5 +1,5 @@
 import PageLayout from "@/components/PageLayout";
-import { getFileData, getPaths } from "@/lib/api";
+import { getFileData, getImageDimensions, getPaths } from "@/lib/api";
 import { PostData } from "@/types";
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import { ParsedUrlQuery } from "querystring";
@@ -8,6 +8,7 @@ import {
   PluggableList,
   ReactMarkdown,
 } from "react-markdown/lib/react-markdown";
+import NextImage from "next/image";
 import styles from "@/styles/Post.module.css";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -18,7 +19,7 @@ interface Params extends ParsedUrlQuery {
   slug: string;
 }
 
-const Post = ({ slug, source, metadata }: PostData) => {
+const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
   if (!slug || !source || !metadata) {
     return (
       <>
@@ -42,15 +43,27 @@ const Post = ({ slug, source, metadata }: PostData) => {
               })}
             </p>
           </div>
-          {metadata.splashImageSource && (
-            <div className={styles.postHeadingImageWrap}>
-              <img
-                src={metadata.splashImageSource}
-                alt={metadata.splashImageCaption}
-                loading="lazy"
-              />
-            </div>
-          )}
+          {metadata.splashImageSource &&
+            (splashImageDimensions ? (
+              <div className={styles.postHeadingImageWrap}>
+                <NextImage
+                  src={metadata.splashImageSource}
+                  alt={metadata.splashImageCaption || ""}
+                  width={splashImageDimensions.width}
+                  height={splashImageDimensions.height}
+                  priority
+                />
+              </div>
+            ) : (
+              <div className={styles.postHeadingImageWrap}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={metadata.splashImageSource}
+                  alt={metadata.splashImageCaption}
+                  loading="lazy"
+                />
+              </div>
+            ))}
         </div>
         <div className={styles.postContent}>
           <ReactMarkdown
@@ -106,6 +119,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
         ...data,
         date: data.date.toISOString(),
       },
+      splashImageDimensions: data.splashImageSource
+        ? getImageDimensions(data.splashImageSource)
+        : null,
     },
   };
 };

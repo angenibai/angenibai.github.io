@@ -65,24 +65,30 @@ Still open:
 
 ## Image optimization
 
-`public/img` is ~52MB; several PNG screenshots run 2–2.6MB each (e.g.
-`sml-21.png`, the `easter-show-value/showbag-highlight-*.png` set). None of
-this is optimized:
+Done for the two cheap wins — see `plans/IMAGE_OPTIMIZATION_PLAN.md`.
 
-- `BioPanel.tsx` and `ProjectTile.tsx` already use `next/image` — fine as-is.
-- Post splash images and every image inside post Markdown bodies are plain
-  `<img>` tags, so both bypass `next/image`'s optimization (Next's linter
-  flags the splash image at `[slug].tsx:47`). Markdown body images now do
-  route through a custom renderer (`src/components/markdown/Image.tsx`,
-  wired up via `components={{ img: Image }}` in `[slug].tsx`) - that part of
-  the fix below is done - but that component still renders a plain `<img>`,
-  so the `next/image` swap itself is still outstanding.
-- Two-part fix:
-  1. Compress/resize the source screenshots before they're committed — most
-     are full-resolution macOS screenshots that could shrink 70–90% with no
-     visible quality loss at display size.
-  2. Swap the plain `<img>` in `src/components/markdown/Image.tsx` (and the
-     splash image in `[slug].tsx`) for `next/image`.
+- `scripts/optimize-images.sh` (`npm run optimize-images`) resizes/recompresses
+  any image over 1600px wide in place via ImageMagick, keeping filenames
+  unchanged so no `_data/` reference needs updating. It's a maintenance
+  script, not a one-off — run it before committing new screenshots.
+- The post splash image (`src/pages/posts/[slug].tsx`) now uses `next/image`
+  with real dimensions read at build time via `getImageDimensions()` in
+  `src/lib/api.ts` (falls back to a plain `<img>` if the file can't be read).
+- `next.config.js` sets `images.unoptimized: true`, anticipating a likely
+  GitHub Pages static-export deploy (which requires this or a custom loader)
+  — harmless under a Node host too, just skips the on-the-fly optimizer.
+
+**Deliberately not done:** swapping the ~70 inline markdown-body screenshots
+(`src/components/markdown/Image.tsx`) to `next/image`. Doing that correctly
+needs real per-image dimensions, which for arbitrary markdown content means
+regex-scanning raw markdown for image sources (a second, best-effort parser
+alongside `react-markdown`'s own) and threading a src→dimensions map through
+the `ReactMarkdown` `img` override — real complexity for a benefit
+(layout-shift prevention) that's separate from the actual problem (load
+lag), which the compression script already fixes regardless of which tag
+renders the image. Markdown body images stay as plain `<img loading="lazy">`.
+Revisit only if layout shift on those images becomes an actual complaint,
+not by default.
 
 ## SEO
 

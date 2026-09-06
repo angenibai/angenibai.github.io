@@ -42,6 +42,7 @@ export interface PostData {
   source: any | undefined;
   excerpt?: string;
   metadata: PostMetadata | undefined;
+  splashImageDimensions?: { width: number; height: number } | null;
 }
 
 // The list page never renders post bodies, and shipping them would put every
