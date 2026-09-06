@@ -6,6 +6,24 @@
     grid-auto-flow: dense;
 }
 
+.projectFeed {
+    width: 100%;
+    column-count: 3;
+    column-gap: 1.2rem;
+}
+
+@media (max-width: 920px) {
+    .projectFeed {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 640px) {
+    .projectFeed {
+        column-count: 1;
+    }
+}
+
 /* Pressable tile - the model and its timings are documented in
    Button.module.css. One difference: there is no .pressed state, because
    selection is local React state with no navigation gap to bridge */
@@ -22,8 +40,13 @@
     align-items: flex-start;
     display: flex;
     flex-direction: column;
-    min-height: 180px;
+    /* min-height: 180px; */
     padding: 1rem;
+
+    height: fit-content;
+    margin-bottom: 1.2rem;
+    break-inside: avoid;
+    padding-bottom: 1.1rem;
 }
 
 .projectTile:not(.isSelected):active,
@@ -58,54 +81,12 @@
     }
 }
 
-.fullWidthTile {
-    border: var(--border-width) dashed var(--color-primary);
-    grid-column: 1 / -1;
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    min-height: 180px;
-    padding: 1rem;
-}
-
-.isHidden {
-    transition: transform 0.4s ease;
-    transform-origin: top;
-    transform: scaleY(0);
-}
-
 .displayNone {
     display: none;
 }
 
-.fullWidthDescription p, .fullWidthDescription ul, .fullWidthDescription ol {
-    margin-bottom: 1rem;
-}
-
-.fullWidthDescription li {
-    margin-bottom: 0.4rem;
-}
-
 .tileContent {
     width: 100%;
-}
-
-.tileImageDiv {
-    float: right;
-    margin: 0px 0px 24px 24px;
-    border: var(--border-width) solid var(--color-primary);
-    box-shadow: 3px 3px var(--color-primary);
-    width: 400px;
-    max-width: 98%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.tileImage {
-    width: 100%;
-    height: auto;
 }
 
 .tileHeader {
@@ -119,10 +100,6 @@
     margin-bottom: 0.5rem;
 }
 
-.fullWidthHeader {
-    margin-bottom: 1rem;
-}
-
 .tileDescription {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -132,13 +109,4 @@
     display: -webkit-box;
     font-size: 1.1rem;
     line-height: 1.4rem;
-}
-
-.fullWidthFooter {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    gap: 0.7rem;
-    margin-top: 2rem;
-    margin-bottom: 0.5rem;
 }

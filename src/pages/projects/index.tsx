@@ -40,7 +40,7 @@ const Projects = ({ projects }: ProjectsProps) => {
             fun things I&apos;ve made - sometimes with friends
           </p>
         </div>
-        <div className={styles.projectGrid}>
+        <div className={styles.projectFeed}>
           {projects.map((project, idx) => {
             return (
               <ProjectTile

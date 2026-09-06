@@ -1,4 +1,4 @@
-- name: Chomp - A Maze Game 🥕
+- name: "Chomp: A Maze Game 🥕"
   id: chomp
   imgSrc: /img/chomp/chomp-title.png
   shortDescription: Imagine Fireboy and Watergirl getting lost in endless mazes...
@@ -99,21 +99,21 @@
       text: angenibai/informatics-leaderboard
   tags: [web-dev]
 
-- name: This website 😁 # Project name, also used as heading
-  id: website # Project id, must be unique amongst the projects
-  imgSrc: /img/website/angeni-website-landing.png # Optional image
-  shortDescription: Finally setting up my own corner of the internet # Description shown at all times, text only
-  longDescription:
-    > # Description shown only when the project card is expanded, HTML only
-    <p>This website was set up using:</p> 
-    <ul>
-      <li>Next.js</li>
-    </ul>
-  links:
-    - label: Site
-      url: https://angenibai.github.io/
-      text: angenibai.github.io
-  tags: [web-dev] # A list of tags
+# - name: This website 😁 # Project name, also used as heading
+#   id: website # Project id, must be unique amongst the projects
+#   imgSrc: /img/website/angeni-website-landing.png # Optional image
+#   shortDescription: Finally setting up my own corner of the internet # Description shown at all times, text only
+#   longDescription:
+#     > # Description shown only when the project card is expanded, HTML only
+#     <p>This website was set up using:</p> 
+#     <ul>
+#       <li>Next.js</li>
+#     </ul>
+#   links:
+#     - label: Site
+#       url: https://angenibai.github.io/
+#       text: angenibai.github.io
+#   tags: [web-dev] # A list of tags
 
 - name: CSESoc Media
   id: csesoc-media
