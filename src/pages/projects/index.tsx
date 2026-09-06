@@ -13,18 +13,15 @@ interface ProjectsProps {
 
 const Projects = ({ projects }: ProjectsProps) => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleProjectClick = (idx: number) => {
-    // close if already open
-    if (idx === selectedProject) {
-      setSelectedProject(null);
-    } else {
-      setSelectedProject(idx);
-    }
+    setSelectedProject(idx);
+    setIsModalOpen(true);
   };
 
   const handleClose = () => {
-    setSelectedProject(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -58,7 +55,7 @@ const Projects = ({ projects }: ProjectsProps) => {
             selectedProject !== null ? projects[selectedProject] : projects[0]
           }
           onClose={() => handleClose()}
-          isOpen={selectedProject !== null}
+          isOpen={isModalOpen}
         />
       </PageLayout>
     </>

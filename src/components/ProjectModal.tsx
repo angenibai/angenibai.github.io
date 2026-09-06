@@ -13,10 +13,6 @@ interface ProjectModalProps {
 const ProjectModal = (props: ProjectModalProps) => {
   const { content, onClose, isOpen } = props;
 
-  if (!isOpen) {
-    return null;
-  }
-
   const handleOverlayClick = (event: MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose(event);
@@ -24,7 +20,10 @@ const ProjectModal = (props: ProjectModalProps) => {
   };
 
   return (
-    <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+    <div
+      className={`${styles.modalOverlay} ${isOpen && styles.modalOpen}`}
+      onClick={handleOverlayClick}
+    >
       <div className={styles.modalPanel}>
         <div className={styles.modalHeader}>
           <div className={styles.projectTitle}>
