@@ -63,13 +63,16 @@ page. Any rework must keep that property.
 
 ## 2. Missing names, states and page titles
 
-**`src/components/Footer.tsx:13-18`** — the GitHub and LinkedIn links contain
-only a `<FontAwesomeIcon>`, and `@fortawesome/fontawesome-svg-core` marks the
-SVG it generates `aria-hidden="true"`. Both links therefore have an **empty
-accessible name**: a screen reader announces "link", twice, with nothing else.
-This is the clearest WCAG 4.1.2 / 2.4.4 failure in the component tree.
+**Fixed — `src/components/Footer.tsx:13-22`.** The GitHub and LinkedIn links
+contain only a `<FontAwesomeIcon>`, and `@fortawesome/fontawesome-svg-core`
+marks the SVG it generates `aria-hidden="true"`, so both links had an **empty
+accessible name**: a screen reader announced "link", twice, with nothing else.
+This was the clearest WCAG 4.1.2 / 2.4.4 failure in the component tree. Now
+`aria-label="GitHub"` / `aria-label="LinkedIn"` on the `<a>` elements.
 
-> Fix: `aria-label="GitHub"` / `aria-label="LinkedIn"` on the `<a>` elements.
+> Still open: these are also the `target="_blank"` without
+> `rel="noopener noreferrer"` instances from Section 4 — that part is
+> untouched, see the Section 4 entry.
 
 **`src/pages/posts/[slug].tsx`** — there is no `NextSeo` call, so every post
 inherits `title="angeni bai"` from `DefaultSeo` (`_app.tsx:30`). Every page

@@ -10,10 +10,18 @@ const Footer = () => {
           <p>© angeni bai</p>
         </div>
         <div className={styles.linksBox}>
-          <a href="https://github.com/angenibai" target="_blank">
+          <a
+            href="https://github.com/angenibai"
+            target="_blank"
+            aria-label="GitHub"
+          >
             <FontAwesomeIcon icon={faGithub} className={styles.icon} />
           </a>
-          <a href="https://linkedin.com/in/angeni-bai" target="_blank">
+          <a
+            href="https://linkedin.com/in/angeni-bai"
+            target="_blank"
+            aria-label="LinkedIn"
+          >
             <FontAwesomeIcon icon={faLinkedin} className={styles.icon} />
           </a>
         </div>
