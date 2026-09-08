@@ -1,23 +1,35 @@
+/* .modalOverlay is now the <dialog> element itself, not a wrapper div. The
+   UA stylesheet's `dialog:not([open]) { display: none }` is what keeps the
+   closed modal genuinely hidden from assistive tech (see ACCESSIBILITY.md
+   Section 5) - display is deliberately not redeclared in this base rule so
+   that invariant stays platform-owned rather than re-implemented here. */
 .modalOverlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    border: none;
+    padding: 0;
     background-color: rgba(255, 255, 255, 0.4);
     justify-content: center;
     align-items: center;
-    z-index: 1000;
 
-    display: none;
-
-    transition: display 0.2s ease-in;
-    transition-behavior: allow-discrete;
+    /* Exit animation is Chromium-only - see ACCESSIBILITY.md Section 1 and
+       FUTURE_WORK.md > Animation polish. Animating a <dialog> out requires
+       transitioning `overlay`, because the element leaves the top layer the
+       instant close() is called; `overlay` has no Safari/Firefox support as
+       of writing, so there the modal snaps shut instead of scaling out. The
+       open animation below is unaffected everywhere - @starting-style on
+       transform needs no top-layer participation. */
+    transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete;
 }
 
-.modalOverlay.modalOpen {
+.modalOverlay[open] {
     display: flex;
-    transition-delay: 0s;
 }
 
 .modalPanel {
@@ -33,30 +45,29 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    z-index: 1001;
-    
+
     transform: scale(0);
     transition: transform 0.3s ease-out;
 }
 
-.modalOverlay.modalOpen .modalPanel {
+.modalOverlay[open] .modalPanel {
     transform: scale(1);
 }
 
 @starting-style {
-    .modalOverlay.modalOpen .modalPanel {
+    .modalOverlay[open] .modalPanel {
         transform: scale(0);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .modalOverlay {
-        transition: opacity 0.15s linear, display 0.15s linear;
+        transition: opacity 0.15s linear, display 0.15s linear, overlay 0.15s linear;
         transition-behavior: allow-discrete;
         opacity: 0;
     }
 
-    .modalOverlay.modalOpen {
+    .modalOverlay[open] {
         opacity: 1;
     }
 
@@ -67,10 +78,17 @@
     }
 
     @starting-style {
-        .modalOverlay.modalOpen {
+        .modalOverlay[open] {
             opacity: 0;
         }
     }
+}
+
+/* The dialog paints its own scrim (above), so the ::backdrop stays inert and
+   transparent - keeping the scrim on the dialog itself is what makes the
+   backdrop click detectable via event.target === the dialog element. */
+.modalOverlay::backdrop {
+    background: transparent;
 }
 
 .modalHeader {

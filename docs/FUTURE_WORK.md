@@ -50,6 +50,15 @@ Still open:
   project tiles follow it in `ProjectGrid.module.css`.
 - Nav between pages could be more smooth than the current immediate switch
 - Custom pointer?
+- **Regression from the native-`<dialog>` project modal rebuild**: the
+  scale-out close animation only plays in Chromium
+  (`ProjectModal.module.css`, `.modalOverlay`'s `transition`). It needs the
+  `overlay` CSS property to animate a `<dialog>` out of the top layer, and
+  `overlay` has no Safari/Firefox support as of writing, so those browsers
+  snap the modal shut instead. Full writeup in
+  [ACCESSIBILITY.md](ACCESSIBILITY.md#1-blocking--projects-is-unusable-by-keyboard).
+  Revisit once `overlay` ships elsewhere, or by delaying `close()` behind a
+  `transitionend`/timeout.
 
 ## Responsive header
 

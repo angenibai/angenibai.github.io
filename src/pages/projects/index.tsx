@@ -1,7 +1,7 @@
 import styles from "@/styles/components/ProjectGrid.module.css";
 import ProjectTile from "@/components/ProjectTile";
 import { ProjectContent } from "@/types";
-import { useState } from "react";
+import { MouseEvent, useRef, useState } from "react";
 import { NextSeo } from "next-seo";
 import { getAllProjects } from "@/lib/api";
 import PageLayout from "@/components/PageLayout";
@@ -16,7 +16,16 @@ const Projects = ({ projects }: ProjectsProps) => {
   const [modalContent, setModalContent] = useState<ProjectContent>(projects[0]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleProjectClick = (idx: number) => {
+  // dialog.close() already restores focus to the previously-focused element
+  // in current browsers, which is always the tile that opened it - this ref
+  // is belt-and-braces, and covers the keyboard-Escape path identically.
+  const lastTileRef = useRef<HTMLButtonElement | null>(null);
+
+  const handleProjectClick = (
+    idx: number,
+    event: MouseEvent<HTMLButtonElement>,
+  ) => {
+    lastTileRef.current = event.currentTarget;
     setSelectedProject(idx);
     setModalContent(projects[idx]);
     setIsModalOpen(true);
@@ -25,6 +34,7 @@ const Projects = ({ projects }: ProjectsProps) => {
   const handleClose = () => {
     setIsModalOpen(false);
     setSelectedProject(null);
+    lastTileRef.current?.focus();
   };
 
   return (
@@ -47,14 +57,14 @@ const Projects = ({ projects }: ProjectsProps) => {
                 key={`project-${idx}`}
                 content={project}
                 isExpanded={selectedProject !== null && selectedProject === idx}
-                onClick={() => handleProjectClick(idx)}
+                onClick={(event) => handleProjectClick(idx, event)}
               />
             );
           })}
         </div>
         <ProjectModal
           content={modalContent}
-          onClose={() => handleClose()}
+          onClose={handleClose}
           isOpen={isModalOpen}
         />
       </PageLayout>

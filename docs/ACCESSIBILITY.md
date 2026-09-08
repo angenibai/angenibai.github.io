@@ -86,24 +86,56 @@ This landed as its own commit ahead of the `<dialog>` rework below: it makes
 the modal keyboard-*dismissable* one step before it becomes keyboard-
 *reachable*.
 
-**`src/components/ProjectModal.tsx:22-27`** — the dialog has no dialog
+**Fixed — `src/components/ProjectModal.tsx`.** The dialog had no dialog
 semantics: no `role="dialog"`, no `aria-modal`, no `aria-labelledby` pointing
-at its `<h2>`, no Escape handling (there is not a single `onKeyDown` anywhere
+at its `<h2>`, no Escape handling (there was not a single `onKeyDown` anywhere
 in `src/`), no focus moved into it on open, no focus trap, no focus restored on
-close, and the page behind stays in the tab order. Dismissal is click-outside
+close, and the page behind stayed in the tab order. Dismissal was click-outside
 only, i.e. mouse-exclusive.
 
-> Fix: switch the overlay to a native `<dialog>` driven by `showModal()` /
-> `close()` in an effect keyed on `isOpen`. Escape, focus containment, backdrop
-> inertness and top-layer stacking then come from the platform instead of a
-> hand-rolled focus trap. The existing `@starting-style` scale animation moves
-> onto `dialog[open]` and `::backdrop`. Focus restoration still needs a
-> `useRef` on the last-clicked tile in `src/pages/projects/index.tsx`.
+Rebuilt on a native `<dialog>` driven by `showModal()` / `close()` in an
+effect keyed on `isOpen`. `role="dialog"`, `aria-modal`, Escape, focus
+containment, backdrop inertness and top-layer stacking all now come from the
+platform rather than a hand-rolled focus trap; the `<h2>` carries
+`id="project-modal-title"` and the dialog points `aria-labelledby` at it. The
+existing `@starting-style` scale animation moved onto `.modalOverlay[open]`.
+Focus restoration uses a `useRef` on the last-clicked tile in
+`src/pages/projects/index.tsx`, though `dialog.close()` already restores focus
+to it on its own in current browsers — the ref is belt-and-braces and covers
+the keyboard-Escape path identically.
 
-Worth preserving: the closed overlay is `display: none`
-(`ProjectModal.module.css:12`), so the always-mounted modal is genuinely hidden
-from assistive tech rather than leaking the first project's content into the
-page. Any rework must keep that property.
+The closed overlay stays genuinely hidden from assistive tech, as before, but
+that invariant is now platform-owned rather than an explicit `display: none`:
+the UA stylesheet's `dialog:not([open]) { display: none }` is what does it,
+which is why `.modalOverlay`'s base rule deliberately does not declare
+`display` at all — only `.modalOverlay[open] { display: flex }`.
+
+**Regression introduced by this fix: the close animation, outside Chromium.**
+Animating a native `<dialog>` *out* requires transitioning the `overlay`
+property with `allow-discrete`, because the element leaves the top layer the
+instant `close()` is called:
+
+```css
+transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete;
+```
+
+`overlay` is Chromium-only as of writing, so **in Safari and Firefox the modal
+now snaps shut instead of scaling out**, where the previous hand-rolled
+overlay animated out in every browser. The open animation is unaffected
+everywhere — `@starting-style` on `transform` needs no top-layer
+participation. This is the price of getting Escape, the focus trap, backdrop
+inertness and top-layer stacking from the platform instead of owning ~60 lines
+of focus-trap code; worth taking, worth revisiting. Recorded here, as an
+inline comment on the `transition` in `ProjectModal.module.css`, and as a
+bullet under **Animation polish** in
+[FUTURE_WORK.md](FUTURE_WORK.md#animation-polish). Revisit paths: wait for
+`overlay` to ship in Safari/Firefox (no code change needed), or delay the
+actual `close()` call behind a `transitionend`/timeout while driving the exit
+with a class — which re-introduces a small amount of the hand-rolled state
+this fix deleted.
+
+Not yet verified against a real screen reader — see the closing note at the
+end of this document.
 
 ## 2. Missing names, states and page titles
 
@@ -331,7 +363,10 @@ untracked, so committing `globals.css` without them silently falls back to
   `#093426` panel. Task-list checkboxes pair colour with a `✔` glyph
   (`globals.css:95-106`) rather than relying on fill alone.
 - No `outline: none` anywhere; `prefers-reduced-motion` in all five animating
-  files; the closed modal is `display: none` rather than merely transparent.
+  files; the closed modal is genuinely hidden from assistive tech rather than
+  merely transparent — now via the native `<dialog>`'s own
+  `dialog:not([open]) { display: none }`, so `.modalOverlay`'s base rule must
+  keep not declaring `display` itself (see Section 1).
 - `--color-accent` (`#93748A`) is **unused**. At 3.87:1 on cream it fails AA
   for normal text — if it is ever adopted, restrict it to large text or
   non-text UI.
@@ -342,8 +377,12 @@ untracked, so committing `globals.css` without them silently falls back to
 
 ---
 
-This review was static and read-only: no fixes have been applied, and nothing
-was verified against a real screen reader or in a browser. A pass with
-VoiceOver (⌘F5) on `/`, `/projects`, `/posts` and one post would be the natural
-next step, particularly to confirm the landmark and heading findings in
+This started as a static, read-only review; Sections 1 and 2 (plus the
+nested-`<main>` finding pulled forward from Section 3) have since been fixed,
+per [plans/ACCESSIBILITY_P0_PLAN.md](../plans/ACCESSIBILITY_P0_PLAN.md).
+Nothing here has been verified against a real screen reader or in a browser,
+though. A pass with VoiceOver (⌘F5) on `/`, `/projects`, `/posts` and one post
+is the natural next step — particularly on `/projects`, since the rebuilt
+`<dialog>` is the piece with the most platform behaviour and the least static
+verifiability, and to confirm the remaining landmark and heading findings in
 Section 3.

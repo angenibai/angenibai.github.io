@@ -1,33 +1,70 @@
 import styles from "@/styles/components/ProjectModal.module.css";
 import buttonStyles from "@/styles/components/Button.module.css";
 import { ProjectContent } from "@/types";
-import { MouseEvent, MouseEventHandler } from "react";
+import { MouseEvent, useEffect, useRef } from "react";
 import Image from "next/image";
 
 interface ProjectModalProps {
   content: ProjectContent;
-  onClose: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
+  onClose: () => void;
   isOpen?: boolean;
 }
 
 const ProjectModal = (props: ProjectModalProps) => {
   const { content, onClose, isOpen } = props;
 
-  const handleOverlayClick = (event: MouseEvent<HTMLDivElement>) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  // showModal()/close() are imperative DOM calls, not props - this effect is
+  // the bridge from `isOpen` to the dialog's actual open state. showModal()
+  // is also what supplies Escape, the focus trap, backdrop inertness and
+  // top-layer stacking; none of that is hand-rolled here.
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (isOpen && !dialog.open) {
+      dialog.showModal();
+    } else if (!isOpen && dialog.open) {
+      dialog.close();
+    }
+  }, [isOpen]);
+
+  // Escape closes the dialog natively, without going through React, so
+  // `onClose` has to be wired to the dialog's own `close` event rather than
+  // only to the buttons below - otherwise isModalOpen/selectedProject in the
+  // parent go stale after Escape and the tile behind keeps its sunk state.
+  // Re-entrant and safe: the effect's dialog.close() above fires this same
+  // handler, which calls onClose() into already-false state, which re-renders
+  // to nothing.
+  const handleDialogClose = () => {
+    onClose();
+  };
+
+  // With a single <dialog> there is no separate backdrop node - a backdrop
+  // click has event.target === the dialog element itself. This only holds
+  // because the dialog carries no padding/border of its own; all panel chrome
+  // is on .modalPanel.
+  const handleDialogClick = (event: MouseEvent<HTMLDialogElement>) => {
     if (event.target === event.currentTarget) {
-      onClose(event);
+      onClose();
     }
   };
 
   return (
-    <div
-      className={`${styles.modalOverlay} ${isOpen && styles.modalOpen}`}
-      onClick={handleOverlayClick}
+    <dialog
+      ref={dialogRef}
+      className={styles.modalOverlay}
+      aria-labelledby="project-modal-title"
+      onClose={handleDialogClose}
+      onClick={handleDialogClick}
     >
       <div className={styles.modalPanel}>
         <div className={styles.modalHeader}>
           <div className={styles.projectTitle}>
-            <h2 className="invertColor">{content.name}</h2>
+            <h2 id="project-modal-title" className="invertColor">
+              {content.name}
+            </h2>
           </div>
           <button
             type="button"
@@ -94,7 +131,7 @@ const ProjectModal = (props: ProjectModalProps) => {
           </>
         )}
       </div>
-    </div>
+    </dialog>
   );
 };
 
