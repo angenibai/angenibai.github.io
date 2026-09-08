@@ -10,15 +10,14 @@
     z-index: 1000;
 
     display: none;
-    opacity: 0;
 
-    transition: opacity 0.3s ease, display 0.3s ease, overlay 0.3s ease;
+    transition: display 0.2s ease-in;
     transition-behavior: allow-discrete;
 }
 
 .modalOverlay.modalOpen {
     display: flex;
-    opacity: 1;
+    transition-delay: 0s;
 }
 
 .modalPanel {
@@ -36,8 +35,8 @@
     gap: 0.5rem;
     z-index: 1001;
     
-    transform: scale(0.8);
-    transition: transform 0.3s ease;
+    transform: scale(0);
+    transition: transform 0.3s ease-out;
 }
 
 .modalOverlay.modalOpen .modalPanel {
@@ -45,12 +44,32 @@
 }
 
 @starting-style {
-    .modalOverlay.modalOpen {
+    .modalOverlay.modalOpen .modalPanel {
+        transform: scale(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modalOverlay {
+        transition: opacity 0.15s linear, display 0.15s linear;
+        transition-behavior: allow-discrete;
         opacity: 0;
     }
 
-    .modalOverlay.modalOpen .modalPanel {
-        transform: scale(0.8);
+    .modalOverlay.modalOpen {
+        opacity: 1;
+    }
+
+    /* Disable panel scaling completely */
+    .modalPanel {
+        transform: none !important;
+        transition: none !important;
+    }
+
+    @starting-style {
+        .modalOverlay.modalOpen {
+            opacity: 0;
+        }
     }
 }
 
