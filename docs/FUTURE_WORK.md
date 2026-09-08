@@ -92,11 +92,13 @@ not by default.
 
 ## SEO
 
-- `src/pages/posts/[slug].tsx` has no `NextSeo` call. Every individual post
-  currently inherits the generic site-wide title/description from
-  `DefaultSeo` in `_app.tsx`, and there's no per-post OG image — sharing a
-  post link anywhere shows no useful preview. This is the biggest concrete
-  SEO gap since posts are the main content type on the site.
+- `src/pages/posts/[slug].tsx` now sets a unique per-post `<NextSeo title>`
+  (see [ACCESSIBILITY.md](ACCESSIBILITY.md#2-missing-names-states-and-page-titles)),
+  but still has no per-post `description` or OG image — every post shares the
+  generic site-wide description from `DefaultSeo` in `_app.tsx`, and there's
+  no per-post OG image, so sharing a post link anywhere shows no useful
+  preview. `PostMetadata.blurb` already exists and is unused; it's the
+  obvious source for the description.
 - No `robots.txt` or `sitemap.xml` in `public/`. Low priority at this scale,
   but cheap to add (`next-sitemap` or a static file).
 

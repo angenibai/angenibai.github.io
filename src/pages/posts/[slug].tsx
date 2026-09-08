@@ -4,6 +4,7 @@ import { PostData } from "@/types";
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import { ParsedUrlQuery } from "querystring";
 import matter from "gray-matter";
+import { NextSeo } from "next-seo";
 import {
   PluggableList,
   ReactMarkdown,
@@ -31,6 +32,7 @@ const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
   return (
     <>
       <PageLayout>
+        <NextSeo title={`${metadata.title} | angeni bai`} />
         <div className={styles.postHeading}>
           <div className={styles.postHeadingText}>
             <h1 className={styles.postTitle}>{metadata.title}</h1>

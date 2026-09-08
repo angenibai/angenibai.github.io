@@ -74,12 +74,14 @@ This was the clearest WCAG 4.1.2 / 2.4.4 failure in the component tree. Now
 > `rel="noopener noreferrer"` instances from Section 4 — that part is
 > untouched, see the Section 4 entry.
 
-**`src/pages/posts/[slug].tsx`** — there is no `NextSeo` call, so every post
-inherits `title="angeni bai"` from `DefaultSeo` (`_app.tsx:30`). Every page
-under `/posts/*` therefore shares one non-unique title, which fails WCAG 2.4.2
-(Page Titled). This is already logged as the top SEO gap in
-[FUTURE_WORK.md](FUTURE_WORK.md#seo) — noting here that it is an accessibility
-failure too, which raises its priority.
+**Fixed — `src/pages/posts/[slug].tsx`.** There was no `NextSeo` call, so every
+post inherited `title="angeni bai"` from `DefaultSeo` (`_app.tsx:30`). Every
+page under `/posts/*` therefore shared one non-unique title, which failed WCAG
+2.4.2 (Page Titled). Now each post renders
+`<NextSeo title={`${metadata.title} | angeni bai`} />`, matching the pattern
+`projects/index.tsx` already used. The remaining SEO gap — no per-post
+description or OG image — is not an accessibility failure and stays open in
+[FUTURE_WORK.md](FUTURE_WORK.md#seo).
 
 **`src/components/NavLinks.tsx:14,19,25`** — the current page is conveyed only
 by the `.selected` fill and sink. `aria-current="page"` appears nowhere in the
