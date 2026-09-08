@@ -97,12 +97,15 @@
 }
 
 .modalCloseButton {
+    background: none;
+    font: inherit;
     padding: 3px 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
     color: var(--color-primary);
+    cursor: pointer;
 }
 
 .modalCloseIcon {

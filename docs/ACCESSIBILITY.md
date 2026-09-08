@@ -34,13 +34,21 @@ only. This is the most severe issue on the site.
 > reset, since the rule currently assumes a div. The dead `close` prop
 > (`:9`, `:20`) can go at the same time.
 
-**`src/components/ProjectModal.tsx:32-37`** — the close control is also a
-`<div onClick>`, and its only content is `&times;`. Not focusable, not
-keyboard-operable, and even if it were, its accessible name would be the
-multiplication sign. It borrows `buttonStyles.button`, so it inherits a
-`:focus-visible` rule it can never actually receive.
+**Fixed — `src/components/ProjectModal.tsx:32-39`.** The close control was
+also a `<div onClick>`, and its only content was `&times;`. Not focusable, not
+keyboard-operable, and even if it had been, its accessible name would have
+been the multiplication sign. It borrowed `buttonStyles.button`, so it
+inherited a `:focus-visible` rule (`Button.module.css:68`) it could never
+actually receive. Now `<button type="button" aria-label="Close">`, with the
+usual reset (`background: none`, `font: inherit`, `border: none`) added to
+`.modalCloseButton` (`ProjectModal.module.css`), since that class was written
+assuming a div. `.modalCloseIcon`'s `font-size: 54px` still sizes the glyph the
+same — that literal px value itself is the separate Section 4 text-resizing
+finding, untouched here.
 
-> Fix: `<button type="button" aria-label="Close">`.
+This landed as its own commit ahead of the `<dialog>` rework below: it makes
+the modal keyboard-*dismissable* one step before it becomes keyboard-
+*reachable*.
 
 **`src/components/ProjectModal.tsx:22-27`** — the dialog has no dialog
 semantics: no `role="dialog"`, no `aria-modal`, no `aria-labelledby` pointing

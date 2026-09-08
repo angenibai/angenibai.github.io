@@ -6,7 +6,7 @@ import Image from "next/image";
 
 interface ProjectModalProps {
   content: ProjectContent;
-  onClose: MouseEventHandler<HTMLDivElement>;
+  onClose: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
   isOpen?: boolean;
 }
 
@@ -29,12 +29,14 @@ const ProjectModal = (props: ProjectModalProps) => {
           <div className={styles.projectTitle}>
             <h2 className="invertColor">{content.name}</h2>
           </div>
-          <div
+          <button
+            type="button"
+            aria-label="Close"
             className={`${buttonStyles.button} ${styles.modalCloseButton}`}
             onClick={onClose}
           >
             <span className={styles.modalCloseIcon}>&times;</span>
-          </div>
+          </button>
         </div>
         {content.imgSrc && (
           <div className={styles.projectImageDiv}>
