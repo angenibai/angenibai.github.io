@@ -1,0 +1,277 @@
+# Accessibility
+
+Notes from a 2026-09-09 accessibility review of the site — a static read of
+`src/`, `src/styles/` and the four posts in `_data/posts/`. Nothing here has
+been fixed; every "Fix" below is a recommendation.
+
+The short version: **the content layer is in good shape and the projects page
+is not**. All 71 post-body images carry real descriptive alt text, contrast
+passes essentially everywhere, and `prefers-reduced-motion` is respected in
+every file that animates. But `/projects` cannot be operated by keyboard at
+all, and a handful of controls have no accessible name.
+
+Findings are ordered by severity. Section 5 records what already works, so a
+future change doesn't quietly undo it.
+
+## 1. Blocking — `/projects` is unusable by keyboard
+
+**`src/components/ProjectTile.tsx:24-27`** — the tile is a `<div onClick>` with
+no `tabIndex`, no `role`, and no key handler. It is the only way to open a
+project, so the entire page is unreachable by keyboard, and a screen reader
+announces it as a plain block of text with no hint that it does anything.
+`cursor: pointer` (`ProjectGrid.module.css:39`) advertises it to mouse users
+only. This is the most severe issue on the site.
+
+> Fix: make it a `<button type="button">`, and change `onClick` on
+> `ProjectPanelTileProps` (`:8`) from `MouseEventHandler<HTMLDivElement>` to
+> `MouseEventHandler<HTMLButtonElement>`. Add `aria-expanded={isExpanded}` and
+> `aria-haspopup="dialog"`. `.projectTile` (`ProjectGrid.module.css:28`) will
+> need `text-align: left`, `font: inherit`, `background: none` and a border
+> reset, since the rule currently assumes a div. The dead `close` prop
+> (`:9`, `:20`) can go at the same time.
+
+**`src/components/ProjectModal.tsx:32-37`** — the close control is also a
+`<div onClick>`, and its only content is `&times;`. Not focusable, not
+keyboard-operable, and even if it were, its accessible name would be the
+multiplication sign. It borrows `buttonStyles.button`, so it inherits a
+`:focus-visible` rule it can never actually receive.
+
+> Fix: `<button type="button" aria-label="Close">`.
+
+**`src/components/ProjectModal.tsx:22-27`** — the dialog has no dialog
+semantics: no `role="dialog"`, no `aria-modal`, no `aria-labelledby` pointing
+at its `<h2>`, no Escape handling (there is not a single `onKeyDown` anywhere
+in `src/`), no focus moved into it on open, no focus trap, no focus restored on
+close, and the page behind stays in the tab order. Dismissal is click-outside
+only, i.e. mouse-exclusive.
+
+> Fix: switch the overlay to a native `<dialog>` driven by `showModal()` /
+> `close()` in an effect keyed on `isOpen`. Escape, focus containment, backdrop
+> inertness and top-layer stacking then come from the platform instead of a
+> hand-rolled focus trap. The existing `@starting-style` scale animation moves
+> onto `dialog[open]` and `::backdrop`. Focus restoration still needs a
+> `useRef` on the last-clicked tile in `src/pages/projects/index.tsx`.
+
+Worth preserving: the closed overlay is `display: none`
+(`ProjectModal.module.css:12`), so the always-mounted modal is genuinely hidden
+from assistive tech rather than leaking the first project's content into the
+page. Any rework must keep that property.
+
+## 2. Missing names, states and page titles
+
+**`src/components/Footer.tsx:13-18`** — the GitHub and LinkedIn links contain
+only a `<FontAwesomeIcon>`, and `@fortawesome/fontawesome-svg-core` marks the
+SVG it generates `aria-hidden="true"`. Both links therefore have an **empty
+accessible name**: a screen reader announces "link", twice, with nothing else.
+This is the clearest WCAG 4.1.2 / 2.4.4 failure in the component tree.
+
+> Fix: `aria-label="GitHub"` / `aria-label="LinkedIn"` on the `<a>` elements.
+
+**`src/pages/posts/[slug].tsx`** — there is no `NextSeo` call, so every post
+inherits `title="angeni bai"` from `DefaultSeo` (`_app.tsx:30`). Every page
+under `/posts/*` therefore shares one non-unique title, which fails WCAG 2.4.2
+(Page Titled). This is already logged as the top SEO gap in
+[FUTURE_WORK.md](FUTURE_WORK.md#seo) — noting here that it is an accessibility
+failure too, which raises its priority.
+
+**`src/components/NavLinks.tsx:14,19,25`** — the current page is conveyed only
+by the `.selected` fill and sink. `aria-current="page"` appears nowhere in the
+codebase, so a screen reader user cannot tell which page they are on.
+
+> Fix: thread `aria-current="page"` through `ButtonLink` alongside the
+> `isSelected` prop it already takes.
+
+**`src/pages/posts/[slug].tsx:62`** — the plain-`<img>` fallback branch uses
+`alt={metadata.splashImageCaption}` without the `|| ""` that line 51 has. The
+caption is absent on every current post, so React omits the attribute entirely,
+producing an `<img>` with **no `alt` attribute at all** — which, unlike
+`alt=""`, fails WCAG 1.1.1 and makes screen readers fall back to the filename.
+A one-word fix; make it match line 51.
+
+**No skip link.** Keyboard users tab the site title plus three nav buttons on
+every page before reaching content (WCAG 2.4.1, Bypass Blocks). There is also
+nothing to build one from: neither `<main>` has an `id` (`Layout.tsx:12`,
+`PageLayout.tsx:15`), and `globals.css` has no `.sr-only` / `.visually-hidden`
+utility. For scale, the entire codebase contains exactly four ARIA attributes,
+all of them `aria-hidden="true"`.
+
+## 3. Document structure
+
+**Nested `<main>` elements.** `src/pages/_app.tsx:46` wraps every page in a
+`<main>` used only to carry the font CSS variables, and `Layout.tsx:12` /
+`PageLayout.tsx:15` render a second one inside it. Two `main` landmarks is
+invalid per the HTML content model, and it also nests `header` and `footer`
+inside a `main`, costing them their top-level landmark semantics.
+
+> Fix: make the outer one a `<div>`. It only exists to hold class names.
+
+**The home page has no `h1`.** `src/pages/index.tsx:13` opens at `<h3>` and
+`BioPanel.tsx:73,91` continue at `h4` / `h5` — heading levels chosen for size
+rather than structure (`.bigText` is 3rem, `Home.module.css:33`). Home also
+uses the bare `Layout` rather than `PageLayout`, so it has no `<header>` or
+`<footer>` landmark and `NavLinks` sits loose inside `<main>`. `/posts`,
+`/projects` and `/404` all get this right.
+
+**Nothing on the site is marked up as a list.** The post list
+(`posts/index.tsx:24-41`), project grid (`projects/index.tsx:43-55`), nav links
+(`NavLinks.tsx:13-29`), bio label/value pairs (`BioPanel.tsx:95-109`) and modal
+links (`ProjectModal.tsx:69-91`) are all divs. No `<ul>`, `<ol>` or `<dl>`
+appears anywhere in `src/`, so assistive tech never announces an item count.
+The two label/value structures are description lists in everything but markup.
+
+**`src/components/PostEntry.tsx:31-32`** — an `<h2>` inside a `<span>`, which
+accepts phrasing content only. Browsers parse it and it renders fine, but it
+fails validation and is fragile. Separately, the whole row is one link wrapping
+the heading, date and blurb, so the link's accessible name is all three
+concatenated, and the `·`-separated numeric date (`formatDate`, `:9-16`) reads
+ambiguously aloud. No `<time datetime>` is used anywhere on the site.
+
+**`src/components/markdown/Code.tsx:85`** — `PreTag="div"` strips `<pre>`
+semantics from every fenced code block, so code is announced as ordinary prose
+with no preformatted context and no language. The wrapper also lacks
+`tabIndex={0}`, so a horizontally scrolling block cannot be scrolled by
+keyboard. Inline code correctly uses `<code>` (`:93`).
+
+**`src/pages/posts/[slug].tsx:26`** — the error branch renders a bare `<h2>`
+outside `PageLayout`: no landmarks, no `h1`, no nav, no way out.
+
+**`.eslintrc.json` extends only `next/core-web-vitals`.** `jsx-a11y` is not
+enabled, which is the root reason the div-as-button and unnamed-link problems
+above went uncaught. Adding `plugin:jsx-a11y/recommended` is the single
+highest-leverage preventive change on this list — it would have flagged items
+1 and 2 automatically, and stops the whole class of bug recurring.
+
+## 4. Colour, focus and motion
+
+**Prose links are distinguished from body text by colour alone.**
+`globals.css:132-136` sets `a { text-decoration: none }`, with an underline
+only on `:hover` (`:138-140`). Link green `#0D4B37` inside body black `#292929`
+is a **~1.4:1** difference. WCAG 1.4.1 (Use of Color) wants at least 3:1 when
+colour is the only distinction, plus a non-colour cue available to keyboard and
+touch users — which `:hover` is not. It bites hardest at
+`src/pages/404.tsx:15`, where an unadorned inline link is the only way off the
+page.
+
+> Fix: underline links in prose — post bodies (`Post.module.css`
+> `.postContent a`) and BioPanel. `ProjectModal.module.css:162-164` already
+> does exactly this and is the precedent to generalise from. Scoping it to
+> prose leaves nav buttons, post-list rows and the masthead alone, since those
+> read as interactive from their own shape.
+
+**`.sneakyLink` stays deliberately un-underlined.** `globals.css:142-149` gives
+it no colour change, no weight change, and explicitly cancels the inherited
+hover underline. This is an intentional design decision, not an oversight, and
+it should survive the fix above. Recorded honestly: the riskiest instance is
+`BioPanel.tsx:42-48`, a mid-sentence outbound link on "kanzi apples" with no
+cue in any state, which also opens in a new tab unannounced. The masthead title
+(`Nav.tsx:10`) is contextually discoverable in a way a mid-prose link is not,
+so if one instance ever gets revisited, that is the one.
+
+**No designed focus indicator.** The good news first: `outline: none` appears
+**nowhere** in `src/styles/`, so the browser default focus ring is intact
+site-wide. But nothing is designed either — the codebase's one focus rule,
+`Button.module.css:68-74`, just re-applies the 2px hover lift, cancels the
+underline, and excludes `.selected`, so the current page's nav button gets no
+custom treatment at all.
+
+> Fix: an explicit `:focus-visible` outline in `globals.css` — e.g.
+> `3px solid var(--color-primary)` with `outline-offset: 2px` — so focus is
+> consistent and on-palette rather than browser-dependent against cream.
+
+**`target="_blank"` without `rel="noopener noreferrer"`**, and never announced
+as opening a new tab: `ButtonLink.tsx:57`, `Footer.tsx:13,16`,
+`BioPanel.tsx:42-48`, and the raw-HTML anchors in `_data/projects.yaml`
+(`:8`, `:9`, `:125-129`, `:142`, `:143`, `:181`, `:196`).
+`ProjectModal.tsx:80-84` is the only place that gets `rel` right — match it.
+`_data/projects.yaml:143,181` also use `"here"` as the link text (WCAG 2.4.4).
+
+**Three marginal contrast cases.** Everything else passes comfortably (see
+Section 5), but worth recording:
+
+| Where | Ratio | Note |
+|---|---|---|
+| Syntax comment green `#79A08F` on `#093426` (`Code.tsx:52`) | 4.73:1 | The narrowest passing margin on the site, at ~15px. Any darkening of the panel or lightening of the green drops it below AA. |
+| Table hairline `#0d4b378d` (`Post.module.css:140,149`) | 2.97:1 | Just under the 3:1 non-text threshold (WCAG 1.4.11). Arguably decorative. |
+| Modal scrim `rgba(255,255,255,0.4)` (`ProjectModal.module.css:7`) | ~1.03:1 | Visually inert — nothing signals the page behind is inactive. |
+
+**No `prefers-contrast` or forced-colors handling anywhere.** This matters more
+than usual here because depth and press-state are carried by `box-shadow`
+(`Button.module.css:41-50`), which Windows High Contrast Mode discards
+entirely, along with `background-color`. The `border` declarations survive so
+structure holds, but the pressed-vs-resting distinction does not.
+
+**Motion is well handled, with two gaps.** `prefers-reduced-motion` is
+respected in all five files that animate. Those blocks remove the `transition`
+but leave the `transform: translate(...)` on `:hover` / `:active`
+(`Button.module.css:41-50,58-66`, `ProjectGrid.module.css:50-58,69-76`), so
+elements still jump — minor, since an instant jump beats eased motion. The real
+gap is `src/hooks/usePostPreview.ts:20`: `TRACK_CURSOR` drives per-frame
+`translate3d` cursor tracking and honours no motion preference, making it the
+largest un-gated motion on the site.
+
+> Fix: add `and (prefers-reduced-motion: no-preference)` to `CAPABILITY_QUERY`
+> (`:25`), or gate `TRACK_CURSOR` on a `matchMedia` check — the panel still
+> appears, it is just placed once instead of following.
+
+**Text resizing.** `ProjectModal.module.css:109` sets `font-size: 54px` on the
+close `×` — the only literal-px font size in the codebase, and it is on a
+dismiss control, so it will not scale with a user's browser font-size
+preference. `BioPanel.module.css` hard-codes widths around text that does scale
+(`290px`, `240×320px` image frame, `80px` / `185px` label and value columns).
+Every media query is px-based, so layouts reflow on page zoom but not for a
+user who only raises their default font size.
+
+**Custom cursor** (currently uncommitted, `globals.css:20`). `cursor` is an
+inherited property and this is set on `:root`, so prose loses its text I-beam
+site-wide — the cue that text is selectable, which the site's elaborate
+`::selection` styling (`:171-222`) now advertises to nobody. The hotspot is
+also wrong: `arrowhead.svg` is 24×24 with its point at roughly `(5.5, 3)`, but
+the declared hotspot is `12 12`, the centre of the box, so clicks land about
+9px off in both axes — a precision problem for anyone with a motor impairment.
+A custom cursor also won't scale with OS pointer-size settings. Both SVGs are
+untracked, so committing `globals.css` without them silently falls back to
+`auto`.
+
+## 5. What already works — don't regress it
+
+- `<Html lang="en">` (`_document.tsx:5`), and the viewport meta permits zoom
+  (`_app.tsx:39-44`) — no `maximum-scale`, no `user-scalable=no`.
+- **All 71 post-body images carry descriptive alt text**, and it is genuinely
+  good: *"Diagram showing the pipeline from the frontend receiving the input,
+  sending the video id to the server…"*. Only three are weak ("Majik" ×2,
+  "this is fine"). The two charts in the Easter Show post have generic alt, but
+  each is immediately followed by a paragraph stating what it shows, so the
+  information is not lost.
+- Post bodies start at `##` and nest correctly under the page's `h1`.
+- The embedded YouTube iframe has `title="YouTube video player"`, and the four
+  `<figure>` / `<figcaption>` pairs are properly associated.
+- Decorative ornaments are correctly `aria-hidden`: the nav slash divider
+  (`Nav.tsx:14`), and the dot leader and pin marker (`PostEntry.tsx:30,33`).
+  Note the pin means "pinned" is conveyed by shape alone with no text
+  equivalent — a deliberate trade, but worth knowing.
+- `markdown/Image.tsx:9` guarantees an `alt` attribute always exists, so a
+  markdown author who omits one gets a decorative image, never a filename.
+- **The posts-list hover panel is the best-built thing on the site.** It is
+  `aria-hidden="true"` with `alt=""` because it duplicates content already in
+  the row's link, it has keyboard parity via `onFocus`/`onBlur`, it is
+  `pointer-events: none`, it is capability-gated to
+  `(hover: hover) and (min-width: 640px)`, and the reasoning is documented
+  inline. Use it as the reference for how to add a decorative affordance.
+- **Text contrast passes everywhere.** `#0D4B37` on `#FAF8F0` is 9.5:1;
+  `#292929` on `#FAF8F0` is 13.7:1; every `.invertColor` cream-on-green pairing
+  is 9.5:1; and every syntax token in `Code.tsx:49-63` clears 4.5:1 on the
+  `#093426` panel. Task-list checkboxes pair colour with a `✔` glyph
+  (`globals.css:95-106`) rather than relying on fill alone.
+- No `outline: none` anywhere; `prefers-reduced-motion` in all five animating
+  files; the closed modal is `display: none` rather than merely transparent.
+- `--color-accent` (`#93748A`) is **unused**. At 3.87:1 on cream it fails AA
+  for normal text — if it is ever adopted, restrict it to large text or
+  non-text UI.
+
+---
+
+This review was static and read-only: no fixes have been applied, and nothing
+was verified against a real screen reader or in a browser. A pass with
+VoiceOver (⌘F5) on `/`, `/projects`, `/posts` and one post would be the natural
+next step, particularly to confirm the landmark and heading findings in
+Section 3.

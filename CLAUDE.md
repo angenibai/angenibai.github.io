@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Docs index
 
 - [docs/DESIGN_LANGUAGE.md](docs/DESIGN_LANGUAGE.md) — the site's visual identity: color palette, typography pairing, borders-not-shadows, and where boldness vs. restraint belongs. Read before styling any new UI.
+- [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) — accessibility audit: current gaps ranked by severity, and what already works so it doesn't regress.
 - [docs/FUTURE_WORK.md](docs/FUTURE_WORK.md) — open items from a full-site review, not yet scheduled.
 - `plans/` — one-off implementation plans for specific features/changes (as opposed to ongoing notes, which live in `docs/`), kept after implementation as a record of decisions and gotchas encountered.
 
