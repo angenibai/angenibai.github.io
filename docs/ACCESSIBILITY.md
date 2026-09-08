@@ -19,20 +19,56 @@ future change doesn't quietly undo it.
 
 ## 1. Blocking — `/projects` is unusable by keyboard
 
-**`src/components/ProjectTile.tsx:24-27`** — the tile is a `<div onClick>` with
-no `tabIndex`, no `role`, and no key handler. It is the only way to open a
-project, so the entire page is unreachable by keyboard, and a screen reader
-announces it as a plain block of text with no hint that it does anything.
-`cursor: pointer` (`ProjectGrid.module.css:39`) advertises it to mouse users
-only. This is the most severe issue on the site.
+**Fixed — `src/components/ProjectTile.tsx`.** The tile was a `<div onClick>`
+with no `tabIndex`, no `role`, and no key handler. It was the only way to open
+a project, so the entire page was unreachable by keyboard, and a screen reader
+announced it as a plain block of text with no hint that it did anything.
+`cursor: pointer` (`ProjectGrid.module.css:39`) advertised it to mouse users
+only. This was the most severe issue on the site.
 
-> Fix: make it a `<button type="button">`, and change `onClick` on
-> `ProjectPanelTileProps` (`:8`) from `MouseEventHandler<HTMLDivElement>` to
-> `MouseEventHandler<HTMLButtonElement>`. Add `aria-expanded={isExpanded}` and
-> `aria-haspopup="dialog"`. `.projectTile` (`ProjectGrid.module.css:28`) will
-> need `text-align: left`, `font: inherit`, `background: none` and a border
-> reset, since the rule currently assumes a div. The dead `close` prop
-> (`:9`, `:20`) can go at the same time.
+Landed as a card with a stretched button inside the heading, not a `<button>`
+wrapping the whole tile:
+
+```tsx
+<div className={styles.projectTile}>
+  <div className={styles.tileContent}>
+    <h2 className={styles.tileHeader}>
+      <button type="button" className={styles.tileButton} aria-haspopup="dialog" onClick={onClick}>
+        {content.name}
+      </button>
+    </h2>
+    <p className={styles.tileDescription}>{content.shortDescription}</p>
+  </div>
+</div>
+```
+
+**Why not wrap the whole tile in a `<button>`.** `<button>` takes phrasing
+content only, so `<h2>`/`<p>` inside one is invalid — but the decisive reason
+is ARIA's *presentational children*: `role="button"` drops the roles of all
+descendants and flattens the subtree to a text string for the accessible name.
+A heading inside a button is therefore never exposed as a heading at all, in
+any browser, so wrapping the whole tile would have cost the project names
+their place in the heading outline (and dropped them from a screen reader's
+heading rotor) without buying anything — the same problem exists whether the
+heading tag is real or swapped for a styled `<span>`. It would also have made
+each tile's accessible name the title and description concatenated; with the
+button holding only the name, the name is just the name and the description
+reads as adjacent text.
+
+`::after { position: absolute; inset: 0 }` on `.tileButton` stretches the
+click target over the whole card (`.projectTile` gains `position: relative` as
+its containing block), so the hit area doesn't shrink to the title text.
+`aria-expanded` was deliberately **not** added, despite describing the
+open/closed state that already exists as `isExpanded` — it's the right
+attribute for a disclosure, but focus moves into the modal and the tile
+becomes inert behind it, so `aria-haspopup="dialog"` already carries the
+useful part. The dead `close` prop (`ProjectTile.tsx:9`, and
+`projects/index.tsx:51`) and unused `defaultTileContent` were removed in the
+same commit.
+
+**Known cost:** the stretched overlay sits over the title and description, so
+neither can be selected with the mouse. Inherent to the pattern — the
+alternative is a click target the size of the title text.
 
 **Fixed — `src/components/ProjectModal.tsx:32-39`.** The close control was
 also a `<div onClick>`, and its only content was `&times;`. Not focusable, not
@@ -299,6 +335,10 @@ untracked, so committing `globals.css` without them silently falls back to
 - `--color-accent` (`#93748A`) is **unused**. At 3.87:1 on cream it fails AA
   for normal text — if it is ever adopted, restrict it to large text or
   non-text UI.
+- Each project tile's heading stays a real `<h2>` even though it also holds
+  the click target (`ProjectTile.tsx`). If this ever gets "simplified" back to
+  a `<button>` wrapping the whole card, the project names disappear from the
+  heading outline — see the presentational-children reasoning under Section 1.
 
 ---
 

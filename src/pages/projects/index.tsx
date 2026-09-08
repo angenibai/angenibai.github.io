@@ -48,7 +48,6 @@ const Projects = ({ projects }: ProjectsProps) => {
                 content={project}
                 isExpanded={selectedProject !== null && selectedProject === idx}
                 onClick={() => handleProjectClick(idx)}
-                close={() => handleClose()}
               />
             );
           })}
