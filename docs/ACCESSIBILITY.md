@@ -107,12 +107,25 @@ semantics. This was pulled forward from Section 3 into this batch because the
 skip link below needs an unambiguous `<main>` to target. Now the outer element
 is a `<div>` — it only ever existed to hold class names.
 
-**No skip link.** Keyboard users tab the site title plus three nav buttons on
-every page before reaching content (WCAG 2.4.1, Bypass Blocks). There is also
-nothing to build one from: neither `<main>` has an `id` (`Layout.tsx:12`,
-`PageLayout.tsx:15`), and `globals.css` has no `.sr-only` / `.visually-hidden`
-utility. For scale, the entire codebase contains exactly four ARIA attributes,
-all of them `aria-hidden="true"`.
+**Fixed — no skip link, `src/components/PageLayout.tsx`.** Keyboard users had
+to tab the site title plus three nav buttons on every page before reaching
+content (WCAG 2.4.1, Bypass Blocks). There was also nothing to build one from:
+neither `<main>` had an `id`, and `globals.css` had no `.sr-only` /
+`.visually-hidden` utility. Now `PageLayout` renders a `.skip-link` anchor as
+its first child, pointing at `#main-content`, which the `<main>` carries along
+with `tabIndex={-1}` — required, because without it the fragment target is not
+focusable and Chrome/Safari move the scroll position but not focus, so the
+next Tab would return to the top of the nav. `globals.css` gained both a
+`.skip-link` rule (off-screen until `:focus`, then painted on-palette) and a
+general-purpose `.visually-hidden` utility for anything hidden-but-announced
+in future, so the next person doesn't add a second one.
+
+`Layout.tsx` (home) is deliberately untouched: it renders no `<header>`, so
+there is nothing to skip past — `NavLinks` already sits inside its `<main>`.
+That gap is the Section 3 "home page" structural finding, not this one. Only
+`/posts`, `/posts/*`, `/projects` and `/404` go through `PageLayout` and get
+the skip link. For scale, the entire codebase contains exactly four ARIA
+attributes before this batch, all of them `aria-hidden="true"`.
 
 ## 3. Document structure
 
