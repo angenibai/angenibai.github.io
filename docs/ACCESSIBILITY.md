@@ -98,6 +98,15 @@ entirely, producing an `<img>` with **no `alt` attribute at all** — which,
 unlike `alt=""`, fails WCAG 1.1.1 and makes screen readers fall back to the
 filename. Now matches line 51.
 
+**Fixed — nested `<main>` elements, `src/pages/_app.tsx:46`.** This wrapped
+every page in a `<main>` used only to carry the font CSS variables, and
+`Layout.tsx:12` / `PageLayout.tsx:15` rendered a second one inside it. Two
+`main` landmarks is invalid per the HTML content model, and it also nested
+`header` and `footer` inside a `main`, costing them their top-level landmark
+semantics. This was pulled forward from Section 3 into this batch because the
+skip link below needs an unambiguous `<main>` to target. Now the outer element
+is a `<div>` — it only ever existed to hold class names.
+
 **No skip link.** Keyboard users tab the site title plus three nav buttons on
 every page before reaching content (WCAG 2.4.1, Bypass Blocks). There is also
 nothing to build one from: neither `<main>` has an `id` (`Layout.tsx:12`,
@@ -106,14 +115,6 @@ utility. For scale, the entire codebase contains exactly four ARIA attributes,
 all of them `aria-hidden="true"`.
 
 ## 3. Document structure
-
-**Nested `<main>` elements.** `src/pages/_app.tsx:46` wraps every page in a
-`<main>` used only to carry the font CSS variables, and `Layout.tsx:12` /
-`PageLayout.tsx:15` render a second one inside it. Two `main` landmarks is
-invalid per the HTML content model, and it also nests `header` and `footer`
-inside a `main`, costing them their top-level landmark semantics.
-
-> Fix: make the outer one a `<div>`. It only exists to hold class names.
 
 **The home page has no `h1`.** `src/pages/index.tsx:13` opens at `<h3>` and
 `BioPanel.tsx:73,91` continue at `h4` / `h5` — heading levels chosen for size

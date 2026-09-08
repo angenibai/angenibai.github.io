@@ -43,11 +43,11 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         ]}
       />
-      <main
+      <div
         className={`${work_sans.variable} ${newsreader.variable} ${ibm_plex_mono.variable}`}
       >
         <Component {...pageProps} />
-      </main>
+      </div>
     </>
   );
 }
