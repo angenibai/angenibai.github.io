@@ -83,12 +83,13 @@ page under `/posts/*` therefore shared one non-unique title, which failed WCAG
 description or OG image — is not an accessibility failure and stays open in
 [FUTURE_WORK.md](FUTURE_WORK.md#seo).
 
-**`src/components/NavLinks.tsx:14,19,25`** — the current page is conveyed only
-by the `.selected` fill and sink. `aria-current="page"` appears nowhere in the
-codebase, so a screen reader user cannot tell which page they are on.
-
-> Fix: thread `aria-current="page"` through `ButtonLink` alongside the
-> `isSelected` prop it already takes.
+**Fixed — `src/components/ButtonLink.tsx`.** The current page used to be
+conveyed only by the `.selected` fill and sink; `aria-current="page"` appeared
+nowhere in the codebase, so a screen reader user could not tell which page
+they were on. Now `aria-current={isSelected ? "page" : undefined}` is threaded
+through both the external `<a>` and internal `<Link>` branches, alongside the
+`isSelected` prop they already took. `ButtonLink` is only used by
+`NavLinks.tsx`, so nothing there needed to change.
 
 **Fixed — `src/pages/posts/[slug].tsx:62`.** The plain-`<img>` fallback branch
 used `alt={metadata.splashImageCaption}` without the `|| ""` that line 51 has.

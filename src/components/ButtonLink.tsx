@@ -54,11 +54,21 @@ const ButtonLink = ({
   }`;
 
   return external ? (
-    <a href={href} target="_blank" className={className}>
+    <a
+      href={href}
+      target="_blank"
+      className={className}
+      aria-current={isSelected ? "page" : undefined}
+    >
       {children}
     </a>
   ) : (
-    <Link href={href} className={className} onClick={handleClick}>
+    <Link
+      href={href}
+      className={className}
+      onClick={handleClick}
+      aria-current={isSelected ? "page" : undefined}
+    >
       {children}
     </Link>
   );
