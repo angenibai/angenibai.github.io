@@ -59,7 +59,7 @@ const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={metadata.splashImageSource}
-                  alt={metadata.splashImageCaption}
+                  alt={metadata.splashImageCaption || ""}
                   loading="lazy"
                 />
               </div>

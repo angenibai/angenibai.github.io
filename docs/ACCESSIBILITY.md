@@ -1,8 +1,12 @@
 # Accessibility
 
 Notes from a 2026-09-09 accessibility review of the site — a static read of
-`src/`, `src/styles/` and the four posts in `_data/posts/`. Nothing here has
-been fixed; every "Fix" below is a recommendation.
+`src/`, `src/styles/` and the four posts in `_data/posts/`. This is a living
+record: findings move with the code as they are fixed rather than being
+re-audited from scratch, so a "Fix" that has landed is written as what changed
+and why, not as an open recommendation. See
+[plans/ACCESSIBILITY_P0_PLAN.md](../plans/ACCESSIBILITY_P0_PLAN.md) for how
+Sections 1 and 2 were worked through.
 
 The short version: **the content layer is in good shape and the projects page
 is not**. All 71 post-body images carry real descriptive alt text, contrast
@@ -81,12 +85,12 @@ codebase, so a screen reader user cannot tell which page they are on.
 > Fix: thread `aria-current="page"` through `ButtonLink` alongside the
 > `isSelected` prop it already takes.
 
-**`src/pages/posts/[slug].tsx:62`** — the plain-`<img>` fallback branch uses
-`alt={metadata.splashImageCaption}` without the `|| ""` that line 51 has. The
-caption is absent on every current post, so React omits the attribute entirely,
-producing an `<img>` with **no `alt` attribute at all** — which, unlike
-`alt=""`, fails WCAG 1.1.1 and makes screen readers fall back to the filename.
-A one-word fix; make it match line 51.
+**Fixed — `src/pages/posts/[slug].tsx:62`.** The plain-`<img>` fallback branch
+used `alt={metadata.splashImageCaption}` without the `|| ""` that line 51 has.
+The caption is absent on every current post, so React omitted the attribute
+entirely, producing an `<img>` with **no `alt` attribute at all** — which,
+unlike `alt=""`, fails WCAG 1.1.1 and makes screen readers fall back to the
+filename. Now matches line 51.
 
 **No skip link.** Keyboard users tab the site title plus three nav buttons on
 every page before reaching content (WCAG 2.4.1, Bypass Blocks). There is also
