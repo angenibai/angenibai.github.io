@@ -81,7 +81,7 @@ and `Post.module.css:58` for the reference sizing relationship.
 Mono is **code-only**. An earlier version of the posts list used it for a
 metadata register — letterspaced caps for a `No. 02` index and `FILED
 UNDER`/`WITH` labels — and the list redesign
-(`docs/plan/POSTS_LIST_RECEIPT_PLAN.md`) removed it: dates there are Newsreader
+(`docs/design/posts-list-evolution.md`) removed it: dates there are Newsreader
 now. Keep it that way unless there's a strong reason. Metadata set in the
 serif reads as part of the page rather than as a second system bolted on.
 

@@ -5,8 +5,8 @@ Notes from a 2026-09-09 accessibility review of the site — a static read of
 record: findings move with the code as they are fixed rather than being
 re-audited from scratch, so a "Fix" that has landed is written as what changed
 and why, not as an open recommendation. See
-[docs/plan/ACCESSIBILITY_P0_PLAN.md](plan/ACCESSIBILITY_P0_PLAN.md) for how
-Sections 1 and 2 were worked through.
+[docs/design/accessibility-p0.md](design/accessibility-p0.md) for the design
+decisions from working through Sections 1 and 2.
 
 The short version: **the content layer is in good shape and the projects page
 is not**. All 71 post-body images carry real descriptive alt text, contrast
@@ -386,7 +386,7 @@ untracked, so committing `globals.css` without them silently falls back to
 
 This started as a static, read-only review; Sections 1 and 2 (plus the
 nested-`<main>` finding pulled forward from Section 3) have since been fixed,
-per [docs/plan/ACCESSIBILITY_P0_PLAN.md](plan/ACCESSIBILITY_P0_PLAN.md).
+see [docs/design/accessibility-p0.md](design/accessibility-p0.md) for why.
 Nothing here has been verified against a real screen reader or in a browser,
 though. A pass with VoiceOver (⌘F5) on `/`, `/projects`, `/posts` and one post
 is the natural next step — particularly on `/projects`, since the rebuilt

@@ -7,8 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [docs/DESIGN_LANGUAGE.md](docs/DESIGN_LANGUAGE.md) — the site's visual identity: color palette, typography pairing, borders-not-shadows, and where boldness vs. restraint belongs. Read before styling any new UI.
 - [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) — accessibility audit: current gaps ranked by severity, and what already works so it doesn't regress.
 - [docs/FUTURE_WORK.md](docs/FUTURE_WORK.md) — open items from a full-site review, not yet scheduled.
-- `docs/plan/` — implementation plans, kept after the fact as a record. Filenames are descriptive `SCREAMING_SNAKE_CASE.md`, not the dated slug scheme from the global agent instructions — intentional deviation.
-- `docs/design/` — design docs for larger changes, per the global agent instructions.
+- `docs/plan/` — working plans for a change in progress; not committed by default once the change ships (git history is the record of what actually happened).
+- `docs/design/` — design docs for larger changes; captures durable rationale, including any mid-implementation deviations, that a diff alone wouldn't explain.
 
 ## What this is
 

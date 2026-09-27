@@ -6,17 +6,18 @@ each section except where noted.
 
 ## Blog post list page
 
-Done — see `docs/plan/POSTS_LIST_RECEIPT_PLAN.md`, which supersedes the catalogue
-design in `docs/plan/POSTS_LIST_CATALOGUE_PLAN.md`. `src/pages/posts/index.tsx`
-renders each post as a bare two-line row (`src/components/PostEntry.tsx`:
-title, dotted leader, date, italic blurb) with the splash image moved into a
-hover panel (`src/components/PostPreviewPanel.tsx`); `pin`/`listed`
-are respected in `getStaticProps`.
+Done — see `docs/design/posts-list-evolution.md` for why the bare-text
+"Receipt" design replaced the earlier metadata-grid "Catalogue".
+`src/pages/posts/index.tsx` renders each post as a bare two-line row
+(`src/components/PostEntry.tsx`: title, dotted leader, date, italic blurb)
+with the splash image moved into a hover panel
+(`src/components/PostPreviewPanel.tsx`); `pin`/`listed` are respected in
+`getStaticProps`.
 
 The hover panel was **reimplemented in JS** — see
-`docs/plan/POSTS_LIST_HOVER_PANEL_JS_PLAN.md`. `src/hooks/usePostPreview.ts` now
-places it cursor-anchored and viewport-aware: it flips above the cursor near
-the bottom of the viewport and clamps horizontally so the offset shadow can't
+`docs/design/posts-list-evolution.md` for why. `src/hooks/usePostPreview.ts`
+now places it cursor-anchored and viewport-aware: it flips above the cursor
+near the bottom of the viewport and clamps horizontally so the offset shadow can't
 be sliced by `body { overflow-x: hidden }`, with ~100ms/200ms dwell timers so
 sweeping the list stays calm. Touch and <640px are gated off exactly as before.
 
@@ -75,7 +76,8 @@ Still open:
 
 ## Image optimization
 
-Done for the two cheap wins — see `docs/plan/IMAGE_OPTIMIZATION_PLAN.md`.
+Done for the two cheap wins — see `docs/design/image-optimization.md` for
+the deploy-target constraint that shaped the approach.
 
 - `scripts/optimize-images.sh` (`npm run optimize-images`) resizes/recompresses
   any image over 1600px wide in place via ImageMagick, keeping filenames
