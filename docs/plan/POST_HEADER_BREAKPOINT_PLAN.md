@@ -1,3 +1,7 @@
+---
+status: done
+---
+
 # Smooth the post-header row→column breakpoint
 
 ## Context

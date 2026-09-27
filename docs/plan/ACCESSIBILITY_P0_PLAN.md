@@ -1,6 +1,10 @@
+---
+status: done
+---
+
 # Accessibility P0 plan
 
-Addresses **Sections 1 and 2** of [docs/ACCESSIBILITY.md](../docs/ACCESSIBILITY.md)
+Addresses **Sections 1 and 2** of [docs/ACCESSIBILITY.md](../ACCESSIBILITY.md)
 in full, plus the nested-`<main>` fix from Section 3 (pulled forward because the
 skip link needs an unambiguous target).
 
@@ -77,7 +81,7 @@ Every `/posts/*` page currently inherits `title="angeni bai"` from `DefaultSeo`
 correct — this is the only page missing it.
 
 > Adjacent, not included: `description={metadata.blurb}` and `openGraph`. Those
-> belong to the SEO item in [FUTURE_WORK.md](../docs/FUTURE_WORK.md#seo), not to
+> belong to the SEO item in [FUTURE_WORK.md](../FUTURE_WORK.md#seo), not to
 > the 2.4.2 failure.
 
 _Doc:_ also narrow the FUTURE_WORK SEO bullet, which currently claims the whole

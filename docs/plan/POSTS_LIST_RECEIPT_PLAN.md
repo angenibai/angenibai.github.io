@@ -1,3 +1,7 @@
+---
+status: done
+---
+
 # Posts list page — "The Receipt"
 
 ## Context
@@ -419,7 +423,7 @@ panel simply never shows below that. Add here:
 so touch devices don't download the splash images at all. Plus
 `prefers-reduced-motion` to drop the transform and cut straight in.
 
-## 9. `docs/` and `plans/`
+## 9. `docs/` and `docs/plan/`
 
 - **`docs/DESIGN_LANGUAGE.md`** — three edits: (a) correct "borders and
   keylines, not shadows" to say what the code actually does, since solid
@@ -429,7 +433,7 @@ so touch devices don't download the splash images at all. Plus
   "metadata labels and figures" paragraph describes the `PostEntry.tsx` this
   rewrites and will have no callers; (c) add the dot leader as a keyline form.
 - **This file** — update in place if the build departs from it, so the record
-  matches what was actually shipped. `plans/POSTS_LIST_CATALOGUE_PLAN.md` stays
+  matches what was actually shipped. `docs/plan/POSTS_LIST_CATALOGUE_PLAN.md` stays
   as-is: it documents the design this one supersedes, and its duotone recipe and
   numbering rationale are still worth keeping.
 - **`docs/FUTURE_WORK.md`** — update the "Blog post list page" section; record
@@ -443,7 +447,7 @@ so touch devices don't download the splash images at all. Plus
 Recorded so none of it gets lost:
 
 - ~~**Reimplement the panel in JS, matching Wikipedia's behaviour.**~~ **Done** —
-  see `plans/POSTS_LIST_HOVER_PANEL_JS_PLAN.md`. `src/hooks/usePostPreview.ts`
+  see `docs/plan/POSTS_LIST_HOVER_PANEL_JS_PLAN.md`. `src/hooks/usePostPreview.ts`
   keeps the content pre-rendered (no fetch) and adds what CSS structurally
   cannot: measuring available space and repositioning. The panel is now
   cursor-anchored, tracks continuously, flips above the cursor near the bottom
@@ -547,7 +551,7 @@ including the `with Ada Luong` line and the offset shadow, is off the page and
 **cannot be scrolled to.** Widening the panel per departure 1 makes it taller,
 which makes this slightly worse.
 
-**Resolved** by the JS reimplementation — `plans/POSTS_LIST_HOVER_PANEL_JS_PLAN.md`,
+**Resolved** by the JS reimplementation — `docs/plan/POSTS_LIST_HOVER_PANEL_JS_PLAN.md`,
 `src/hooks/usePostPreview.ts`. `computePlacement` flips the panel above the
 cursor whenever `y + height + shadow + margin` would pass the bottom of the
 viewport, so the whole panel (offset shadow included) stays on-screen

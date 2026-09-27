@@ -1,3 +1,7 @@
+---
+status: done
+---
+
 # Redesign code block & inline code styling on post pages
 
 ## Context

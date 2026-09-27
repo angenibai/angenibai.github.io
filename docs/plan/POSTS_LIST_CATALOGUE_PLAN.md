@@ -1,3 +1,7 @@
+---
+status: done
+---
+
 # Posts list page — "The Catalogue"
 
 ## Context

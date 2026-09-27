@@ -1,3 +1,7 @@
+---
+status: done
+---
+
 # Fix post-frame gap texture mismatch + add image divider ornament
 
 ## Context
@@ -233,7 +237,7 @@ font-style: italic`, no background/padding). `margin-top` stayed negative
   `flex-wrap`, and the splash image now sizes from its own intrinsic aspect
   ratio instead of being force-cropped. That `flex-wrap`-based breakpoint
   was itself replaced later (2026-08-24) with an explicit, measured
-  `@media` breakpoint - see `plans/POST_HEADER_BREAKPOINT_PLAN.md` for the
+  `@media` breakpoint - see `docs/plan/POST_HEADER_BREAKPOINT_PLAN.md` for the
   full writeup; not documented further here since it's a different
   component.
 

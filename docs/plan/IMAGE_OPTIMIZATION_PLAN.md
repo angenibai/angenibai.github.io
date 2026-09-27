@@ -1,3 +1,7 @@
+---
+status: done
+---
+
 # Image optimization
 
 ## Problem

@@ -1,10 +1,14 @@
+---
+status: done
+---
+
 # Posts list hover panel — cursor-anchored, viewport-aware
 
 ## Context
 
 `/posts` renders bare text rows with the splash image in a hover panel
 (`src/components/PostPreviewPanel.tsx`), built pure-CSS per
-`plans/POSTS_LIST_RECEIPT_PLAN.md`. The panel is `position: absolute` on the
+`docs/plan/POSTS_LIST_RECEIPT_PLAN.md`. The panel is `position: absolute` on the
 row at `top: calc(100% + 0.25rem); left: 0` — always below, always left-aligned.
 
 CSS can't measure, and that's a live bug, not a someday one. The receipt plan's
@@ -14,7 +18,7 @@ runs to 787px — the `with …` line and the offset shadow are off the page and
 **cannot be scrolled to**. At two posts.
 
 The fix is the deferred item already recorded in
-`plans/POSTS_LIST_RECEIPT_PLAN.md` Part 3 and `docs/FUTURE_WORK.md`:
+`docs/plan/POSTS_LIST_RECEIPT_PLAN.md` Part 3 and `docs/FUTURE_WORK.md`:
 reimplement the reveal in JS so it can measure available space.
 
 **Settled in conversation:**
@@ -36,7 +40,7 @@ reimplement the reveal in JS so it can measure available space.
   nothing clickable, and moves away from the pointer by definition.
 - **Touch/narrow unchanged.** Both existing gates stay.
 
-**Convention break, deliberate:** `plans/POST_HEADER_BREAKPOINT_PLAN.md` records
+**Convention break, deliberate:** `docs/plan/POST_HEADER_BREAKPOINT_PLAN.md` records
 "no JS-driven layout anywhere in the codebase". This breaks it, for the reason
 above.
 
@@ -144,7 +148,7 @@ still the containing block for `PostEntry`'s absolutely-positioned `.pin`.
 
 **Docs** — `docs/FUTURE_WORK.md`: move the "Reimplement the hover panel in JS"
 item from open to done, pointing at this file.
-`plans/POSTS_LIST_RECEIPT_PLAN.md`: mark "as built" departure 2 (bottom
+`docs/plan/POSTS_LIST_RECEIPT_PLAN.md`: mark "as built" departure 2 (bottom
 overflow) resolved and Part 3's first two deferred items done.
 
 ---
