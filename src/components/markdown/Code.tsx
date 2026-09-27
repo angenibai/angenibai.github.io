@@ -90,10 +90,7 @@ const Code = ({ inline, className, children, ...props }: CodeProps) => {
       </SyntaxHighlighter>
     </div>
   ) : (
-    <code
-      className={`${styles.inlineCode} ${className || ""}`}
-      {...props}
-    >
+    <code className={`${styles.inlineCode} ${className || ""}`} {...props}>
       {children}
     </code>
   );

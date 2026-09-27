@@ -34,6 +34,7 @@ Still open:
 ## Per-post layout polish
 
 `src/pages/posts/[slug].tsx`:
+
 - The splash `<img>` (line ~47) has no `width`/`height`, so it causes layout
   shift as it loads (directly observed 2026-08-24 while reworking the
   splash-image header layout - the box visibly grows once the lazy-loaded

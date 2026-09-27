@@ -105,7 +105,7 @@
 #   shortDescription: Finally setting up my own corner of the internet # Description shown at all times, text only
 #   longDescription:
 #     > # Description shown only when the project card is expanded, HTML only
-#     <p>This website was set up using:</p> 
+#     <p>This website was set up using:</p>
 #     <ul>
 #       <li>Next.js</li>
 #     </ul>

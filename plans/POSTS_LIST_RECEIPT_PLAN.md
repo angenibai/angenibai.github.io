@@ -53,7 +53,7 @@ Two lines. **Every row is the same shape** — that regularity is what makes a
 list this bare still read as a structure.
 
 - **Title** — Work Sans bold, ~1.5rem, `--color-primary`.
-- **Leader** — flex-grow spacer with a 2px *dotted* green bottom border, nudged
+- **Leader** — flex-grow spacer with a 2px _dotted_ green bottom border, nudged
   down ~0.35em to sit on the baseline rather than under the descenders. The only
   non-text mark on the page, and the thing that makes it an index rather than a
   paragraph of titles.
@@ -130,10 +130,10 @@ edge — no horizontal edge logic needed at all.
 
 ## Responsiveness
 
-| Width | Behaviour |
-|---|---|
-| ≥900px, hover-capable | Full layout, panel enabled |
-| <900px **or** touch | Panel `display: none`; date wraps onto its own line |
+| Width                 | Behaviour                                           |
+| --------------------- | --------------------------------------------------- |
+| ≥900px, hover-capable | Full layout, panel enabled                          |
+| <900px **or** touch   | Panel `display: none`; date wraps onto its own line |
 
 Gated on `@media (hover: hover) and (min-width: 900px)` — keying off the actual
 input capability, not guessing from viewport width. On touch the panel markup is
@@ -157,12 +157,12 @@ Add a module-level `toExcerpt(markdown: string): string` and call it in
 Strip **before** truncating — post bodies don't start with clean prose, and
 `rehype-raw` means raw HTML is legal anywhere in them:
 
-1. fenced code blocks ```` ```…``` ````
-2. images `![alt](src)` — must run *before* the link rule
+1. fenced code blocks ` ```…``` `
+2. images `![alt](src)` — must run _before_ the link rule
 3. links `[text](href)` → `text`
 4. raw HTML tags `<[^>]+>`
 5. leading heading markers `^#{1,6}\s+`
-6. emphasis/quote marks `` *_`> ``
+6. emphasis/quote marks ``*_`>``
 7. collapse whitespace, trim
 
 Then slice to ~100 chars, cut back to the last space, append `…`.
@@ -185,6 +185,7 @@ No frontmatter changes anywhere — the excerpt is derived from the body.
 Stays a **server component with no client state** — the panel is pure CSS.
 
 In `getStaticProps`:
+
 - **Delete** `IndexedPostData`, `byAscendingDate`, and the `listIndexBySlug` map.
 - **Keep** the `listed !== false` filter and the pinned-first-then-descending-date
   sort exactly as they are — neither is part of the numbering machinery.
@@ -237,7 +238,7 @@ also matches the convention CLAUDE.md documents (`Home.module.css`,
 Owns:
 
 - `.postList` — `width: 90%; max-width: 880px; display: flex;
-  flex-direction: column; gap: 1.75rem;` **no borders.**
+flex-direction: column; gap: 1.75rem;` **no borders.**
 - `.row` — `position: relative` (the panel's containing block).
 - the panel reveal rules (see below).
 
@@ -254,7 +255,9 @@ not hashed, so this works without `:global` or leaking unhashed class names:
 
 ```css
 /* PostList.module.css */
-.row { position: relative; }
+.row {
+  position: relative;
+}
 
 @media (hover: hover) and (min-width: 900px) {
   .row:hover [data-post-panel],
@@ -267,8 +270,8 @@ not hashed, so this works without `:global` or leaking unhashed class names:
 ```
 
 The panel component renders `<div data-post-panel className={styles.panel}>`.
-Each module then owns exactly one concern: `PostList` owns page layout *and the
-interaction between* its two children, `PostEntry` owns the row's internals,
+Each module then owns exactly one concern: `PostList` owns page layout _and the
+interaction between_ its two children, `PostEntry` owns the row's internals,
 `PostPreviewPanel` owns the panel's own appearance and resting state.
 
 ## 6. `src/styles/components/PostEntry.module.css` — rewrite
@@ -287,8 +290,8 @@ New rules:
 - `.line` — `display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.75rem`.
 - `.title` — `flex: 0 1 auto`, Work Sans bold, 1.5rem, `--color-primary`.
 - `.leader` — `flex: 1 1 2rem; min-width: 2rem;
-  border-bottom: var(--divider-width) dotted var(--color-primary);
-  margin-bottom: 0.35em;`
+border-bottom: var(--divider-width) dotted var(--color-primary);
+margin-bottom: 0.35em;`
 - `.date` — `flex: 0 0 auto`, Newsreader, 0.9rem, `--color-black`.
 - `.blurb` — Newsreader **italic**, 0.95rem, `--color-black`, `margin-top: 0.35rem`.
 - `.pin` — `position: absolute; left: -1.25rem;` 0.5rem filled
@@ -303,7 +306,7 @@ New rules:
 clickable, including the leader gap.
 
 **Wrapping caveat:** when a title wraps to two lines, CSS cannot hang the leader
-off the title's *last* line box, so the spacer sits vertically centred beside the
+off the title's _last_ line box, so the spacer sits vertically centred beside the
 block. Accept it — truncating a title on an index page is worse than a slightly
 imperfect rule, and both real titles are short.
 
@@ -320,7 +323,9 @@ more than ~40 duplicated lines.
 
 ```jsx
 <div className={styles.panel} aria-hidden="true">
-  <div className={styles.header}><h3>{metadata.title}</h3></div>
+  <div className={styles.header}>
+    <h3>{metadata.title}</h3>
+  </div>
   {metadata.splashImageSource && (
     <div className={styles.imageFrame}>
       <Image src={metadata.splashImageSource} alt="" width={640} height={480} />
@@ -340,8 +345,8 @@ more than ~40 duplicated lines.
 but the real intrinsic dimensions aren't known without reading the files. Pass
 `640×480` as an upper-bound hint — it only drives srcset candidate selection and
 the pre-load aspect-ratio reservation. The **rendered** ratio comes from CSS
-(`height: <fixed>; width: auto`), which resolves against the *actual loaded
-image's* intrinsic ratio, so nothing is cropped or distorted. The brief pre-load
+(`height: <fixed>; width: auto`), which resolves against the _actual loaded
+image's_ intrinsic ratio, so nothing is cropped or distorted. The brief pre-load
 mis-ratio is invisible because the panel is hidden and absolutely positioned.
 
 This keeps optimisation (the 1.4MB `easter-show-value-banner.png` is served at
@@ -390,7 +395,7 @@ Five things that are load-bearing and easy to get wrong:
   cursor falls through to whichever row is underneath, that row's panel takes
   over, the old one hides — so only one panel is ever visible.
 - **`visibility: hidden` + `opacity: 0`, never `display: none`.** A
-  `display: none` panel never fetches its lazy image, so the *first* hover on
+  `display: none` panel never fetches its lazy image, so the _first_ hover on
   each row shows an empty frame while it downloads. Keeping it in the layout tree
   loads images up front, which at two posts and ~640px renditions is nothing.
 - **`:focus-within`** (in the `PostList` reveal rule) gives keyboard users the
@@ -419,8 +424,8 @@ so touch devices don't download the splash images at all. Plus
 - **`docs/DESIGN_LANGUAGE.md`** — three edits: (a) correct "borders and
   keylines, not shadows" to say what the code actually does, since solid
   zero-blur offset shadows are used at a deliberate scale (`2px` Button, `3px`
-  ProjectGrid inner, `5px` Footer/tile, `10px` BioPanel) and the real rule is *no
-  blurred* shadows; (b) narrow the mono role back to code-only, since the
+  ProjectGrid inner, `5px` Footer/tile, `10px` BioPanel) and the real rule is _no
+  blurred_ shadows; (b) narrow the mono role back to code-only, since the
   "metadata labels and figures" paragraph describes the `PostEntry.tsx` this
   rewrites and will have no callers; (c) add the dot leader as a keyline form.
 - **This file** — update in place if the build departs from it, so the record
@@ -469,7 +474,7 @@ Against the two real posts. `npm run build` first — it type-checks, and the
    in below the row, left-aligned to it.
 3. **Panel content** — full-colour image at its **native ratio** (compare against
    the source file; the 16:9 and 4:3 splashes should produce visibly different
-   panel widths), excerpt reads as *prose* with no stray markdown/HTML/heading
+   panel widths), excerpt reads as _prose_ with no stray markdown/HTML/heading
    marks, `Summarise My Hackathon` shows `with Ada Luong` and `Easter Showbags`
    does not.
 4. **No flicker** — sweep the cursor slowly then quickly down the list. Never
@@ -502,7 +507,7 @@ Recorded per step 9. Everything not listed here shipped as written above.
 
 Step 8's premise was that `width: max-content` + the 240–360px clamp would let
 the image set the panel's width. Measured, it didn't: **both panels came out at
-exactly 360px.** The excerpt paragraph's max-content width is its *unwrapped*
+exactly 360px.** The excerpt paragraph's max-content width is its _unwrapped_
 length (~600px at 100 characters), so the excerpt always won the measurement and
 every panel clamped to `max-width`. Verification step 3's "visibly different
 panel widths" failed.
@@ -512,25 +517,30 @@ The fix keeps the intent and needs no JS. `.panel` becomes a grid with
 intrinsic measurement:
 
 ```css
-.header, .excerpt, .with { width: 0; min-width: 100%; }
+.header,
+.excerpt,
+.with {
+  width: 0;
+  min-width: 100%;
+}
 ```
 
 `width: 0` is what the column measures; `min-width: 100%` is what actually gets
 painted. Only `.imageFrame` is left contributing, so the column resolves to the
 image's width at a 180px height. Measured after the change:
 
-| Post | Splash ratio | Image rendered | Panel width |
-|---|---|---|---|
-| Easter Showbags | 1.333 (4:3) | 232×174 | **262px** |
-| Summarise My Hackathon | 1.778 (16:9) | 309×174 | **339px** |
+| Post                   | Splash ratio | Image rendered | Panel width |
+| ---------------------- | ------------ | -------------- | ----------- |
+| Easter Showbags        | 1.333 (4:3)  | 232×174        | **262px**   |
+| Summarise My Hackathon | 1.778 (16:9) | 309×174        | **339px**   |
 
 Rendered ratios match native to three decimals, so the `640×480` hint and
 `height`/`width: auto` do preserve the native ratio as described.
 
 ## 2. The panel already overflows the bottom of the page — at two posts
 
-Part 3 assumed this could not happen yet: *"With two posts near the top of a
-tall page the panel cannot overflow the bottom."* The page isn't tall. At a
+Part 3 assumed this could not happen yet: _"With two posts near the top of a
+tall page the panel cannot overflow the bottom."_ The page isn't tall. At a
 1440×900 window `/posts` is **757px** of document with `scrollHeight ===
 clientHeight`, and the last row's panel runs to **787px** — so the bottom of it,
 including the `with Ada Luong` line and the offset shadow, is off the page and

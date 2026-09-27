@@ -167,13 +167,13 @@ page load, exactly as today (`visibility: hidden` preserved).
 
 **Lag — the three failure modes and how the design avoids each:**
 
-1. *React render per mousemove.* State holds only `activeSlug` (changes once per
+1. _React render per mousemove._ State holds only `activeSlug` (changes once per
    row entry); tracking writes `transform` to the DOM inside a rAF.
-2. *Transitioning the placement transform.* The reason placement and reveal are
+2. _Transitioning the placement transform._ The reason placement and reveal are
    split across two elements. Sharing one element would apply the existing
    `0.12s ease` to placement and make the panel visibly trail the cursor — lag by
    construction, not by cost.
-3. *Layout thrash.* `getBoundingClientRect()` is a forced sync layout read;
+3. _Layout thrash._ `getBoundingClientRect()` is a forced sync layout read;
    cached once per activation, never per frame.
 
 Per frame that leaves a single `transform` write on a `fixed` element —
@@ -192,11 +192,11 @@ a one-line change if it reads as restless.
   **640px**. Use 640 and correct the plan text.
 - Don't switch to `display: none` for the hidden state anywhere — it breaks both
   the image prefetch and the `getBoundingClientRect()` measurement.
-- Set the placement transform on the *outer* node only. Any transition on
+- Set the placement transform on the _outer_ node only. Any transition on
   `.anchor` reintroduces cursor lag.
 - Clear both timers and the rAF handle in the hook's cleanup.
 - **First placement per activation must be synchronous.** The show-timer
-  callback measures, writes the `translate3d()` to `.anchor`, *then* calls
+  callback measures, writes the `translate3d()` to `.anchor`, _then_ calls
   `setActiveSlug`. If the state update ran first, the `fixed` `.anchor` would
   paint one frame at its `top:0; left:0` origin (viewport top-left) before the
   next rAF moved it to the cursor — a visible corner flash on every first hover.

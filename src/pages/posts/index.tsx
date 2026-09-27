@@ -31,10 +31,7 @@ const Posts = ({ posts }: { posts: PostListItem[] }) => {
                   {...getRowProps(post.slug)}
                 >
                   <PostEntry post={post} />
-                  <PostPreviewPanel
-                    post={post}
-                    {...getPanelProps(post.slug)}
-                  />
+                  <PostPreviewPanel post={post} {...getPanelProps(post.slug)} />
                 </div>
               ),
           )}

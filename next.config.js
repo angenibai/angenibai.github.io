@@ -8,6 +8,6 @@ const nextConfig = {
     // optimizer there instead of erroring.
     unoptimized: true,
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

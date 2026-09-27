@@ -1,14 +1,14 @@
 .postList {
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
-    width: 90%;
-    max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  width: 90%;
+  max-width: 880px;
 }
 
 /* Still the containing block for PostEntry's absolutely-positioned .pin marker.
    The preview panel no longer needs it - that's position: fixed now, placed
    imperatively by usePostPreview. */
 .row {
-    position: relative;
+  position: relative;
 }

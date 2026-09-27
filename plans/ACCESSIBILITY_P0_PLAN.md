@@ -25,7 +25,7 @@ The convention, applied per commit:
 
 - Rewrite the finding from a recommendation into a record of what landed, in
   past tense, keeping the file/line references current.
-- Preserve the reasoning. The audit's value is that it explains *why* each thing
+- Preserve the reasoning. The audit's value is that it explains _why_ each thing
   was a failure; a fixed finding that just says "fixed" loses that, and the next
   person to touch the file re-derives it or breaks it.
 - Anything discovered while fixing that the audit got wrong or missed gets
@@ -47,7 +47,7 @@ that establish a new invariant worth protecting get a line there.
 currently drops the attribute entirely and screen readers announce the filename.
 WCAG 1.1.1. One word.
 
-*Doc:* rewrite the finding; amend the preamble's "Nothing here has been fixed"
+_Doc:_ rewrite the finding; amend the preamble's "Nothing here has been fixed"
 to describe the file as a living record with a fix log rather than a pure audit.
 
 ### 2. `add accessible names to footer social links`
@@ -80,7 +80,7 @@ correct — this is the only page missing it.
 > belong to the SEO item in [FUTURE_WORK.md](../docs/FUTURE_WORK.md#seo), not to
 > the 2.4.2 failure.
 
-*Doc:* also narrow the FUTURE_WORK SEO bullet, which currently claims the whole
+_Doc:_ also narrow the FUTURE_WORK SEO bullet, which currently claims the whole
 `NextSeo` call is missing — after this it is only the description and OG image.
 
 ### 4. `mark the current nav item with aria-current`
@@ -106,7 +106,7 @@ two `main` landmarks and has its `<header>` and `<footer>` nested inside a
 Verification: nothing in `src/styles/` targets a bare `main` element selector
 (checked), so this is purely structural.
 
-*Doc:* move this out of Section 3 and into the fix log; Section 3's remaining
+_Doc:_ move this out of Section 3 and into the fix log; Section 3's remaining
 structural findings stay open.
 
 ### 6. `add a skip link`
@@ -118,9 +118,16 @@ Three pieces:
   on-palette:
 
   ```css
-  .skip-link { position: absolute; left: -9999px; top: 0; z-index: 2000; }
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 2000;
+  }
   .skip-link:focus {
-    left: 1rem; top: 1rem; padding: 0.5rem 1rem;
+    left: 1rem;
+    top: 1rem;
+    padding: 0.5rem 1rem;
     background-color: var(--color-bg-white);
     border: var(--border-width) solid var(--color-primary);
   }
@@ -144,7 +151,7 @@ Verification: Tab from a fresh page load on `/posts` — first stop should be th
 skip link, visible; Enter should land focus on the page heading region, and the
 next Tab should go to content, not back to the masthead.
 
-*Doc:* the audit notes there is no `.sr-only` utility to build a skip link from;
+_Doc:_ the audit notes there is no `.sr-only` utility to build a skip link from;
 record that `.visually-hidden` now exists so the next person reaches for it
 rather than adding a second one.
 
@@ -154,8 +161,8 @@ rather than adding a second one.
 `<button type="button" aria-label="Close">`.
 
 Kept small and separate from commit 9 on purpose: it is self-contained, and it
-makes the modal keyboard-*dismissable* one commit before it becomes keyboard-
-*reachable*. It also stops the element inheriting `buttonStyles.button`'s
+makes the modal keyboard-_dismissable_ one commit before it becomes keyboard-
+_reachable_. It also stops the element inheriting `buttonStyles.button`'s
 `:focus-visible` rule (`Button.module.css:68`) that it can currently never
 receive.
 
@@ -192,7 +199,7 @@ whole card so the click target does not shrink.
 
 **Why not wrap the whole tile in the button.** `<button>` takes phrasing content
 only, so `<h2>`/`<p>` inside one is invalid — but the decisive reason is ARIA's
-*presentational children*: `role="button"` drops the roles of all descendants and
+_presentational children_: `role="button"` drops the roles of all descendants and
 flattens the subtree to a text string for the accessible name. A heading inside a
 button is therefore not exposed as a heading at all, so wrapping would have cost
 the project names their place in the heading outline without buying anything. It
@@ -221,7 +228,11 @@ Also in this commit:
   `overflow: hidden`), and the stretcher:
 
   ```css
-  .tileButton::after { content: ""; position: absolute; inset: 0; }
+  .tileButton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
   ```
 
 - `.tileHeader` keeps only `margin-bottom: 0.5rem`; `.tileDescription` is
@@ -236,7 +247,9 @@ Also in this commit:
   text box:
 
   ```css
-  .projectTile:has(.tileButton:focus-visible) { /* same lift as :hover */ }
+  .projectTile:has(.tileButton:focus-visible) {
+    /* same lift as :hover */
+  }
   ```
 
 - Keep `<div>` as the tile's outer element rather than `<article>`.
@@ -254,7 +267,7 @@ Verification: Tab through `/projects` — every tile should be one stop, Enter a
 Space should both open the modal, the focus ring should frame the whole card, and
 hover/press should behave exactly as before from anywhere on the card.
 
-*Doc:* Section 1's first finding becomes a record, keeping the presentational-
+_Doc:_ Section 1's first finding becomes a record, keeping the presentational-
 children reasoning so nobody "simplifies" it back to a wrapping button. Section 5
 gains the invariant.
 
@@ -338,12 +351,14 @@ and covers the keyboard-Escape path identically.
 
 #### Regression: the close animation, outside Chromium
 
-Animating a native `<dialog>` *out* requires transitioning the `overlay` property
+Animating a native `<dialog>` _out_ requires transitioning the `overlay` property
 with `allow-discrete`, because the element leaves the top layer the instant
 `close()` is called:
 
 ```css
-transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete;
+transition:
+  display 0.3s allow-discrete,
+  overlay 0.3s allow-discrete;
 ```
 
 `overlay` is Chromium-only as of writing. **In Safari and Firefox the modal will

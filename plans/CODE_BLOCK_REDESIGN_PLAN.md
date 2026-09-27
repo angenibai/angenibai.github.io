@@ -26,6 +26,7 @@ for blocks (reviving the intent of the dead CSS), a warm pill for inline code, a
 paired monospace font, and wrapping instead of horizontal scroll.
 
 User-confirmed direction (via question, not open for re-litigation):
+
 - Code blocks: dark green panel, using `--color-primary-darker`.
 - Font: IBM Plex Mono, for both inline and block code.
 - Smaller code font-size relative to body text (body is `1.2rem` Newsreader in
@@ -47,6 +48,7 @@ token names (`keyword`, `string`, `comment`, etc., no leading dot) plus two stru
 keys, `code[class*="language-"]` and `pre[class*="language-"]`. These get applied as
 **inline `style` attributes** on the rendered elements — full stop, no CSS class on
 those elements can ever override them, regardless of specificity. Concretely:
+
 - Anything the theme object sets (`color`, `background`, `fontFamily`, `fontSize`,
   `whiteSpace`) must be set **in the theme object itself**, not via `Code.module.css`.
 - `Code.module.css` (`.codeBlock`) should only carry things the theme object doesn't
@@ -95,14 +97,14 @@ Append `ibm_plex_mono.variable` to the existing `className` string on `<main>`.
     `tabSize: 4`. Omit `wordBreak`/`wordWrap` (see gotcha above).
   - Token colors (validated for ≥4.5:1 contrast against `#093426`, and checked pairwise
     for distinguishability):
-    | token(s) | color |
-    |---|---|
-    | plain text / variable | `#FAF8F0` |
-    | punctuation, operator | `#D9D2C4` |
-    | comment, prolog | `#79A08F` |
-    | keyword, atrule | `#E3B23C` |
-    | string, char, attr-value | `#D9B8CE` |
-    | function, class-name | `#8FCDB0` |
+    | token(s)                  | color     |
+    | ------------------------- | --------- |
+    | plain text / variable     | `#FAF8F0` |
+    | punctuation, operator     | `#D9D2C4` |
+    | comment, prolog           | `#79A08F` |
+    | keyword, atrule           | `#E3B23C` |
+    | string, char, attr-value  | `#D9B8CE` |
+    | function, class-name      | `#8FCDB0` |
     | number, boolean, constant | `#E08E6D` |
 - Apply `styles.codeBlock` on the `SyntaxHighlighter` `className` (combine with the
   existing language `className`, e.g. `` `${styles.codeBlock} ${className}` ``).
@@ -114,13 +116,13 @@ Append `ibm_plex_mono.variable` to the existing `className` string on `<main>`.
   handles normal cases, `overflow-wrap: anywhere` handles the rest.
 - Inline code branch (the `<code className={className} {...props}>` fallback when not a
   fenced block): add a new `.inlineCode` class, applied as
-  `` className={`${styles.inlineCode} ${className || ""}`} ``.
+  ``className={`${styles.inlineCode} ${className || ""}`}``.
 
 ### 3. `src/styles/components/Code.module.css` — `.inlineCode`
 
 ```css
 .inlineCode {
-  background-color: #F0DFA8;
+  background-color: #f0dfa8;
   border: 1px solid rgba(13, 75, 55, 0.15);
   color: var(--color-primary);
   font-family: var(--font-mono);
@@ -170,6 +172,7 @@ the panel entirely. Fixed by omitting `background` (and `padding`/`margin`) from
 the theme object altogether, leaving those to `Code.module.css` as intended.
 
 Follow-up refinements past the original plan, done in the same pass:
+
 - `.postContent` max-width narrowed 800px → 640px, and `.codeBlock` given a
   24px bleed past the text column on each side (`margin: 0 -1.5rem 1rem` +
   matching horizontal padding) — both taken from measuring

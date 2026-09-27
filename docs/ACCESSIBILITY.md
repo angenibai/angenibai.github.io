@@ -33,7 +33,12 @@ wrapping the whole tile:
 <div className={styles.projectTile}>
   <div className={styles.tileContent}>
     <h2 className={styles.tileHeader}>
-      <button type="button" className={styles.tileButton} aria-haspopup="dialog" onClick={onClick}>
+      <button
+        type="button"
+        className={styles.tileButton}
+        aria-haspopup="dialog"
+        onClick={onClick}
+      >
         {content.name}
       </button>
     </h2>
@@ -44,7 +49,7 @@ wrapping the whole tile:
 
 **Why not wrap the whole tile in a `<button>`.** `<button>` takes phrasing
 content only, so `<h2>`/`<p>` inside one is invalid — but the decisive reason
-is ARIA's *presentational children*: `role="button"` drops the roles of all
+is ARIA's _presentational children_: `role="button"` drops the roles of all
 descendants and flattens the subtree to a text string for the accessible name.
 A heading inside a button is therefore never exposed as a heading at all, in
 any browser, so wrapping the whole tile would have cost the project names
@@ -83,8 +88,8 @@ same — that literal px value itself is the separate Section 4 text-resizing
 finding, untouched here.
 
 This landed as its own commit ahead of the `<dialog>` rework below: it makes
-the modal keyboard-*dismissable* one step before it becomes keyboard-
-*reachable*.
+the modal keyboard-_dismissable_ one step before it becomes keyboard-
+_reachable_.
 
 **Fixed — `src/components/ProjectModal.tsx`.** The dialog had no dialog
 semantics: no `role="dialog"`, no `aria-modal`, no `aria-labelledby` pointing
@@ -111,12 +116,14 @@ which is why `.modalOverlay`'s base rule deliberately does not declare
 `display` at all — only `.modalOverlay[open] { display: flex }`.
 
 **Regression introduced by this fix: the close animation, outside Chromium.**
-Animating a native `<dialog>` *out* requires transitioning the `overlay`
+Animating a native `<dialog>` _out_ requires transitioning the `overlay`
 property with `allow-discrete`, because the element leaves the top layer the
 instant `close()` is called:
 
 ```css
-transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete;
+transition:
+  display 0.3s allow-discrete,
+  overlay 0.3s allow-discrete;
 ```
 
 `overlay` is Chromium-only as of writing, so **in Safari and Firefox the modal
@@ -288,11 +295,11 @@ as opening a new tab: `ButtonLink.tsx:57`, `Footer.tsx:13,16`,
 **Three marginal contrast cases.** Everything else passes comfortably (see
 Section 5), but worth recording:
 
-| Where | Ratio | Note |
-|---|---|---|
-| Syntax comment green `#79A08F` on `#093426` (`Code.tsx:52`) | 4.73:1 | The narrowest passing margin on the site, at ~15px. Any darkening of the panel or lightening of the green drops it below AA. |
-| Table hairline `#0d4b378d` (`Post.module.css:140,149`) | 2.97:1 | Just under the 3:1 non-text threshold (WCAG 1.4.11). Arguably decorative. |
-| Modal scrim `rgba(255,255,255,0.4)` (`ProjectModal.module.css:7`) | ~1.03:1 | Visually inert — nothing signals the page behind is inactive. |
+| Where                                                             | Ratio   | Note                                                                                                                         |
+| ----------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Syntax comment green `#79A08F` on `#093426` (`Code.tsx:52`)       | 4.73:1  | The narrowest passing margin on the site, at ~15px. Any darkening of the panel or lightening of the green drops it below AA. |
+| Table hairline `#0d4b378d` (`Post.module.css:140,149`)            | 2.97:1  | Just under the 3:1 non-text threshold (WCAG 1.4.11). Arguably decorative.                                                    |
+| Modal scrim `rgba(255,255,255,0.4)` (`ProjectModal.module.css:7`) | ~1.03:1 | Visually inert — nothing signals the page behind is inactive.                                                                |
 
 **No `prefers-contrast` or forced-colors handling anywhere.** This matters more
 than usual here because depth and press-state are carried by `box-shadow`
@@ -337,8 +344,8 @@ untracked, so committing `globals.css` without them silently falls back to
 - `<Html lang="en">` (`_document.tsx:5`), and the viewport meta permits zoom
   (`_app.tsx:39-44`) — no `maximum-scale`, no `user-scalable=no`.
 - **All 71 post-body images carry descriptive alt text**, and it is genuinely
-  good: *"Diagram showing the pipeline from the frontend receiving the input,
-  sending the video id to the server…"*. Only three are weak ("Majik" ×2,
+  good: _"Diagram showing the pipeline from the frontend receiving the input,
+  sending the video id to the server…"_. Only three are weak ("Majik" ×2,
   "this is fine"). The two charts in the Easter Show post have generic alt, but
   each is immediately followed by a paragraph stating what it shows, so the
   information is not lost.

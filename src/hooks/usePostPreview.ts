@@ -86,7 +86,9 @@ export function usePostPreview() {
   activeSlugRef.current = activeSlug;
 
   const anchors = useRef(new Map<string, HTMLDivElement>());
-  const refCache = useRef(new Map<string, (n: HTMLDivElement | null) => void>());
+  const refCache = useRef(
+    new Map<string, (n: HTMLDivElement | null) => void>(),
+  );
   const showTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const rafId = useRef<number | null>(null);

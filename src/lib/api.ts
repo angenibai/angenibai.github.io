@@ -113,7 +113,7 @@ export const getAllPosts = async () => {
       const postData = await getPostBySlug(slug);
 
       return postData;
-    })
+    }),
   );
   return allPostsData;
 };

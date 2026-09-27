@@ -1,34 +1,34 @@
 .postHeading {
-    text-align: left;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    border-top: var(--divider-width) solid var(--color-primary);
-    border-bottom: var(--divider-width) solid var(--color-primary);
-    margin-bottom: 2rem;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  border-top: var(--divider-width) solid var(--color-primary);
+  border-bottom: var(--divider-width) solid var(--color-primary);
+  margin-bottom: 2rem;
 }
 
 .postHeadingText {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1.5rem;
-    /* Row-mode split with the image column below - see the @media block
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  /* Row-mode split with the image column below - see the @media block
        further down, which switches to a stacked column layout before
        either side would ever be squeezed toward this 320px floor. */
-    flex: 1 1 320px;
-    min-width: 320px;
+  flex: 1 1 320px;
+  min-width: 320px;
 }
 
 .postTitle {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 
 .postSubtitle {
-    padding-top: 1rem;
-    border-top: var(--divider-width) solid var(--color-primary);
+  padding-top: 1rem;
+  border-top: var(--divider-width) solid var(--color-primary);
 }
 
 /* Same flex-basis/min-width as the text column, so at typical widths they
@@ -37,10 +37,10 @@
    wrapper's width - the image inside just fills it and derives its own
    height from its real aspect ratio (see below). */
 .postHeadingImageWrap {
-    border-left: var(--divider-width) solid var(--color-primary);
-    overflow: hidden;
-    flex: 1 1 320px;
-    min-width: 320px;
+  border-left: var(--divider-width) solid var(--color-primary);
+  overflow: hidden;
+  flex: 1 1 320px;
+  min-width: 320px;
 }
 
 /* width: 100% + height: auto (rather than the reverse) means the image is
@@ -48,10 +48,10 @@
    ratio assumed, and no per-post data needed since the browser reads it
    straight from the image file. */
 .postHeadingImageWrap img {
-    filter: brightness(98%);
-    display: block;
-    width: 100%;
-    height: auto;
+  filter: brightness(98%);
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* Below this width, the row layout would force the image shorter than the
@@ -59,121 +59,129 @@
    title/image pairings, with a buffer margin on top) - switch to a stacked
    column before that squeeze happens. */
 @media (max-width: 1040px) {
-    .postHeading {
-        flex-direction: column;
-    }
+  .postHeading {
+    flex-direction: column;
+  }
 
-    .postHeadingText,
-    .postHeadingImageWrap {
-        /* Main axis is now vertical - size to natural content height, not
+  .postHeadingText,
+  .postHeadingImageWrap {
+    /* Main axis is now vertical - size to natural content height, not
            the 320px basis that only made sense as a row-mode width (and
            min-width now constrains width, not height, which is moot once
            stacked full-width). */
-        flex: 0 1 auto;
-        min-width: 0;
-    }
+    flex: 0 1 auto;
+    min-width: 0;
+  }
 
-    .postHeadingImageWrap {
-        /* Divider rotates from a vertical rule (between side-by-side
+  .postHeadingImageWrap {
+    /* Divider rotates from a vertical rule (between side-by-side
            columns) to a horizontal one above the stacked image, matching
            .postHeading's own top/bottom register. */
-        border-left: none;
-        border-top: var(--divider-width) solid var(--color-primary);
-    }
+    border-left: none;
+    border-top: var(--divider-width) solid var(--color-primary);
+  }
 }
 
 .postContent {
-    text-align: left;
-    width: 96%;
-    max-width: 640px;
-    padding: 1.5rem;
-    border-left: var(--divider-width) solid var(--color-primary);
-    border-right: var(--divider-width) solid var(--color-primary);
-    /* Post-specific image widths (e.g. --easter-screenshot-width) are set
+  text-align: left;
+  width: 96%;
+  max-width: 640px;
+  padding: 1.5rem;
+  border-left: var(--divider-width) solid var(--color-primary);
+  border-right: var(--divider-width) solid var(--color-primary);
+  /* Post-specific image widths (e.g. --easter-screenshot-width) are set
        inline on a markdown wrapper and referenced via var() on the <img>
        itself - see the easter show value post for an example. */
-    --easter-screenshot-width: 560px;
+  --easter-screenshot-width: 560px;
 }
 
-.postContent h1, .postContent h2, .postContent h3, .postContent h4, .postContent h5, .postContent h6 {
-    padding-top: 1rem;
-    margin-bottom: 0.5rem;
+.postContent h1,
+.postContent h2,
+.postContent h3,
+.postContent h4,
+.postContent h5,
+.postContent h6 {
+  padding-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .postContent h2 {
-    font-size: 1.9rem;
-    font-weight: 600;
-    color: var(--color-black);
-    width: fit-content;
-    max-width: 100%;
-    margin: 3rem 0 1.75rem;
-    padding: 1.25rem 0;
-    border-top: var(--divider-width) solid var(--color-primary);
-    border-bottom: var(--divider-width) solid var(--color-primary);
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--color-black);
+  width: fit-content;
+  max-width: 100%;
+  margin: 3rem 0 1.75rem;
+  padding: 1.25rem 0;
+  border-top: var(--divider-width) solid var(--color-primary);
+  border-bottom: var(--divider-width) solid var(--color-primary);
 }
 
 .postContent h3 {
-    font-size: 1.4rem;
+  font-size: 1.4rem;
 }
 
-.postContent p, .postContent ul, .postContent ol, .postConcent dl {
-    font-size: 1.2rem;
-    line-height: 1.6rem;
-    margin-top: 0;
-    margin-bottom: 1rem;
+.postContent p,
+.postContent ul,
+.postContent ol,
+.postConcent dl {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 .postContent figure {
-    margin: 0 0 1rem;
+  margin: 0 0 1rem;
 }
 
 .postContent figcaption {
-    text-align: center;
-    margin-top: 0.5rem;
+  text-align: center;
+  margin-top: 0.5rem;
 }
 
 .postContent hr {
-    margin: 2rem 0;
+  margin: 2rem 0;
 }
 
 .postContent table {
-    border: 1px solid #0d4b378d;
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
+  border: 1px solid #0d4b378d;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
 }
 
 .postContent td,
 .postContent th {
-    padding: 10px;
-    border: 1px solid #0d4b378d;
+  padding: 10px;
+  border: 1px solid #0d4b378d;
 }
 
 .postContent figure {
-    display: flex;
-    flex-direction: column;
-    /* stretch (not center) so the image wrapper's bleed reaches the full
+  display: flex;
+  flex-direction: column;
+  /* stretch (not center) so the image wrapper's bleed reaches the full
        column width, same as a bare markdown image; figcaption below
        centers itself explicitly since its own width is fit-content. */
-    align-items: stretch;
+  align-items: stretch;
 }
 
 .postContent figcaption {
-    color: var(--color-primary);
-    font-style: italic;
-    text-align: center;
-    margin-top: -0.5rem;
-    font-size: 1rem;
-    width: fit-content;
-    max-width: 90%;
-    align-self: center;
+  color: var(--color-primary);
+  font-style: italic;
+  text-align: center;
+  margin-top: -0.5rem;
+  font-size: 1rem;
+  width: fit-content;
+  max-width: 90%;
+  align-self: center;
 }
 
 .postContent figure::after {
-    content: "";
-    display: block;
-    width: 3rem;
-    margin: 0.75rem auto 0;
-    border-top: var(--divider-width) solid var(--color-primary);
-    align-self: center;
+  content: "";
+  display: block;
+  width: 3rem;
+  margin: 0.75rem auto 0;
+  border-top: var(--divider-width) solid var(--color-primary);
+  align-self: center;
 }

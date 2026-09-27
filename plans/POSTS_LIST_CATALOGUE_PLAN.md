@@ -13,7 +13,7 @@ a **printed catalogue of entries** rather than a grid of cards. Structure comes
 from rules and keylines; metadata is part of the composition, not a subtitle.
 
 The key tie-in: `.postHeading` in `src/styles/Post.module.css` — the existing
-individual post header — is *already* this layout. Top and bottom `2px` green
+individual post header — is _already_ this layout. Top and bottom `2px` green
 dividers, text column on the left, image column on the right behind a left
 divider, a hairline `.postSubtitle` rule inside the text column, stacking to a
 single column below 1040px. **Each catalogue row is that header, shrunk.**
@@ -93,24 +93,30 @@ Duotone (classic two-layer recipe, no image reprocessing, fully reversible):
 
 ```css
 .thumbWrap {
-    position: relative;
-    isolation: isolate;                     /* blends stay inside the wrap */
-    background-color: var(--color-bg-white);
+  position: relative;
+  isolation: isolate; /* blends stay inside the wrap */
+  background-color: var(--color-bg-white);
 }
 .thumbWrap img {
-    filter: grayscale(1) contrast(1.08);
-    mix-blend-mode: multiply;
+  filter: grayscale(1) contrast(1.08);
+  mix-blend-mode: multiply;
 }
-.thumbWrap::after {                         /* lifts shadows to green */
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-color: var(--color-primary);
-    mix-blend-mode: lighten;
-    pointer-events: none;
+.thumbWrap::after {
+  /* lifts shadows to green */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-primary);
+  mix-blend-mode: lighten;
+  pointer-events: none;
 }
-.entry:hover .thumbWrap img { filter: none; mix-blend-mode: normal; }
-.entry:hover .thumbWrap::after { opacity: 0; }
+.entry:hover .thumbWrap img {
+  filter: none;
+  mix-blend-mode: normal;
+}
+.entry:hover .thumbWrap::after {
+  opacity: 0;
+}
 ```
 
 Guard both: `@media (hover: none)` shows full colour at rest (touch devices
@@ -118,13 +124,14 @@ never fire hover), `@media (prefers-reduced-motion: reduce)` drops the
 transitions.
 
 Thumbnails are `aspect-ratio: 4 / 3; object-fit: cover` in a fixed ~260px
-column. Cropping is correct *here* even though the post hero deliberately
+column. Cropping is correct _here_ even though the post hero deliberately
 avoids it (`Post.module.css` comments) — uniform rows are the point of a
 catalogue, and the two splash images are 16:9 and 4:3 respectively.
 
 **Modified — `src/pages/posts/index.tsx`**
 Swap the inline tile for `<PostEntry>`. In `getStaticProps`, extend the
 existing sort to also:
+
 - filter out `metadata.listed === false`
 - assign `No.` indices by ascending date
 - sort `pin: true` first, then descending date
@@ -173,7 +180,7 @@ asset committed alongside the original.
 ## Out of scope
 
 The individual post page's own header is left as-is — it is the reference the
-list is matching, not a target for change. Tag *filtering*, pagination, and a
+list is matching, not a target for change. Tag _filtering_, pagination, and a
 tag-pill component are not part of this; tags render as plain text in the
 `FILED UNDER` cell.
 

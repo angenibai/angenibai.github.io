@@ -17,7 +17,7 @@
   border-radius: 0.5rem;
   overflow-x: auto;
   scrollbar-width: thin;
-  scrollbar-color: #EEC767 var(--color-primary);
+  scrollbar-color: #eec767 var(--color-primary);
 }
 
 /* Chunky bookmark-ribbon scrollbar, matching the site's thick-border,
@@ -31,13 +31,13 @@
 }
 
 .codeBlock::-webkit-scrollbar-thumb {
-  background-color: #EEC767;
+  background-color: #eec767;
   border: 2px solid var(--color-primary-darker);
   border-radius: 4px;
 }
 
 .codeBlock::-webkit-scrollbar-thumb:hover {
-  background-color: #F5D687;
+  background-color: #f5d687;
 }
 
 .inlineCode {

@@ -4,199 +4,205 @@
    Section 5) - display is deliberately not redeclared in this base rule so
    that invariant stays platform-owned rather than re-implemented here. */
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    max-height: none;
-    margin: 0;
-    border: none;
-    padding: 0;
-    background-color: rgba(255, 255, 255, 0.4);
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: none;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.4);
+  justify-content: center;
+  align-items: center;
 
-    /* Exit animation is Chromium-only - see ACCESSIBILITY.md Section 1 and
+  /* Exit animation is Chromium-only - see ACCESSIBILITY.md Section 1 and
        FUTURE_WORK.md > Animation polish. Animating a <dialog> out requires
        transitioning `overlay`, because the element leaves the top layer the
        instant close() is called; `overlay` has no Safari/Firefox support as
        of writing, so there the modal snaps shut instead of scaling out. The
        open animation below is unaffected everywhere - @starting-style on
        transform needs no top-layer participation. */
-    transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete;
+  transition:
+    display 0.3s allow-discrete,
+    overlay 0.3s allow-discrete;
 }
 
 .modalOverlay[open] {
-    display: flex;
+  display: flex;
 }
 
 .modalPanel {
-    background-color: var(--color-bg-white);
-    padding: 9px;
-    width: 90%;
-    max-width: 480px;
-    border: 5px solid var(--color-primary);
-    box-shadow: 10px 10px var(--color-primary);
-    height: fit-content;
-    max-height: 90%;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  background-color: var(--color-bg-white);
+  padding: 9px;
+  width: 90%;
+  max-width: 480px;
+  border: 5px solid var(--color-primary);
+  box-shadow: 10px 10px var(--color-primary);
+  height: fit-content;
+  max-height: 90%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-    transform: scale(0);
-    transition: transform 0.3s ease-out;
+  transform: scale(0);
+  transition: transform 0.3s ease-out;
 }
 
 .modalOverlay[open] .modalPanel {
-    transform: scale(1);
+  transform: scale(1);
 }
 
 @starting-style {
-    .modalOverlay[open] .modalPanel {
-        transform: scale(0);
-    }
+  .modalOverlay[open] .modalPanel {
+    transform: scale(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .modalOverlay {
-        transition: opacity 0.15s linear, display 0.15s linear, overlay 0.15s linear;
-        transition-behavior: allow-discrete;
-        opacity: 0;
-    }
+  .modalOverlay {
+    transition:
+      opacity 0.15s linear,
+      display 0.15s linear,
+      overlay 0.15s linear;
+    transition-behavior: allow-discrete;
+    opacity: 0;
+  }
 
+  .modalOverlay[open] {
+    opacity: 1;
+  }
+
+  /* Disable panel scaling completely */
+  .modalPanel {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  @starting-style {
     .modalOverlay[open] {
-        opacity: 1;
+      opacity: 0;
     }
-
-    /* Disable panel scaling completely */
-    .modalPanel {
-        transform: none !important;
-        transition: none !important;
-    }
-
-    @starting-style {
-        .modalOverlay[open] {
-            opacity: 0;
-        }
-    }
+  }
 }
 
 /* The dialog paints its own scrim (above), so the ::backdrop stays inert and
    transparent - keeping the scrim on the dialog itself is what makes the
    backdrop click detectable via event.target === the dialog element. */
 .modalOverlay::backdrop {
-    background: transparent;
+  background: transparent;
 }
 
 .modalHeader {
-    width: 100%;
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: 0.5rem;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .projectTitle {
-    background-color: var(--color-primary);
-    flex: 1;
-    height: stretch;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.4rem 0.2rem;
+  background-color: var(--color-primary);
+  flex: 1;
+  height: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.2rem;
 }
 
 .projectTitle > h2 {
-    text-align: center;
-    font-size: 1.4rem;
+  text-align: center;
+  font-size: 1.4rem;
 }
 
 .modalCloseButton {
-    background: none;
-    font: inherit;
-    padding: 3px 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    color: var(--color-primary);
-    cursor: pointer;
+  background: none;
+  font: inherit;
+  padding: 3px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--color-primary);
+  cursor: pointer;
 }
 
 .modalCloseIcon {
-    font-size: 54px;
-    width: 100%;
-    height: auto;
-    user-select: none;
+  font-size: 54px;
+  width: 100%;
+  height: auto;
+  user-select: none;
 }
 
 .projectImageDiv {
-    display: flex;
-    justify-content: center;
-    margin: 0.8rem auto;
+  display: flex;
+  justify-content: center;
+  margin: 0.8rem auto;
 }
 
 .projectImage {
-    display: block;
-    /* Both dimensions auto so the browser keeps the image's natural ratio
+  display: block;
+  /* Both dimensions auto so the browser keeps the image's natural ratio
        and shrinks it to fit whichever constraint binds first. */
-    width: auto;
-    height: auto;
-    aspect-ratio: auto;
-    max-width: min(98%, 400px);
-    max-height: 300px;
-    border: var(--border-width) solid var(--color-primary);
-    box-shadow: 3px 3px var(--color-primary);
+  width: auto;
+  height: auto;
+  aspect-ratio: auto;
+  max-width: min(98%, 400px);
+  max-height: 300px;
+  border: var(--border-width) solid var(--color-primary);
+  box-shadow: 3px 3px var(--color-primary);
 }
 
 .detailHeading {
-    background-color: var(--color-primary);
-    text-align: center;
-    padding: 0.4rem 0.2rem;
+  background-color: var(--color-primary);
+  text-align: center;
+  padding: 0.4rem 0.2rem;
 }
 
 .detailHeading > h3 {
-    font-family: var(--font-newsreader), 'Times New Roman', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
+  font-family: var(--font-newsreader), "Times New Roman", serif;
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .projectDetail {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 .modalPanel p {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .modalPanel li {
-    margin: 0;
+  margin: 0;
 }
 
-.modalPanel ul, .modalPanel ol {
-    margin-bottom: 0.5rem;
+.modalPanel ul,
+.modalPanel ol {
+  margin-bottom: 0.5rem;
 }
 
 .modalPanel a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .projectLinks {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
 }
 
 .projectLinkRow {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .projectLinkLabel {
-    min-width: 80px;
-    font-weight: 600;
+  min-width: 80px;
+  font-weight: 600;
 }

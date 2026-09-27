@@ -18,7 +18,7 @@ listed: true # false if this post must NOT be included on the posts page, sitema
 index: true # When false, <meta name="robots" content="noindex"> is added to the page, default is true
 
 # for external posts
-externalLink: https://angenibai.substack.com/p/on-skateparks # overrides the default link to a post on the site. 
+externalLink: https://angenibai.substack.com/p/on-skateparks # overrides the default link to a post on the site.
 ---
 
 Find this post on [Substack](https://angenibai.substack.com/p/on-skateparks).

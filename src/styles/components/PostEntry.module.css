@@ -1,21 +1,21 @@
 .entry {
-    display: block;
-    width: 100%;
-    text-decoration: none;
-    color: inherit;
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
 }
 
 .line {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0.1rem;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.1rem;
 }
 
 .title {
-    flex: 0 1 auto;
-    font-size: 1.5rem;
-    color: var(--color-primary);
+  flex: 0 1 auto;
+  font-size: 1.5rem;
+  color: var(--color-primary);
 }
 
 /* Nudged down off the baseline so the dots sit under the type rather than
@@ -23,37 +23,37 @@
    block instead of hanging off the last line - CSS can't reach that line box,
    and truncating a title on an index page would be worse. */
 .leader {
-    flex: 1 1 2rem;
-    min-width: 2rem;
-    border-bottom: var(--divider-width) dotted var(--color-primary);
-    margin-bottom: 0.35em;
+  flex: 1 1 2rem;
+  min-width: 2rem;
+  border-bottom: var(--divider-width) dotted var(--color-primary);
+  margin-bottom: 0.35em;
 }
 
 /* Right-aligned, so Newsreader's proportional figures can differ in width
    without the right edge ragging - the leader absorbs the slack. */
 .date {
-    flex: 0 0 auto;
-    font-family: var(--font-newsreader);
-    font-size: 0.9rem;
-    color: var(--color-black);
-    text-align: right;
+  flex: 0 0 auto;
+  font-family: var(--font-newsreader);
+  font-size: 0.9rem;
+  color: var(--color-black);
+  text-align: right;
 }
 
 .blurb {
-    font-family: var(--font-newsreader);
-    font-style: italic;
-    font-size: 0.95rem;
-    color: var(--color-black);
-    margin-top: 0.2rem;
+  font-family: var(--font-newsreader);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--color-black);
+  margin-top: 0.2rem;
 }
 
 .pin {
-    position: absolute;
-    left: -1.25rem;
-    top: 0.6rem;
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: var(--color-primary);
+  position: absolute;
+  left: -1.25rem;
+  top: 0.6rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--color-primary);
 }
 
 /* The site's own hover idiom (globals.css underlines every link), applied to
@@ -61,11 +61,11 @@
    the underline is the single cue rather than two competing ones. */
 .entry:hover .title,
 .entry:hover .blurb {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .entry {
-        transition: none;
-    }
+  .entry {
+    transition: none;
+  }
 }

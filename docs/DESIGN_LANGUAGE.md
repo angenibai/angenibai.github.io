@@ -14,17 +14,17 @@ soft, blurred, or gradient-based.
 
 Every color in use is a named token in `src/styles/globals.css:9-15`:
 
-| Token | Value | Role |
-|---|---|---|
-| `--color-primary` | `#0D4B37` | deep green — body links, headings, borders |
-| `--color-primary-darker` | `#093426` | code block panels |
-| `--color-accent` | `#93748A` | dusty mauve — sparingly used accent |
-| `--color-bg-white` | `#FAF8F0` | warm cream — page background |
-| `--color-black` | `#292929` | body text |
+| Token                    | Value     | Role                                       |
+| ------------------------ | --------- | ------------------------------------------ |
+| `--color-primary`        | `#0D4B37` | deep green — body links, headings, borders |
+| `--color-primary-darker` | `#093426` | code block panels                          |
+| `--color-accent`         | `#93748A` | dusty mauve — sparingly used accent        |
+| `--color-bg-white`       | `#FAF8F0` | warm cream — page background               |
+| `--color-black`          | `#292929` | body text                                  |
 
 That's five hues, and green does most of the work. When a new UI element
 needs a color — a syntax token, a scrollbar thumb, a pill background — the
-answer should be a lighter/darker/more-transparent step *within* one of
+answer should be a lighter/darker/more-transparent step _within_ one of
 these families, not a new hue. The syntax highlighting palette added in
 `src/components/markdown/Code.tsx` (comment green, string mauve, keyword
 mustard) and the code-block scrollbar thumb (`#EEC767`) are both deliberately
@@ -45,6 +45,7 @@ consistent everywhere it appears.
 ## Borders and keylines; shadows only solid and offset
 
 Structure is drawn with visible borders, not blur:
+
 - `--border-width: 3px` on nav links (`Nav.module.css`)
 - `--divider-width: 2px`, including as a dotted dot leader between title and
   date on the posts list rows (`PostEntry.module.css`)
@@ -52,24 +53,25 @@ Structure is drawn with visible borders, not blur:
 - Code blocks and post-body images are flat panels with a hard
   `border-radius` (`0.5rem`), no drop shadow
 
-The rule is *no blurred* shadows, not no shadows. Solid zero-blur offset
+The rule is _no blurred_ shadows, not no shadows. Solid zero-blur offset
 shadows in the primary green are used deliberately, at a scale that tracks how
 much the element should lift off the page: `2px` (Button), `3px` (ProjectGrid
 inner tiles), `5px` (Footer and tiles), `10px` (BioPanel, and the posts list
 hover panel).
 
 If something needs visual separation from what's around it, reach for a border
-or a solid color-block boundary before a shadow; if it needs to sit *above* the
+or a solid color-block boundary before a shadow; if it needs to sit _above_ the
 page, use a solid offset shadow at one of those steps.
 
 ## Typography pairing is the core signature
 
 Three families, one job each — don't add a fourth without strong reason:
+
 - **Work Sans** (`--font-work-sans`) — bold display headings, geometric sans
 - **Newsreader** (`--font-newsreader`) — serif body text, old-style
 - **IBM Plex Mono** (`--font-mono`) — code, inline and block
 
-The mono face sits deliberately *between* the other two registers:
+The mono face sits deliberately _between_ the other two registers:
 technical enough to read as code, but not so sterile it clashes with the
 serif body. It's sized relative to body text (~0.85–0.9em of the paragraph
 size) rather than at a fixed rem value, so it stays subordinate to prose

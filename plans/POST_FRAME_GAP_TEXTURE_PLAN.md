@@ -11,19 +11,20 @@ whose own vertical padding paints over the border for a bit before/after the
 content, creating a visible "gap."
 
 That mask currently uses a flat `background-color: var(--color-bg-white)`.
-The user flagged that this doesn't match the *true* page background, which
+The user flagged that this doesn't match the _true_ page background, which
 is textured (`body` in `globals.css` layers `noise-2.svg`, a seamless
 `feTurbulence` grain, on top of the flat color). A flat patch reads as a
 visibly different rectangle against the grainy page.
 
 Investigation (confirmed live in the dev server via temporary DOM/style
 injection — no repo files touched during this investigation):
+
 - `noise-2.svg` has no intrinsic width/height, only a `viewBox="0 0 400
-  400"`. With `background-size` left at its default `auto` (as `body`
+400"`. With `background-size` left at its default `auto` (as `body`
   currently has it), each element sizes the image independently — a large
   box like `body` stretches it very differently than a short wrapper strip.
   That's the actual mismatch the user spotted (not just phase/position, but
-  effective grain *scale*). A first fix attempt (just adding the same
+  effective grain _scale_). A first fix attempt (just adding the same
   `background-image` to the wrappers, no explicit size) still had this flaw.
 - The real fix: give **both** `body` and the wrapper elements the same
   explicit `background-size` (e.g. `400px 400px`), so all of them tile the
@@ -43,7 +44,7 @@ injection — no repo files touched during this investigation):
 Separately, the user asked for images (not code blocks) to get a small
 top/bottom divider ornament inside that gap — shorter than the h2 dividers
 — to visually "set the image apart," and for `<figcaption>` (used in one
-real post) to sit *inside* that bracket rather than below it.
+real post) to sit _inside_ that bracket rather than below it.
 
 ## Approach
 
@@ -51,6 +52,7 @@ real post) to sit *inside* that bracket rather than below it.
 
 `src/styles/globals.css` — add an explicit size to the existing `body` rule
 so it's no longer auto-stretched per-viewport:
+
 ```css
 body {
   background-color: var(--color-bg-white);
@@ -63,6 +65,7 @@ body {
 `src/styles/components/Code.module.css` — add the same image + the same
 explicit size to `.imageWrapper` / `.codeBlockWrapper` (which already carry
 `background-color: var(--color-bg-white)`):
+
 ```css
 background-image: url("/noise-2.svg");
 background-size: 400px 400px;
@@ -76,6 +79,7 @@ row flex (`justify-content: center`) to a column flex
 medium-weight (`var(--divider-width)`, matching the h2 divider weight)
 rules via `::before`/`::after`, clearly shorter than the h2 dividers
 (which run `width: fit-content` against heading text, typically 8–20+rem):
+
 ```css
 .imageWrapper {
   display: flex;
@@ -96,8 +100,12 @@ rules via `::before`/`::after`, clearly shorter than the h2 dividers
   width: 3rem;
   border-top: var(--divider-width) solid var(--color-primary);
 }
-.imageWrapper::before { margin-bottom: 0.75rem; }
-.imageWrapper::after { margin-top: 0.75rem; }
+.imageWrapper::before {
+  margin-bottom: 0.75rem;
+}
+.imageWrapper::after {
+  margin-top: 0.75rem;
+}
 ```
 
 Real posts use raw `<figure><img/><figcaption/></figure>` HTML (confirmed
@@ -106,13 +114,14 @@ figure`/`.postContent figcaption` in `Post.module.css` already style that
 case (figure is `display:flex; flex-direction:column; align-items:stretch`
 so the image wrapper's bleed still reaches full width; figcaption is a
 green pill that overlaps the image by `margin-top: -0.5rem`). For that
-case, the closing divider must render *after* the figcaption, not right
+case, the closing divider must render _after_ the figcaption, not right
 after the image — otherwise the caption ends up below/outside the bracket.
 Fix (tested live, confirmed correct ordering and no doubled rule):
 
 `Image.module.css` — suppress the wrapper's own closing divider specifically
 when it's inside a `<figure>` (plain tag selector, no cross-module
 reference needed since `figure` isn't a CSS-modules class):
+
 ```css
 figure > .imageWrapper::after {
   content: none;
@@ -121,9 +130,10 @@ figure > .imageWrapper::after {
 
 `src/styles/Post.module.css` — add the closing divider to `figure` itself
 instead, so it always lands after the last child (the image when there's no
-caption is fine since this only fires *inside* `figure`, which by
+caption is fine since this only fires _inside_ `figure`, which by
 definition holds a caption in this codebase; still safe either way since
 `figure::after` is last-in-DOM regardless of caption presence):
+
 ```css
 .postContent figure::after {
   content: "";
@@ -187,6 +197,7 @@ or a much larger post ever suggests it's warranted.
 
 Already spot-checked live via temporary `<style>` injection in the running
 dev server (no files modified) on both existing posts:
+
 - `/posts/2023-04-08-easter-show-value` — bare images and code blocks:
   confirmed seamless texture across the gap/body boundary at zoomed
   resolution, confirmed no regression to the homepage's existing texture
@@ -208,15 +219,15 @@ session:
 - The figcaption's green pill (`background-color`/`color`/`padding` in
   `.postContent figcaption`, described above) didn't read well - replaced
   with plain italic dark-green text (`color: var(--color-primary);
-  font-style: italic`, no background/padding). `margin-top` stayed negative
+font-style: italic`, no background/padding). `margin-top` stayed negative
   (now `-0.5rem`, down from `-0.75rem` - less pull-up needed without the
   pill's own vertical padding) so it still sits snug under the image inside
   the divider bracket.
 - Images also picked up `border-radius: 0.5rem` on
   `.imageWrapper img` (`Image.module.css`), matching the code block's
   corner radius.
-- A separate, unrelated mobile-squashing complaint about the *post
-  header's* splash image (`.postHeadingImageWrap` in `Post.module.css` -
+- A separate, unrelated mobile-squashing complaint about the _post
+  header's_ splash image (`.postHeadingImageWrap` in `Post.module.css` -
   not touched by this plan, which only covers in-body images/code blocks)
   turned into its own redesign: `.postHeading` moved from CSS grid to
   `flex-wrap`, and the splash image now sizes from its own intrinsic aspect
@@ -227,6 +238,7 @@ session:
   component.
 
 ## Update (2026-08-24): reverted customWidth mechanism, replaced with a
+
 ## per-post scoped variable
 
 A prior session added a `customWidth` opt-in for the easter show post (a

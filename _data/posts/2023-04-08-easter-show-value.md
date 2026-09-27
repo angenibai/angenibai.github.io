@@ -63,10 +63,10 @@ So with Barbie Dreamtopia we’re more than _doubling_ the value of stuff we get
 
 A table to summarise:
 
-|                       | Low price                 | High price                          |
-| --------------------- | ------------------------- | ----------------------------------- |
+|                       | Low price                 | High price                                |
+| --------------------- | ------------------------- | ----------------------------------------- |
 | **Low retail value**  | Low value to price ratio  | Very low value to price ratio (ie. `< 1`) |
-| **High retail value** | High value to price ratio | Low value to price ratio            |
+| **High retail value** | High value to price ratio | Low value to price ratio                  |
 
 ## Step 1: figure out the structure of the web page
 
