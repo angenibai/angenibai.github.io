@@ -20,20 +20,21 @@
  * straight to committed.
  */
 .button {
-    --depth: 2px;
-    --rise: 2px;
+  --depth: 2px;
+  --rise: 2px;
 
-    display: block;
-    border: 2px solid var(--color-primary);
-    box-shadow: var(--depth) var(--depth) var(--color-primary);
-    transform: translate(0, 0);
-    transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1),
-                box-shadow 250ms cubic-bezier(0.3, 0.7, 0.4, 1);
-    cursor: pointer;
-    text-align: center;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    width: fit-content;
+  display: block;
+  border: 2px solid var(--color-primary);
+  box-shadow: var(--depth) var(--depth) var(--color-primary);
+  transform: translate(0, 0);
+  transition:
+    transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1),
+    box-shadow 250ms cubic-bezier(0.3, 0.7, 0.4, 1);
+  cursor: pointer;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  width: fit-content;
 }
 
 /* .pressed bridges a navigation - see ButtonLink.tsx. Qualified with .button so
@@ -41,40 +42,44 @@
 .button:not(.selected):active,
 .button.pressed,
 .button.selected {
-    box-shadow: 0 0 var(--color-primary);
-    transform: translate(var(--depth), var(--depth));
-    transition: transform 34ms, box-shadow 0ms 34ms;
-    background-color: var(--color-primary);
-    color: var(--color-bg-white);
-    text-decoration: none;
+  box-shadow: 0 0 var(--color-primary);
+  transform: translate(var(--depth), var(--depth));
+  transition:
+    transform 34ms,
+    box-shadow 0ms 34ms;
+  background-color: var(--color-primary);
+  color: var(--color-bg-white);
+  text-decoration: none;
 }
 
 .button.selected {
-    cursor: default;
+  cursor: var(--cursor-default);
 }
 
 /* Keep last - see the header. (hover: hover) also stops touch devices latching
    the lifted state after a tap. */
 @media (hover: hover) {
-    .button:not(.selected):not(.pressed):hover {
-        box-shadow: var(--depth) var(--depth) var(--color-primary);
-        transform: translate(calc(-1 * var(--rise)), calc(-1 * var(--rise)));
-        transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5),
-                    box-shadow 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
-        text-decoration: none;
-    }
+  .button:not(.selected):not(.pressed):hover {
+    box-shadow: var(--depth) var(--depth) var(--color-primary);
+    transform: translate(calc(-1 * var(--rise)), calc(-1 * var(--rise)));
+    transition:
+      transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5),
+      box-shadow 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+    text-decoration: none;
+  }
 }
 
 .button:not(.selected):not(.pressed):focus-visible {
-    box-shadow: var(--depth) var(--depth) var(--color-primary);
-    transform: translate(calc(-1 * var(--rise)), calc(-1 * var(--rise)));
-    transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5),
-                box-shadow 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
-    text-decoration: none;
+  box-shadow: var(--depth) var(--depth) var(--color-primary);
+  transform: translate(calc(-1 * var(--rise)), calc(-1 * var(--rise)));
+  transition:
+    transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5),
+    box-shadow 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+  text-decoration: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .button {
-        transition: none;
-    }
+  .button {
+    transition: none;
+  }
 }

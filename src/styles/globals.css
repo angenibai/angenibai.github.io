@@ -5,17 +5,21 @@
   --divider-width: 2px;
 
   /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
-  font-family: var(--font-newsreader), 'Times New Roman', serif;
+  font-family: var(--font-newsreader), "Times New Roman", serif;
 
-  --color-primary: #0D4B37;
+  --color-primary: #0d4b37;
   --color-primary-darker: #093426;
-  --color-accent: #93748A;
-  --color-bg-white: #F5EDE0;
-  --color-bg-white: #FAF8F0;
-  --color-bg-yellow: #FFF4D7;
+  --color-accent: #93748a;
+  --color-bg-white: #f5ede0;
+  --color-bg-white: #faf8f0;
+  --color-bg-yellow: #fff4d7;
   --color-black: #292929;
 
+  --cursor-default: url("/arrowhead.svg") 8 8, auto;
+
   color: var(--color-primary);
+
+  cursor: var(--cursor-default);
 }
 
 * {
@@ -36,14 +40,21 @@ body {
   background-size: 400px 400px;
 }
 
-p, ul, ol, dl, table, div {
+p,
+ul,
+ol,
+dl,
+table,
+div {
   font-size: 1.1rem;
   line-height: 1.6rem;
   color: var(--color-black);
   font-family: var(--font-newsreader);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: var(--font-work-sans);
   font-weight: 800;
   color: var(--color-primary);
@@ -57,7 +68,9 @@ h2 {
   line-height: 2rem;
 }
 
-ul, ol, dl {
+ul,
+ol,
+dl {
   padding-inline-start: 40px;
 }
 
@@ -214,7 +227,6 @@ span::selection {
   background: var(--color-primary);
   color: var(--color-bg-white);
 }
-
 
 .invertColor::selection {
   background: var(--color-bg-white);
