@@ -242,11 +242,20 @@ keyboard. Inline code correctly uses `<code>` (`:93`).
 **`src/pages/posts/[slug].tsx:26`** — the error branch renders a bare `<h2>`
 outside `PageLayout`: no landmarks, no `h1`, no nav, no way out.
 
-**`.eslintrc.json` extends only `next/core-web-vitals`.** `jsx-a11y` is not
-enabled, which is the root reason the div-as-button and unnamed-link problems
-above went uncaught. Adding `plugin:jsx-a11y/recommended` is the single
-highest-leverage preventive change on this list — it would have flagged items
-1 and 2 automatically, and stops the whole class of bug recurring.
+**Fixed — `.eslintrc.json`.** Previously extended only `next/core-web-vitals`;
+`jsx-a11y` was not enabled, which is the root reason the div-as-button and
+unnamed-link problems above went uncaught. Now extends
+`plugin:jsx-a11y/recommended` too — the single highest-leverage preventive
+change on this list, since it would have flagged items 1 and 2 automatically.
+A dry run against the current codebase flagged exactly one thing:
+`ProjectModal.tsx`'s `<dialog onClick>` backdrop-click handler
+(`click-events-have-key-events`, `no-noninteractive-element-interactions`), a
+false positive — the keyboard equivalent is Escape, which `<dialog>` handles
+natively and `onClose` already catches. Suppressed with an
+`eslint-disable-next-line` and a comment recording why, placed before the
+opening `<dialog` tag (a disable comment inside the attribute list doesn't
+take — ESLint attributes the error to the `JSXOpeningElement`'s own start
+line, not to the individual attribute line).
 
 ## 4. Colour, focus and motion
 

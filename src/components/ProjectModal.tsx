@@ -52,6 +52,9 @@ const ProjectModal = (props: ProjectModalProps) => {
   };
 
   return (
+    // Backdrop click is a mouse shortcut; Escape is the native keyboard
+    // equivalent and reaches onClose via the dialog's close event.
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <dialog
       ref={dialogRef}
       className={styles.modalOverlay}
