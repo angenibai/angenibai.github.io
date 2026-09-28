@@ -45,6 +45,13 @@ Still open:
   whatever fix lands here needs to keep that ratio-driven sizing rather
   than reintroducing a fixed/cropped box.
 
+- **Code block styling — revisit.** Deliberately left out of the post body
+  lane redesign (`docs/design/2026-09-29-post-body-lane.md`), which made
+  body images square-cornered with a 3px border and 5px offset shadow. Code
+  blocks are still rounded dark panels with no border or shadow, so the two
+  kinds of media now differ. A green shadow barely shows against the dark
+  green panel, so the fix probably isn't just copying the image frame.
+
 ## Animation polish
 
 - Done — buttons rise on hover and only depress once pressed; the state model

@@ -4,6 +4,9 @@ status: done
 
 # Post frame texture & header breakpoint
 
+The texture-gap and image-ornament sections below are superseded by
+`2026-09-29-post-body-lane.md`.
+
 Two related pieces of the post page (`src/pages/posts/[slug].tsx`,
 `src/styles/Post.module.css`) evolved together: the gap where code blocks and
 images bleed past the post's vertical frame border, and the header's

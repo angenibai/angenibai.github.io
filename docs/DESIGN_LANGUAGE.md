@@ -38,27 +38,31 @@ pink, neon green) — that's the tell you're about to break the palette.
 The codebase doesn't use CSS `color-mix()` or alpha-channel custom
 properties. Opacity is spelled out by hand against the token's known RGB
 value: `rgba(13, 75, 55, 0.3)` (primary green at 30%, inline code background)
-and `#0d4b378d` (primary green as an 8-digit hex, table borders in
-`Post.module.css`). Follow this convention — it's a small thing, but it's
-consistent everywhere it appears.
+and `rgba(13, 75, 55, 0.35)` (post table cell borders in `Post.module.css`).
+Follow this convention — it's a small thing, but it's consistent everywhere
+it appears.
 
 ## Borders and keylines; shadows only solid and offset
 
 Structure is drawn with visible borders, not blur:
 
-- `--border-width: 3px` on nav links, and as the bottom rule of the desktop
-  running head that pins once the masthead scrolls away (`Nav.module.css`)
+- `--border-width: 3px` on nav links, as the bottom rule of the desktop
+  running head that pins once the masthead scrolls away (`Nav.module.css`),
+  and on the post body lane, joined directly to the header on desktop
+  (`Post.module.css`)
 - `--divider-width: 2px`, including as a dotted dot leader between title and
-  date on the posts list rows (`PostEntry.module.css`)
-- `1px solid #0d4b378d` hairlines on post tables
-- Code blocks and post-body images are flat panels with a hard
-  `border-radius` (`0.5rem`), no drop shadow
+  date on the posts list rows (`PostEntry.module.css`), and as post tables'
+  outer border
+- `1px solid rgba(13, 75, 55, 0.35)` hairlines on post table cells
+- Code blocks are flat panels with a hard `border-radius` (`0.5rem`), no drop
+  shadow (see `docs/FUTURE_WORK.md`); post-body images are square-cornered
+  with a `3px` border and `5px` offset shadow (below)
 
 The rule is _no blurred_ shadows, not no shadows. Solid zero-blur offset
 shadows in the primary green are used deliberately, at a scale that tracks how
 much the element should lift off the page: `2px` (Button), `3px` (ProjectGrid
-inner tiles), `5px` (Footer, tiles, and the mobile nav menu box), `10px` (BioPanel, and the posts list
-hover panel).
+inner tiles), `5px` (Footer, tiles, post-body images, and the mobile nav menu
+box), `10px` (BioPanel, and the posts list hover panel).
 
 If something needs visual separation from what's around it, reach for a border
 or a solid color-block boundary before a shadow; if it needs to sit _above_ the

@@ -1,14 +1,8 @@
-/* Bleeds past the post frame's padding and border (Post.module.css
-   .postContent) so the wrapper's own background paints over the vertical
-   rules. The wrapper's vertical padding is cream, not dark, so the border
-   visibly stops a bit before the code panel starts and resumes a bit after
-   it ends, instead of lining up flush with the panel's edges. */
+/* No longer bleeds past the post frame's padding and border (Post.module.css
+   .postContent) - the frame is now unbroken, so the wrapper just sits inside
+   it like any other block. */
 .codeBlockWrapper {
-  background-color: var(--color-bg-white);
-  background-image: url("/noise-2.svg");
-  background-size: 400px 400px;
-  margin: 0 calc(-1.5rem - var(--border-width)) 1rem;
-  padding: 0.75rem 0;
+  margin: 1.75rem 0 2rem;
 }
 
 .codeBlock {

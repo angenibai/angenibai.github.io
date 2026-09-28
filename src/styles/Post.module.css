@@ -5,9 +5,9 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: stretch;
-  border-top: var(--divider-width) solid var(--color-primary);
-  border-bottom: var(--divider-width) solid var(--color-primary);
-  margin-bottom: 2rem;
+  border-top: var(--border-width) solid var(--color-primary);
+  border-bottom: var(--border-width) solid var(--color-primary);
+  margin-bottom: 0;
 }
 
 .postHeadingText {
@@ -84,15 +84,27 @@
 
 .postContent {
   text-align: left;
-  width: 96%;
-  max-width: 640px;
-  padding: 1.5rem;
-  border-left: var(--divider-width) solid var(--color-primary);
-  border-right: var(--divider-width) solid var(--color-primary);
+  width: 100%;
+  max-width: 720px;
+  padding: 2.5rem 2.75rem 2.75rem;
+  border: var(--border-width) solid var(--color-primary);
+  border-top: 0;
   /* Post-specific image widths (e.g. --easter-screenshot-width) are set
        inline on a markdown wrapper and referenced via var() on the <img>
        itself - see the easter show value post for an example. */
   --easter-screenshot-width: 560px;
+}
+
+@media (max-width: 640px) {
+  .postHeading {
+    margin-bottom: 2rem;
+  }
+
+  .postContent {
+    padding: 0 0 1.25rem;
+    border: 0;
+    border-bottom: var(--border-width) solid var(--color-primary);
+  }
 }
 
 .postContent h1,
@@ -108,13 +120,12 @@
 .postContent h2 {
   font-size: 1.9rem;
   font-weight: 600;
-  color: var(--color-black);
-  width: fit-content;
-  max-width: 100%;
-  margin: 3rem 0 1.75rem;
-  padding: 1.25rem 0;
-  border-top: var(--divider-width) solid var(--color-primary);
-  border-bottom: var(--divider-width) solid var(--color-primary);
+  color: var(--color-primary);
+  text-wrap: balance;
+  margin: 3.25rem 0 1.5rem;
+  padding: 1rem 0;
+  border-top: var(--border-width) solid var(--color-primary);
+  border-bottom: var(--border-width) solid var(--color-primary);
 }
 
 .postContent h3 {
@@ -124,15 +135,22 @@
 .postContent p,
 .postContent ul,
 .postContent ol,
-.postConcent dl {
+.postContent dl {
   font-size: 1.2rem;
-  line-height: 1.6rem;
+  line-height: 1.85rem;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.15rem;
 }
 
-.postContent figure {
-  margin: 0 0 1rem;
+.postContent a {
+  color: rgba(13, 75, 55, 0.35);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.postContent a:hover {
+  color: var(--color-primary);
 }
 
 .postContent figcaption {
@@ -145,43 +163,38 @@
 }
 
 .postContent table {
-  border: 1px solid #0d4b378d;
+  border: var(--divider-width) solid var(--color-primary);
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 1rem;
+  margin: 0.5rem 0 1.5rem;
 }
 
 .postContent td,
 .postContent th {
   padding: 10px;
-  border: 1px solid #0d4b378d;
+  border: 1px solid rgba(13, 75, 55, 0.35);
+}
+
+.postContent thead th {
+  background-color: var(--color-primary);
+  color: var(--color-bg-white);
+  border-color: var(--color-primary);
 }
 
 .postContent figure {
   display: flex;
   flex-direction: column;
-  /* stretch (not center) so the image wrapper's bleed reaches the full
-       column width, same as a bare markdown image; figcaption below
-       centers itself explicitly since its own width is fit-content. */
   align-items: stretch;
+  margin: 1.75rem 0 2rem;
 }
 
 .postContent figcaption {
   color: var(--color-primary);
   font-style: italic;
   text-align: center;
-  margin-top: -0.5rem;
+  margin-top: 0.75rem;
   font-size: 1rem;
   width: fit-content;
   max-width: 90%;
-  align-self: center;
-}
-
-.postContent figure::after {
-  content: "";
-  display: block;
-  width: 3rem;
-  margin: 0.75rem auto 0;
-  border-top: var(--divider-width) solid var(--color-primary);
   align-self: center;
 }

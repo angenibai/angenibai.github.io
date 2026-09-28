@@ -1,10 +1,4 @@
-/* Bleeds past the post frame's padding and border (Post.module.css
-   .postContent) so the wrapper's own background paints over the vertical
-   rules, the same way the code block wrapper does — the border stops a bit
-   before the image starts and resumes a bit after it ends, instead of
-   lining up flush with the image's edges.
-
-   Centering is done with flex, not margin: auto, because a replaced element
+/* Centering is done with flex, not margin: auto, because a replaced element
    only slightly wider than its containing block resolves auto margins
    asymmetrically in Chrome (confirmed via computed styles: 0 / -14px
    instead of an even split) — flex centers it correctly either way. */
@@ -12,41 +6,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--color-bg-white);
-  background-image: url("/noise-2.svg");
-  background-size: 400px 400px;
-  margin: 0 calc(-1.5rem - var(--border-width)) 1rem;
-  padding: 1.25rem 0;
+  margin: 1.75rem 0 2rem;
 }
 
 .imageWrapper img {
   display: block;
-  max-width: 96%;
-  width: 96%;
+  width: 100%;
   height: auto;
-  border-radius: 0.5rem;
+  border: var(--border-width) solid var(--color-primary);
+  box-shadow: 5px 5px var(--color-primary);
 }
 
-/* Short divider ornament setting the image apart, matching the h2 divider
-   weight but clearly shorter (h2 dividers run full text width). */
-.imageWrapper::before,
-.imageWrapper::after {
-  content: "";
-  display: block;
-  width: 3rem;
-  border-top: var(--divider-width) solid var(--color-primary);
-}
-
-.imageWrapper::before {
-  margin-bottom: 0.75rem;
-}
-
-.imageWrapper::after {
-  margin-top: 0.75rem;
-}
-
-/* Inside a <figure>, the figcaption belongs inside the bracket, so the
-   closing divider moves to figure::after (Post.module.css) instead. */
-figure > .imageWrapper::after {
-  content: none;
+/* Inside a <figure>, the figure owns the outer spacing. */
+figure > .imageWrapper {
+  margin: 0;
 }
