@@ -2,7 +2,11 @@ import { useRouter } from "next/router";
 import ButtonLink from "./ButtonLink";
 import styles from "@/styles/components/Nav.module.css";
 
-const NavLinks = () => {
+interface NavLinksProps {
+  className?: string;
+}
+
+const NavLinks = ({ className = styles.nav }: NavLinksProps) => {
   const { pathname } = useRouter();
 
   const getCurrentPage = (pathname: string) => {
@@ -10,7 +14,7 @@ const NavLinks = () => {
   };
 
   return (
-    <nav className={styles.nav}>
+    <nav className={className}>
       <ButtonLink href="/" isSelected={getCurrentPage(pathname) === "/"}>
         home
       </ButtonLink>

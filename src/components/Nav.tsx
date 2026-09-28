@@ -1,19 +1,53 @@
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 import styles from "@/styles/components/Nav.module.css";
 import NavLinks from "./NavLinks";
+import NavMenu from "./NavMenu";
 
 const Nav = () => {
+  const mastheadRef = useRef<HTMLElement>(null);
+  // Starts true so the running head is hidden on first paint and during SSR.
+  const [isMastheadVisible, setIsMastheadVisible] = useState(true);
+
+  useEffect(() => {
+    const masthead = mastheadRef.current;
+    if (!masthead) {
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) =>
+      setIsMastheadVisible(entry.isIntersecting),
+    );
+    observer.observe(masthead);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <header className={styles.header}>
-      <div className={styles.websiteTitle}>
-        <Link className="sneakyLink titleHeader" href="/">
-          angeni bai
-        </Link>
+    <>
+      <header ref={mastheadRef} className={styles.header}>
+        <div className={styles.websiteTitle}>
+          <Link className="sneakyLink titleHeader" href="/">
+            angeni bai
+          </Link>
+        </div>
+        <div className={styles.slashDivider} aria-hidden="true"></div>
+        <NavLinks className={styles.mastheadNav} />
+      </header>
+      <div
+        className={`${styles.runningHead} ${
+          isMastheadVisible ? "" : styles.runningHeadShown
+        }`}
+      >
+        <div className={styles.runningHeadTitle}>
+          <Link className="sneakyLink" href="/">
+            angeni bai
+          </Link>
+        </div>
+        <div className={styles.runningHeadSlash} aria-hidden="true"></div>
+        <NavLinks className={styles.runningHeadNav} />
       </div>
-      <div className={styles.slashDivider} aria-hidden="true"></div>
-      <NavLinks />
-    </header>
+      <NavMenu />
+    </>
   );
 };
 

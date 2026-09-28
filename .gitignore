@@ -38,3 +38,6 @@ next-env.d.ts
 .bundle/
 _site/
 vendor/
+
+# working plans for in-progress changes (see AGENTS.md)
+docs/plan/

@@ -46,7 +46,8 @@ consistent everywhere it appears.
 
 Structure is drawn with visible borders, not blur:
 
-- `--border-width: 3px` on nav links (`Nav.module.css`)
+- `--border-width: 3px` on nav links, and as the bottom rule of the desktop
+  running head that pins once the masthead scrolls away (`Nav.module.css`)
 - `--divider-width: 2px`, including as a dotted dot leader between title and
   date on the posts list rows (`PostEntry.module.css`)
 - `1px solid #0d4b378d` hairlines on post tables
@@ -56,7 +57,7 @@ Structure is drawn with visible borders, not blur:
 The rule is _no blurred_ shadows, not no shadows. Solid zero-blur offset
 shadows in the primary green are used deliberately, at a scale that tracks how
 much the element should lift off the page: `2px` (Button), `3px` (ProjectGrid
-inner tiles), `5px` (Footer and tiles), `10px` (BioPanel, and the posts list
+inner tiles), `5px` (Footer, tiles, and the mobile nav menu box), `10px` (BioPanel, and the posts list
 hover panel).
 
 If something needs visual separation from what's around it, reach for a border

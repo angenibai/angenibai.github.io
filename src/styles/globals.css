@@ -34,6 +34,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Keeps skip-link and Tab targets clear of the fixed nav: the 64px desktop
+   running head, or the mobile menu button (see Nav.module.css). */
+html {
+  scroll-padding-top: 5rem;
+}
+
 body {
   background-color: var(--color-bg-white);
   background-image: url("/noise-2.svg");
