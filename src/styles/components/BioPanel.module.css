@@ -27,8 +27,13 @@
   padding: 0.6rem 0.2rem;
 }
 
-.bioPanelTitleHeader > h4 {
+.bioPanelTitleHeader > h2 {
   font-size: 1.2rem;
+  /* Pinned to how the old h4 rendered: globals.css styles h1–h3 as
+     Work Sans 800 with their own line-heights. */
+  font-family: inherit;
+  font-weight: bold;
+  line-height: inherit;
 }
 
 .bioPanelImgFrame {
@@ -56,8 +61,10 @@
   margin: 6px 0;
 }
 
-.bioPanelSectionHeader > h5 {
+.bioPanelSectionHeader > h3 {
   font-size: 1rem;
+  font-family: inherit;
+  font-weight: bold;
 }
 
 .bioPanelSectionEntry {

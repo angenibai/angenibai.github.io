@@ -212,12 +212,19 @@ attributes before this batch, all of them `aria-hidden="true"`.
 
 ## 3. Document structure
 
-**The home page has no `h1`.** `src/pages/index.tsx:13` opens at `<h3>` and
-`BioPanel.tsx:73,91` continue at `h4` / `h5` — heading levels chosen for size
-rather than structure (`.bigText` is 3rem, `Home.module.css:33`). Home also
-uses the bare `Layout` rather than `PageLayout`, so it has no `<header>` or
-`<footer>` landmark and `NavLinks` sits loose inside `<main>`. `/posts`,
-`/projects` and `/404` all get this right.
+**Fixed — the home page had no `h1`.** `src/pages/index.tsx:13` opened at
+`<h3>` and `BioPanel.tsx:73,91` continued at `h4` / `h5` — heading levels
+chosen for size rather than structure (`.bigText` is 3rem,
+`Home.module.css:33`). Now the welcome line is an `h1`, BioPanel's heading is
+`h2`, and its section titles are `h3`, matching the site's one-`h1`-per-page
+convention with no skipped level. `BioPanel.module.css` pins `font-family`,
+`font-weight` (and, on the title header, `line-height`) back to how the old
+`h4`/`h5` rendered, since `globals.css`'s `h1, h2, h3` rule would otherwise
+switch them from Newsreader to Work Sans. Rendered display is unchanged.
+
+Home still uses the bare `Layout` rather than `PageLayout`, so it has no
+`<header>` or `<footer>` landmark and `NavLinks` sits loose inside `<main>` —
+that part is untouched.
 
 **Nothing on the site is marked up as a list.** The post list
 (`posts/index.tsx:24-41`), project grid (`projects/index.tsx:43-55`), nav links

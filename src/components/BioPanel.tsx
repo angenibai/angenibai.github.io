@@ -70,7 +70,7 @@ const BioPanel = ({ content = defaultContent }: BioPanelProps) => {
         <div
           className={`${styles.bioPanelHeader} ${styles.bioPanelTitleHeader}`}
         >
-          <h4 className="invertColor">{content.heading}</h4>
+          <h2 className="invertColor">{content.heading}</h2>
         </div>
         <div className={styles.bioPanelImgFrame}>
           {content.img ? (
@@ -88,7 +88,7 @@ const BioPanel = ({ content = defaultContent }: BioPanelProps) => {
                 <div
                   className={`${styles.bioPanelHeader} ${styles.bioPanelSectionHeader}`}
                 >
-                  <h5 className="invertColor">{section.title}</h5>
+                  <h3 className="invertColor">{section.title}</h3>
                 </div>
               )}
               <div className={styles.bioPanelSectionContent}>
