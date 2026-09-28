@@ -177,6 +177,10 @@
   align-self: center;
 }
 
+.postContent a {
+  text-decoration: underline;
+}
+
 .postContent figure::after {
   content: "";
   display: block;

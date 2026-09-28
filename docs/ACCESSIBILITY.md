@@ -266,20 +266,19 @@ line, not to the individual attribute line).
 
 ## 4. Colour, focus and motion
 
-**Prose links are distinguished from body text by colour alone.**
+**Fixed — prose links were distinguished from body text by colour alone.**
 `globals.css:132-136` sets `a { text-decoration: none }`, with an underline
 only on `:hover` (`:138-140`). Link green `#0D4B37` inside body black `#292929`
 is a **~1.4:1** difference. WCAG 1.4.1 (Use of Color) wants at least 3:1 when
 colour is the only distinction, plus a non-colour cue available to keyboard and
-touch users — which `:hover` is not. It bites hardest at
-`src/pages/404.tsx:15`, where an unadorned inline link is the only way off the
-page.
+touch users — which `:hover` is not. It bit hardest at `src/pages/404.tsx:15`,
+where an unadorned inline link is the only way off the page.
 
-> Fix: underline links in prose — post bodies (`Post.module.css`
-> `.postContent a`) and BioPanel. `ProjectModal.module.css:162-164` already
-> does exactly this and is the precedent to generalise from. Scoping it to
-> prose leaves nav buttons, post-list rows and the masthead alone, since those
-> read as interactive from their own shape.
+Now `.postContent a` (`Post.module.css`) and `.subheading a`
+(`Error.module.css`) underline links in post bodies and on `/404`, matching
+`ProjectModal.module.css:189` (`.modalPanel a`), which already did exactly
+this. Scoped to prose, so nav buttons, post-list rows and the masthead are
+untouched — those read as interactive from their own shape.
 
 **`.sneakyLink` stays deliberately un-underlined.** `globals.css:142-149` gives
 it no colour change, no weight change, and explicitly cancels the inherited
