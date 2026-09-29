@@ -78,19 +78,6 @@ See `docs/design/posts-list-evolution.md` for the current design.
   `scripts/generate-sitemap.ts` already runs as `prebuild` with the listed
   posts in hand, so that's the natural place to write it.
 
-## BioPanel doesn't read from `_data/bio.yaml`
-
-`src/components/BioPanel.tsx` has a commented-out `getStaticProps` with the
-note `// for some reason "fs" can't be imported`, so it renders a hardcoded
-`defaultContent` object that duplicates `_data/bio.yaml` by hand instead of
-reading the file. Editing `bio.yaml` currently has no effect on the site.
-
-The `fs` import fails because `getStaticProps` only works in `src/pages/*`,
-not in a regular component like `BioPanel`. Fix: call `getBio()` (already
-exported from `src/lib/api.ts`) inside `index.tsx`'s `getStaticProps`, and
-pass the result down as the `content` prop that `BioPanel` already accepts —
-no changes needed to `BioPanel` itself beyond removing `defaultContent`.
-
 ## Smaller cleanup items
 
 - Project `tags` are authored in `_data/projects.yaml` but never rendered —

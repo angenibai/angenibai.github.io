@@ -5,7 +5,7 @@ import { imageSize } from "image-size";
 
 import matter from "gray-matter";
 
-import { PostMetadata } from "@/types";
+import { BioContent, PostMetadata } from "@/types";
 
 const projectsFile = path.join(process.cwd(), "_data/projects.yaml");
 const bioFile = path.join(process.cwd(), "_data/bio.yaml");
@@ -21,7 +21,7 @@ export const getAllProjects = () => {
   return getYAML(projectsFile);
 };
 
-export const getBio = () => {
+export const getBio = (): BioContent => {
   return getYAML(bioFile);
 };
 

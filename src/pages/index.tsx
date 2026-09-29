@@ -1,12 +1,18 @@
 import BioPanel from "@/components/BioPanel";
 import Layout from "@/components/Layout";
 import NavLinks from "@/components/NavLinks";
+import { getBio } from "@/lib/api";
 import site, { absoluteUrl } from "@/lib/site";
+import { BioContent } from "@/types";
 import { NextSeo, SocialProfileJsonLd } from "next-seo";
 
 import styles from "@/styles/Home.module.css";
 
-export default function Home() {
+interface HomeProps {
+  bio: BioContent;
+}
+
+export default function Home({ bio }: HomeProps) {
   return (
     <>
       <Layout>
@@ -33,10 +39,16 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.bioDiv}>
-            <BioPanel />
+            <BioPanel content={bio} />
           </div>
         </div>
       </Layout>
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  return {
+    props: { bio: getBio() },
+  };
+};
