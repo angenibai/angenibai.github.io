@@ -35,6 +35,8 @@ There is no test suite configured in this repo.
 
 - `getAllProjects()` / `getBio()` — parse the corresponding YAML file.
 - `getAllPosts()`, `getPostBySlug()`, `getFileData()`, `getPaths()` — read and parse `_data/posts/*.md`. The filename (minus `.md`) is the post's slug and its route.
+- `getListedPosts()` — `getAllPosts()` minus `listed: false` posts; the one definition of "unlisted", used by the posts page and the sitemap script.
+- `_data/site.json` — site origin, name, default description, author, and social profile URLs. JSON rather than YAML so `_app.tsx` can import it directly; read it through `src/lib/site.ts`, which also provides `absoluteUrl()` for canonicals, OG images, and the sitemap.
 - Post frontmatter fields are documented inline in `_data/posts/2023-04-08-easter-show-value.md` (required: `layout`, `title`, `date`; recommended: `tags`, `splashImageSource`, `splashImageCaption`; optional: `updated`, `author`, `pin`, `listed`, `index`). The shape is typed in `src/types/index.tsx` (`PostMetadata`, `ProjectContent`).
 - `longDescription` fields in `projects.yaml` are raw HTML strings, not Markdown.
 

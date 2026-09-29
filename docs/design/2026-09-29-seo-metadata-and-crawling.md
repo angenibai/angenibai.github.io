@@ -1,5 +1,5 @@
 ---
-status: approved
+status: done
 date: 2026-09-29
 ---
 
@@ -75,11 +75,11 @@ plain text.
 `sitemap.xml` does depend on content (which posts exist and are `listed`).
 Options:
 
-| Option | For | Against |
-|---|---|---|
-| **A. `next-sitemap`** (postbuild CLI) | Common, off the shelf | Its JS config can't import `src/lib/api.ts`, so `listed` filtering means a second frontmatter parser; output location needs care under static export |
-| **B. Build script run with `tsx`, hooked as `prebuild`** | Imports `getAllPosts()` directly (`tsx` resolves the `@/` alias from `tsconfig.json`), so `listed` logic lives in one place; `npm run build` runs it automatically; RSS can later be added to the same script | New dev dependency (`tsx`); generated file in `public/` must be gitignored |
-| **C. App Router metadata routes** | Built into Next | Rejected — no `src/app/` for now |
+| Option                                                   | For                                                                                                                                                                                                           | Against                                                                                                                                              |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **A. `next-sitemap`** (postbuild CLI)                    | Common, off the shelf                                                                                                                                                                                         | Its JS config can't import `src/lib/api.ts`, so `listed` filtering means a second frontmatter parser; output location needs care under static export |
+| **B. Build script run with `tsx`, hooked as `prebuild`** | Imports `getAllPosts()` directly (`tsx` resolves the `@/` alias from `tsconfig.json`), so `listed` logic lives in one place; `npm run build` runs it automatically; RSS can later be added to the same script | New dev dependency (`tsx`); generated file in `public/` must be gitignored                                                                           |
+| **C. App Router metadata routes**                        | Built into Next                                                                                                                                                                                               | Rejected — no `src/app/` for now                                                                                                                     |
 
 Plain `node` (v23 strips types) can't replace `tsx`: it doesn't resolve the
 `@/` alias that `src/lib/api.ts` uses.
@@ -95,9 +95,15 @@ won't exist under `npm run dev`, which is fine.
   `listed !== false` filter out of `src/pages/posts/index.tsx`'s
   `getStaticProps` so the posts page and the sitemap script share one
   definition of "unlisted". Lands as its own commit before the rest.
-- **Site config** (new, e.g. `src/lib/site.ts`): origin, site name, author
-  name, social profile URLs. Single source for absolute URLs; used by pages
-  and the build script.
+- `_data/site.json` (new): origin, site name, description, author name,
+  social profile URLs. Kept with the other authored content in `_data/`, but
+  as JSON rather than YAML: `_app.tsx` has no `getStaticProps` and so can't
+  read files with `fs`, while a JSON file can be imported directly in
+  `_app.tsx`, pages, and the `tsx` script alike. A YAML webpack loader was
+  considered and rejected: it would need config for both webpack and
+  Turbopack, lose types, and still not apply to the `tsx` script.
+- `src/lib/site.ts` (new): re-exports `site.json` and provides
+  `absoluteUrl()`, the single source for absolute URLs.
 - `src/pages/_app.tsx` (changed): `DefaultSeo` gets the home description as
   the site default, plus `og:site_name` and twitter card defaults.
 - `src/pages/index.tsx` (changed): canonical and `Person` structured data.
