@@ -19,6 +19,7 @@ author:
 pin: false # true if this post must be pinned on top of the page, default is false.
 listed: true # false if this post must NOT be included on the posts page, sitemap, and any of the tag pages, default is true
 index: true # When false, <meta name="robots" content="noindex"> is added to the page, default is true
+reacts: true # false hides the react bar, default is true
 ---
 
 The Easter Show is back and like the good enterprising bargain-hunter that I am, the biggest question I have before I go is: **_which showbag can I buy that will get me the most value for my money?_**

@@ -95,6 +95,11 @@
   --easter-screenshot-width: 560px;
 }
 
+/* Reacts.module.css draws the column's bottom edge through the react panel. */
+.postContent.hasReacts {
+  border-bottom: 0;
+}
+
 @media (max-width: 640px) {
   .postHeading {
     margin-bottom: 2rem;
