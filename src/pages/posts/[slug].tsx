@@ -72,6 +72,8 @@ const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw] as PluggableList}
             components={{
+              // Code renders its own <pre>; react-markdown's would wrap a <div> in it.
+              pre: ({ children }) => <>{children}</>,
               code: Code,
               img: Image,
             }}

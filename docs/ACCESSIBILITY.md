@@ -239,11 +239,21 @@ the heading, date and blurb, so the link's accessible name is all three
 concatenated, and the `·`-separated numeric date (`formatDate`, `:9-16`) reads
 ambiguously aloud. No `<time datetime>` is used anywhere on the site.
 
-**`src/components/markdown/Code.tsx:85`** — `PreTag="div"` strips `<pre>`
-semantics from every fenced code block, so code is announced as ordinary prose
-with no preformatted context and no language. The wrapper also lacks
-`tabIndex={0}`, so a horizontally scrolling block cannot be scrolled by
-keyboard. Inline code correctly uses `<code>` (`:93`).
+**Fixed — `src/components/markdown/Code.tsx`, `src/pages/posts/[slug].tsx`.**
+The original finding here was partly wrong: react-markdown already wraps a
+fenced block in its own `<pre>`, so the DOM was `<pre><div wrapper><div
+PreTag><code>` — `<pre>` semantics existed, but a `<div>` nested inside a
+`<pre>` is invalid, and the actual problem was that nothing in that chain was
+focusable, so a horizontally scrolling block could not be scrolled by
+keyboard. Now `[slug].tsx` unwraps react-markdown's own `<pre>` (`pre:
+({ children }) => <>{children}</>` in its `components` map), and `Code.tsx`
+makes the syntax highlighter's own `PreTag` the `<pre>` (was `"div"`), with
+`tabIndex={0}` on it — it's the right element for the tab stop since
+`.codeBlock` (`overflow-x: auto`) is the scroll container. Every non-inline
+block now goes through `SyntaxHighlighter`, defaulting to `language="text"`
+when there's no language class, so an un-languaged fenced block (none exist
+today) still renders as a real `<pre>` instead of falling through to the
+inline-`<code>` branch. Inline code correctly uses `<code>`.
 
 **`src/pages/posts/[slug].tsx:26`** — the error branch renders a bare `<h2>`
 outside `PageLayout`: no landmarks, no `h1`, no nav, no way out.

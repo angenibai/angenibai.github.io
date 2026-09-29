@@ -77,13 +77,14 @@ type CodeProps = ComponentPropsWithoutRef<"code"> &
 const Code = ({ inline, className, children, ...props }: CodeProps) => {
   const match = /language-(\w+)/.exec(className || "");
 
-  return !inline && match ? (
+  return !inline ? (
     <div className={styles.codeBlockWrapper}>
       <SyntaxHighlighter
         style={codeTheme as any}
-        language={match[1]}
-        PreTag="div"
-        className={`${styles.codeBlock} ${className}`}
+        language={match?.[1] ?? "text"}
+        PreTag="pre"
+        tabIndex={0}
+        className={`${styles.codeBlock} ${className || ""}`}
         {...props}
       >
         {String(children).replace(/\n$/, "")}
