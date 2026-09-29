@@ -117,3 +117,8 @@ export const getAllPosts = async () => {
   );
   return allPostsData;
 };
+
+// `listed: false` hides a post from the posts page and the sitemap, but it
+// still builds and is reachable by URL.
+export const getListedPosts = async () =>
+  (await getAllPosts()).filter((post) => post.metadata.listed !== false);
