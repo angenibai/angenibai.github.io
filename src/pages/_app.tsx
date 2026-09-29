@@ -4,6 +4,7 @@ import { DefaultSeo } from "next-seo";
 import { Newsreader } from "next/font/google";
 import { Work_Sans } from "next/font/google";
 import { IBM_Plex_Mono } from "next/font/google";
+import useRouteTransition from "@/hooks/useRouteTransition";
 
 const work_sans = Work_Sans({
   subsets: ["latin"],
@@ -25,6 +26,9 @@ const ibm_plex_mono = IBM_Plex_Mono({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  // Site level transition animation
+  useRouteTransition();
+
   return (
     <>
       <DefaultSeo
