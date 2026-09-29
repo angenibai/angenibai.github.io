@@ -18,7 +18,8 @@ Angeni Bai's personal website (angeni.me), a Next.js (Pages Router) + TypeScript
 
 ```
 npm run dev              # start dev server
-npm run build            # production build (also type-checks)
+npm run build            # production build (also type-checks); prebuild writes public/sitemap.xml
+npm run sitemap          # regenerate public/sitemap.xml alone (gitignored, built from listed posts)
 npm run start            # serve the production build
 npm run lint             # next lint (eslint-config-next)
 npm run optimize-images  # resize/recompress oversized images under public/img (requires ImageMagick)

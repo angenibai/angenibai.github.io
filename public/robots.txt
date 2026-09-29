@@ -1,0 +1,22 @@
+# Search engines: everything.
+User-agent: *
+Allow: /
+
+# AI training crawlers.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: CCBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+User-agent: Bytespider
+# AI search-index crawlers.
+User-agent: OAI-SearchBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+Disallow: /
+
+# User-triggered fetchers (ChatGPT-User, Claude-User, Perplexity-User) fall
+# under * and are allowed.
+
+Sitemap: https://angeni.me/sitemap.xml
