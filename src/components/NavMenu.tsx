@@ -79,6 +79,9 @@ const NavMenu = () => {
           <span></span>
         </span>
       </button>
+      {/* Delegated from the links inside: Enter on a focused link fires the
+          same click, so keyboard users already get this behaviour. */}
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div
         ref={menuRef}
         id={MENU_ID}
