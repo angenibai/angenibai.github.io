@@ -48,3 +48,20 @@ export interface PostData {
 // The list page never renders post bodies, and shipping them would put every
 // post's full markdown into __NEXT_DATA__.
 export type PostListItem = Omit<PostData, "source">;
+
+export interface BioEntry {
+  label: string;
+  // Raw HTML string.
+  value: string;
+}
+
+export interface BioSection {
+  title: string | null;
+  entries: BioEntry[];
+}
+
+export interface BioContent {
+  heading: string;
+  img: string | null;
+  sections: BioSection[];
+}

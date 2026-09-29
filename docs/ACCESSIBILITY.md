@@ -320,10 +320,8 @@ current browsers, but `noreferrer` would additionally stop the `Referer`
 header, which would hide angeni.me from GitHub/LinkedIn/etc.'s referrer
 analytics — left off on purpose. Neither affects accessibility; the
 accessibility part of `target="_blank"` (nothing tells users a new tab will
-open) is still open. `_data/bio.yaml:15` also had a `target="_blank"` not
-originally listed here — same fix, though `getBio()` is currently unused
-(`BioPanel.tsx`'s `getStaticProps` is commented out), so this file isn't live
-content yet. `_data/projects.yaml:143,181` still use `"here"` as the link
+open) is still open. `_data/bio.yaml` also had a `target="_blank"` not
+originally listed here — same fix. `_data/projects.yaml:143,181` still use `"here"` as the link
 text (WCAG 2.4.4) — untouched, a separate issue from `rel`.
 
 **Three marginal contrast cases.** Everything else passes comfortably (see

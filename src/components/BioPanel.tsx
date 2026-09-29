@@ -1,70 +1,12 @@
-import { getBio } from "@/lib/api";
 import styles from "@/styles/components/BioPanel.module.css";
+import { BioContent } from "@/types";
 import Image from "next/image";
-import { ReactNode } from "react";
-
-interface BioPanelEntry {
-  label: ReactNode;
-  value: ReactNode;
-}
-
-interface BioPanelSection {
-  title: string | null;
-  entries: BioPanelEntry[];
-}
-
-interface BioPanelContent {
-  heading: string;
-  img: string | null;
-  sections: BioPanelSection[];
-}
-
-const defaultContent: BioPanelContent = {
-  heading: "/ˌæn’dʒiːniː /",
-  img: null,
-  sections: [
-    {
-      title: null,
-      entries: [
-        {
-          label: "aka",
-          value: "genie",
-        },
-      ],
-    },
-    {
-      title: "fun facts",
-      entries: [
-        {
-          label: "likes",
-          value: (
-            <>
-              <a
-                className="sneakyLink"
-                href="https://applerankings.com/kanzi-apple-review/"
-                target="_blank"
-                rel="noopener"
-              >
-                kanzi apples
-              </a>
-              , bikeable cities, the colour green
-            </>
-          ),
-        },
-        {
-          label: "dislikes",
-          value: "hardback books",
-        },
-      ],
-    },
-  ],
-};
 
 interface BioPanelProps {
-  content?: BioPanelContent;
+  content: BioContent;
 }
 
-const BioPanel = ({ content = defaultContent }: BioPanelProps) => {
+const BioPanel = ({ content }: BioPanelProps) => {
   return (
     <div className={styles.bioPanel}>
       <div className={styles.bioPanelContent}>
@@ -103,7 +45,7 @@ const BioPanel = ({ content = defaultContent }: BioPanelProps) => {
                         <p>{entry.label}</p>
                       </div>
                       <div className={styles.bioPanelSectionEntryValue}>
-                        <p>{entry.value}</p>
+                        <p dangerouslySetInnerHTML={{ __html: entry.value }} />
                       </div>
                     </div>
                   );
@@ -119,11 +61,3 @@ const BioPanel = ({ content = defaultContent }: BioPanelProps) => {
 
 export default BioPanel;
 
-// for some reason "fs" can't be imported
-// export const getStaticProps = async () => {
-//   const content = getBio();
-
-//   return {
-//     props: { content },
-//   };
-// };
