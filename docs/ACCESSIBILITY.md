@@ -331,18 +331,23 @@ than usual here because depth and press-state are carried by `box-shadow`
 entirely, along with `background-color`. The `border` declarations survive so
 structure holds, but the pressed-vs-resting distinction does not.
 
-**Motion is well handled, with two gaps.** `prefers-reduced-motion` is
-respected in all five files that animate. Those blocks remove the `transition`
-but leave the `transform: translate(...)` on `:hover` / `:active`
-(`Button.module.css:41-50,58-66`, `ProjectGrid.module.css:50-58,69-76`), so
-elements still jump — minor, since an instant jump beats eased motion. The real
-gap is `src/hooks/usePostPreview.ts:20`: `TRACK_CURSOR` drives per-frame
-`translate3d` cursor tracking and honours no motion preference, making it the
-largest un-gated motion on the site.
+**Motion is well handled, with one remaining gap.** `prefers-reduced-motion`
+is respected in all five files that animate. Those blocks remove the
+`transition` but leave the `transform: translate(...)` on `:hover` /
+`:active` (`Button.module.css:41-50,58-66`, `ProjectGrid.module.css:50-58,69-76`),
+so elements still jump — minor, since an instant jump beats eased motion.
 
-> Fix: add `and (prefers-reduced-motion: no-preference)` to `CAPABILITY_QUERY`
-> (`:25`), or gate `TRACK_CURSOR` on a `matchMedia` check — the panel still
-> appears, it is just placed once instead of following.
+**Fixed — `src/hooks/usePostPreview.ts`.** `TRACK_CURSOR` drove per-frame
+`translate3d` cursor tracking and honoured no motion preference, making it
+the largest un-gated motion on the site. Adding `prefers-reduced-motion` to
+`CAPABILITY_QUERY` was considered and rejected — that query also gates
+whether the panel is enabled at all, so it would have disabled the panel
+entirely rather than just its tracking. Instead, a second media query
+(`MOTION_QUERY`, `"(prefers-reduced-motion: no-preference)"`) is tracked in
+its own `trackCursor` state, the same pattern `enabled` already uses, and
+gates only the `onMouseMove` cursor-follow call. With reduced motion on, the
+panel still appears on row entry/focus, placed once instead of following the
+cursor.
 
 **Text resizing.** `ProjectModal.module.css:109` sets `font-size: 54px` on the
 close `×` — the only literal-px font size in the codebase, and it is on a
