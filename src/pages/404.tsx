@@ -8,7 +8,7 @@ const Custom404 = () => {
   return (
     <>
       <PageLayout>
-        <NextSeo title="404 | angeni bai" />
+        <NextSeo title="404 | angeni bai" noindex />
         <div className={styles.errorPage}>
           <h1 className={styles.heading}>404 NOT FOUND</h1>
           <p className={styles.subheading}>

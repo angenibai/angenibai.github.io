@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
+import site from "@/lib/site";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Newsreader } from "next/font/google";
 import { Work_Sans } from "next/font/google";
@@ -29,8 +30,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <DefaultSeo
-        title="angeni bai"
-        description="angeni's website"
+        title={site.name}
+        description={site.description}
+        openGraph={{ type: "website", siteName: site.name, locale: "en_AU" }}
+        twitter={{ cardType: "summary" }}
         additionalLinkTags={[
           {
             rel: "icon",

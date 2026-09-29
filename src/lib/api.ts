@@ -62,6 +62,7 @@ export const getPostBySlug = async (slug: string) => {
     metadata: {
       ...data,
       date: data.date.toISOString(),
+      updated: data.updated ? data.updated.toISOString() : null,
     } as PostMetadata,
   };
 };

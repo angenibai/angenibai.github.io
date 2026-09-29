@@ -27,7 +27,7 @@ export interface PostMetadata {
   tags?: string[];
   splashImageSource?: string;
   splashImageCaption?: string;
-  updated?: string;
+  updated?: string | null;
   author?: { name: string; homepage: string };
   pin?: boolean;
   listed?: boolean;
