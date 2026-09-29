@@ -24,7 +24,17 @@ const Nav = () => {
 
   return (
     <>
-      <header ref={mastheadRef} className={styles.header}>
+      {/* stillHeader keeps the masthead in place during page transitions
+          (see useRouteTransition.ts). It's only applied while the masthead is
+          on screen: when the page is scrolled down, the masthead is above the
+          viewport, and it would slide down into place on the next page.
+          Instead, the running head fades out with the rest of the page. */}
+      <header
+        ref={mastheadRef}
+        className={`${styles.header} ${
+          isMastheadVisible ? styles.stillHeader : ""
+        }`}
+      >
         <div className={styles.websiteTitle}>
           <Link className="sneakyLink titleHeader" href="/">
             angeni bai

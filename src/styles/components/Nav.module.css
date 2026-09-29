@@ -6,6 +6,13 @@
   flex-wrap: wrap;
 }
 
+/* Gives the masthead its own layer in page transitions, so it stays in place
+   while the page content below it animates. Applied in Nav.tsx; the
+   animations are in globals.css. */
+.stillHeader {
+  view-transition-name: site-header;
+}
+
 .websiteTitle {
   font-size: 3rem;
   margin: 1rem 0;
@@ -128,6 +135,10 @@ button.menuButton {
   background-color: var(--color-bg-white);
   background-image: url("/noise-2.svg");
   background-size: 400px 400px;
+  /* Keeps the button in place during page transitions instead of animating
+     with the page. It's fixed, so it's in the same spot on every page. Does
+     nothing above 640px, where the button is hidden. */
+  view-transition-name: menu-button;
 }
 
 /* Three bars that fold into an x while the menu is open. Bars use

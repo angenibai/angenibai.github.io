@@ -266,3 +266,34 @@ a::-moz-selection {
 img {
   max-width: 100%;
 }
+
+/* Page transitions, started by src/hooks/useRouteTransition.ts. The old page
+   fades out over 125ms while the new page fades in and rises 14px.
+
+   The masthead (site-header, see Nav.tsx) usually stays still: when it's on
+   both the old and new page, the browser's default animation keeps it in
+   place. When it's on only one of them (going to or from the homepage, or
+   navigating while scrolled down), the :only-child rules below make it
+   animate with the page instead. */
+::view-transition-old(root),
+::view-transition-old(site-header):only-child {
+  animation: 125ms ease-in both page-fade-out;
+}
+
+::view-transition-new(root),
+::view-transition-new(site-header):only-child {
+  animation: 250ms cubic-bezier(0.3, 0.7, 0.4, 1) 38ms both page-rise-in;
+}
+
+@keyframes page-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}

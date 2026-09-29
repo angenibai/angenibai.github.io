@@ -347,6 +347,15 @@ is respected in all five files that animate. Those blocks remove the
 `:active` (`Button.module.css:41-50,58-66`, `ProjectGrid.module.css:50-58,69-76`),
 so elements still jump — minor, since an instant jump beats eased motion.
 
+**Page transitions (`src/hooks/useRouteTransition.ts`) are gated in JS, not
+CSS.** With reduced motion on, the hook doesn't start a view transition at
+all and navigation is plain Next.js, so the page never sits frozen on the old
+snapshot while the next route loads. Same `MOTION_QUERY` string as
+`usePostPreview.ts`. The hook also takes over internal link clicks and
+Back/Forward from `next/link` and Next's popstate handler (see its header
+comment); it still navigates through `router.push`/`replace`, so Next's route
+announcer is unaffected.
+
 **Fixed — `src/hooks/usePostPreview.ts`.** `TRACK_CURSOR` drove per-frame
 `translate3d` cursor tracking and honoured no motion preference, making it
 the largest un-gated motion on the site. Adding `prefers-reduced-motion` to
@@ -409,7 +418,7 @@ untracked, so committing `globals.css` without them silently falls back to
   `#093426` panel. Task-list checkboxes pair colour with a `✔` glyph
   (`globals.css:95-106`) rather than relying on fill alone.
 - No `outline: none` anywhere; `prefers-reduced-motion` in all five animating
-  files; the closed modal is genuinely hidden from assistive tech rather than
+  files, plus the page transitions (JS-gated, Section 4); the closed modal is genuinely hidden from assistive tech rather than
   merely transparent — now via the native `<dialog>`'s own
   `dialog:not([open]) { display: none }`, so `.modalOverlay`'s base rule must
   keep not declaring `display` itself (see Section 1).
