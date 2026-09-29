@@ -1,7 +1,8 @@
 import PageLayout from "@/components/PageLayout";
 import PostEntry from "@/components/PostEntry";
 import PostPreviewPanel from "@/components/PostPreviewPanel";
-import { getAllPosts } from "@/lib/api";
+import { getListedPosts } from "@/lib/api";
+import { absoluteUrl } from "@/lib/site";
 import { NextSeo } from "next-seo";
 import { PostListItem } from "@/types";
 import { usePostPreview } from "@/hooks/usePostPreview";
@@ -16,7 +17,12 @@ const Posts = ({ posts }: { posts: PostListItem[] }) => {
   return (
     <>
       <PageLayout>
-        <NextSeo title="posts | angeni bai" description="posts by angeni" />
+        <NextSeo
+          title="posts | angeni bai"
+          description="posts by angeni"
+          canonical={absoluteUrl("/posts")}
+          openGraph={{ url: absoluteUrl("/posts") }}
+        />
         <div className="pageHeader">
           <h1 className="pageheading">posts</h1>
           <p className="subheading">some thoughts were thought</p>
@@ -44,10 +50,9 @@ const Posts = ({ posts }: { posts: PostListItem[] }) => {
 export default Posts;
 
 export const getStaticProps = async () => {
-  const allPosts = await getAllPosts();
+  const listedPosts = await getListedPosts();
 
-  const posts: PostListItem[] = allPosts
-    .filter((post) => post.metadata?.listed !== false)
+  const posts: PostListItem[] = listedPosts
     // The list renders titles, dates and blurbs only - dropping `source` keeps
     // every post's full markdown out of the page's __NEXT_DATA__.
     .map(({ source, ...rest }) => rest)

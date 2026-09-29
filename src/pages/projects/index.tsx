@@ -4,6 +4,7 @@ import { ProjectContent } from "@/types";
 import { MouseEvent, useRef, useState } from "react";
 import { NextSeo } from "next-seo";
 import { getAllProjects } from "@/lib/api";
+import { absoluteUrl } from "@/lib/site";
 import PageLayout from "@/components/PageLayout";
 import ProjectModal from "@/components/ProjectModal";
 
@@ -43,6 +44,8 @@ const Projects = ({ projects }: ProjectsProps) => {
         <NextSeo
           title="projects | angeni bai"
           description="projects by angeni"
+          canonical={absoluteUrl("/projects")}
+          openGraph={{ url: absoluteUrl("/projects") }}
         />
         <div className="pageHeader">
           <h1 className="pageheading">projects</h1>

@@ -4,7 +4,8 @@ import { PostData } from "@/types";
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import { ParsedUrlQuery } from "querystring";
 import matter from "gray-matter";
-import { NextSeo } from "next-seo";
+import { ArticleJsonLd, NextSeo } from "next-seo";
+import site, { absoluteUrl } from "@/lib/site";
 import {
   PluggableList,
   ReactMarkdown,
@@ -29,10 +30,47 @@ const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
     );
   }
 
+  const url = absoluteUrl(`/posts/${slug}`);
+  const image = metadata.splashImageSource
+    ? {
+        url: absoluteUrl(metadata.splashImageSource),
+        ...splashImageDimensions,
+        alt: metadata.splashImageCaption || metadata.title,
+      }
+    : null;
+
   return (
     <>
       <PageLayout>
-        <NextSeo title={`${metadata.title} | angeni bai`} />
+        <NextSeo
+          title={`${metadata.title} | angeni bai`}
+          description={metadata.blurb}
+          canonical={url}
+          noindex={metadata.index === false}
+          openGraph={{
+            type: "article",
+            url,
+            title: metadata.title,
+            description: metadata.blurb,
+            article: {
+              publishedTime: metadata.date,
+              modifiedTime: metadata.updated ?? undefined,
+              tags: metadata.tags,
+            },
+            images: image ? [image] : [],
+          }}
+          twitter={{ cardType: image ? "summary_large_image" : "summary" }}
+        />
+        <ArticleJsonLd
+          type="BlogPosting"
+          url={url}
+          title={metadata.title}
+          description={metadata.blurb ?? ""}
+          images={image ? [image.url] : []}
+          datePublished={metadata.date}
+          dateModified={metadata.updated ?? undefined}
+          authorName={metadata.author?.name ?? site.author}
+        />
         <div className={styles.postHeading}>
           <div className={styles.postHeadingText}>
             <h1 className={styles.postTitle}>{metadata.title}</h1>
@@ -122,6 +160,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       metadata: {
         ...data,
         date: data.date.toISOString(),
+        updated: data.updated ? data.updated.toISOString() : null,
       },
       splashImageDimensions: data.splashImageSource
         ? getImageDimensions(data.splashImageSource)
