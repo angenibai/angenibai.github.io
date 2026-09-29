@@ -5,8 +5,8 @@
   longDescription: >
     <p>A little two-player co-op game for a bit of fun and joy.</p>
     <p>Started as a pre-employment refresher on how to code in Java. Became a lesson in why we don't make games in Java.</p>
-    <p>Hugely inspired by <a href="https://www.youtube.com/@RyiSnow" target="_blank">RyiSnow's Youtube series</a>.
-    Music by <a href="https://www.youtube.com/@Pixverses" target="_blank">Pix</a></p>
+    <p>Hugely inspired by <a href="https://www.youtube.com/@RyiSnow" target="_blank" rel="noopener">RyiSnow's Youtube series</a>.
+    Music by <a href="https://www.youtube.com/@Pixverses" target="_blank" rel="noopener">Pix</a></p>
   links:
     - label: Play
       url: https://epicgenie.itch.io/chomp
@@ -122,11 +122,11 @@
     <p>In 2020, I was a subcommittee member, and in 2021 I had the privilege of leading the team as a Media Director! With everything we do, we aim to create content that get the community talking, and highlight the varied voices of Computer Science at UNSW.</p>
     <p>My favourite projects I've worked on:</p>
     <ul>
-      <li><a href="https://youtu.be/yjhXxX27jd0" target="_blank">Pride in Computer Science: LGBTQ+ Roundtable</a> podcast episode</li>
-      <li><a href="https://media.csesoc.org.au/author/angeni/" target="_blank">Beginner's Guide to Vim</a> series</li>
-      <li><a href="https://open.spotify.com/episode/3zYEg2mHDND0qMrB8T48Ik?si=J-EluCqsT6CzPKVhBv5nSA&dl_branch=1" target="_blank">Personal Project Showcase</a> podcast series</li>
-      <li><a href="https://youtu.be/elJBKQWEVSo" target="_blank">CSESoc 2021 First Year Camp video</a></li>
-      <li><a href="https://media.csesoc.org.au/first-year-guide-2021/" target="_blank">CSESoc 2021 First Year Guide</a></li>
+      <li><a href="https://youtu.be/yjhXxX27jd0" target="_blank" rel="noopener">Pride in Computer Science: LGBTQ+ Roundtable</a> podcast episode</li>
+      <li><a href="https://media.csesoc.org.au/author/angeni/" target="_blank" rel="noopener">Beginner's Guide to Vim</a> series</li>
+      <li><a href="https://open.spotify.com/episode/3zYEg2mHDND0qMrB8T48Ik?si=J-EluCqsT6CzPKVhBv5nSA&dl_branch=1" target="_blank" rel="noopener">Personal Project Showcase</a> podcast series</li>
+      <li><a href="https://youtu.be/elJBKQWEVSo" target="_blank" rel="noopener">CSESoc 2021 First Year Camp video</a></li>
+      <li><a href="https://media.csesoc.org.au/first-year-guide-2021/" target="_blank" rel="noopener">CSESoc 2021 First Year Guide</a></li>
     </ul>
   links:
     - label: Site
@@ -139,8 +139,8 @@
   imgSrc: /img/summarise-my-lecture/summarise-my-lecture-intro.jpg
   shortDescription: 2021 CSESoc Hackathon 4th Place and People's Choice Winner
   longDescription: >
-    <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://adaluong.me" target="_blank">Ada Luong</a>.</p>
-    <p>Watch the pitch <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank">here</a>!</p>
+    <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://adaluong.me" target="_blank" rel="noopener">Ada Luong</a>.</p>
+    <p>Watch the pitch <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank" rel="noopener">here</a>!</p>
   links:
     - label: Pitch
       url: https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20
@@ -178,7 +178,7 @@
   shortDescription: 2020 CSESoc Hackathon Finalist
   longDescription: >
     <p>Official COVID-19 advice for your DMs 😉 - a Facebook Messenger bot that keeps you up to date with current restrictions. Developed with Ada Luong, Edwina Adisusila, Ingrid Norton and Giuliana De Bellis</p>
-    <p>Watch the live pitch <a href="https://youtu.be/cMP0vDdQhRY?t=4040" target="_blank">here</a>!</p>
+    <p>Watch the live pitch <a href="https://youtu.be/cMP0vDdQhRY?t=4040" target="_blank" rel="noopener">here</a>!</p>
   links:
     - label: Pitch
       url: https://youtu.be/cMP0vDdQhRY?t=4040
@@ -193,7 +193,7 @@
   shortDescription: Research into the genetic evolution of celiac disease
   longDescription: >
     <p>A year-long independent research project for HSC Science Extension.</p>
-    <p>Read the <a href="/other/celiac-paradox-report.pdf" target="_blank">report</a>, and check out the <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank">scripts</a> I used to process genetic data!</p>
+    <p>Read the <a href="/other/celiac-paradox-report.pdf" target="_blank" rel="noopener">report</a>, and check out the <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank" rel="noopener">scripts</a> I used to process genetic data!</p>
     <p><strong>TLDR:</strong> When I found out that predisposition to celiac disease was genetic, I thought I could find some cool evidence of natural selection - where ethnic groups from societies that started growing gluten-containing cereals earliest in history would have lower frequency of the target genes. Turns out I was wrong! Instead, I found evidence of some other genetic factors at play.</p>
   links:
     - label: GitHub

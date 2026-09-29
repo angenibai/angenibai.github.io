@@ -57,6 +57,7 @@ const ButtonLink = ({
     <a
       href={href}
       target="_blank"
+      rel="noopener"
       className={className}
       aria-current={isSelected ? "page" : undefined}
     >

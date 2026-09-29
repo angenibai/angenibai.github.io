@@ -43,6 +43,7 @@ const defaultContent: BioPanelContent = {
                 className="sneakyLink"
                 href="https://applerankings.com/kanzi-apple-review/"
                 target="_blank"
+                rel="noopener"
               >
                 kanzi apples
               </a>

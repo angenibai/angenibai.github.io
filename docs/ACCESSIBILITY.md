@@ -153,9 +153,8 @@ accessible name**: a screen reader announced "link", twice, with nothing else.
 This was the clearest WCAG 4.1.2 / 2.4.4 failure in the component tree. Now
 `aria-label="GitHub"` / `aria-label="LinkedIn"` on the `<a>` elements.
 
-> Still open: these are also the `target="_blank"` without
-> `rel="noopener noreferrer"` instances from Section 4 — that part is
-> untouched, see the Section 4 entry.
+> These are also the `target="_blank"` instances from Section 4, now with
+> `rel="noopener"` — see the Section 4 entry for why `noopener` only.
 
 **Fixed — `src/pages/posts/[slug].tsx`.** There was no `NextSeo` call, so every
 post inherited `title="angeni bai"` from `DefaultSeo` (`_app.tsx:30`). Every
@@ -300,12 +299,22 @@ custom treatment at all.
 > `3px solid var(--color-primary)` with `outline-offset: 2px` — so focus is
 > consistent and on-palette rather than browser-dependent against cream.
 
-**`target="_blank"` without `rel="noopener noreferrer"`**, and never announced
-as opening a new tab: `ButtonLink.tsx:57`, `Footer.tsx:13,16`,
-`BioPanel.tsx:42-48`, and the raw-HTML anchors in `_data/projects.yaml`
-(`:8`, `:9`, `:125-129`, `:142`, `:143`, `:181`, `:196`).
-`ProjectModal.tsx:80-84` is the only place that gets `rel` right — match it.
-`_data/projects.yaml:143,181` also use `"here"` as the link text (WCAG 2.4.4).
+**Fixed — `target="_blank"` without `rel="noopener"`.** `ButtonLink.tsx`,
+`Footer.tsx` (both links), `BioPanel.tsx`, and the raw-HTML anchors in
+`_data/projects.yaml` (`:8`, `:9`, `:125-129`, `:142`, `:143`, `:181`, `:196`,
+two on `:196`) now carry `rel="noopener"`, matching `ProjectModal.tsx`, which
+already got `rel` right (it keeps `noopener noreferrer`, unchanged).
+`noopener` only, not `noreferrer`: since 2021 every major browser applies
+`noopener` to `target="_blank"` by default, so this changes nothing in
+current browsers, but `noreferrer` would additionally stop the `Referer`
+header, which would hide angeni.me from GitHub/LinkedIn/etc.'s referrer
+analytics — left off on purpose. Neither affects accessibility; the
+accessibility part of `target="_blank"` (nothing tells users a new tab will
+open) is still open. `_data/bio.yaml:15` also had a `target="_blank"` not
+originally listed here — same fix, though `getBio()` is currently unused
+(`BioPanel.tsx`'s `getStaticProps` is commented out), so this file isn't live
+content yet. `_data/projects.yaml:143,181` still use `"here"` as the link
+text (WCAG 2.4.4) — untouched, a separate issue from `rel`.
 
 **Three marginal contrast cases.** Everything else passes comfortably (see
 Section 5), but worth recording:
