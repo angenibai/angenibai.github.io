@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Newsreader } from "next/font/google";
 import { Work_Sans } from "next/font/google";
 import { IBM_Plex_Mono } from "next/font/google";
@@ -48,6 +49,9 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <Component {...pageProps} />
       </div>
+      {process.env.NODE_ENV === "production" && (
+        <GoogleAnalytics gaId="G-CYM1C4XG1B" />
+      )}
     </>
   );
 }
