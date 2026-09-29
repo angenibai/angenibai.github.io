@@ -10,9 +10,9 @@ export default function Home() {
       <Layout>
         <div className={styles.homePage}>
           <div className={styles.contentDiv}>
-            <h3 className={styles.bigText}>
+            <h1 className={styles.bigText}>
               {"welcome to angeni's corner of the internet :)"}
-            </h3>
+            </h1>
             <p className={styles.text}>
               {"this site is best enjoyed in light mode"}
             </p>

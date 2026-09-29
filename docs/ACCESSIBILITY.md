@@ -153,9 +153,8 @@ accessible name**: a screen reader announced "link", twice, with nothing else.
 This was the clearest WCAG 4.1.2 / 2.4.4 failure in the component tree. Now
 `aria-label="GitHub"` / `aria-label="LinkedIn"` on the `<a>` elements.
 
-> Still open: these are also the `target="_blank"` without
-> `rel="noopener noreferrer"` instances from Section 4 — that part is
-> untouched, see the Section 4 entry.
+> These are also the `target="_blank"` instances from Section 4, now with
+> `rel="noopener"` — see the Section 4 entry for why `noopener` only.
 
 **Fixed — `src/pages/posts/[slug].tsx`.** There was no `NextSeo` call, so every
 post inherited `title="angeni bai"` from `DefaultSeo` (`_app.tsx:30`). Every
@@ -212,12 +211,19 @@ attributes before this batch, all of them `aria-hidden="true"`.
 
 ## 3. Document structure
 
-**The home page has no `h1`.** `src/pages/index.tsx:13` opens at `<h3>` and
-`BioPanel.tsx:73,91` continue at `h4` / `h5` — heading levels chosen for size
-rather than structure (`.bigText` is 3rem, `Home.module.css:33`). Home also
-uses the bare `Layout` rather than `PageLayout`, so it has no `<header>` or
-`<footer>` landmark and `NavLinks` sits loose inside `<main>`. `/posts`,
-`/projects` and `/404` all get this right.
+**Fixed — the home page had no `h1`.** `src/pages/index.tsx:13` opened at
+`<h3>` and `BioPanel.tsx:73,91` continued at `h4` / `h5` — heading levels
+chosen for size rather than structure (`.bigText` is 3rem,
+`Home.module.css:33`). Now the welcome line is an `h1`, BioPanel's heading is
+`h2`, and its section titles are `h3`, matching the site's one-`h1`-per-page
+convention with no skipped level. `BioPanel.module.css` pins `font-family`,
+`font-weight` (and, on the title header, `line-height`) back to how the old
+`h4`/`h5` rendered, since `globals.css`'s `h1, h2, h3` rule would otherwise
+switch them from Newsreader to Work Sans. Rendered display is unchanged.
+
+Home still uses the bare `Layout` rather than `PageLayout`, so it has no
+`<header>` or `<footer>` landmark and `NavLinks` sits loose inside `<main>` —
+that part is untouched.
 
 **Nothing on the site is marked up as a list.** The post list
 (`posts/index.tsx:24-41`), project grid (`projects/index.tsx:43-55`), nav links
@@ -233,37 +239,55 @@ the heading, date and blurb, so the link's accessible name is all three
 concatenated, and the `·`-separated numeric date (`formatDate`, `:9-16`) reads
 ambiguously aloud. No `<time datetime>` is used anywhere on the site.
 
-**`src/components/markdown/Code.tsx:85`** — `PreTag="div"` strips `<pre>`
-semantics from every fenced code block, so code is announced as ordinary prose
-with no preformatted context and no language. The wrapper also lacks
-`tabIndex={0}`, so a horizontally scrolling block cannot be scrolled by
-keyboard. Inline code correctly uses `<code>` (`:93`).
+**Fixed — `src/components/markdown/Code.tsx`, `src/pages/posts/[slug].tsx`.**
+The original finding here was partly wrong: react-markdown already wraps a
+fenced block in its own `<pre>`, so the DOM was `<pre><div wrapper><div
+PreTag><code>` — `<pre>` semantics existed, but a `<div>` nested inside a
+`<pre>` is invalid, and the actual problem was that nothing in that chain was
+focusable, so a horizontally scrolling block could not be scrolled by
+keyboard. Now `[slug].tsx` unwraps react-markdown's own `<pre>` (`pre:
+({ children }) => <>{children}</>` in its `components` map), and `Code.tsx`
+makes the syntax highlighter's own `PreTag` the `<pre>` (was `"div"`), with
+`tabIndex={0}` on it — it's the right element for the tab stop since
+`.codeBlock` (`overflow-x: auto`) is the scroll container. Every non-inline
+block now goes through `SyntaxHighlighter`, defaulting to `language="text"`
+when there's no language class, so an un-languaged fenced block (none exist
+today) still renders as a real `<pre>` instead of falling through to the
+inline-`<code>` branch. Inline code correctly uses `<code>`.
 
 **`src/pages/posts/[slug].tsx:26`** — the error branch renders a bare `<h2>`
 outside `PageLayout`: no landmarks, no `h1`, no nav, no way out.
 
-**`.eslintrc.json` extends only `next/core-web-vitals`.** `jsx-a11y` is not
-enabled, which is the root reason the div-as-button and unnamed-link problems
-above went uncaught. Adding `plugin:jsx-a11y/recommended` is the single
-highest-leverage preventive change on this list — it would have flagged items
-1 and 2 automatically, and stops the whole class of bug recurring.
+**Fixed — `.eslintrc.json`.** Previously extended only `next/core-web-vitals`;
+`jsx-a11y` was not enabled, which is the root reason the div-as-button and
+unnamed-link problems above went uncaught. Now extends
+`plugin:jsx-a11y/recommended` too — the single highest-leverage preventive
+change on this list, since it would have flagged items 1 and 2 automatically.
+A dry run against the current codebase flagged exactly one thing:
+`ProjectModal.tsx`'s `<dialog onClick>` backdrop-click handler
+(`click-events-have-key-events`, `no-noninteractive-element-interactions`), a
+false positive — the keyboard equivalent is Escape, which `<dialog>` handles
+natively and `onClose` already catches. Suppressed with an
+`eslint-disable-next-line` and a comment recording why, placed before the
+opening `<dialog` tag (a disable comment inside the attribute list doesn't
+take — ESLint attributes the error to the `JSXOpeningElement`'s own start
+line, not to the individual attribute line).
 
 ## 4. Colour, focus and motion
 
-**Prose links are distinguished from body text by colour alone.**
+**Fixed — prose links were distinguished from body text by colour alone.**
 `globals.css:132-136` sets `a { text-decoration: none }`, with an underline
 only on `:hover` (`:138-140`). Link green `#0D4B37` inside body black `#292929`
 is a **~1.4:1** difference. WCAG 1.4.1 (Use of Color) wants at least 3:1 when
 colour is the only distinction, plus a non-colour cue available to keyboard and
-touch users — which `:hover` is not. It bites hardest at
-`src/pages/404.tsx:15`, where an unadorned inline link is the only way off the
-page.
+touch users — which `:hover` is not. It bit hardest at `src/pages/404.tsx:15`,
+where an unadorned inline link is the only way off the page.
 
-> Fix: underline links in prose — post bodies (`Post.module.css`
-> `.postContent a`) and BioPanel. `ProjectModal.module.css:162-164` already
-> does exactly this and is the precedent to generalise from. Scoping it to
-> prose leaves nav buttons, post-list rows and the masthead alone, since those
-> read as interactive from their own shape.
+Now `.postContent a` (`Post.module.css`) and `.subheading a`
+(`Error.module.css`) underline links in post bodies and on `/404`, matching
+`ProjectModal.module.css:189` (`.modalPanel a`), which already did exactly
+this. Scoped to prose, so nav buttons, post-list rows and the masthead are
+untouched — those read as interactive from their own shape.
 
 **`.sneakyLink` stays deliberately un-underlined.** `globals.css:142-149` gives
 it no colour change, no weight change, and explicitly cancels the inherited
@@ -285,12 +309,22 @@ custom treatment at all.
 > `3px solid var(--color-primary)` with `outline-offset: 2px` — so focus is
 > consistent and on-palette rather than browser-dependent against cream.
 
-**`target="_blank"` without `rel="noopener noreferrer"`**, and never announced
-as opening a new tab: `ButtonLink.tsx:57`, `Footer.tsx:13,16`,
-`BioPanel.tsx:42-48`, and the raw-HTML anchors in `_data/projects.yaml`
-(`:8`, `:9`, `:125-129`, `:142`, `:143`, `:181`, `:196`).
-`ProjectModal.tsx:80-84` is the only place that gets `rel` right — match it.
-`_data/projects.yaml:143,181` also use `"here"` as the link text (WCAG 2.4.4).
+**Fixed — `target="_blank"` without `rel="noopener"`.** `ButtonLink.tsx`,
+`Footer.tsx` (both links), `BioPanel.tsx`, and the raw-HTML anchors in
+`_data/projects.yaml` (`:8`, `:9`, `:125-129`, `:142`, `:143`, `:181`, `:196`,
+two on `:196`) now carry `rel="noopener"`, matching `ProjectModal.tsx`, which
+already got `rel` right (it keeps `noopener noreferrer`, unchanged).
+`noopener` only, not `noreferrer`: since 2021 every major browser applies
+`noopener` to `target="_blank"` by default, so this changes nothing in
+current browsers, but `noreferrer` would additionally stop the `Referer`
+header, which would hide angeni.me from GitHub/LinkedIn/etc.'s referrer
+analytics — left off on purpose. Neither affects accessibility; the
+accessibility part of `target="_blank"` (nothing tells users a new tab will
+open) is still open. `_data/bio.yaml:15` also had a `target="_blank"` not
+originally listed here — same fix, though `getBio()` is currently unused
+(`BioPanel.tsx`'s `getStaticProps` is commented out), so this file isn't live
+content yet. `_data/projects.yaml:143,181` still use `"here"` as the link
+text (WCAG 2.4.4) — untouched, a separate issue from `rel`.
 
 **Three marginal contrast cases.** Everything else passes comfortably (see
 Section 5), but worth recording:
@@ -307,18 +341,23 @@ than usual here because depth and press-state are carried by `box-shadow`
 entirely, along with `background-color`. The `border` declarations survive so
 structure holds, but the pressed-vs-resting distinction does not.
 
-**Motion is well handled, with two gaps.** `prefers-reduced-motion` is
-respected in all five files that animate. Those blocks remove the `transition`
-but leave the `transform: translate(...)` on `:hover` / `:active`
-(`Button.module.css:41-50,58-66`, `ProjectGrid.module.css:50-58,69-76`), so
-elements still jump — minor, since an instant jump beats eased motion. The real
-gap is `src/hooks/usePostPreview.ts:20`: `TRACK_CURSOR` drives per-frame
-`translate3d` cursor tracking and honours no motion preference, making it the
-largest un-gated motion on the site.
+**Motion is well handled, with one remaining gap.** `prefers-reduced-motion`
+is respected in all five files that animate. Those blocks remove the
+`transition` but leave the `transform: translate(...)` on `:hover` /
+`:active` (`Button.module.css:41-50,58-66`, `ProjectGrid.module.css:50-58,69-76`),
+so elements still jump — minor, since an instant jump beats eased motion.
 
-> Fix: add `and (prefers-reduced-motion: no-preference)` to `CAPABILITY_QUERY`
-> (`:25`), or gate `TRACK_CURSOR` on a `matchMedia` check — the panel still
-> appears, it is just placed once instead of following.
+**Fixed — `src/hooks/usePostPreview.ts`.** `TRACK_CURSOR` drove per-frame
+`translate3d` cursor tracking and honoured no motion preference, making it
+the largest un-gated motion on the site. Adding `prefers-reduced-motion` to
+`CAPABILITY_QUERY` was considered and rejected — that query also gates
+whether the panel is enabled at all, so it would have disabled the panel
+entirely rather than just its tracking. Instead, a second media query
+(`MOTION_QUERY`, `"(prefers-reduced-motion: no-preference)"`) is tracked in
+its own `trackCursor` state, the same pattern `enabled` already uses, and
+gates only the `onMouseMove` cursor-follow call. With reduced motion on, the
+panel still appears on row entry/focus, placed once instead of following the
+cursor.
 
 **Text resizing.** `ProjectModal.module.css:109` sets `font-size: 54px` on the
 close `×` — the only literal-px font size in the codebase, and it is on a

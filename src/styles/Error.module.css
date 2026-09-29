@@ -12,3 +12,7 @@
 .subheading {
   font-size: 1.5rem;
 }
+
+.subheading a {
+  text-decoration: underline;
+}

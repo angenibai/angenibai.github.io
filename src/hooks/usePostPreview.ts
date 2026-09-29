@@ -19,6 +19,11 @@ const HIDE_GRACE = 200; // ms after leaving before it goes away
 // it's real. See the plan's "Residual risk is feel, not frames".
 const TRACK_CURSOR = true;
 
+// Separate from CAPABILITY_QUERY on purpose: reduced motion should stop the
+// panel following the cursor, not remove it. It still appears, placed once on
+// row entry.
+const MOTION_QUERY = "(prefers-reduced-motion: no-preference)";
+
 // Keying off the actual input capability, not guessing from viewport width.
 // b656b3b shipped the CSS gate at 640px (the receipt plan's table says 900);
 // 640 is the shipped number.
@@ -79,6 +84,7 @@ interface PanelProps {
 export function usePostPreview() {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [enabled, setEnabled] = useState(false);
+  const [trackCursor, setTrackCursor] = useState(false);
 
   // activeSlug is also read from event handlers that don't re-subscribe; keep a
   // ref in sync so they see the current value without being in a dep array.
@@ -185,6 +191,14 @@ export function usePostPreview() {
     return () => mq.removeEventListener("change", onChange);
   }, [clearShow, clearHide]);
 
+  useEffect(() => {
+    const mq = window.matchMedia(MOTION_QUERY);
+    setTrackCursor(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setTrackCursor(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   // Coordinates are viewport-relative and the panel is fixed, so a scroll
   // without a mouse move would strand it beside a row that has moved. Hiding is
   // the calmest fix.
@@ -225,7 +239,7 @@ export function usePostPreview() {
         },
         onMouseMove: (e) => {
           cursor.current = { x: e.clientX, y: e.clientY };
-          if (TRACK_CURSOR && activeSlugRef.current === slug) {
+          if (TRACK_CURSOR && trackCursor && activeSlugRef.current === slug) {
             scheduleTrack(slug);
           }
         },
@@ -243,7 +257,7 @@ export function usePostPreview() {
         onBlur: hide,
       };
     },
-    [enabled, hide, reveal, scheduleTrack, clearShow, clearHide],
+    [enabled, trackCursor, hide, reveal, scheduleTrack, clearShow, clearHide],
   );
 
   const getPanelProps = useCallback(

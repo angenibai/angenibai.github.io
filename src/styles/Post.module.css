@@ -143,14 +143,12 @@
 }
 
 .postContent a {
-  color: rgba(13, 75, 55, 0.35);
+  /* Full colour: at 35% it was ~1.9:1 on the page background. The underline,
+     not a lighter tint, marks it as a link. */
+  color: var(--color-primary);
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
-}
-
-.postContent a:hover {
-  color: var(--color-primary);
 }
 
 .postContent figcaption {
