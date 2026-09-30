@@ -176,3 +176,9 @@ Decided during implementation (2026-09-30), and not visible from the diff alone:
   loading or hidden, so the column never ends without its bottom edge. A
   panel inside the column, and a separate card below it, were both tried
   first.
+- **API key:** Firestore's API ignores the browser key. Reads succeed with
+  no key or an invalid one (checked 2026-09-30), so key restrictions don't
+  protect reacts, and `firestore.rules` is the only access control. The key's
+  API list was trimmed to what the sites actually use, plus Identity Toolkit.
+  No website restriction was added, since it wouldn't stop Firestore
+  requests. The follow-up after deploy is in `docs/FUTURE_WORK.md`.

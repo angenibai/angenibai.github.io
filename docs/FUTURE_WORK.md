@@ -154,3 +154,14 @@ no changes needed to `BioPanel` itself beyond removing `defaultContent`.
   this is a full Next.js app, which GitHub Pages can't serve as-is.
   Worth confirming there's a working deploy pipeline before treating the
   build passing as "the site is live."
+
+## Post reacts: trim the Firebase key after deploy
+
+The `blog-reacts` browser API key allows Cloud Firestore, Firebase Management
+and Firebase Installations. The last two are only for the old Jekyll site's
+Firebase Analytics (`getAnalytics()`), which is still live on angeni.me. It
+also allows Identity Toolkit, though nothing uses Auth. Once the new site
+replaces the old one, nothing needs those three, so narrow the key to Cloud
+Firestore API only (Cloud Console → APIs & Services → Credentials). The key
+doesn't protect Firestore itself, since Firestore ignores it. That's done by
+`firestore.rules`. See `docs/design/2026-09-29-post-reacts.md`.
