@@ -19,8 +19,9 @@ Angeni Bai's personal website (angeni.me), a Next.js (Pages Router) + TypeScript
 
 ```
 npm run dev              # start dev server
-npm run build            # production build (also type-checks); prebuild writes public/sitemap.xml
+npm run build            # production build (also type-checks); prebuild writes public/sitemap.xml and the redirect pages
 npm run sitemap          # regenerate public/sitemap.xml alone (gitignored, built from listed posts)
+npm run redirects        # regenerate the redirect pages in public/ alone (gitignored, from _data/redirects.yaml)
 npm run start            # serve the production build
 npm run lint             # next lint (eslint-config-next)
 npm run optimize-images  # resize/recompress oversized images under public/img (requires ImageMagick)
@@ -38,7 +39,8 @@ There is no test suite configured in this repo.
 - `getAllProjects()` / `getBio()` — parse the corresponding YAML file.
 - `getAllPosts()`, `getPostBySlug()`, `getFileData()`, `getPaths()` — read and parse `_data/posts/*.md`. The filename (minus `.md`) is the post's slug and its route.
 - `getListedPosts()` — `getAllPosts()` minus `listed: false` posts; the one definition of "unlisted", used by the posts page and the sitemap script.
-- `_data/site.json` — site origin, name, default description, author, and social profile URLs. JSON rather than YAML so `_app.tsx` can import it directly; read it through `src/lib/site.ts`, which also provides `absoluteUrl()` for canonicals, OG images, and the sitemap.
+- `_data/site.json` — site origin, name, default description, author, Google Analytics ID, and social profile URLs. JSON rather than YAML so `_app.tsx` can import it directly; read it through `src/lib/site.ts`, which also provides `absoluteUrl()` for canonicals, OG images, and the sitemap.
+- `_data/redirects.yaml` — old Jekyll URLs and where they go now. `scripts/generate-redirects.ts` (run in `prebuild`) writes each one as a static meta-refresh page in `public/`, because GitHub Pages can't send HTTP redirects. A new entry also needs its output path added to `.gitignore`.
 - Post frontmatter fields are documented inline in `_data/posts/2023-04-08-easter-show-value.md` (required: `layout`, `title`, `date`; recommended: `tags`, `splashImageSource`, `splashImageCaption`; optional: `updated`, `author`, `pin`, `listed`, `index`, `reacts`). The shape is typed in `src/types/index.tsx` (`PostMetadata`, `ProjectContent`).
 - `longDescription` fields in `projects.yaml` are raw HTML strings, not Markdown.
 

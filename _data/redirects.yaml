@@ -1,0 +1,36 @@
+# Old Jekyll URLs kept alive after the move to Next.js. Each entry becomes a
+# static redirect page in public/, written by scripts/generate-redirects.ts.
+#
+# from: the old path. A path without an extension is written as <path>.html,
+#   which GitHub Pages serves at the extensionless URL.
+# post: a post slug. Gets a canonical link and the post's OG tags.
+# page: an internal path. Gets a canonical link.
+# link: an external URL. Gets noindex.
+#
+# Adding an entry also needs a matching line in .gitignore.
+
+# Posts
+- from: /2023/04/08/easter-show-value.html
+  post: 2023-04-08-easter-show-value
+- from: /2021/08/12/summarise-my-hackathon.html
+  post: 2021-08-12-summarise-my-hackathon
+
+# Tag pages. The new site has no tag pages yet, so these go to the posts list.
+- from: /tags/data
+  page: /posts
+- from: /tags/game-dev
+  page: /posts
+- from: /tags/hackathon
+  page: /posts
+- from: /tags/high-school
+  page: /posts
+- from: /tags/web-dev
+  page: /posts
+
+# Short links
+- from: /r
+  link: https://drive.google.com/file/d/1HatybkrpSxQJ6G7FMj8cOKAm8jqrcooF/view?usp=sharing
+- from: /resume
+  link: https://drive.google.com/file/d/1HatybkrpSxQJ6G7FMj8cOKAm8jqrcooF/view?usp=sharing
+- from: /roll
+  link: https://www.youtube.com/watch?v=dQw4w9WgXcQ
