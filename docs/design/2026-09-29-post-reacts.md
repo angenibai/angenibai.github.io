@@ -84,8 +84,12 @@ Bootstrap outline buttons). The exact look is decided at plan/prototype time.
 
 ## Components involved
 
-- `src/components/Reacts.tsx` (new): the bar, Firestore subscription and writes.
-- `src/lib/firebase.ts` (new): Firebase app/Firestore init with the `blog-reacts` web config.
+- `src/components/Reacts.tsx` (new): a light wrapper that lazy-loads the panel
+  (see [Loading](#loading)).
+- `src/components/ReactsPanel.tsx` (new): the bar, the Firebase init with the
+  `blog-reacts` web config, and the Firestore subscription and writes.
+- `src/lib/reacts.ts` (new): the react list and the doc key. It has no
+  Firebase imports.
 - `src/styles/components/Reacts.module.css` (new): styling.
 - `src/pages/posts/[slug].tsx` (changed): renders `Reacts` under the body
   unless `externalLink` is set or `reacts === false`.
@@ -129,3 +133,46 @@ so it is safe to re-run. It writes with your own Google credentials
 through the Firestore API. Authenticated project-owner requests bypass
 security rules, so `create: false` doesn't block it. The step is
 documented in `AGENTS.md` next to the post frontmatter notes.
+
+## Loading
+
+The Firebase SDK must not slow the initial page load. With a static import,
+`/posts/[slug]` first-load JS was 376 kB (264 kB page chunk). Firestore alone
+was about 230 kB of that, and Substack stubs paid for it too, since they share
+the route.
+
+**Decision:** `Reacts.tsx` loads `ReactsPanel.tsx` with
+`next/dynamic(..., { ssr: false })`. Anything that imports `firebase/*` lives
+in `ReactsPanel.tsx`, so the SDK becomes its own chunk. The page renders and
+hydrates without it. The chunk is fetched once `Reacts` mounts on the client,
+and the panel appears when the first snapshot arrives. Posts that don't
+render `Reacts` (Substack stubs, `reacts: false`) never fetch it. After the
+change, first-load JS is 237 kB (124 kB page chunk), measured 2026-09-30.
+
+This works on GitHub Pages. Code splitting emits static chunk files, and the
+browser requests them itself, so it needs no server.
+
+**Rejected: load on scroll** (an `IntersectionObserver` that mounts the panel
+only near the bottom of the post). It would save the download and the
+Firestore connection for readers who never reach the end. But the goal is
+only to not block the initial load, and the dynamic import does that alone,
+with less code. It's worth revisiting if Firestore reads or mobile data
+become a concern.
+
+## Implementation notes
+
+Decided during implementation (2026-09-30), and not visible from the diff alone:
+
+- **Look:** chosen from prototyped options. It's a framed panel (3px border,
+  5px offset shadow, green header band with heading and total) on
+  `--color-bg-white`. Each react is a compact cell with the emoji and count
+  on one line, and a visually hidden label so the button reads as "Like 4".
+  It's 6 across, and 3×2 below 480px of bar width via a container query. The
+  focus ring is primary green. Mauve was tried and rejected.
+- **Placement:** the panel straddles the post column's bottom edge. The column
+  drops its bottom border (`.hasReacts`), and the `Reacts` wrapper's
+  `::before` draws the side borders down to the panel's midline and the
+  bottom border along it. The wrapper renders even while the panel is
+  loading or hidden, so the column never ends without its bottom edge. A
+  panel inside the column, and a separate card below it, were both tried
+  first.
