@@ -32,6 +32,7 @@ export interface PostMetadata {
   pin?: boolean;
   listed?: boolean;
   index?: boolean;
+  reacts?: boolean;
   blurb?: string;
   coauthors?: string[];
   externalLink?: string;

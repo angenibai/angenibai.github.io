@@ -63,8 +63,8 @@ See `docs/design/posts-list-evolution.md` for the current design.
 - **Redirect old Jekyll post URLs before the redesign goes live.** The live
   Jekyll site's sitemap indexes posts at `/YYYY/MM/DD/<slug>.html`
   (`/2023/04/08/easter-show-value.html`,
-  `/2021/08/12/summarise-my-hackathon.html` — now slug
-  `2021-08-12-summarise-my-lecture`), plus `/tags/*` and `/feed.xml`. The new
+  `/2021/08/12/summarise-my-hackathon.html`; slug
+  `2021-08-12-summarise-my-hackathon` again since the post reacts change), plus `/tags/*` and `/feed.xml`. The new
   routes are `/posts/<date>-<slug>`, so every indexed URL 404s on cutover.
   Needs 301s via `redirects()` in `next.config.js` on a Node host, or
   meta-refresh + canonical stub pages under static export — depends on the
@@ -89,6 +89,13 @@ See `docs/design/posts-list-evolution.md` for the current design.
   Worth confirming there's a working deploy pipeline before treating the
   build passing as "the site is live."
 
-## Reacts on posts
+## Post reacts: trim the Firebase key after deploy
 
-Original website had a reaction system connected to Firebase. Connect this here as well.
+The `blog-reacts` browser API key allows Cloud Firestore, Firebase Management
+and Firebase Installations. The last two are only for the old Jekyll site's
+Firebase Analytics (`getAnalytics()`), which is still live on angeni.me. It
+also allows Identity Toolkit, though nothing uses Auth. Once the new site
+replaces the old one, nothing needs those three, so narrow the key to Cloud
+Firestore API only (Cloud Console → APIs & Services → Credentials). The key
+doesn't protect Firestore itself, since Firestore ignores it. That's done by
+`firestore.rules`. See `docs/design/2026-09-29-post-reacts.md`.

@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [docs/DESIGN_LANGUAGE.md](docs/DESIGN_LANGUAGE.md) — the site's visual identity: color palette, typography pairing, borders-not-shadows, and where boldness vs. restraint belongs. Read before styling any new UI.
 - [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) — accessibility audit: current gaps ranked by severity, and what already works so it doesn't regress.
 - [docs/FUTURE_WORK.md](docs/FUTURE_WORK.md) — open items from a full-site review, not yet scheduled.
+- [docs/PUBLISHING.md](docs/PUBLISHING.md) — checklist for publishing a native or Substack post, and for changing the Firestore rules.
 - `docs/plan/` — working plans for a change in progress; not committed by default once the change ships (git history is the record of what actually happened).
 - `docs/design/` — design docs for larger changes; captures durable rationale, including any mid-implementation deviations, that a diff alone wouldn't explain.
 
@@ -23,6 +24,7 @@ npm run sitemap          # regenerate public/sitemap.xml alone (gitignored, buil
 npm run start            # serve the production build
 npm run lint             # next lint (eslint-config-next)
 npm run optimize-images  # resize/recompress oversized images under public/img (requires ImageMagick)
+npm run reacts:init      # create Firestore reacts docs for new native posts (needs gcloud auth)
 ```
 
 Run `optimize-images` before committing new screenshots — see `scripts/optimize-images.sh` for flags (`--dry-run`, `--max-width`).
@@ -37,10 +39,12 @@ There is no test suite configured in this repo.
 - `getAllPosts()`, `getPostBySlug()`, `getFileData()`, `getPaths()` — read and parse `_data/posts/*.md`. The filename (minus `.md`) is the post's slug and its route.
 - `getListedPosts()` — `getAllPosts()` minus `listed: false` posts; the one definition of "unlisted", used by the posts page and the sitemap script.
 - `_data/site.json` — site origin, name, default description, author, and social profile URLs. JSON rather than YAML so `_app.tsx` can import it directly; read it through `src/lib/site.ts`, which also provides `absoluteUrl()` for canonicals, OG images, and the sitemap.
-- Post frontmatter fields are documented inline in `_data/posts/2023-04-08-easter-show-value.md` (required: `layout`, `title`, `date`; recommended: `tags`, `splashImageSource`, `splashImageCaption`; optional: `updated`, `author`, `pin`, `listed`, `index`). The shape is typed in `src/types/index.tsx` (`PostMetadata`, `ProjectContent`).
+- Post frontmatter fields are documented inline in `_data/posts/2023-04-08-easter-show-value.md` (required: `layout`, `title`, `date`; recommended: `tags`, `splashImageSource`, `splashImageCaption`; optional: `updated`, `author`, `pin`, `listed`, `index`, `reacts`). The shape is typed in `src/types/index.tsx` (`PostMetadata`, `ProjectContent`).
 - `longDescription` fields in `projects.yaml` are raw HTML strings, not Markdown.
 
 **Post rendering**: `src/pages/posts/[slug].tsx` uses `getStaticProps`/`getStaticPaths` (SSG, `fallback: false`) and renders Markdown via `react-markdown` with `remark-gfm` and `rehype-raw` (so raw HTML in post bodies is allowed). Code blocks are rendered through the custom `src/components/markdown/Code.tsx` component (syntax highlighting via `react-syntax-highlighter`).
+
+**Reacts**: `src/components/Reacts.tsx` renders the "Reacc" bar under native posts (not Substack posts with `externalLink`, and not posts with `reacts: false`). Counts live in the `blog-reacts` Firebase project, collection `reacts`, one doc per post keyed `${slug}-html` (a Jekyll leftover, kept so old counts carry over; see `src/lib/reacts.ts`). Visitors can't create docs, so a new post needs `npm run reacts:init`, or its bar stays hidden with a console warning. Security rules are in `firestore.rules`; deploy them with `npx firebase-tools deploy --only firestore:rules`.
 
 **Layout split**: `src/components/Layout.tsx` is a bare wrapper used only by the home page (`src/pages/index.tsx`). `src/components/PageLayout.tsx` wraps `Nav` + content + `Footer` and is used by all other pages (posts, projects). Use `PageLayout` for any new top-level page other than the homepage.
 

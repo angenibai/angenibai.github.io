@@ -16,6 +16,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import Code from "@/components/markdown/Code";
 import Image from "@/components/markdown/Image";
+import Reacts from "@/components/Reacts";
 
 interface Params extends ParsedUrlQuery {
   slug: string;
@@ -38,6 +39,7 @@ const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
         alt: metadata.splashImageCaption || metadata.title,
       }
     : null;
+  const showReacts = !metadata.externalLink && metadata.reacts !== false;
 
   return (
     <>
@@ -105,7 +107,9 @@ const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
               </div>
             ))}
         </div>
-        <div className={styles.postContent}>
+        <div
+          className={`${styles.postContent} ${showReacts ? styles.hasReacts : ""}`}
+        >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw] as PluggableList}
@@ -119,6 +123,8 @@ const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
             {source}
           </ReactMarkdown>
         </div>
+        {/* key resets the pressed state when navigating between posts. */}
+        {showReacts && <Reacts key={slug} slug={slug} />}
       </PageLayout>
     </>
   );
