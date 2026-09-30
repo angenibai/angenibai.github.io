@@ -60,17 +60,6 @@ See `docs/design/posts-list-evolution.md` for the current design.
 
 ## SEO
 
-- **Redirect old Jekyll post URLs before the redesign goes live.** The live
-  Jekyll site's sitemap indexes posts at `/YYYY/MM/DD/<slug>.html`
-  (`/2023/04/08/easter-show-value.html`,
-  `/2021/08/12/summarise-my-hackathon.html` — now slug
-  `2021-08-12-summarise-my-lecture`), plus `/tags/*` and `/feed.xml`. The new
-  routes are `/posts/<date>-<slug>`, so every indexed URL 404s on cutover.
-  Needs 301s via `redirects()` in `next.config.js` on a Node host, or
-  meta-refresh + canonical stub pages under static export — depends on the
-  unconfirmed deploy target (see "Confirm the actual deploy target" below).
-  `/2021/09/06/hsc-physics.html` is deliberately deprecated (post stays in
-  git history only); let it 404.
 - **RSS feed.** The Jekyll site serves `/feed.xml`; the new site has none,
   so existing feed subscribers stop getting posts on cutover. Generate it at
   build time from `getListedPosts()` and serve it at the same `/feed.xml`
@@ -82,6 +71,9 @@ See `docs/design/posts-list-evolution.md` for the current design.
 
 - Project `tags` are authored in `_data/projects.yaml` but never rendered —
   neither `ProjectTile.tsx` nor `ProjectModal.tsx` reads them.
+- Tag pages don't exist yet, so the old Jekyll `/tags/*` URLs in
+  `_data/redirects.yaml` point to `/posts`. Repoint them at the real tag pages
+  when those are added.
 - Confirm the actual deploy target. The repo is named
   `angenibai.github.io` (GitHub Pages naming convention), but there's no
   `output: "export"` in `next.config.js` and no GitHub Actions workflow —

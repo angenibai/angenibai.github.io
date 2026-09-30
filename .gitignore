@@ -17,6 +17,13 @@
 
 # generated
 /public/sitemap.xml
+# redirect pages from _data/redirects.yaml
+/public/2021/
+/public/2023/
+/public/tags/
+/public/r.html
+/public/resume.html
+/public/roll.html
 
 # misc
 .DS_Store

@@ -5,10 +5,11 @@ import { imageSize } from "image-size";
 
 import matter from "gray-matter";
 
-import { BioContent, PostMetadata } from "@/types";
+import { BioContent, PostMetadata, Redirect } from "@/types";
 
 const projectsFile = path.join(process.cwd(), "_data/projects.yaml");
 const bioFile = path.join(process.cwd(), "_data/bio.yaml");
+const redirectsFile = path.join(process.cwd(), "_data/redirects.yaml");
 export const postsDirectory = path.join(process.cwd(), "_data/posts");
 
 const getYAML = (filepath: string) => {
@@ -23,6 +24,10 @@ export const getAllProjects = () => {
 
 export const getBio = (): BioContent => {
   return getYAML(bioFile);
+};
+
+export const getRedirects = (): Redirect[] => {
+  return getYAML(redirectsFile);
 };
 
 const EXCERPT_LENGTH = 100;

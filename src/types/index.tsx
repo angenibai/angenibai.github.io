@@ -65,3 +65,10 @@ export interface BioContent {
   img: string | null;
   sections: BioSection[];
 }
+
+// One entry in _data/redirects.yaml. The destination key decides how the
+// redirect page is rendered.
+export type Redirect =
+  | { from: string; post: string }
+  | { from: string; page: string }
+  | { from: string; link: string };
