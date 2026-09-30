@@ -58,15 +58,6 @@ See `docs/design/posts-list-evolution.md` for the current design.
   clickable, and once clicked the tile flips over to reveal the profile
   image.
 
-## SEO
-
-- **RSS feed.** The Jekyll site serves `/feed.xml`; the new site has none,
-  so existing feed subscribers stop getting posts on cutover. Generate it at
-  build time from `getListedPosts()` and serve it at the same `/feed.xml`
-  path so subscribers carry over without a redirect.
-  `scripts/generate-sitemap.ts` already runs as `prebuild` with the listed
-  posts in hand, so that's the natural place to write it.
-
 ## Smaller cleanup items
 
 - Project `tags` are authored in `_data/projects.yaml` but never rendered —

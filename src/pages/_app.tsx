@@ -43,6 +43,11 @@ export default function App({ Component, pageProps }: AppProps) {
             rel: "icon",
             href: "/img/balloon-sloth/balloon-sloth.svg",
           },
+          {
+            rel: "alternate",
+            type: "application/rss+xml",
+            href: "/feed.xml",
+          },
         ]}
         additionalMetaTags={[
           {
