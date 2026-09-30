@@ -134,15 +134,23 @@ const renderSocialMeta = (
     .join("\n");
 
 // Best effort: the redirect below doesn't wait for it, so a visit is only
-// counted when gtag sends before the page unloads.
+// counted when gtag sends before the page unloads. It only loads on the live
+// hostname, so opening a redirect page locally doesn't record a page view.
 const renderAnalytics = () => {
   const id = site.googleAnalyticsId;
-  return `<script async src="https://www.googletagmanager.com/gtag/js?id=${id}"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', ${toScriptString(id)});
+  const hostname = new URL(site.url).hostname;
+  const loaderUrl = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+  return `<script>
+if (location.hostname === ${toScriptString(hostname)}) {
+  var gtagLoader = document.createElement("script");
+  gtagLoader.async = true;
+  gtagLoader.src = ${toScriptString(loaderUrl)};
+  document.head.appendChild(gtagLoader);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', ${toScriptString(id)});
+}
 </script>`;
 };
 
