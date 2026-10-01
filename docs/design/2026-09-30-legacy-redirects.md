@@ -43,8 +43,8 @@ The site stays on GitHub Pages, which serves static files only, so real HTTP
 
 - Tag pages. `/tags/*` goes to `/posts` until tags are implemented. At that
   point, change those entries to point at the real tag pages.
-- `/feed.xml`. The RSS item in `docs/FUTURE_WORK.md` serves it at the same
-  path, so it needs no redirect.
+- `/feed.xml`. `scripts/generate-feed.ts` serves it at the same path, so it
+  needs no redirect.
 - Old asset paths (`/assets/img/...`). They are not in the sitemap, and
   nothing suggests they are linked from outside the site.
 - Deploy pipeline (`output: "export"` and a GitHub Actions workflow). It is

@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "tsx scripts/generate-sitemap.ts && tsx scripts/generate-redirects.ts",
+    "prebuild": "tsx scripts/generate-sitemap.ts && tsx scripts/generate-feed.ts && tsx scripts/generate-redirects.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "optimize-images": "bash scripts/optimize-images.sh",
     "sitemap": "tsx scripts/generate-sitemap.ts",
+    "feed": "tsx scripts/generate-feed.ts",
     "reacts:init": "node scripts/reacts-init.mjs",
     "redirects": "tsx scripts/generate-redirects.ts"
   },

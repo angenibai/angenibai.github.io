@@ -17,6 +17,7 @@
 
 # generated
 /public/sitemap.xml
+/public/feed.xml
 # redirect pages from _data/redirects.yaml
 /public/2021/
 /public/2023/
