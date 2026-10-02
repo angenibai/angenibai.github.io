@@ -118,7 +118,6 @@
 .projectTitle {
   background-color: var(--color-primary);
   flex: 1;
-  height: stretch;
   display: flex;
   align-items: center;
   justify-content: center;
