@@ -28,7 +28,9 @@ answer should be a lighter/darker/more-transparent step _within_ one of
 these families, not a new hue. The syntax highlighting palette added in
 `src/components/markdown/Code.tsx` (comment green, string mauve, keyword
 mustard) and the code-block scrollbar thumb (`#EEC767`) are both deliberately
-mustard/green/mauve variants, not arbitrary "nice" colors.
+mustard/green/mauve variants, not arbitrary "nice" colors. Page and
+project-modal scrollbars use primary green at 20% opacity
+(`rgba(13, 75, 55, 0.2)`) on a transparent track.
 
 If you're tempted to reach for a generic bright accent (electric blue, hot
 pink, neon green) — that's the tell you're about to break the palette.

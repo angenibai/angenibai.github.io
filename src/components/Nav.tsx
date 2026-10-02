@@ -5,7 +5,11 @@ import styles from "@/styles/components/Nav.module.css";
 import NavLinks from "./NavLinks";
 import NavMenu from "./NavMenu";
 
-const Nav = () => {
+interface NavProps {
+  readingProgress?: boolean;
+}
+
+const Nav = ({ readingProgress }: NavProps) => {
   const mastheadRef = useRef<HTMLElement>(null);
   // Starts true so the running head is hidden on first paint and during SSR.
   const [isMastheadVisible, setIsMastheadVisible] = useState(true);
@@ -46,7 +50,7 @@ const Nav = () => {
       <div
         className={`${styles.runningHead} ${
           isMastheadVisible ? "" : styles.runningHeadShown
-        }`}
+        } ${readingProgress ? styles.readingProgress : ""}`}
       >
         <div className={styles.runningHeadTitle}>
           <Link className="sneakyLink" href="/">
@@ -56,6 +60,9 @@ const Nav = () => {
         <div className={styles.runningHeadSlash} aria-hidden="true"></div>
         <NavLinks className={styles.runningHeadNav} />
       </div>
+      {readingProgress && (
+        <div className={styles.progressStrip} aria-hidden="true" />
+      )}
       <NavMenu />
     </>
   );

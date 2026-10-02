@@ -4,17 +4,19 @@ import Nav from "./Nav";
 import styles from "@/styles/components/Layout.module.css";
 import Footer from "./Footer";
 
-interface PageLayoutProps {}
+interface PageLayoutProps {
+  readingProgress?: boolean;
+}
 
 const PageLayout = (props: PropsWithChildren<PageLayoutProps>) => {
-  const { children } = props;
+  const { children, readingProgress } = props;
 
   return (
     <div>
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
-      <Nav />
+      <Nav readingProgress={readingProgress} />
       <main id="main-content" className={styles.main} tabIndex={-1}>
         {children}
       </main>

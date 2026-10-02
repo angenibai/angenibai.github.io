@@ -43,7 +43,7 @@ const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
 
   return (
     <>
-      <PageLayout>
+      <PageLayout readingProgress>
         <NextSeo
           title={`${metadata.title} | angeni bai`}
           description={metadata.blurb}

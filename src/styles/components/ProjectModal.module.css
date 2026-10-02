@@ -43,7 +43,6 @@
   box-shadow: 10px 10px var(--color-primary);
   height: fit-content;
   max-height: 90%;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -102,6 +101,18 @@
   align-items: stretch;
   justify-content: space-between;
   gap: 0.5rem;
+}
+
+/* Only the body scrolls, so the title and close button stay in view. The
+   panel's max-height caps it, and min-height: 0 lets it shrink below its
+   content so the overflow scrolls instead of stretching the panel. */
+.modalBody {
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  scrollbar-width: thin;
 }
 
 .projectTitle {

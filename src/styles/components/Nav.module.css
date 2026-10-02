@@ -117,6 +117,45 @@
   padding: 0.15rem 0.7rem;
 }
 
+/* Reading progress on posts: the running head's bottom rule turns pale and
+   fills with green as the page scrolls. Pure CSS, driven by the root
+   scroller. */
+@keyframes read-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.progressStrip {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .readingProgress {
+    border-bottom-color: rgba(13, 75, 55, 0.2);
+  }
+
+  .readingProgress::after,
+  .progressStrip::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-primary);
+    transform-origin: left;
+    animation: read-progress linear both;
+    animation-timeline: scroll(root);
+  }
+
+  /* Sits over the running head's border rather than inside its box. */
+  .readingProgress::after {
+    inset: auto 0 calc(-1 * var(--border-width));
+    height: var(--border-width);
+  }
+}
+
 /* Mobile menu: one fixed button, top-right, opening a box of the links.
    `button.` prefixes outrank .button in Button.module.css, whose padding and
    display would otherwise win or lose depending on stylesheet order. */
@@ -255,6 +294,21 @@ button.menuButton {
   .mastheadNav,
   .runningHead {
     display: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    /* Mobile has no running head, so the bar is a strip at the top of the
+       screen, under the menu button. */
+    .progressStrip {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9;
+      height: 5px;
+      background-color: rgba(13, 75, 55, 0.2);
+    }
   }
 }
 
