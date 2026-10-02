@@ -67,6 +67,13 @@ much the element should lift off the page: `2px` (Button), `3px` (ProjectGrid
 inner tiles), `5px` (Footer, tiles, post-body images, and the mobile nav menu
 box), `10px` (BioPanel, and the posts list hover panel).
 
+The cursor is the smallest step and the one exception to green: a `1.5px` ink
+offset shadow under the cream arrow (`--cursor-default` in `globals.css`). Over links and
+buttons, and while the mouse button is held, it presses: the arrow moves onto
+where its shadow was and the shadow disappears (`--cursor-pointer`), the same
+press `Button` makes when clicked. Both states use ink so the press is a drop
+alone, with no colour change.
+
 If something needs visual separation from what's around it, reach for a border
 or a solid color-block boundary before a shadow; if it needs to sit _above_ the
 page, use a solid offset shadow at one of those steps.

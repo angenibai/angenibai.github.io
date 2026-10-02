@@ -370,16 +370,14 @@ preference. `BioPanel.module.css` hard-codes widths around text that does scale
 Every media query is px-based, so layouts reflow on page zoom but not for a
 user who only raises their default font size.
 
-**Custom cursor** (currently uncommitted, `globals.css:20`). `cursor` is an
-inherited property and this is set on `:root`, so prose loses its text I-beam
-site-wide — the cue that text is selectable, which the site's elaborate
-`::selection` styling (`:171-222`) now advertises to nobody. The hotspot is
-also wrong: `arrowhead.svg` is 24×24 with its point at roughly `(5.5, 3)`, but
-the declared hotspot is `12 12`, the centre of the box, so clicks land about
-9px off in both axes — a precision problem for anyone with a motor impairment.
-A custom cursor also won't scale with OS pointer-size settings. Both SVGs are
-untracked, so committing `globals.css` without them silently falls back to
-`auto`.
+**Custom cursor** (fixed; see
+[the custom cursor design](design/2026-10-02-custom-cursor.md)). Hotspots now
+match the tips (`6 3` for the arrow, `7 4` for the pressed arrow), and links
+and buttons get the custom pressed arrow instead of switching to the system
+hand. Prose keeps the arrow rather than an I-beam by choice, so nothing
+signals selectable text before the first drag. Remaining known cost: custom
+cursors don't scale with the OS pointer-size setting, so users who enlarge
+their cursor get the 24px one.
 
 ## 5. What already works — don't regress it
 
