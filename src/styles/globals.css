@@ -35,9 +35,13 @@ body {
 }
 
 /* Keeps skip-link and Tab targets clear of the fixed nav: the 64px desktop
-   running head, or the mobile menu button (see Nav.module.css). */
+   running head, or the mobile menu button (see Nav.module.css).
+   The scrollbar is thin and faint green. scrollbar-color is inherited, so this
+   also tints every scrolling element that doesn't set its own. */
 html {
   scroll-padding-top: 5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(13, 75, 55, 0.2) transparent;
 }
 
 body {
