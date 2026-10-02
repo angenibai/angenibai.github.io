@@ -121,7 +121,8 @@
   font-size: 1.4rem;
 }
 
-.modalCloseButton {
+/* Qualified with `button` so it outranks .button whichever module loads last. */
+button.modalCloseButton {
   background: none;
   font: inherit;
   padding: 3px 5px;
