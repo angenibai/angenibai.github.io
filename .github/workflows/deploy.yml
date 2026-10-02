@@ -25,6 +25,7 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - run: npm run lint
       # prebuild writes the sitemap, feed and redirect pages into public/,
       # which export copies into out/.
       - run: npm run build

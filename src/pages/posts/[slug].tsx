@@ -6,15 +6,12 @@ import { ParsedUrlQuery } from "querystring";
 import matter from "gray-matter";
 import { ArticleJsonLd, NextSeo } from "next-seo";
 import site, { absoluteUrl } from "@/lib/site";
-import {
-  PluggableList,
-  ReactMarkdown,
-} from "react-markdown/lib/react-markdown";
+import ReactMarkdown from "react-markdown";
 import NextImage from "next/image";
 import styles from "@/styles/Post.module.css";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import Code from "@/components/markdown/Code";
+import Code, { CodeBlock } from "@/components/markdown/Code";
 import Image from "@/components/markdown/Image";
 import Reacts from "@/components/Reacts";
 
@@ -112,10 +109,9 @@ const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
         >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw] as PluggableList}
+            rehypePlugins={[rehypeRaw]}
             components={{
-              // Code renders its own <pre>; react-markdown's would wrap a <div> in it.
-              pre: ({ children }) => <>{children}</>,
+              pre: CodeBlock,
               code: Code,
               img: Image,
             }}

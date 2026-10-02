@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import type { FocusEvent, MouseEvent } from "react";
 
 // Cursor-anchored, viewport-aware placement for the /posts hover panel. CSS
@@ -23,6 +29,15 @@ const TRACK_CURSOR = true;
 // panel following the cursor, not remove it. It still appears, placed once on
 // row entry.
 const MOTION_QUERY = "(prefers-reduced-motion: no-preference)";
+
+const subscribeMotion = (onChange: () => void) => {
+  const mq = window.matchMedia(MOTION_QUERY);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+};
+const getMotion = () => window.matchMedia(MOTION_QUERY).matches;
+// The server render, and the first client render that hydrates it, place once.
+const getServerMotion = () => false;
 
 // Keying off the actual input capability, not guessing from viewport width.
 // b656b3b shipped the CSS gate at 640px (the receipt plan's table says 900);
@@ -84,12 +99,20 @@ interface PanelProps {
 export function usePostPreview() {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [enabled, setEnabled] = useState(false);
-  const [trackCursor, setTrackCursor] = useState(false);
+  const trackCursor = useSyncExternalStore(
+    subscribeMotion,
+    getMotion,
+    getServerMotion,
+  );
 
-  // activeSlug is also read from event handlers that don't re-subscribe; keep a
-  // ref in sync so they see the current value without being in a dep array.
+  // activeSlug is also read from event handlers that don't re-subscribe, so
+  // setActive writes it to a ref as well, which they read without it being in a
+  // dep array.
   const activeSlugRef = useRef<string | null>(null);
-  activeSlugRef.current = activeSlug;
+  const setActive = useCallback((slug: string | null) => {
+    activeSlugRef.current = slug;
+    setActiveSlug(slug);
+  }, []);
 
   const anchors = useRef(new Map<string, HTMLDivElement>());
   const refCache = useRef(
@@ -158,9 +181,9 @@ export function usePostPreview() {
       const rect = node.getBoundingClientRect();
       panelSize.current = { width: rect.width, height: rect.height };
       applyPlacement(slug);
-      setActiveSlug(slug);
+      setActive(slug);
     },
-    [applyPlacement],
+    [applyPlacement, setActive],
   );
 
   const hide = useCallback(() => {
@@ -169,9 +192,9 @@ export function usePostPreview() {
     hideTimer.current = setTimeout(() => {
       hideTimer.current = null;
       panelSize.current = null;
-      setActiveSlug(null);
+      setActive(null);
     }, HIDE_GRACE);
-  }, [clearShow]);
+  }, [clearShow, setActive]);
 
   // Capability gate. matchMedia lives in an effect so SSR and the first client
   // render agree (enabled: false, no handlers attached).
@@ -182,22 +205,14 @@ export function usePostPreview() {
       if (!matches) {
         clearShow();
         clearHide();
-        setActiveSlug(null);
+        setActive(null);
       }
     };
     sync(mq.matches);
     const onChange = (e: MediaQueryListEvent) => sync(e.matches);
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
-  }, [clearShow, clearHide]);
-
-  useEffect(() => {
-    const mq = window.matchMedia(MOTION_QUERY);
-    setTrackCursor(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setTrackCursor(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
+  }, [clearShow, clearHide, setActive]);
 
   // Coordinates are viewport-relative and the panel is fixed, so a scroll
   // without a mouse move would strand it beside a row that has moved. Hiding is
@@ -208,11 +223,11 @@ export function usePostPreview() {
       clearShow();
       clearHide();
       panelSize.current = null;
-      setActiveSlug(null);
+      setActive(null);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [enabled, activeSlug, clearShow, clearHide]);
+  }, [enabled, activeSlug, clearShow, clearHide, setActive]);
 
   useEffect(
     () => () => {

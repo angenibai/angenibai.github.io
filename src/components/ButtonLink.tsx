@@ -19,15 +19,11 @@ const ButtonLink = ({
 
   // isSelected comes from the router, so it only flips once the route lands,
   // leaving a gap after mouseup where the button would spring back up. .pressed
-  // holds it down across that gap. Set on click rather than pointerdown so a
-  // press that gets dragged off and cancelled never latches.
+  // holds it down across that gap, and gives way to .selected once it flips.
+  // Set on click rather than pointerdown so a press that gets dragged off and
+  // cancelled never latches.
   const [pressed, setPressed] = useState(false);
-
-  useEffect(() => {
-    if (isSelected) {
-      setPressed(false);
-    }
-  }, [isSelected]);
+  const showPressed = pressed && !isSelected;
 
   // Release valve for navigations that never leave this button selected.
   useEffect(() => {
@@ -50,7 +46,7 @@ const ButtonLink = ({
   };
 
   const className = `${styles.button} ${isSelected ? styles.selected : ""} ${
-    pressed ? styles.pressed : ""
+    showPressed ? styles.pressed : ""
   }`;
 
   return external ? (
