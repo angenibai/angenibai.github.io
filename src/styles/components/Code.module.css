@@ -49,6 +49,13 @@
   scrollbar-color: rgba(250, 248, 240, 0.4) transparent;
 }
 
+/* The global green selection disappears against the dark panel, so invert it. */
+.codeBlock::selection,
+.codeBlock *::selection {
+  background: var(--color-bg-white);
+  color: var(--color-black);
+}
+
 .inlineCode {
   background-color: rgba(13, 75, 55, 0.3);
   border: 1px solid rgba(13, 75, 55, 0.15);
