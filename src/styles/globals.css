@@ -180,6 +180,16 @@ a:hover {
   border: 0;
 }
 
+:focus-visible {
+  outline: 3px solid rgba(13, 75, 55, 0.3);
+  outline-offset: 2px;
+}
+
+/* No ring on focus targets that aren't controls, like <main> and <dialog>. */
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
 .skip-link {
   position: absolute;
   left: -9999px;

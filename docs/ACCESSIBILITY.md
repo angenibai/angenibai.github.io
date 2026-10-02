@@ -289,16 +289,21 @@ cue in any state, which also opens in a new tab unannounced. The masthead title
 (`Nav.tsx:10`) is contextually discoverable in a way a mid-prose link is not,
 so if one instance ever gets revisited, that is the one.
 
-**No designed focus indicator.** The good news first: `outline: none` appears
-**nowhere** in `src/styles/`, so the browser default focus ring is intact
-site-wide. But nothing is designed either — the codebase's one focus rule,
-`Button.module.css:68-74`, just re-applies the 2px hover lift, cancels the
-underline, and excludes `.selected`, so the current page's nav button gets no
-custom treatment at all.
-
-> Fix: an explicit `:focus-visible` outline in `globals.css` — e.g.
-> `3px solid var(--color-primary)` with `outline-offset: 2px` — so focus is
-> consistent and on-palette rather than browser-dependent against cream.
+**Fixed — no designed focus indicator.** Every control fell back to the
+browser's default ring, which differs per browser and was grey in Safari
+against cream. `globals.css` now sets a site-wide `:focus-visible` outline
+(`3px solid rgba(13, 75, 55, 0.3)`, a translucent primary green like the
+scrollbar, with `outline-offset: 2px`); `Reacts.module.css`
+keeps its own inset variant. Separately, Safari rang the modal's close button
+on every mouse-opened dialog: it does not focus buttons on click, so it reads
+the focus `showModal()` moves into the dialog as keyboard focus.
+`ProjectModal.tsx` now focuses the `<dialog>` itself after `showModal()`. The
+first Tab still lands on the close button, with the ring. For the same reason
+Safari rang a tile after a mouse-opened modal closed, and rang `<main>` (it
+focuses the nearest `tabindex` ancestor on click, and `close()` restores focus
+there). The projects page now refocuses the tile only when a keyboard opened
+the modal, and `globals.css` drops the ring on `[tabindex="-1"]:focus`, which
+covers `<main>` and the `<dialog>`, since neither is a control.
 
 **Fixed — `target="_blank"` without `rel="noopener"`.** `ButtonLink.tsx`,
 `Footer.tsx` (both links), `BioPanel.tsx`, and the raw-HTML anchors in
@@ -406,7 +411,8 @@ untracked, so committing `globals.css` without them silently falls back to
   is 9.5:1; and every syntax token in `Code.tsx:49-63` clears 4.5:1 on the
   `#093426` panel. Task-list checkboxes pair colour with a `✔` glyph
   (`globals.css:95-106`) rather than relying on fill alone.
-- No `outline: none` anywhere; `prefers-reduced-motion` in all five animating
+- No `outline: none` on any control (the `[tabindex="-1"]` rule covers only
+  the non-interactive `<main>` and `<dialog>`, Section 4); `prefers-reduced-motion` in all five animating
   files, plus the page transitions (JS-gated, Section 4); the closed modal is genuinely hidden from assistive tech rather than
   merely transparent — now via the native `<dialog>`'s own
   `dialog:not([open]) { display: none }`, so `.modalOverlay`'s base rule must

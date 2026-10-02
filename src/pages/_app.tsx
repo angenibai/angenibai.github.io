@@ -41,7 +41,14 @@ export default function App({ Component, pageProps }: AppProps) {
         additionalLinkTags={[
           {
             rel: "icon",
-            href: "/img/balloon-sloth/balloon-sloth.svg",
+            type: "image/png",
+            sizes: "32x32",
+            href: "/img/balloon-sloth/favicon-32.png",
+          },
+          {
+            rel: "apple-touch-icon",
+            sizes: "180x180",
+            href: "/img/balloon-sloth/apple-touch-icon.png",
           },
           {
             rel: "alternate",
