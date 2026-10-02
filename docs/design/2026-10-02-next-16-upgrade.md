@@ -1,5 +1,5 @@
 ---
-status: approved
+status: done
 date: 2026-10-02
 ---
 
@@ -187,3 +187,27 @@ Latest versions on npm as of 2026-10-02:
 - **Code block markup.** Decision 6 moves where the figure is rendered. The
   `out/` diff on the post with code blocks
   (`2023-04-08-easter-show-value`) must show the same HTML as before.
+
+## Outcome
+
+- **Turbopack kept.** With CSS Module class hashes normalised, every page's
+  markup matches the pre-upgrade build. The differences are in how assets
+  are split and ordered: home and projects load one more page stylesheet,
+  posts load one fewer JS chunk, and there is no `nomodule` polyfill script.
+  Computed styles of every element matched on all checked pages.
+- **`jsx-a11y` rules only.** Spreading `jsxA11y.flatConfigs.recommended` fails
+  with "Cannot redefine plugin", so the config takes only its `rules`.
+- **`react-hooks` 7 findings.** `set-state-in-effect` and `refs` flagged
+  `ButtonLink` and `usePostPreview`. `ButtonLink` derives the shown press
+  state instead of resetting it in an effect; `usePostPreview` reads
+  reduced motion with `useSyncExternalStore` and writes `activeSlugRef` in a
+  `setActive` callback instead of during render.
+- **`react-markdown` 10 drops a stray attribute.** v8 wrote
+  `node="[object Object]"` onto every code `<pre>` and inline `<code>`;
+  v10 doesn't. `remark-gfm` 4 changes the footnote back-link label from
+  "Back to content" to "Back to reference 1".
+- **React 19 `<head>` order.** The viewport meta and JSON-LD move earlier in
+  `<head>`; stylesheets keep their relative order. A `priority` splash image
+  now also gets a `<link rel="preload" as="image">`.
+- **Lint and errors.** `@next/next/no-img-element` is a warning, so a lint
+  error check needs an error-level rule such as `jsx-a11y/alt-text`.
