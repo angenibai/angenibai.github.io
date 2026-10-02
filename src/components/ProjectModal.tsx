@@ -25,6 +25,8 @@ const ProjectModal = (props: ProjectModalProps) => {
 
     if (isOpen && !dialog.open) {
       dialog.showModal();
+      // Otherwise Safari shows a focus ring on the close button.
+      dialog.focus();
     } else if (!isOpen && dialog.open) {
       dialog.close();
     }
@@ -59,6 +61,7 @@ const ProjectModal = (props: ProjectModalProps) => {
       ref={dialogRef}
       className={styles.modalOverlay}
       aria-labelledby="project-modal-title"
+      tabIndex={-1}
       onClose={handleDialogClose}
       onClick={handleDialogClick}
     >
