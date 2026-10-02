@@ -7,13 +7,6 @@ export default defineConfig([
   // nextVitals already registers the jsx-a11y plugin, so only the rules are
   // taken from the recommended preset. Registering the plugin twice is an error.
   { rules: jsxA11y.flatConfigs.recommended.rules },
-  // Turned off until the next commit fixes the code it flags.
-  {
-    rules: {
-      "react-hooks/set-state-in-effect": "off",
-      "react-hooks/refs": "off",
-    },
-  },
   globalIgnores([
     "out/**",
     ".next/**",
