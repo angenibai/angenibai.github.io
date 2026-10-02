@@ -163,7 +163,8 @@ Using this idea, given a showbag `BeautifulSoup` object, this is how we grab the
 ```python
 SHOWBAG_NAME_HEADING = "showbagsCard-product--name"
 SHOWBAG_PRICE_SPAN = "showbagsCard-product--price"
-SHOWBAG_VALUE_DIV = "showbagsCard-description-copy--included"  # retail value is in the last paragraph inside <strong> tags
+# retail value is in the last paragraph inside <strong> tags
+SHOWBAG_VALUE_DIV = "showbagsCard-description-copy--included"
 
 # showbag is a BeautifulSoup object with the content for a particular showbag
 
@@ -195,6 +196,7 @@ If we use the `re` regex library in Python, a function to extract the float valu
 
 ```python
 PRICE_PATTERN = r"\d+(\.\d{2})?"
+
 
 def extract_price(full_string):
     matched = re.search(PRICE_PATTERN, full_string)
@@ -249,9 +251,11 @@ NUM_PAGES = 52
 SHOWBAG_DIV = "showbagsCard"
 SHOWBAG_NAME_HEADING = "showbagsCard-product--name"
 SHOWBAG_PRICE_SPAN = "showbagsCard-product--price"
-SHOWBAG_VALUE_DIV = "showbagsCard-description-copy--included"  # retail value is in the last paragraph inside <strong> tags
+# retail value is in the last paragraph inside <strong> tags
+SHOWBAG_VALUE_DIV = "showbagsCard-description-copy--included"
 
 PRICE_PATTERN = r"\d+(\.\d{2})?"
+
 
 def fetch_data():
     showbags_data = []
@@ -265,7 +269,9 @@ def fetch_data():
 
         for showbag in showbags:
             # grab name
-            name_heading = showbag.find("h3", class_=SHOWBAG_NAME_HEADING)
+            name_heading = showbag.find(
+                "h3", class_=SHOWBAG_NAME_HEADING
+            )
             name = name_heading.text.strip()
 
             # skip duplicates
@@ -277,7 +283,9 @@ def fetch_data():
             print(f"processing: {name}")
 
             # get price
-            price_span = showbag.find("span", class_=SHOWBAG_PRICE_SPAN)
+            price_span = showbag.find(
+                "span", class_=SHOWBAG_PRICE_SPAN
+            )
             price = extract_price(price_span.text)
 
             # get list of all included items
@@ -328,9 +336,9 @@ Every single time I need to read and write CSV files I pretty much just follow t
 
 ```python
 def write_to_csv(showbags_data, csvfile="showbags.csv"):
-		"""
-    Takes in a list of dictionaries containing showbag data and outputs it to a
-    CSV file
+    """
+    Takes in a list of dictionaries containing showbag data and
+    outputs it to a CSV file
     """
 
     csv_output = open(csvfile, "w")

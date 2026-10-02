@@ -4,6 +4,10 @@ status: done
 
 # Code block & inline code styling
 
+The code block look described here is superseded by
+[`2026-10-02-code-blocks.md`](2026-10-02-code-blocks.md). The notes on how
+`react-syntax-highlighter` applies styles still hold.
+
 Rationale from giving post-page code (block and inline) an on-brand
 treatment: dark green panel for blocks, IBM Plex Mono, a warm pill for inline
 code.
