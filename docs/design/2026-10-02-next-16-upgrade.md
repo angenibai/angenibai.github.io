@@ -1,5 +1,5 @@
 ---
-status: draft
+status: approved
 date: 2026-10-02
 ---
 
@@ -19,20 +19,24 @@ running lint in `next build`, and `eslint-config-next` 16 requires ESLint 9.
 The repo is on ESLint 8.45 with `.eslintrc.json` and `eslint-config-next`
 13.4.10, which is already 2 majors behind Next.
 
+Two dependencies that are behind get upgraded along the way. React 18 gets no
+more releases (18.3.1, April 2024, was the last). `react-markdown` 8.0.7
+(April 2023) gets no fixes, and its types use the global `JSX` namespace that
+`@types/react` 19 removes. Upstream closed the React 19 reports (#911, #920)
+with "update `react-markdown`".
+
 ## Goals
 
 - `next` and `@next/third-parties` on 16, and `npm audit` no longer reports
   `postcss`, `next` or `@next/third-parties`.
+- `react-markdown` on 10 and React on 19.
 - The exported site in `out/` is unchanged: same pages, same HTML apart from
   hashed asset names, and the same look on home, posts, a post with code blocks
   and images, projects and 404.
 - `npm run lint` runs ESLint 9 with the same rule sets as today
-  (`next/core-web-vitals` plus `jsx-a11y` recommended). The existing
-  `eslint-disable-next-line` comments still refer to rules that exist, and
-  lint passes.
+  (`next/core-web-vitals` plus `jsx-a11y` recommended), and passes.
 - A lint error still blocks a deploy, as it does today through `next build`.
-- React on 19, as a separate step after Next 16 is verified (see Chosen
-  direction).
+- Packages used only by build tooling are in `devDependencies`.
 
 ## Non-goals
 
@@ -42,123 +46,144 @@ The repo is on ESLint 8.45 with `.eslintrc.json` and `eslint-config-next`
 - New lint rules beyond what `eslint-config-next` 16 brings in through the
   existing presets.
 
-## What changes, and what doesn't
+## What Next 16 changes here
 
 Checked against the [Next 16 upgrade guide](https://nextjs.org/docs/app/guides/upgrading/version-16)
 and this repo:
 
-| Next 16 change                                                     | Effect here                                                                                                                                                                                   |
-| ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `next lint` removed; `next build` no longer lints                  | `npm run lint` breaks, and CI (which runs only `npm run build`) stops catching lint errors. Main work.                                                                                        |
-| `eslint-config-next` 16 needs ESLint 9 and the flat config format  | `.eslintrc.json` is replaced by `eslint.config.mjs`.                                                                                                                                          |
-| Turbopack is the default for `next build`                          | `next.config.js` has no `webpack` key, so the build won't refuse to run. The output might still differ (CSS Modules ordering, chunking), so the exported pages get compared before and after. |
-| `next dev` writes a managed block into `AGENTS.md`                 | Only when an AI agent runs `next dev`. Turned off with `agentRules: false`; a one-line pointer in `AGENTS.md` replaces it.                                                                    |
-| `next/image` defaults (`qualities`, `imageSizes`, `localPatterns`) | No effect: `images.unoptimized` is set and no local `src` has a query string.                                                                                                                 |
-| `scroll-behavior` no longer overridden                             | No effect: nothing in `src/` sets `scroll-behavior`.                                                                                                                                          |
-| React 18.2 still accepted for the Pages Router                     | Next can be upgraded without React.                                                                                                                                                           |
-| Build output drops page size metrics                               | Cosmetic.                                                                                                                                                                                     |
-| Node ≥ 20.9, TypeScript ≥ 5.1                                      | Local Node 23.6, CI Node 24, TypeScript 5.1.6 — already compatible.                                                                                                                           |
+| Next 16 change                                                     | Effect here                                                                                                    |
+| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `next lint` removed; `next build` no longer lints                  | `npm run lint` breaks, and CI (which runs only `npm run build`) stops catching lint errors. See decision 1, 3. |
+| `eslint-config-next` 16 needs ESLint 9 and the flat config format  | `.eslintrc.json` is replaced by `eslint.config.mjs`. See decision 1.                                           |
+| Turbopack is the default for `next build`                          | `next.config.js` has no `webpack` key, so the build runs. The output may differ. See decision 4.               |
+| `next dev` writes a managed block into `AGENTS.md`                 | Only when it detects an AI agent. See decision 5.                                                              |
+| `next/image` defaults (`qualities`, `imageSizes`, `localPatterns`) | No effect: `images.unoptimized` is set and no local `src` has a query string.                                  |
+| `scroll-behavior` no longer overridden                             | No effect: nothing in `src/` sets `scroll-behavior`.                                                           |
+| React 18.2 still accepted for the Pages Router                     | Next and React can be upgraded in separate commits.                                                            |
+| Build output drops page size metrics                               | Cosmetic.                                                                                                      |
+| Node ≥ 20.9, TypeScript ≥ 5.1                                      | Local Node 23.6, CI Node 24, TypeScript 5.1.6: already compatible.                                             |
 
-## Options considered
+## Decisions
 
-**Lint migration**
+### 1. ESLint 9 with `eslint-config-next` 16 and a flat config
 
-| Option                                                                      | Trade-off                                                                                                                                                                                              |
-| --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **A. ESLint 9 + `eslint-config-next` 16 + flat config** (chosen)            | Matches what Next 16 expects and fixes the existing 13-vs-15 version gap. Costs a config rewrite and fixes for whatever the newer plugins flag.                                                        |
-| B. Keep ESLint 8 and `.eslintrc.json`; only change the script to `eslint .` | Smallest diff, but stays on ESLint 8, which has been end-of-life since October 2024, and on a Next 13 lint config. ESLint 10 drops `.eslintrc` support entirely, so this only postpones the migration. |
+| Option                                                                      | Trade-off                                                                                                                                                                               |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **A. ESLint 9 + `eslint-config-next` 16 + flat config** (chosen)            | Matches what Next 16 expects and closes the 13-vs-15 version gap. Costs a config rewrite and fixes for whatever the newer plugins flag.                                                 |
+| B. Keep ESLint 8 and `.eslintrc.json`; only change the script to `eslint .` | Smallest diff, but stays on ESLint 8, end-of-life since October 2024, and on a Next 13 lint config. ESLint 10 drops `.eslintrc` support entirely, so this only postpones the migration. |
 
-**React 19**
+ESLint 9 rather than 10 (the latest major, 10.11.0): `eslint-config-next` 16
+accepts ESLint 10, but `eslint-plugin-react`, `eslint-plugin-jsx-a11y` and
+`eslint-plugin-import`, which it depends on, only list ESLint up to 9 as
+supported.
+
+`eslint-config-next` 16 brings in `eslint-plugin-react-hooks` 7 and
+`typescript-eslint` 8, which is where new findings would come from. They're
+fixed in their own commit (see Order of changes), so the config migration
+and the code fixes can be reviewed separately.
+
+### 2. Build tooling packages move to `devDependencies`
+
+`eslint`, `eslint-config-next`, `typescript` and the `@types/*` packages are
+in `dependencies` today. For a static export the split has no runtime effect,
+and CI's `npm ci` installs both. They move so `package.json` shows which
+packages the site's code imports and which only the build uses.
+`eslint-plugin-jsx-a11y` is added as a direct dev dependency, because the
+flat config imports it by name rather than through `eslint-config-next`.
+
+### 3. CI runs `npm run lint` before `npm run build`
+
+`next build` no longer lints, so without this step a lint error would deploy.
+One extra step in `deploy.yml`.
+
+### 4. Keep Turbopack, unless the output is wrong
+
+Turbopack might order CSS Modules or split chunks differently from webpack.
+Each commit compares `out/` against a pre-upgrade baseline (page list, and
+HTML with hashed asset names normalised) and checks the key pages by eye. If
+Turbopack's output is wrong and not a quick fix, build with `--webpack` and
+record that here.
+
+### 5. Opt out of Next's managed `AGENTS.md` block; add a one-line pointer
+
+In 16.3, `next dev` inserts a block into `AGENTS.md` when it detects an AI
+agent, pointing at the docs bundled in `node_modules/next/dist/docs/`.
+`agentRules: false` turns this off.
+
+| Option                                    | Trade-off                                                                                                                                                     |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **A. Opt out; one-line pointer** (chosen) | `AGENTS.md` stays hand-written. The pointer has to be checked on future Next upgrades.                                                                        |
+| B. Let `next dev` manage the block        | Next keeps the wording current. Adds instructions this repo didn't write, and `next dev` rewrites the file whenever the block's text drifts from its version. |
+
+Next's docs recommend B, citing [nextjs.org/evals](https://nextjs.org/evals).
+Those evals compare agents with and without `AGENTS.md`, and
+[Vercel's write-up](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)
+compares a docs index in `AGENTS.md` with a docs skill. Neither compares the
+block's wording with a short pointer, so the evidence supports pointing
+agents at the bundled docs, which A does too. The eval tasks also target new
+App Router APIs that this Pages Router site doesn't use.
+
+### 6. `react-markdown` 10, with block code rendered by the `pre` component
+
+Version 9 removed the `inline` prop that `Code.tsx` uses to tell a fenced
+block from inline code.
+
+| Option                                                                          | Trade-off                                                                                                                                                                                                       |
+| ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **A. `pre` renders the figure and highlighter; `code` handles inline** (chosen) | Follows the Markdown structure: a fenced block is always `<pre><code>`, inline code never is. `[slug].tsx` already overrides `pre` (as a passthrough), so the override moves from there into the new component. |
+| B. Treat code as a block when it has a `language-` class                        | Smallest change, but a fenced block without a language would render as inline `<code>`. `docs/ACCESSIBILITY.md` requires that case to stay a real `<pre>`.                                                      |
+| C. Stay on 8 and patch its types locally                                        | No API change, but keeps a version that gets no fixes and has to be patched again on the next type change.                                                                                                      |
+
+`remark-gfm` goes from 3 to 4 to match. `rehype-raw` 7 is already the right
+version. `remark-images` is in `package.json`, but nothing imports it, so it's
+removed.
+
+### 7. React 19, in its own commit after the others
 
 React 18 has no advantage over 19 here; the only reason to wait would be to
-keep the change small. Moving to 19 also looks cheap: every React-dependent
-package accepts 19 (`@fortawesome/react-fontawesome` 0.2.6, `react-markdown`
-8, `next-seo`, `react-syntax-highlighter` 16, `@next/third-parties` 16). React
-18 itself gets no more releases: 18.3.1 (April 2024) was the last. The risk is
-a breakage that's hard to attribute, and that goes away if React gets its own
-step and commit, verified after Next 16.
+keep the change small. Every React-dependent package accepts 19
+(`@fortawesome/react-fontawesome` 0.2.6, `react-markdown` 10, `next-seo`,
+`react-syntax-highlighter` 16, `@next/third-parties` 16). It goes last, so any
+breakage it causes is easy to attribute, and `react-markdown`'s types are
+already fixed when it lands. `PostPreviewPanel` takes `ref` as a prop instead
+of using `forwardRef`.
 
-## Chosen direction
+## Order of changes
 
-One branch, three commits. Each commit passes `npm run lint` and
-`npm run build` on its own, because CI will run both.
+One branch, four commits. Each passes `npm run lint` and `npm run build` on
+its own, and is checked with the `out/` comparison from decision 4.
 
-1. **Next 16 and ESLint 9.** Version bumps, the flat config, the CI lint step
-   and the doc updates. Any rule that newly fails on existing code is turned
-   off in `eslint.config.mjs`, with a comment saying the next commit fixes it.
-   Then compare `out/` from before and after (page list, and HTML with hashed
-   asset names normalised), and check the key pages by eye. If Turbopack's
-   output is wrong and not a quick fix, build with `--webpack` instead and
-   record that here.
-2. **Fix the new lint findings.** Fix the code each rule turned off in
-   commit 1 flagged, and remove those overrides. If a fix changes runtime
-   behaviour, check the affected page.
-3. **React 19.** Version bumps, type fixes and the `ref` prop change, then
-   repeat the `out/` comparison from commit 1.
+| #   | Commit                    | Changes                                                                                                                                                                                                                                                                              |
+| --- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | **Next 16 and ESLint 9**  | Bumps; `eslint.config.mjs` replaces `.eslintrc.json`; `lint` script becomes `eslint .`; dev dependencies moved; CI lint step; `agentRules: false`; `AGENTS.md` and `docs/ACCESSIBILITY.md` updated. Rules that newly fail are turned off, with a comment saying commit 2 fixes them. |
+| 2   | **Fix new lint findings** | Fix the code each rule turned off in commit 1 flagged, and remove the overrides. Skipped if nothing was turned off.                                                                                                                                                                  |
+| 3   | **react-markdown 10**     | Bumps; `pre` component renders code blocks, `Code` renders inline code; `remark-images` removed.                                                                                                                                                                                     |
+| 4   | **React 19**              | Bumps; `PostPreviewPanel` `ref` prop; any type fixes.                                                                                                                                                                                                                                |
 
 ## Version bumps
 
 Latest versions on npm as of 2026-10-02:
 
-| Package                            | From             | To     | Commit |
-| ---------------------------------- | ---------------- | ------ | ------ |
-| `next`                             | 15.5.26          | 16.3.8 | 1      |
-| `@next/third-parties`              | 15.5.26          | 16.3.8 | 1      |
-| `eslint-config-next`               | 13.4.10          | 16.3.8 | 1      |
-| `eslint`                           | 8.45.0           | 9.39.x | 1      |
-| `react`, `react-dom`               | 18.2.0           | 19.3.0 | 3      |
-| `@types/react`, `@types/react-dom` | 18.2.15 / 18.2.7 | 19.3.0 | 3      |
-
-ESLint 9 rather than 10, which is the latest major (10.11.0):
-`eslint-config-next` 16 accepts ESLint 10, but `eslint-plugin-react`,
-`eslint-plugin-jsx-a11y` and `eslint-plugin-import`, which it depends on, only
-list ESLint up to 9 as a supported version.
-
-`eslint-config-next` 16 also brings in newer plugins it depends on, notably
-`eslint-plugin-react-hooks` 7 and `typescript-eslint` 8. Those are where new
-lint findings would come from.
-
-## Expected changes
-
-**Commit 1: Next 16 and ESLint 9**
-
-- `package.json` / `package-lock.json`: the bumps above; the `lint` script
-  becomes `eslint .`.
-- `.eslintrc.json` → `eslint.config.mjs`: the same two presets,
-  `core-web-vitals` from `eslint-config-next` and `jsx-a11y` recommended, in the
-  flat config format. ESLint 9 doesn't read `.gitignore`, so the config also
-  ignores the build output and the leftover Jekyll folders (`vendor/`, `_site/`).
-  The four `eslint-disable-next-line` comments in `src/` must still refer to
-  rules that exist.
-- `.github/workflows/` deploy workflow: `npm run lint` before `npm run build`.
-- `next.config.js`: `agentRules: false`, so `next dev` doesn't append its
-  managed block to `AGENTS.md` when it detects an AI agent. Next 16.3.8 checks
-  this setting in `server/lib/start-server.js`.
-- `AGENTS.md`: update the `npm run lint` comment, and add one line to the Docs
-  index pointing agents at the docs bundled with the installed Next version,
-  `node_modules/next/dist/docs/`.
-- `docs/ACCESSIBILITY.md`: update the reference to `.eslintrc.json`.
-- No changes expected in `src/`.
-
-**Commit 2: new lint findings**
-
-- Whatever the newer plugins flag; unknown until commit 1 runs lint.
-
-**Commit 3: React 19**
-
-- `package.json` / `package-lock.json`: the React bumps above.
-- `src/components/PostPreviewPanel.tsx`: takes `ref` as a prop instead of
-  using `forwardRef`.
-- Possible type fixes around `react-markdown` (see Risks).
+| Package                            | From             | To      | Commit |
+| ---------------------------------- | ---------------- | ------- | ------ |
+| `next`                             | 15.5.26          | 16.3.8  | 1      |
+| `@next/third-parties`              | 15.5.26          | 16.3.8  | 1      |
+| `eslint-config-next`               | 13.4.10          | 16.3.8  | 1      |
+| `eslint`                           | 8.45.0           | 9.39.x  | 1      |
+| `eslint-plugin-jsx-a11y`           | (transitive)     | ^6.10.0 | 1      |
+| `react-markdown`                   | 8.0.7            | 10.1.0  | 3      |
+| `remark-gfm`                       | 3.0.1            | 4.0.1   | 3      |
+| `remark-images`                    | 3.1.0            | removed | 3      |
+| `react`, `react-dom`               | 18.2.0           | 19.3.0  | 4      |
+| `@types/react`, `@types/react-dom` | 18.2.15 / 18.2.7 | 19.3.0  | 4      |
 
 ## Risks
 
-- **`react-markdown` 8 types with `@types/react` 19.** `react-markdown` 8's
-  type files use the global `JSX` namespace, which `@types/react` 19 removes.
-  `Code.tsx` imports `ReactMarkdownProps` from those types. `skipLibCheck` hides
-  errors inside the type files themselves, but the types `Code.tsx` relies on
-  may stop resolving. If they do, prefer a small fix in this repo's types;
-  upgrading `react-markdown` to a newer major changes its API and would be a
-  separate change. `@fortawesome/react-fontawesome` 0.2.6 has the same issue
-  in one place (`JSX.Element` as `FontAwesomeIcon`'s return type).
-- **Turbopack output.** Covered by the `out/` comparison in commit 1.
+- **`@fortawesome/react-fontawesome` 0.2.6 with `@types/react` 19.** Its
+  `FontAwesomeIcon` return type is `JSX.Element`, inside its own `.d.ts`.
+  `skipLibCheck` hides that, so it matters only if `tsc` reports an error in
+  this repo's files.
+- **Turbopack output.** Covered by the `out/` comparison (decision 4).
+- **Code block markup.** Decision 6 moves where the figure is rendered. The
+  `out/` diff on the post with code blocks
+  (`2023-04-08-easter-show-value`) must show the same HTML as before.
