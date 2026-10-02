@@ -1,5 +1,5 @@
 ---
-status: approved
+status: done
 date: 2026-10-02
 ---
 
@@ -64,8 +64,10 @@ posts in the right column.
   520px for the title size and 560px for the year; this doc unifies them at
   560px.
 
-Spacing from the prototype: 2.5rem between year groups, 1.5rem between rows
-within a group, 1.25rem between the year column and the posts.
+Spacing: 2.6rem between year groups, 1.6rem between the rule and the
+group's first line, 1.5rem between rows within a group, 1.25rem between the
+year column and the posts. The prototype's 2.5rem gap and 0.6rem padding
+under the rule looked cramped in the built page, so both were raised.
 
 **Pinned posts** go in their own group above the years: same grid and 3px
 rule, no year label, the existing square pin marker kept. Within the year
