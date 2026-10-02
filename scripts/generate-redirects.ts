@@ -76,7 +76,7 @@ const resolvePage = async (
     }
 
     const { metadata } = await getPostBySlug(entry.post);
-    const destination = `/posts/${entry.post}`;
+    const destination = `/posts/${entry.post}/`;
 
     return {
       destination,

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "prebuild": "tsx scripts/generate-sitemap.ts && tsx scripts/generate-feed.ts && tsx scripts/generate-redirects.ts",
     "build": "next build",
-    "start": "next start",
+    "start": "serve out",
     "lint": "next lint",
     "optimize-images": "bash scripts/optimize-images.sh",
     "sitemap": "tsx scripts/generate-sitemap.ts",
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@types/react-syntax-highlighter": "^15.5.7",
+    "serve": "^14.2.6",
     "tsx": "^4.23.15"
   }
 }

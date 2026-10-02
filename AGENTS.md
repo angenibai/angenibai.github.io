@@ -23,7 +23,7 @@ npm run build            # production build (also type-checks); prebuild writes 
 npm run sitemap          # regenerate public/sitemap.xml alone (gitignored, built from listed posts)
 npm run feed             # regenerate the RSS feed public/feed.xml alone (gitignored, built from listed posts)
 npm run redirects        # regenerate the redirect pages in public/ alone (gitignored, from _data/redirects.yaml)
-npm run start            # serve the production build
+npm run start            # serve the static export in out/
 npm run lint             # next lint (eslint-config-next)
 npm run optimize-images  # resize/recompress oversized images under public/img (requires ImageMagick)
 npm run reacts:init      # create Firestore reacts docs for new native posts (needs gcloud auth)
@@ -40,7 +40,7 @@ There is no test suite configured in this repo.
 - `getAllProjects()` / `getBio()` — parse the corresponding YAML file.
 - `getAllPosts()`, `getPostBySlug()`, `getFileData()`, `getPaths()` — read and parse `_data/posts/*.md`. The filename (minus `.md`) is the post's slug and its route.
 - `getListedPosts()` — `getAllPosts()` minus `listed: false` posts; the one definition of "unlisted", used by the posts page and the sitemap and feed scripts.
-- `_data/site.json` — site origin, name, default description, author, Google Analytics ID, and social profile URLs. JSON rather than YAML so `_app.tsx` can import it directly; read it through `src/lib/site.ts`, which also provides `absoluteUrl()` for canonicals, OG images, and the sitemap.
+- `_data/site.json` — site origin, name, default description, author, Google Analytics ID, and social profile URLs. JSON rather than YAML so `_app.tsx` can import it directly; read it through `src/lib/site.ts`, which also provides `absoluteUrl()` for canonicals, OG images, the sitemap and the feed.
 - `_data/redirects.yaml` — old Jekyll URLs and where they go now. `scripts/generate-redirects.ts` (run in `prebuild`) writes each one as a static meta-refresh page in `public/`, because GitHub Pages can't send HTTP redirects. A new entry also needs its output path added to `.gitignore`.
 - Post frontmatter fields are documented inline in `_data/posts/2023-04-08-easter-show-value.md` (required: `layout`, `title`, `date`; recommended: `tags`, `splashImageSource`, `splashImageCaption`; optional: `updated`, `author`, `pin`, `listed`, `index`, `reacts`). The shape is typed in `src/types/index.tsx` (`PostMetadata`, `ProjectContent`).
 - `longDescription` fields in `projects.yaml` are raw HTML strings, not Markdown.
@@ -54,6 +54,8 @@ There is no test suite configured in this repo.
 **Styling**: CSS Modules per-component under `src/styles/components/`, plus page-level modules directly under `src/styles/` (`Home.module.css`, `Post.module.css`, etc.) and global styles in `src/styles/globals.css`. Fonts (`Work Sans`, `Newsreader`, `IBM Plex Mono`) are loaded via `next/font/google` in `src/pages/_app.tsx` and exposed as CSS variables. See [docs/DESIGN_LANGUAGE.md](docs/DESIGN_LANGUAGE.md) for the color/typography/border conventions before adding new styles.
 
 **Path alias**: `@/*` maps to `src/*` (see `tsconfig.json`).
+
+**Deploy**: pushing to `master` builds the static export and publishes `out/` to GitHub Pages (see the [README](README.md#deploy)). Page URLs end in `/` (`trailingSlash` in `next.config.js`), so build absolute URLs with `absoluteUrl()` and write internal paths with the slash.
 
 **Images** referenced from `_data/` content live under `public/img/<project-or-post-slug>/`.
 

@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Static export for GitHub Pages, which serves files only. Each page is
+  // written as <route>/index.html, so /posts and /posts/<slug> never collide
+  // as a file and a folder.
+  output: "export",
+  trailingSlash: true,
   images: {
-    // Likely deploy target is GitHub Pages (static export), which requires
-    // this or a custom loader - the built-in on-the-fly optimizer needs a
-    // server. Harmless under a Node host too: images just skip the
-    // optimizer there instead of erroring.
+    // Export can't use the built-in optimizer, which needs a server.
     unoptimized: true,
   },
 };

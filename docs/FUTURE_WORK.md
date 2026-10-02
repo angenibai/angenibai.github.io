@@ -65,12 +65,6 @@ See `docs/design/posts-list-evolution.md` for the current design.
 - Tag pages don't exist yet, so the old Jekyll `/tags/*` URLs in
   `_data/redirects.yaml` point to `/posts`. Repoint them at the real tag pages
   when those are added.
-- Confirm the actual deploy target. The repo is named
-  `angenibai.github.io` (GitHub Pages naming convention), but there's no
-  `output: "export"` in `next.config.js` and no GitHub Actions workflow —
-  this is a full Next.js app, which GitHub Pages can't serve as-is.
-  Worth confirming there's a working deploy pipeline before treating the
-  build passing as "the site is live."
 
 ## Post reacts: trim the Firebase key after deploy
 

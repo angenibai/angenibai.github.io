@@ -149,7 +149,7 @@
       url: https://github.com/adaluong/summarise-my-lecture-hackathon
       text: adaluong/summarise-my-lecture-hackathon
     - label: Blog post
-      url: /posts/2021-08-12-summarise-my-hackathon
+      url: /posts/2021-08-12-summarise-my-hackathon/
       text: Summarise My Hackathon
   tags: [hackathon, web-dev]
 
