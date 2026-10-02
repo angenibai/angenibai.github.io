@@ -10,6 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [docs/PUBLISHING.md](docs/PUBLISHING.md) — checklist for publishing a native or Substack post, and for changing the Firestore rules.
 - `docs/plan/` — working plans for a change in progress; not committed by default once the change ships (git history is the record of what actually happened).
 - `docs/design/` — design docs for larger changes; captures durable rationale, including any mid-implementation deviations, that a diff alone wouldn't explain.
+- `node_modules/next/dist/docs/` — the Next.js docs for the installed version; check them before relying on remembered Next APIs.
 
 ## What this is
 
@@ -24,7 +25,7 @@ npm run sitemap          # regenerate public/sitemap.xml alone (gitignored, buil
 npm run feed             # regenerate the RSS feed public/feed.xml alone (gitignored, built from listed posts)
 npm run redirects        # regenerate the redirect pages in public/ alone (gitignored, from _data/redirects.yaml)
 npm run start            # serve the static export in out/
-npm run lint             # next lint (eslint-config-next)
+npm run lint             # eslint (flat config in eslint.config.mjs)
 npm run optimize-images  # resize/recompress oversized images under public/img (requires ImageMagick)
 npm run reacts:init      # create Firestore reacts docs for new native posts (needs gcloud auth)
 ```

@@ -258,10 +258,10 @@ inline-`<code>` branch. Inline code correctly uses `<code>`.
 **`src/pages/posts/[slug].tsx:26`** — the error branch renders a bare `<h2>`
 outside `PageLayout`: no landmarks, no `h1`, no nav, no way out.
 
-**Fixed — `.eslintrc.json`.** Previously extended only `next/core-web-vitals`;
+**Fixed — `eslint.config.mjs`.** Previously extended only `next/core-web-vitals`;
 `jsx-a11y` was not enabled, which is the root reason the div-as-button and
-unnamed-link problems above went uncaught. Now extends
-`plugin:jsx-a11y/recommended` too — the single highest-leverage preventive
+unnamed-link problems above went uncaught. Now includes
+the `jsx-a11y` recommended rules too — the single highest-leverage preventive
 change on this list, since it would have flagged items 1 and 2 automatically.
 A dry run against the current codebase flagged exactly one thing:
 `ProjectModal.tsx`'s `<dialog onClick>` backdrop-click handler
