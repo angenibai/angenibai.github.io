@@ -328,7 +328,7 @@ Every single time I need to read and write CSV files I pretty much just follow t
 
 ```python
 def write_to_csv(showbags_data, csvfile="showbags.csv"):
-		"""
+    """
     Takes in a list of dictionaries containing showbag data and outputs it to a
     CSV file
     """
