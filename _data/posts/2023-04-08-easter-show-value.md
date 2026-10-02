@@ -8,7 +8,7 @@ date: 2023-04-08 # Publish date in YYYY-MM-DD format
 tags: [data] # A list of tags
 splashImageSource: /img/easter-show-value/easter-show-value-banner.jpg # Splash image source, high resolution images with an aspect ratio close to 4:3 recommended
 splashImageCaption: # Splash image caption
-blurb: Number 9 will shock you !1! # One-sentence catalogue blurb, shown on the posts list page
+blurb: Bargain hunting taken seriously. # One-sentence catalogue blurb, shown on the posts list page
 coauthors: [] # Short-form co-author names for the posts list page's WITH cell, one per line when rendered
 
 # Optional front matter

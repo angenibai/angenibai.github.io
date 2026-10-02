@@ -1,3 +1,17 @@
+- name: Sydney Bubble Tea Map
+  id: bubble-tea-map
+  imgSrc: /img/bubble-tea-map/bubble-tea-map.png
+  shortDescription: A history of Sydney and bubble tea
+  longDescription: >
+    <p>From Easy Way to Molly Tea...</p>
+    <p>Part data mining project, part urban history exploration - we're mapping how bubble tea stores have grown across Sydney and what it tells us about the city and its culture.</p>
+    <p>Developing with Ada Luong</p>
+  links:
+    - label: Map
+      url: https://www.bubbleteamap.com/
+      text: bubbleteamap.com
+  tags: [data, web-dev]
+
 - name: "Chomp: A Maze Game 🥕"
   id: chomp
   imgSrc: /img/chomp/chomp-title.png
@@ -12,6 +26,23 @@
       url: https://epicgenie.itch.io/chomp
       text: itch.io/chomp
   tags: [game-dev]
+
+- name: Compendio
+  id: compendio
+  imgSrc: /img/compendio/compendio.png
+  shortDescription: "Turning lectures into interactive learning material 🪄"
+  longDescription: >
+    <p>Summarise My Lecture reloaded! An AI-powered learning platform birthed in the weird period post-LLMs but pre-agents.</p>
+    <p>A fun ride in both model-herding and all the nuts and bolts to keep it in the air.</p>
+    <p>Developed with Ada Luong and backed by Blackbird Protostars.</p>
+  links:
+    - label: Site
+      url: https://www.compendio.tech
+      text: compendio.tech
+    - label: Pycon
+      url: https://youtu.be/j1e9kF8uaNY?t=1360
+      text: Lightning Talk (from Ada!)
+  tags: [ai, web-dev]
 
 - name: Will I Make My Flight?
   id: will-i-make-my-flight
@@ -40,42 +71,42 @@
       text: ndoot/tamatimeleft
   tags: [web-dev, hackathon]
 
-- name: Who Guessed
-  id: who-guessed
-  imgSrc: /img/who-guessed/who-guessed-play.png
-  shortDescription: Online Guess Who board
-  longDescription: >
-    <p>Generate a Guess Who board to play with friends!</p>
-    <p>Currently supports playing with pre-loaded character decks.</p>
-  links:
-    - label: Play
-      url: https://who-guessed.web.app/
-      text: who-guessed.web.app
-    - label: GitHub
-      url: https://github.com/angenibai/who-guessed
-      text: angenibai/who-guessed
-  tags: [web-dev]
+# - name: Who Guessed
+#   id: who-guessed
+#   imgSrc: /img/who-guessed/who-guessed-play.png
+#   shortDescription: Online Guess Who board
+#   longDescription: >
+#     <p>Generate a Guess Who board to play with friends!</p>
+#     <p>Currently supports playing with pre-loaded character decks.</p>
+#   links:
+#     - label: Play
+#       url: https://who-guessed.web.app/
+#       text: who-guessed.web.app
+#     - label: GitHub
+#       url: https://github.com/angenibai/who-guessed
+#       text: angenibai/who-guessed
+#   tags: [web-dev]
 
-- name: Mario-dle
-  id: mario-dle
-  imgSrc: /img/mario-dle/mario-dle-main.png
-  shortDescription: A Mario-themed Wordle clone
-  longDescription: >
-    <p>Created as a puzzle challenge for the escape room at the Mario-themed CSESoc First Year Camp 2022.</p>
-    <p>For the purposes of the escape room, there is only one target word.</p>
-  links:
-    - label: Play
-      url: https://mario-dle.web.app/
-      text: mario-dle.web.app
-    - label: GitHub
-      url: https://github.com/angenibai/not-wordle
-      text: angenibai/not-wordle
-  tags: [web-dev]
+# - name: Mario-dle
+#   id: mario-dle
+#   imgSrc: /img/mario-dle/mario-dle-main.png
+#   shortDescription: A Mario-themed Wordle clone
+#   longDescription: >
+#     <p>Created as a puzzle challenge for the escape room at the Mario-themed CSESoc First Year Camp 2022.</p>
+#     <p>For the purposes of the escape room, there is only one target word.</p>
+#   links:
+#     - label: Play
+#       url: https://mario-dle.web.app/
+#       text: mario-dle.web.app
+#     - label: GitHub
+#       url: https://github.com/angenibai/not-wordle
+#       text: angenibai/not-wordle
+#   tags: [web-dev]
 
 - name: Informatics Leaderboard
   id: informatics-leaderboard
   imgSrc: /img/informatics-leaderboard/informatics-profile-page.png
-  shortDescription: Live leaderboard to track progress on informatics problems
+  shortDescription: Track informatics progress and compete
   longDescription: >
     <p>An online leaderboard for my high school informatics students to have a bit of friendly competition in solving problems.</p>
     <p><strong>Features:</strong></p>
@@ -134,51 +165,51 @@
       text: media.csesoc.org.au
   tags: [misc]
 
-- name: Summarise My Lecture
-  id: csesoc-hackathon-2021
-  imgSrc: /img/summarise-my-lecture/summarise-my-lecture-intro.jpg
-  shortDescription: 2021 CSESoc Hackathon 4th Place and People's Choice Winner
-  longDescription: >
-    <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording. Developed with <a href="https://adaluong.me" target="_blank" rel="noopener">Ada Luong</a>.</p>
-    <p>Watch the pitch <a href="https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20" target="_blank" rel="noopener">here</a>!</p>
-  links:
-    - label: Pitch
-      url: https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20
-      text: YouTube
-    - label: GitHub
-      url: https://github.com/adaluong/summarise-my-lecture-hackathon
-      text: adaluong/summarise-my-lecture-hackathon
-    - label: Blog post
-      url: /posts/2021-08-12-summarise-my-hackathon/
-      text: Summarise My Hackathon
-  tags: [hackathon, web-dev]
+# - name: Summarise My Lecture
+#   id: csesoc-hackathon-2021
+#   imgSrc: /img/summarise-my-lecture/summarise-my-lecture-intro.jpg
+#   shortDescription: 2021 CSESoc Hackathon 4th Place and People's Choice Winner
+#   longDescription: >
+#     <p>A web app that extracts questions from live lecture chats and finds the corresponding answer in the lecture recording.</p>
+#     <p>Developed with <a href="https://adaluong.me" target="_blank" rel="noopener">Ada Luong</a>.</p>
+#   links:
+#     - label: Pitch
+#       url: https://www.youtube.com/watch?v=fJBVRQbtfBo&list=PLtdbwEd-4QWHZTWOyB2W73nn9hwAoLj6c&index=20
+#       text: YouTube
+#     - label: GitHub
+#       url: https://github.com/adaluong/summarise-my-lecture-hackathon
+#       text: adaluong/summarise-my-lecture-hackathon
+#     - label: Blog post
+#       url: /posts/2021-08-12-summarise-my-hackathon/
+#       text: Summarise My Hackathon
+#   tags: [hackathon, web-dev]
 
-- name: Genie's Internet Playground
-  id: internet-playground
-  imgSrc: /img/internet-playground/internet-playground-landing.png
-  shortDescription: A collection of mini-games
-  longDescription: >
-    <p>Current games are:</p>
-    <ul>
-      <li>Tic-tac-toe</li>
-      <li>Minesweeper</li>
-    </ul>
-  links:
-    - label: Play
-      url: https://angeni.me/internet-playground/#/
-      text: angeni.me/internet-playground
-    - label: GitHub
-      url: https://github.com/angenibai/internet-playground
-      text: angenibai/internet-playground
-  tags: [web-dev]
+# - name: Genie's Internet Playground
+#   id: internet-playground
+#   imgSrc: /img/internet-playground/internet-playground-landing.png
+#   shortDescription: A collection of mini-games
+#   longDescription: >
+#     <p>Current games are:</p>
+#     <ul>
+#       <li>Tic-tac-toe</li>
+#       <li>Minesweeper</li>
+#     </ul>
+#   links:
+#     - label: Play
+#       url: https://angeni.me/internet-playground/#/
+#       text: angeni.me/internet-playground
+#     - label: GitHub
+#       url: https://github.com/angenibai/internet-playground
+#       text: angenibai/internet-playground
+#   tags: [web-dev]
 
 - name: Can I Go Outside?
   id: csesoc-hackathon-2020
   imgSrc: /img/can-i-go-outside/can-i-go-outside-logo.jpg
   shortDescription: 2020 CSESoc Hackathon Finalist
   longDescription: >
-    <p>Official COVID-19 advice for your DMs 😉 - a Facebook Messenger bot that keeps you up to date with current restrictions. Developed with Ada Luong, Edwina Adisusila, Ingrid Norton and Giuliana De Bellis</p>
-    <p>Watch the live pitch <a href="https://youtu.be/cMP0vDdQhRY?t=4040" target="_blank" rel="noopener">here</a>!</p>
+    <p>Official COVID-19 advice for your DMs 😉 - a Facebook Messenger bot that keeps you up to date with current restrictions.</p>
+    <p>Developed with Ada Luong, Edwina Adisusila, Ingrid Norton and Giuliana De Bellis</p>
   links:
     - label: Pitch
       url: https://youtu.be/cMP0vDdQhRY?t=4040
@@ -188,15 +219,15 @@
       text: angenibai/can-i-go-outside
   tags: [hackathon]
 
-- name: The Celiac Paradox
-  id: celiac-paradox
-  shortDescription: Research into the genetic evolution of celiac disease
-  longDescription: >
-    <p>A year-long independent research project for HSC Science Extension.</p>
-    <p>Read the <a href="/other/celiac-paradox-report.pdf" target="_blank" rel="noopener">report</a>, and check out the <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank" rel="noopener">scripts</a> I used to process genetic data!</p>
-    <p><strong>TLDR:</strong> When I found out that predisposition to celiac disease was genetic, I thought I could find some cool evidence of natural selection - where ethnic groups from societies that started growing gluten-containing cereals earliest in history would have lower frequency of the target genes. Turns out I was wrong! Instead, I found evidence of some other genetic factors at play.</p>
-  links:
-    - label: GitHub
-      url: https://github.com/angenibai/snp-population-frequencies
-      text: angenibai/snp-population-frequencies
-  tags: [data]
+# - name: The Celiac Paradox
+#   id: celiac-paradox
+#   shortDescription: Research into the genetic evolution of celiac disease
+#   longDescription: >
+#     <p>A year-long independent research project for HSC Science Extension.</p>
+#     <p>Read the <a href="/other/celiac-paradox-report.pdf" target="_blank" rel="noopener">report</a>, and check out the <a href="https://github.com/angenibai/snp-population-frequencies" target="_blank" rel="noopener">scripts</a> I used to process genetic data!</p>
+#     <p><strong>TLDR:</strong> When I found out that predisposition to celiac disease was genetic, I thought I could find some cool evidence of natural selection - where ethnic groups from societies that started growing gluten-containing cereals earliest in history would have lower frequency of the target genes. Turns out I was wrong! Instead, I found evidence of some other genetic factors at play.</p>
+#   links:
+#     - label: GitHub
+#       url: https://github.com/angenibai/snp-population-frequencies
+#       text: angenibai/snp-population-frequencies
+#   tags: [data]
