@@ -40,8 +40,11 @@ applies styles still hold.
 - The language name comes from the fence (` ```python ` gives "PYTHON"), which
   `Code.tsx` already parses into `match[1]`. A fence with no language falls
   back to `text`; then the strip shows only `</>`.
-- The `</>` is set in IBM Plex Mono because it is code characters. It is
+- The `</>` is set in IBM Plex Mono 600 because it is code characters. It is
   decorative, so it is hidden from screen readers (`aria-hidden`).
+- The symbol and name sit on a shared baseline (`align-items: baseline`) with
+  a 0.4rem gap. The symbol is nudged up 0.5px (`position: relative;
+top: -0.5px`), a value set by eye in the prototype.
 - The strip is an opaque cream surface, so it gets the `noise-2.svg` grain,
   as the nav does. The prototype strip didn't have it.
 
