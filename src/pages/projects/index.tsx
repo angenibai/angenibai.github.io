@@ -17,16 +17,17 @@ const Projects = ({ projects }: ProjectsProps) => {
   const [modalContent, setModalContent] = useState<ProjectContent>(projects[0]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // dialog.close() already restores focus to the previously-focused element
-  // in current browsers, which is always the tile that opened it - this ref
-  // is belt-and-braces, and covers the keyboard-Escape path identically.
+  // Refocus the tile only after a keyboard open; Safari rings it otherwise.
   const lastTileRef = useRef<HTMLButtonElement | null>(null);
+  const openedByKeyboardRef = useRef(false);
 
   const handleProjectClick = (
     idx: number,
     event: MouseEvent<HTMLButtonElement>,
   ) => {
     lastTileRef.current = event.currentTarget;
+    // A keyboard-triggered click has detail 0.
+    openedByKeyboardRef.current = event.detail === 0;
     setSelectedProject(idx);
     setModalContent(projects[idx]);
     setIsModalOpen(true);
@@ -35,7 +36,9 @@ const Projects = ({ projects }: ProjectsProps) => {
   const handleClose = () => {
     setIsModalOpen(false);
     setSelectedProject(null);
-    lastTileRef.current?.focus();
+    if (openedByKeyboardRef.current) {
+      lastTileRef.current?.focus();
+    }
   };
 
   return (

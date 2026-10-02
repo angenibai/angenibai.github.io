@@ -306,9 +306,13 @@ scrollbar, with `outline-offset: 2px`); `Reacts.module.css`
 keeps its own inset variant. Separately, Safari rang the modal's close button
 on every mouse-opened dialog: it does not focus buttons on click, so it reads
 the focus `showModal()` moves into the dialog as keyboard focus.
-`ProjectModal.tsx` now focuses the `<dialog>` itself after `showModal()`, and
-`.modalOverlay:focus` drops the ring on the dialog only, since it is not a
-control. The first Tab still lands on the close button, with the ring.
+`ProjectModal.tsx` now focuses the `<dialog>` itself after `showModal()`. The
+first Tab still lands on the close button, with the ring. For the same reason
+Safari rang a tile after a mouse-opened modal closed, and rang `<main>` (it
+focuses the nearest `tabindex` ancestor on click, and `close()` restores focus
+there). The projects page now refocuses the tile only when a keyboard opened
+the modal, and `globals.css` drops the ring on `[tabindex="-1"]:focus`, which
+covers `<main>` and the `<dialog>`, since neither is a control.
 
 **Fixed — `target="_blank"` without `rel="noopener"`.** `ButtonLink.tsx`,
 `Footer.tsx` (both links), `BioPanel.tsx`, and the raw-HTML anchors in
@@ -416,8 +420,8 @@ untracked, so committing `globals.css` without them silently falls back to
   is 9.5:1; and every syntax token in `Code.tsx:49-63` clears 4.5:1 on the
   `#093426` panel. Task-list checkboxes pair colour with a `✔` glyph
   (`globals.css:95-106`) rather than relying on fill alone.
-- No `outline: none` on any control (the one instance is the non-interactive
-  `<dialog>`, Section 4); `prefers-reduced-motion` in all five animating
+- No `outline: none` on any control (the `[tabindex="-1"]` rule covers only
+  the non-interactive `<main>` and `<dialog>`, Section 4); `prefers-reduced-motion` in all five animating
   files, plus the page transitions (JS-gated, Section 4); the closed modal is genuinely hidden from assistive tech rather than
   merely transparent — now via the native `<dialog>`'s own
   `dialog:not([open]) { display: none }`, so `.modalOverlay`'s base rule must

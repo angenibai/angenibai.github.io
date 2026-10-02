@@ -34,10 +34,6 @@
   display: flex;
 }
 
-.modalOverlay:focus {
-  outline: none;
-}
-
 .modalPanel {
   background-color: var(--color-bg-white);
   padding: 9px;
