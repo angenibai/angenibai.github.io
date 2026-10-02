@@ -43,7 +43,7 @@
 - name: Who Guessed
   id: who-guessed
   imgSrc: /img/who-guessed/who-guessed-play.png
-  shortDescription: Play Guess Who online
+  shortDescription: Online Guess Who board
   longDescription: >
     <p>Generate a Guess Who board to play with friends!</p>
     <p>Currently supports playing with pre-loaded character decks.</p>
@@ -117,10 +117,10 @@
 
 - name: CSESoc Media
   id: csesoc-media
-  shortDescription: Not a technical project - but still fun!
+  shortDescription: A brief stint as a content-creator
   longDescription: >
-    <p>In 2020, I was a subcommittee member, and in 2021 I had the privilege of leading the team as a Media Director! With everything we do, we aim to create content that get the community talking, and highlight the varied voices of Computer Science at UNSW.</p>
-    <p>My favourite projects I've worked on:</p>
+    <p>Joined as a subcommittee member, then had the privilege of leading the team as Media Director(!) With everything we did, we aimed to create content that got the community talking, and highlighted the varied voices of Computer Science at UNSW.</p>
+    <p>My favourite projects I worked on:</p>
     <ul>
       <li><a href="https://youtu.be/yjhXxX27jd0" target="_blank" rel="noopener">Pride in Computer Science: LGBTQ+ Roundtable</a> podcast episode</li>
       <li><a href="https://media.csesoc.org.au/author/angeni/" target="_blank" rel="noopener">Beginner's Guide to Vim</a> series</li>
@@ -156,7 +156,7 @@
 - name: Genie's Internet Playground
   id: internet-playground
   imgSrc: /img/internet-playground/internet-playground-landing.png
-  shortDescription: A collection of React-based games
+  shortDescription: A collection of mini-games
   longDescription: >
     <p>Current games are:</p>
     <ul>
