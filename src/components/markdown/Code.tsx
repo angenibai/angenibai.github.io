@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef } from "react";
-import { ReactMarkdownProps } from "react-markdown/lib/complex-types";
+import { ComponentPropsWithoutRef, isValidElement } from "react";
+import { ExtraProps } from "react-markdown";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import jsx from "react-syntax-highlighter/dist/cjs/languages/prism/jsx";
 import python from "react-syntax-highlighter/dist/cjs/languages/prism/python";
@@ -76,18 +76,28 @@ SyntaxHighlighter.registerLanguage("html", html);
 SyntaxHighlighter.registerLanguage("css", css);
 SyntaxHighlighter.registerLanguage("javascript", javascript);
 
-type CodeProps = ComponentPropsWithoutRef<"code"> &
-  ReactMarkdownProps & {
-    inline?: boolean;
-  };
+type PreProps = ComponentPropsWithoutRef<"pre"> & ExtraProps;
+type CodeProps = ComponentPropsWithoutRef<"code"> & ExtraProps;
 
-const Code = ({ inline, className, children, ...props }: CodeProps) => {
+// A fenced block is always <pre><code>, so the block is rendered here and
+// reads its language and text from the <code> child, which is never rendered.
+// A raw HTML <pre> without a <code> child stays a plain <pre>.
+export const CodeBlock = ({ children, node, ...props }: PreProps) => {
+  if (!isValidElement<CodeProps>(children)) {
+    return <pre {...props}>{children}</pre>;
+  }
+  const {
+    className,
+    children: code,
+    node: codeNode,
+    ...codeProps
+  } = children.props;
   const match = /language-(\w+)/.exec(className || "");
   const language = match?.[1];
 
   // The figcaption names the figure, so screen readers announce the language
   // before the code. The language is uppercased in CSS so it's read as a word.
-  return !inline ? (
+  return (
     <figure className={styles.codeBlockWrapper}>
       <figcaption className={styles.caption}>
         <span className={styles.captionSymbol} aria-hidden="true">
@@ -101,16 +111,19 @@ const Code = ({ inline, className, children, ...props }: CodeProps) => {
         PreTag="pre"
         tabIndex={0}
         className={`${styles.codeBlock} ${className || ""}`}
-        {...props}
+        {...codeProps}
       >
-        {String(children).replace(/\n$/, "")}
+        {String(code).replace(/\n$/, "")}
       </SyntaxHighlighter>
     </figure>
-  ) : (
-    <code className={`${styles.inlineCode} ${className || ""}`} {...props}>
-      {children}
-    </code>
   );
 };
+
+// Inline code only: a fenced block's <code> is handled by CodeBlock.
+const Code = ({ className, children, node, ...props }: CodeProps) => (
+  <code className={`${styles.inlineCode} ${className || ""}`} {...props}>
+    {children}
+  </code>
+);
 
 export default Code;
