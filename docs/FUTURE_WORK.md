@@ -8,23 +8,23 @@ each section except where noted.
 
 See `docs/design/posts-list-evolution.md` for the current design.
 
-- **Tags are deliberately not rendered.** They stay in frontmatter and are
-  read by nothing on the list page — this is a design decision, not an
-  oversight, so re-adding them needs a reason beyond "the data exists".
-- **Tag filtering** — still wanted, and this layout takes it better than the
-  card list did. A filtered receipt is still a receipt.
 - **Real image dimensions at build time** via `image-size`, replacing the
   `640x480` upper-bound hint passed to `next/image` in `PostPreviewPanel`.
 - **Pagination** — still out of scope.
 
-## Per-post layout polish
+## Tags
 
-- **Code block styling — revisit.** Deliberately left out of the post body
-  lane redesign (`docs/design/2026-09-29-post-body-lane.md`), which made
-  body images square-cornered with a 3px border and 5px offset shadow. Code
-  blocks are still rounded dark panels with no border or shadow, so the two
-  kinds of media now differ. A green shadow barely shows against the dark
-  green panel, so the fix probably isn't just copying the image frame.
+- **Post tags are deliberately not rendered on the list page.** They stay in
+  frontmatter and are read by nothing there — this is a design decision, not an
+  oversight, so re-adding them needs a reason beyond "the data exists". See
+  `docs/design/posts-list-evolution.md`.
+- **Project tags** are authored in `_data/projects.yaml` but never rendered —
+  neither `ProjectTile.tsx` nor `ProjectModal.tsx` reads them.
+- **Tag filtering** — still wanted, and the posts list layout takes it better
+  than the card list did. A filtered receipt is still a receipt.
+- **Tag pages don't exist yet**, so the old Jekyll `/tags/*` URLs in
+  `_data/redirects.yaml` point to `/posts`. Repoint them at the real tag pages
+  when those are added.
 
 ## Animation polish
 
@@ -57,14 +57,6 @@ See `docs/design/posts-list-evolution.md` for the current design.
 - Current home page profile has a loading... placeholder. It should be
   clickable, and once clicked the tile flips over to reveal the profile
   image.
-
-## Smaller cleanup items
-
-- Project `tags` are authored in `_data/projects.yaml` but never rendered —
-  neither `ProjectTile.tsx` nor `ProjectModal.tsx` reads them.
-- Tag pages don't exist yet, so the old Jekyll `/tags/*` URLs in
-  `_data/redirects.yaml` point to `/posts`. Repoint them at the real tag pages
-  when those are added.
 
 ## Post reacts: trim the Firebase key after deploy
 
