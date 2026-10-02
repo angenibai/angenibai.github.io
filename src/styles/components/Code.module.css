@@ -3,35 +3,50 @@
    it like any other block. */
 .codeBlockWrapper {
   margin: 1.75rem 0 2rem;
+  border: var(--border-width) solid var(--color-primary);
+}
+
+/* Two classes so this beats .postContent figcaption (Post.module.css), which
+   styles image captions; the resets below undo that rule. */
+.codeBlockWrapper > .caption {
+  margin: 0;
+  width: auto;
+  max-width: none;
+  align-self: stretch;
+  text-align: left;
+  font-style: normal;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  font-family: var(--font-work-sans);
+  font-weight: 600;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background-color: var(--color-bg-white);
+  background-image: url("/noise-2.svg");
+  background-size: 400px 400px;
+  border-bottom: var(--border-width) solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.captionSymbol {
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+  text-transform: none;
+  position: relative;
+  top: -0.5px;
 }
 
 .codeBlock {
-  background-color: var(--color-primary-darker);
+  /* --color-black at 90%, so the page grain shows faintly through. */
+  background-color: rgba(41, 41, 41, 0.9);
   padding: 1rem 1.5rem;
-  border-radius: 0.5rem;
   overflow-x: auto;
   scrollbar-width: thin;
-  scrollbar-color: #eec767 var(--color-primary);
-}
-
-/* Chunky bookmark-ribbon scrollbar, matching the site's thick-border,
-   flat-color print aesthetic rather than a default thin rounded bar. */
-.codeBlock::-webkit-scrollbar {
-  height: 10px;
-}
-
-.codeBlock::-webkit-scrollbar-track {
-  background-color: var(--color-primary);
-}
-
-.codeBlock::-webkit-scrollbar-thumb {
-  background-color: #eec767;
-  border: 2px solid var(--color-primary-darker);
-  border-radius: 4px;
-}
-
-.codeBlock::-webkit-scrollbar-thumb:hover {
-  background-color: #f5d687;
+  scrollbar-color: rgba(250, 248, 240, 0.4) transparent;
 }
 
 .inlineCode {

@@ -13,11 +13,17 @@ import styles from "@/styles/components/Code.module.css";
 // panel background/border-radius/etc still live in Code.module.css, but
 // anything token-level or structural (color, font, white-space) must be set
 // here — a CSS class can never win against these inline styles.
+const cream = "#FAF8F0";
+const literalGreen = "#9FD3BA";
+// Opacities are the lowest that keep 4.5:1 against the panel (see the design doc).
+const punctuationCream = "rgba(250, 248, 240, 0.65)";
+const commentCream = "rgba(250, 248, 240, 0.6)";
+
 const codeTheme = {
   'code[class*="language-"]': {
-    color: "#FAF8F0",
+    color: cream,
     fontFamily: "var(--font-mono)",
-    fontSize: "0.85em",
+    fontSize: "1em",
     textAlign: "left",
     whiteSpace: "pre",
     wordSpacing: "normal",
@@ -31,9 +37,10 @@ const codeTheme = {
     hyphens: "none",
   },
   'pre[class*="language-"]': {
-    color: "#FAF8F0",
+    color: cream,
     fontFamily: "var(--font-mono)",
-    fontSize: "0.85em",
+    // The figure inherits 1.1rem (17.6px) from the post body, so this is 13.5px.
+    fontSize: "0.767em",
     textAlign: "left",
     whiteSpace: "pre",
     wordSpacing: "normal",
@@ -46,21 +53,21 @@ const codeTheme = {
     msHyphens: "none",
     hyphens: "none",
   },
-  variable: { color: "#FAF8F0" },
-  punctuation: { color: "#D9D2C4" },
-  operator: { color: "#D9D2C4" },
-  comment: { color: "#79A08F" },
-  prolog: { color: "#79A08F" },
-  keyword: { color: "#EEC767" },
-  atrule: { color: "#EEC767" },
-  string: { color: "#D9B8CE" },
-  char: { color: "#D9B8CE" },
-  "attr-value": { color: "#D9B8CE" },
-  function: { color: "#8FCDB0" },
-  "class-name": { color: "#8FCDB0" },
-  number: { color: "#E08E6D" },
-  boolean: { color: "#E08E6D" },
-  constant: { color: "#E08E6D" },
+  variable: { color: cream },
+  function: { color: cream },
+  "class-name": { color: cream },
+  keyword: { color: cream, fontWeight: 600 },
+  atrule: { color: cream, fontWeight: 600 },
+  string: { color: literalGreen },
+  char: { color: literalGreen },
+  "attr-value": { color: literalGreen },
+  number: { color: literalGreen },
+  boolean: { color: literalGreen },
+  constant: { color: literalGreen },
+  punctuation: { color: punctuationCream },
+  operator: { color: punctuationCream },
+  comment: { color: commentCream },
+  prolog: { color: commentCream },
 };
 
 SyntaxHighlighter.registerLanguage("jsx", jsx);
@@ -76,12 +83,21 @@ type CodeProps = ComponentPropsWithoutRef<"code"> &
 
 const Code = ({ inline, className, children, ...props }: CodeProps) => {
   const match = /language-(\w+)/.exec(className || "");
+  const language = match?.[1];
 
+  // The figcaption names the figure, so screen readers announce the language
+  // before the code. The language is uppercased in CSS so it's read as a word.
   return !inline ? (
-    <div className={styles.codeBlockWrapper}>
+    <figure className={styles.codeBlockWrapper}>
+      <figcaption className={styles.caption}>
+        <span className={styles.captionSymbol} aria-hidden="true">
+          {"</>"}
+        </span>
+        {language && <span>{language}</span>}
+      </figcaption>
       <SyntaxHighlighter
         style={codeTheme as any}
-        language={match?.[1] ?? "text"}
+        language={language ?? "text"}
         PreTag="pre"
         tabIndex={0}
         className={`${styles.codeBlock} ${className || ""}`}
@@ -89,7 +105,7 @@ const Code = ({ inline, className, children, ...props }: CodeProps) => {
       >
         {String(children).replace(/\n$/, "")}
       </SyntaxHighlighter>
-    </div>
+    </figure>
   ) : (
     <code className={`${styles.inlineCode} ${className || ""}`} {...props}>
       {children}

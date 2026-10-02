@@ -59,7 +59,7 @@ top: -0.5px`), a value set by eye in the prototype.
 
 ### Syntax: duotone
 
-The text is cream, separated by weight, italic and opacity. Literals get one
+The text is cream, separated by weight and opacity. Literals get one
 pale green.
 
 | Tokens                                                         | Colour                      | Style  | Contrast |
@@ -68,15 +68,17 @@ pale green.
 | keywords, at-rules                                             | `#FAF8F0`                   | 600    | 10.1:1   |
 | strings, chars, attribute values, numbers, booleans, constants | `#9FD3BA`                   |        | 6.4:1    |
 | punctuation, operators                                         | `rgba(250, 248, 240, 0.65)` |        | 5.3:1    |
-| comments                                                       | `rgba(250, 248, 240, 0.6)`  | italic | 4.8:1    |
+| comments                                                       | `rgba(250, 248, 240, 0.6)`  |        | 4.8:1    |
 
 Every token meets WCAG AA's 4.5:1 for text. The prototype first used 45% for
 comments and 55% for punctuation, which gave only 3.4:1 and 4.3:1. 57% is the
 lowest cream opacity that passes. Comments stay the dimmest token.
 
 `#9FD3BA` is a light step of the green family, so it stays inside the closed
-palette. Bold keywords and italic comments need IBM Plex Mono 600 and 400
-italic. `_app.tsx` loads only 400 and 500 today, so two font files are added.
+palette. Bold keywords need IBM Plex Mono 600. `_app.tsx` loads only 400 and
+500 today, so one font file is added. Comments were going to be italic too, but
+loading the italic style made `next/font` preload six faces (~65 KB) on every
+page instead of three (~30 KB), so comments stay upright.
 
 ### Size: 13.5px
 
@@ -102,7 +104,7 @@ italic. `_app.tsx` loads only 400 and 500 today, so two font files are added.
 ## Components touched
 
 - `src/components/markdown/Code.tsx`: the theme object (token colours,
-  weights, italic, single font size) and the caption strip markup.
+  weights, single font size) and the caption strip markup.
 - `src/styles/components/Code.module.css`: the frame, strip, panel and
   scrollbar.
 - `src/pages/_app.tsx`: the Plex Mono weights and style.

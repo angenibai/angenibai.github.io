@@ -17,7 +17,7 @@ Every color in use is a named token in `src/styles/globals.css:9-15`:
 | Token                    | Value     | Role                                       |
 | ------------------------ | --------- | ------------------------------------------ |
 | `--color-primary`        | `#0D4B37` | deep green — body links, headings, borders |
-| `--color-primary-darker` | `#093426` | code block panels                          |
+| `--color-primary-darker` | `#093426` | inline code text, nav slash divider        |
 | `--color-accent`         | `#93748A` | dusty mauve — sparingly used accent        |
 | `--color-bg-white`       | `#FAF8F0` | warm cream — page background               |
 | `--color-black`          | `#292929` | body text                                  |
@@ -25,10 +25,10 @@ Every color in use is a named token in `src/styles/globals.css:9-15`:
 That's five hues, and green does most of the work. When a new UI element
 needs a color — a syntax token, a scrollbar thumb, a pill background — the
 answer should be a lighter/darker/more-transparent step _within_ one of
-these families, not a new hue. The syntax highlighting palette added in
-`src/components/markdown/Code.tsx` (comment green, string mauve, keyword
-mustard) and the code-block scrollbar thumb (`#EEC767`) are both deliberately
-mustard/green/mauve variants, not arbitrary "nice" colors.
+these families, not a new hue. The syntax highlighting in
+`src/components/markdown/Code.tsx` is a duotone: cream at different opacities
+for code, plus `#9FD3BA`, a light step of the green family, for literals. The
+code-block scrollbar thumb is the same cream at 40%.
 
 If you're tempted to reach for a generic bright accent (electric blue, hot
 pink, neon green) — that's the tell you're about to break the palette.
@@ -54,9 +54,9 @@ Structure is drawn with visible borders, not blur:
   date on the posts list rows (`PostEntry.module.css`), and as post tables'
   outer border
 - `1px solid rgba(13, 75, 55, 0.35)` hairlines on post table cells
-- Code blocks are flat panels with a hard `border-radius` (`0.5rem`), no drop
-  shadow (see `docs/FUTURE_WORK.md`); post-body images are square-cornered
-  with a `3px` border and `5px` offset shadow (below)
+- Code blocks are square, in a `3px` green frame with a `3px` rule under the
+  language caption, and no shadow; post-body images are square-cornered with
+  a `3px` border and `5px` offset shadow (below)
 
 The rule is _no blurred_ shadows, not no shadows. Solid zero-blur offset
 shadows in the primary green are used deliberately, at a scale that tracks how
@@ -78,8 +78,9 @@ Three families, one job each — don't add a fourth without strong reason:
 
 The mono face sits deliberately _between_ the other two registers:
 technical enough to read as code, but not so sterile it clashes with the
-serif body. It's sized relative to body text (~0.85–0.9em of the paragraph
-size) rather than at a fixed rem value, so it stays subordinate to prose
+serif body. It's sized relative to body text rather than at a fixed rem
+value (0.85em for inline code; 0.767em, or 13.5px, for code blocks, which
+need more characters per line), so it stays subordinate to prose
 even though it's visually distinct — see `src/components/markdown/Code.tsx`
 and `Post.module.css:58` for the reference sizing relationship.
 
@@ -94,13 +95,14 @@ serif reads as part of the page rather than as a second system bolted on.
 
 Prose stays calm: cream background, dark green/black text, generous line
 height, no decoration. Boldness is spent in small, functional, isolated
-spots — a scrollbar thumb, a syntax keyword, a nav button's border — never
-smeared across a whole surface. Concretely: the code block scrollbar thumb
-is a saturated mustard yellow sitting in a dark green track, deliberately
-high-contrast and impossible to miss, while the code panel and the
-surrounding page stay in the quiet green/cream register. That contrast is
-intentional — don't soften a functional accent element into blending with
-its surroundings just because it looks "loud" in isolation.
+spots — a code block's language caption, a syntax keyword, a nav button's
+border — never smeared across a whole surface. Concretely: the code block's
+cream caption strip and its 3px green rule mark the block clearly, while the
+code and the surrounding page stay in the quiet ink/cream register. That
+contrast is intentional — don't soften a functional accent element into
+blending with its surroundings just because it looks "loud" in isolation.
+Scrollbars are deliberately the opposite: thin, with a faint thumb and a
+transparent track, so they don't compete with the content they scroll.
 
 ## Texture
 
