@@ -26,19 +26,6 @@ See `docs/design/posts-list-evolution.md` for the current design.
   `_data/redirects.yaml` point to `/posts`. Repoint them at the real tag pages
   when those are added.
 
-## Animation polish
-
-- **Custom cursor set**: arrow, pointer and I-beam, all custom. Only the arrow
-  exists today (`--cursor-default` on `:root` in `globals.css`); links, buttons
-  and tiles show the system hand, and text shows no I-beam because the
-  `:root` cursor inherits over it. `public/pointer.svg` exists but is unused;
-  an I-beam SVG still needs drawing. `cursor: auto` can't be given custom
-  images, so the I-beam has to be set explicitly on text elements
-  (`url(...) x y, text`), covering whole blocks including padding. Also fix
-  the arrow's hotspot at the same time: `8 8` → `6 3`, matching the tip of
-  `arrowhead.svg`. Deferred from
-  [accessibility P1](design/2026-09-27-accessibility-p1.md) #10.
-
 ## Responsive header
 
 - Could also have more interesting styling aka border lines

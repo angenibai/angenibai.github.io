@@ -130,7 +130,7 @@
   align-items: center;
   flex-shrink: 0;
   color: var(--color-primary);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 
 .modalCloseIcon {
