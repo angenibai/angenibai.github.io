@@ -59,3 +59,7 @@ replaces the old one, nothing needs those three, so narrow the key to Cloud
 Firestore API only (Cloud Console → APIs & Services → Credentials). The key
 doesn't protect Firestore itself, since Firestore ignores it. That's done by
 `firestore.rules`. See `docs/design/2026-09-29-post-reacts.md`.
+
+## Page load optimization
+
+See draft design: [Build Time Markdown](design/2026-10-02-build-time-markdown.md)
