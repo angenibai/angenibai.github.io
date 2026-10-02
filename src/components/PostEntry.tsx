@@ -6,14 +6,17 @@ interface PostEntryProps {
   post: PostListItem;
 }
 
-const formatDate = (date: string) =>
-  new Date(date)
-    .toLocaleDateString("en-CA", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    })
-    .replace(/-/g, " · ");
+// Sliced from the ISO string rather than formatted in local time, because the
+// stored date is UTC midnight and would shift a day west of UTC.
+const formatDate = (iso: string) => `${iso.slice(8, 10)} · ${iso.slice(5, 7)}`;
+
+const formatFullDate = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-AU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 
 const PostEntry = ({ post }: PostEntryProps) => {
   const { slug, metadata } = post;
@@ -29,9 +32,14 @@ const PostEntry = ({ post }: PostEntryProps) => {
     <Link href={href} className={styles.entry}>
       {metadata.pin && <span className={styles.pin} aria-hidden="true" />}
       <span className={styles.line}>
-        <h2 className={styles.title}>{metadata.title}</h2>
-        <span className={styles.leader} aria-hidden="true" />
-        <span className={styles.date}>{formatDate(metadata.date)}</span>
+        <h3 className={styles.title}>{metadata.title}</h3>
+        <time
+          className={styles.date}
+          dateTime={metadata.date.slice(0, 10)}
+          aria-label={formatFullDate(metadata.date)}
+        >
+          {formatDate(metadata.date)}
+        </time>
       </span>
       {metadata.blurb && <p className={styles.blurb}>{metadata.blurb}</p>}
     </Link>

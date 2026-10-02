@@ -51,10 +51,11 @@ Structure is drawn with visible borders, not blur:
 - `--border-width: 3px` on nav links, as the bottom rule of the desktop
   running head that pins once the masthead scrolls away (`Nav.module.css`),
   and on the post body lane, joined directly to the header on desktop
-  (`Post.module.css`)
-- `--divider-width: 2px`, including as a dotted dot leader between title and
-  date on the posts list rows (`PostEntry.module.css`), and as post tables'
-  outer border
+  (`Post.module.css`), and as the rule across the top of each year group on
+  the posts list (`PostList.module.css`)
+- `--divider-width: 2px`, including as a dotted dot leader that follows the
+  last line of the title to the date on the posts list rows
+  (`PostEntry.module.css`), and as post tables' outer border
 - `1px solid rgba(13, 75, 55, 0.35)` hairlines on post table cells
 - Code blocks are flat panels with a hard `border-radius` (`0.5rem`), no drop
   shadow (see `docs/FUTURE_WORK.md`); post-body images are square-cornered
@@ -84,6 +85,9 @@ serif body. It's sized relative to body text (~0.85–0.9em of the paragraph
 size) rather than at a fixed rem value, so it stays subordinate to prose
 even though it's visually distinct — see `src/components/markdown/Code.tsx`
 and `Post.module.css:58` for the reference sizing relationship.
+
+The posts list year labels are Newsreader 400 in ink: a section label in the
+body serif, not a Work Sans heading.
 
 Mono is **code-only**. An earlier version of the posts list used it for a
 metadata register — letterspaced caps for a `No. 02` index and `FILED
