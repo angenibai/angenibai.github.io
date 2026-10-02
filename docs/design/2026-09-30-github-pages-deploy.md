@@ -37,8 +37,6 @@ that.
 
 ### Non-goals
 
-- The RSS feed at `/feed.xml`, which ships separately. Existing feed
-  subscribers stop getting updates from cutover until it lands.
 - Moving off GitHub Pages (see Options considered).
 - PR preview deploys.
 - Trimming the `blog-reacts` API key. That's a post-cutover item in
@@ -52,8 +50,10 @@ that.
   redirect to `/posts/`.
 - Given a visitor opens `angeni.me/posts/`, they get the posts list directly.
   Today this URL 404s on the Jekyll site.
-- Given a visitor opens `/posts/2023-04-08-easter-show-value`, with or
-  without the trailing slash, they get the post.
+- Given a visitor opens `/posts/2023-04-08-easter-show-value`, they get the
+  post, via a redirect to `/posts/2023-04-08-easter-show-value/`. Links
+  inside the site already carry the slash, so only typed or external links
+  take the redirect.
 - Given a crawler reads any page, its canonical link and sitemap entry use
   the trailing-slash form, which is the URL Pages serves with a 200.
 - Given a visitor opens an old Jekyll URL (`/2023/04/08/easter-show-value.html`,
@@ -100,10 +100,13 @@ folder. Any list page with child pages under it produces the same pair.
 
 E is the setting Next's docs describe for static hosts. Every static host
 serves folder index files the same way, so E doesn't depend on Pages'
-`.html` resolution at all. Its only cost is the trailing slash in URLs, and
-the new site has no indexed URLs to migrate yet. F keeps slash-less URLs, but
-it's a hand-written patch over Next's output and still relies on the
-unverified behaviour in D.
+`.html` resolution at all. F keeps slash-less URLs, but it's a hand-written
+patch over Next's output and still relies on the unverified behaviour in D.
+
+E's cost is the trailing slash in URLs, which is the usual form on static
+sites. Hugo, Jekyll's folder-style permalinks and WordPress's default
+permalinks all end pages in `/`, and Gatsby does by default. The new site
+has no indexed URLs to migrate yet.
 
 ### Chosen direction
 
@@ -112,8 +115,16 @@ GitHub Actions workflow on `master` deploys `out/` with GitHub's Pages
 actions.
 
 **URL form.** Every page route is written as `<route>/index.html` and is
-canonically addressed with a trailing slash. `absoluteUrl()` becomes the one
-place that decides the form, so canonicals, OG URLs and the sitemap agree.
+canonically addressed with a trailing slash: `/posts/`, `/projects/`, and
+`/posts/<slug>/`. The home page stays `/`. Files keep their own names with no
+slash: `/feed.xml`, `/sitemap.xml`, `/robots.txt`, images, and the redirect
+pages. `absoluteUrl()` becomes the one place that decides the form, so
+canonicals, OG URLs, the sitemap and the RSS feed agree. It adds the slash
+only to page paths, never to a path with a file extension.
+
+The feed's post links and `<guid>`s come from `absoluteUrl()`, so they take
+the slash too. The new feed isn't published yet, so no subscriber has seen
+the slash-less form.
 Internal `page:` redirects in `_data/redirects.yaml` (the `/tags/*` entries)
 point at `/posts/` directly, avoiding a second hop. The old Jekyll URLs are
 unaffected: the redirect generator writes them as explicit `.html` files in
@@ -143,7 +154,8 @@ branch cut from the last Jekyll commit (`318e3dd`).
 - `.github/workflows/deploy.yml` (new): builds on push to `master` (and on
   manual trigger), then uploads and deploys `out/`.
 - `src/lib/site.ts` (changed): `absoluteUrl()` returns the trailing-slash
-  form for page paths. Its comment explains why.
+  form for page paths, and leaves file paths alone. Its comment explains why.
+  The sitemap, feed and redirect scripts pick this up without changes.
 - `_data/redirects.yaml` (changed): `/tags/*` destinations become `/posts/`.
 - `package.json` (changed): `start` serves `out/`.
 - Internal links written as raw HTML in `_data/` content, such as the post
