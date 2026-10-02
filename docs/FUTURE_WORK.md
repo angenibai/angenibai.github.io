@@ -38,15 +38,6 @@ See `docs/design/posts-list-evolution.md` for the current design.
   the arrow's hotspot at the same time: `8 8` → `6 3`, matching the tip of
   `arrowhead.svg`. Deferred from
   [accessibility P1](design/2026-09-27-accessibility-p1.md) #10.
-- **Regression from the native-`<dialog>` project modal rebuild**: the
-  scale-out close animation only plays in Chromium
-  (`ProjectModal.module.css`, `.modalOverlay`'s `transition`). It needs the
-  `overlay` CSS property to animate a `<dialog>` out of the top layer, and
-  `overlay` has no Safari/Firefox support as of writing, so those browsers
-  snap the modal shut instead. Full writeup in
-  [ACCESSIBILITY.md](ACCESSIBILITY.md#1-blocking--projects-is-unusable-by-keyboard).
-  Revisit once `overlay` ships elsewhere, or by delaying `close()` behind a
-  `transitionend`/timeout.
 
 ## Responsive header
 

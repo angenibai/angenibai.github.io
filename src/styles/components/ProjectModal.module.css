@@ -1,8 +1,6 @@
-/* .modalOverlay is now the <dialog> element itself, not a wrapper div. The
-   UA stylesheet's `dialog:not([open]) { display: none }` is what keeps the
-   closed modal genuinely hidden from assistive tech (see ACCESSIBILITY.md
-   Section 5) - display is deliberately not redeclared in this base rule so
-   that invariant stays platform-owned rather than re-implemented here. */
+/* .modalOverlay is the <dialog> element. Its base rule doesn't set `display`,
+   so the browser's default `dialog:not([open]) { display: none }` keeps the
+   closed modal hidden from assistive tech (see ACCESSIBILITY.md Section 5). */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -18,13 +16,9 @@
   justify-content: center;
   align-items: center;
 
-  /* Exit animation is Chromium-only - see ACCESSIBILITY.md Section 1 and
-       FUTURE_WORK.md > Animation polish. Animating a <dialog> out requires
-       transitioning `overlay`, because the element leaves the top layer the
-       instant close() is called; `overlay` has no Safari/Firefox support as
-       of writing, so there the modal snaps shut instead of scaling out. The
-       open animation below is unaffected everywhere - @starting-style on
-       transform needs no top-layer participation. */
+  /* `display` keeps the dialog visible for 0.3s after close(), so the panel's
+     scale-out can play. `overlay` keeps it in the top layer for that time;
+     browsers without it ignore that line. */
   transition:
     display 0.3s allow-discrete,
     overlay 0.3s allow-discrete;
@@ -75,7 +69,7 @@
     opacity: 1;
   }
 
-  /* Disable panel scaling completely */
+  /* No scaling; the overlay fades instead. */
   .modalPanel {
     transform: none !important;
     transition: none !important;
@@ -88,9 +82,8 @@
   }
 }
 
-/* The dialog paints its own scrim (above), so the ::backdrop stays inert and
-   transparent - keeping the scrim on the dialog itself is what makes the
-   backdrop click detectable via event.target === the dialog element. */
+/* The scrim is painted by the dialog itself, not ::backdrop, so a click on it
+   has event.target equal to the dialog and can be detected as a backdrop click. */
 .modalOverlay::backdrop {
   background: transparent;
 }
@@ -103,9 +96,8 @@
   gap: 0.5rem;
 }
 
-/* Only the body scrolls, so the title and close button stay in view. The
-   panel's max-height caps it, and min-height: 0 lets it shrink below its
-   content so the overflow scrolls instead of stretching the panel. */
+/* Only the body scrolls, so the title and close button stay in view.
+   `min-height: 0` lets it shrink below its content height. */
 .modalBody {
   min-height: 0;
   overflow-y: auto;
@@ -157,8 +149,7 @@
 
 .projectImage {
   display: block;
-  /* Both dimensions auto so the browser keeps the image's natural ratio
-       and shrinks it to fit whichever constraint binds first. */
+  /* Auto width and height keep the image's ratio when a max applies. */
   width: auto;
   height: auto;
   aspect-ratio: auto;

@@ -115,10 +115,8 @@ the UA stylesheet's `dialog:not([open]) { display: none }` is what does it,
 which is why `.modalOverlay`'s base rule deliberately does not declare
 `display` at all — only `.modalOverlay[open] { display: flex }`.
 
-**Regression introduced by this fix: the close animation, outside Chromium.**
-Animating a native `<dialog>` _out_ requires transitioning the `overlay`
-property with `allow-discrete`, because the element leaves the top layer the
-instant `close()` is called:
+**The close animation across browsers.** The element leaves the top layer the
+instant `close()` is called, so the exit animation relies on two transitions:
 
 ```css
 transition:
@@ -126,20 +124,13 @@ transition:
   overlay 0.3s allow-discrete;
 ```
 
-`overlay` is Chromium-only as of writing, so **in Safari and Firefox the modal
-now snaps shut instead of scaling out**, where the previous hand-rolled
-overlay animated out in every browser. The open animation is unaffected
-everywhere — `@starting-style` on `transform` needs no top-layer
-participation. This is the price of getting Escape, the focus trap, backdrop
-inertness and top-layer stacking from the platform instead of owning ~60 lines
-of focus-trap code; worth taking, worth revisiting. Recorded here, as an
-inline comment on the `transition` in `ProjectModal.module.css`, and as a
-bullet under **Animation polish** in
-[FUTURE_WORK.md](FUTURE_WORK.md#animation-polish). Revisit paths: wait for
-`overlay` to ship in Safari/Firefox (no code change needed), or delay the
-actual `close()` call behind a `transitionend`/timeout while driving the exit
-with a class — which re-introduces a small amount of the hand-rolled state
-this fix deleted.
+`display ... allow-discrete` keeps the dialog drawn for 0.3s after `close()`,
+which gives the `transform` transition on `.modalPanel` time to play. That is
+what makes the scale-out work, and it is supported in Chromium, Safari 18+ and
+Firefox 129+. `overlay ... allow-discrete` only keeps the dialog in the top
+layer during those 0.3s; a browser that doesn't support it ignores that line
+and the animation still plays. The open animation needs neither —
+`@starting-style` on `transform` doesn't involve the top layer.
 
 Not yet verified against a real screen reader — see the closing note at the
 end of this document.
