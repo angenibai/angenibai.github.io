@@ -1,6 +1,6 @@
 - name: Sydney Bubble Tea Map
   id: bubble-tea-map
-  imgSrc: /img/bubble-tea-map/bubble-tea-map.png
+  imgSrc: /img/bubble-tea-map/bubble-tea-map.jpg
   shortDescription: A history of Sydney and bubble tea
   longDescription: >
     <p>From Easy Way to Molly Tea...</p>
@@ -218,7 +218,6 @@
       url: https://github.com/angenibai/can-i-go-outside
       text: angenibai/can-i-go-outside
   tags: [hackathon]
-
 # - name: The Celiac Paradox
 #   id: celiac-paradox
 #   shortDescription: Research into the genetic evolution of celiac disease
