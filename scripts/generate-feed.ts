@@ -20,8 +20,8 @@ const escapeXml = (text: string) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 
-const main = async () => {
-  const posts = (await getListedPosts()).sort((a, b) =>
+const main = () => {
+  const posts = getListedPosts().sort((a, b) =>
     b.metadata.date.localeCompare(a.metadata.date),
   );
 

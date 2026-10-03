@@ -4,13 +4,6 @@ export interface ProjectContent {
   shortDescription?: string;
   longDescription?: string;
   tags?: string[];
-  actionButtons?: string;
-  repoLink?: string;
-  repoLinkText?: string;
-  siteLink?: string;
-  siteLinkText?: string;
-  blogLink?: string;
-  blogLinkText?: string;
   links?: Link[];
 }
 
@@ -39,10 +32,10 @@ export interface PostMetadata {
 }
 
 export interface PostData {
-  slug: string | undefined;
-  source: any | undefined;
-  excerpt?: string;
-  metadata: PostMetadata | undefined;
+  slug: string;
+  source: string;
+  excerpt: string;
+  metadata: PostMetadata;
   splashImageDimensions?: { width: number; height: number } | null;
 }
 

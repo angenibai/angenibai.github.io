@@ -25,10 +25,6 @@ export default function PostPreviewPanel({
 }: PostPreviewPanelProps) {
   const { metadata, excerpt } = post;
 
-  if (!metadata) {
-    return null;
-  }
-
   return (
     <div ref={ref} className={styles.anchor} data-visible={dataVisible}>
       {/* aria-hidden, and alt="", because everything here is repeated on the

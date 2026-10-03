@@ -21,10 +21,6 @@ const formatFullDate = (iso: string) =>
 const PostEntry = ({ post }: PostEntryProps) => {
   const { slug, metadata } = post;
 
-  if (!slug || !metadata) {
-    return null;
-  }
-
   const Link = metadata.externalLink ? "a" : NextLink;
   const href = metadata.externalLink ? metadata.externalLink : `/posts/${slug}`;
 

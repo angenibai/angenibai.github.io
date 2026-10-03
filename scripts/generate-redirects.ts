@@ -62,10 +62,10 @@ const validateRedirect = (entry: Redirect, index: number) => {
 const outputPath = (from: string) =>
   path.join(publicDirectory, from.endsWith(".html") ? from : `${from}.html`);
 
-const resolvePage = async (
+const resolvePage = (
   entry: Redirect,
   postFilenames: string[],
-): Promise<ResolvedPage> => {
+): ResolvedPage => {
   if ("post" in entry) {
     // An exact match against the directory listing, because macOS would
     // accept a slug with the wrong case and the deployed URL would 404.
@@ -75,7 +75,7 @@ const resolvePage = async (
       );
     }
 
-    const { metadata } = await getPostBySlug(entry.post);
+    const { metadata } = getPostBySlug(entry.post);
     const destination = `/posts/${entry.post}/`;
 
     return {
@@ -174,7 +174,7 @@ ${renderAnalytics()}
 </html>
 `.replace(/\n{2,}/g, "\n");
 
-const main = async () => {
+const main = () => {
   const redirects = getRedirects();
   const postFilenames = fs.readdirSync(postsDirectory);
 
@@ -204,7 +204,7 @@ const main = async () => {
 
     pages.push({
       file,
-      html: renderPage(await resolvePage(entry, postFilenames)),
+      html: renderPage(resolvePage(entry, postFilenames)),
     });
   }
 

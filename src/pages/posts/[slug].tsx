@@ -1,9 +1,8 @@
 import PageLayout from "@/components/PageLayout";
-import { getFileData, getImageDimensions, getPaths } from "@/lib/api";
+import { getImageDimensions, getPaths, getPostBySlug } from "@/lib/api";
 import { PostData } from "@/types";
-import { GetStaticProps, GetStaticPropsContext } from "next";
+import { GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import matter from "gray-matter";
 import { ArticleJsonLd, NextSeo } from "next-seo";
 import site, { absoluteUrl } from "@/lib/site";
 import ReactMarkdown from "react-markdown";
@@ -20,14 +19,6 @@ interface Params extends ParsedUrlQuery {
 }
 
 const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
-  if (!slug || !source || !metadata) {
-    return (
-      <>
-        <h2>Error fetching post</h2>
-      </>
-    );
-  }
-
   const url = absoluteUrl(`/posts/${slug}`);
   const image = metadata.splashImageSource
     ? {
@@ -128,44 +119,17 @@ const Post = ({ slug, source, metadata, splashImageDimensions }: PostData) => {
 
 export default Post;
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const params = context.params as Params;
-
-  if (!params) {
-    return {
-      props: {
-        slug: undefined,
-        source: undefined,
-        metadata: undefined,
-      },
-    };
-  }
-
-  const source = getFileData(params.slug);
-
-  if (!source) {
-    return {
-      props: {
-        slug: undefined,
-        source: undefined,
-        metadata: undefined,
-      },
-    };
-  }
-
-  const { content, data } = matter(source);
+export const getStaticProps: GetStaticProps<PostData, Params> = async ({
+  params,
+}) => {
+  const post = getPostBySlug(params!.slug);
+  const { splashImageSource } = post.metadata;
 
   return {
     props: {
-      slug: params.slug,
-      source: content,
-      metadata: {
-        ...data,
-        date: data.date.toISOString(),
-        updated: data.updated ? data.updated.toISOString() : null,
-      },
-      splashImageDimensions: data.splashImageSource
-        ? getImageDimensions(data.splashImageSource)
+      ...post,
+      splashImageDimensions: splashImageSource
+        ? getImageDimensions(splashImageSource)
         : null,
     },
   };

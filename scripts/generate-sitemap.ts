@@ -11,8 +11,8 @@ import { absoluteUrl } from "@/lib/site";
 
 const PAGE_PATHS = ["/", "/projects", "/posts"];
 
-const main = async () => {
-  const posts = await getListedPosts();
+const main = () => {
+  const posts = getListedPosts();
 
   const entries: { path: string; lastmod?: string }[] = [
     ...PAGE_PATHS.map((pagePath) => ({ path: pagePath })),

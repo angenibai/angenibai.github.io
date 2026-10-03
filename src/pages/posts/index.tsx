@@ -23,7 +23,7 @@ interface PostsProps {
 // a local-time year would move a 1 January post back west of UTC.
 const groupByYear = (posts: PostListItem[]): YearGroup[] =>
   posts.reduce<YearGroup[]>((groups, post) => {
-    const year = post.metadata!.date.slice(0, 4);
+    const year = post.metadata.date.slice(0, 4);
     const last = groups[groups.length - 1];
     if (last?.year === year) {
       last.posts.push(post);
@@ -39,13 +39,12 @@ const Posts = ({ pinned, years }: PostsProps) => {
   // is still SSG and no new data enters __NEXT_DATA__.
   const { getRowProps, getPanelProps } = usePostPreview();
 
-  const renderRow = (post: PostListItem) =>
-    post.slug && (
-      <div className={styles.row} key={post.slug} {...getRowProps(post.slug)}>
-        <PostEntry post={post} />
-        <PostPreviewPanel post={post} {...getPanelProps(post.slug)} />
-      </div>
-    );
+  const renderRow = (post: PostListItem) => (
+    <div className={styles.row} key={post.slug} {...getRowProps(post.slug)}>
+      <PostEntry post={post} />
+      <PostPreviewPanel post={post} {...getPanelProps(post.slug)} />
+    </div>
+  );
 
   return (
     <>
@@ -90,20 +89,18 @@ const Posts = ({ pinned, years }: PostsProps) => {
 export default Posts;
 
 export const getStaticProps = async () => {
-  const listedPosts = await getListedPosts();
-
-  const posts: PostListItem[] = listedPosts
+  const posts: PostListItem[] = getListedPosts()
     // The list renders titles, dates and blurbs only - dropping `source` keeps
     // every post's full markdown out of the page's __NEXT_DATA__.
     .map(({ source, ...rest }) => rest)
     .sort(
       (a, b) =>
-        new Date(b.metadata!.date).getTime() -
-        new Date(a.metadata!.date).getTime(),
+        new Date(b.metadata.date).getTime() -
+        new Date(a.metadata.date).getTime(),
     );
 
-  const pinned = posts.filter((post) => post.metadata?.pin);
-  const years = groupByYear(posts.filter((post) => !post.metadata?.pin));
+  const pinned = posts.filter((post) => post.metadata.pin);
+  const years = groupByYear(posts.filter((post) => !post.metadata.pin));
 
   return {
     props: {

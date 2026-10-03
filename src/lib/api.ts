@@ -5,7 +5,7 @@ import { imageSize } from "image-size";
 
 import matter from "gray-matter";
 
-import { BioContent, PostMetadata, Redirect } from "@/types";
+import { BioContent, PostData, PostMetadata, Redirect } from "@/types";
 
 const projectsFile = path.join(process.cwd(), "_data/projects.yaml");
 const bioFile = path.join(process.cwd(), "_data/bio.yaml");
@@ -56,7 +56,7 @@ const toExcerpt = (markdown: string) => {
   return `${(lastSpace > 0 ? sliced.slice(0, lastSpace) : sliced).trimEnd()}\u2026`;
 };
 
-export const getPostBySlug = async (slug: string) => {
+export const getPostBySlug = (slug: string): PostData => {
   const source = fs.readFileSync(path.join(postsDirectory, `${slug}.md`));
   const { content, data } = matter(source);
 
@@ -72,23 +72,13 @@ export const getPostBySlug = async (slug: string) => {
   };
 };
 
-export const getFileData = (slug: string) => {
-  const data = fs.readFileSync(path.join(postsDirectory, `${slug}.md`), {
-    encoding: "utf-8",
-  });
-  return data ? data : null;
-};
+const getSlugs = () =>
+  fs
+    .readdirSync(postsDirectory)
+    .filter((filename) => filename.endsWith(".md"))
+    .map((filename) => filename.replace(/\.md$/, ""));
 
-export const getPaths = () => {
-  const filenames = fs.readdirSync(postsDirectory);
-  return filenames.map((filename) => {
-    return {
-      params: {
-        slug: filename.replace(/\.md$/, ""),
-      },
-    };
-  });
-};
+export const getPaths = () => getSlugs().map((slug) => ({ params: { slug } }));
 
 // Reads intrinsic pixel dimensions for a root-relative /img/... path, so
 // next/image can be given real width/height instead of a guessed one. Only
@@ -110,21 +100,9 @@ export const getImageDimensions = (srcPath: string) => {
   }
 };
 
-export const getAllPosts = async () => {
-  const filenames = fs.readdirSync(postsDirectory);
-  const allPostsData = await Promise.all(
-    filenames.map(async (filename) => {
-      const slug = filename.replace(/\.md$/, "");
-
-      const postData = await getPostBySlug(slug);
-
-      return postData;
-    }),
-  );
-  return allPostsData;
-};
+export const getAllPosts = () => getSlugs().map(getPostBySlug);
 
 // `listed: false` hides a post from the posts page and the sitemap, but it
 // still builds and is reachable by URL.
-export const getListedPosts = async () =>
-  (await getAllPosts()).filter((post) => post.metadata.listed !== false);
+export const getListedPosts = () =>
+  getAllPosts().filter((post) => post.metadata.listed !== false);
