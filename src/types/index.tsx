@@ -1,6 +1,7 @@
 export interface ProjectContent {
   name: string;
   imgSrc?: string;
+  imgDimensions?: { width: number; height: number } | null;
   shortDescription?: string;
   longDescription?: string;
   tags?: string[];

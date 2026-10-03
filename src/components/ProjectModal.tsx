@@ -1,8 +1,26 @@
 import styles from "@/styles/components/ProjectModal.module.css";
 import buttonStyles from "@/styles/components/Button.module.css";
 import { ProjectContent } from "@/types";
-import { MouseEvent, useEffect, useRef } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+
+const MAX_IMAGE_WIDTH = 400;
+const MAX_IMAGE_HEIGHT = 300;
+
+// Sizes the image frame from known dimensions so it shows at full size while
+// the image loads.
+const fitImage = (dimensions: ProjectContent["imgDimensions"]) => {
+  if (!dimensions) {
+    return { width: MAX_IMAGE_WIDTH, height: MAX_IMAGE_HEIGHT };
+  }
+  const { width, height } = dimensions;
+  const scale = Math.min(1, MAX_IMAGE_WIDTH / width, MAX_IMAGE_HEIGHT / height);
+
+  return {
+    width: Math.round(width * scale),
+    height: Math.round(height * scale),
+  };
+};
 
 interface ProjectModalProps {
   content: ProjectContent;
@@ -14,6 +32,11 @@ const ProjectModal = (props: ProjectModalProps) => {
   const { content, onClose, isOpen } = props;
 
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  // The loading text shows until the current project's image has loaded.
+  const [loadedSrc, setLoadedSrc] = useState<string>();
+  const isImageLoaded = loadedSrc === content.imgSrc;
+  const imageDisplaySize = fitImage(content.imgDimensions);
 
   // showModal()/close() are imperative DOM calls, not props - this effect is
   // the bridge from `isOpen` to the dialog's actual open state. showModal()
@@ -84,14 +107,24 @@ const ProjectModal = (props: ProjectModalProps) => {
         <div className={styles.modalBody}>
           {content.imgSrc && (
             <div className={styles.projectImageDiv}>
-              <Image
-                className={styles.projectImage}
-                src={content.imgSrc}
-                alt={`${content.name} image`}
-                width={400}
-                height={300}
-                sizes="400px"
-              />
+              <div className={styles.projectImageFrame}>
+                <Image
+                  key={content.imgSrc}
+                  className={`${styles.projectImage} ${
+                    isImageLoaded ? "" : styles.projectImageLoading
+                  }`}
+                  src={content.imgSrc}
+                  alt={`${content.name} image`}
+                  {...imageDisplaySize}
+                  sizes={`${imageDisplaySize.width}px`}
+                  onLoad={() => setLoadedSrc(content.imgSrc)}
+                />
+                {!isImageLoaded && (
+                  <div className={styles.imageLoading} aria-hidden="true">
+                    loading
+                  </div>
+                )}
+              </div>
             </div>
           )}
           {content.longDescription && (

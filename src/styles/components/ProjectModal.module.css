@@ -147,16 +147,57 @@ button.modalCloseButton {
   margin: 0.8rem auto;
 }
 
-.projectImage {
-  display: block;
-  /* Auto width and height keep the image's ratio when a max applies. */
-  width: auto;
-  height: auto;
-  aspect-ratio: auto;
-  max-width: min(98%, 400px);
-  max-height: 300px;
+.projectImageFrame {
+  position: relative;
+  max-width: 98%;
   border: var(--border-width) solid var(--color-primary);
   box-shadow: 3px 3px var(--color-primary);
+}
+
+/* The width and height attributes set the size, and `height: auto` keeps
+   their ratio when max-width narrows the image. */
+.projectImage {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  transition: opacity 0.4s ease-out;
+}
+
+/* Hidden until fully loaded, so the image appears all at once. */
+.projectImageLoading {
+  opacity: 0;
+}
+
+.imageLoading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-black);
+}
+
+/* The dots keep their full width and are revealed by clipping, so the
+   centred text stays still. */
+.imageLoading::after {
+  content: "...";
+  display: inline-block;
+  animation: loading-dots 1.2s steps(4, jump-none) infinite;
+}
+
+@keyframes loading-dots {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .imageLoading::after {
+    animation: none;
+  }
 }
 
 .detailHeading {

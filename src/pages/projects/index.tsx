@@ -3,7 +3,7 @@ import ProjectTile from "@/components/ProjectTile";
 import { ProjectContent } from "@/types";
 import { MouseEvent, useRef, useState } from "react";
 import { NextSeo } from "next-seo";
-import { getAllProjects } from "@/lib/api";
+import { getAllProjects, getImageDimensions } from "@/lib/api";
 import { absoluteUrl } from "@/lib/site";
 import PageLayout from "@/components/PageLayout";
 import ProjectModal from "@/components/ProjectModal";
@@ -81,7 +81,12 @@ const Projects = ({ projects }: ProjectsProps) => {
 export default Projects;
 
 export const getStaticProps = async () => {
-  const projects = getAllProjects();
+  const projects: ProjectContent[] = getAllProjects().map(
+    (project: ProjectContent) => ({
+      ...project,
+      imgDimensions: project.imgSrc ? getImageDimensions(project.imgSrc) : null,
+    }),
+  );
 
   return {
     props: { projects },
