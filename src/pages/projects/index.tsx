@@ -1,12 +1,13 @@
 import styles from "@/styles/components/ProjectGrid.module.css";
 import ProjectTile from "@/components/ProjectTile";
 import { ProjectContent } from "@/types";
-import { MouseEvent, useRef, useState } from "react";
+import { MouseEvent, useMemo, useRef, useState } from "react";
 import { NextSeo } from "next-seo";
 import { getAllProjects, getImageDimensions } from "@/lib/api";
 import { absoluteUrl } from "@/lib/site";
 import PageLayout from "@/components/PageLayout";
 import ProjectModal from "@/components/ProjectModal";
+import usePreloadImages from "@/hooks/usePreloadImages";
 
 interface ProjectsProps {
   projects: ProjectContent[];
@@ -20,6 +21,13 @@ const Projects = ({ projects }: ProjectsProps) => {
   // Refocus the tile only after a keyboard open; Safari rings it otherwise.
   const lastTileRef = useRef<HTMLButtonElement | null>(null);
   const openedByKeyboardRef = useRef(false);
+
+  // Preloaded so the modal can show its image without waiting.
+  const imageSrcs = useMemo(
+    () => projects.flatMap((project) => project.imgSrc ?? []),
+    [projects],
+  );
+  usePreloadImages(imageSrcs);
 
   const handleProjectClick = (
     idx: number,
