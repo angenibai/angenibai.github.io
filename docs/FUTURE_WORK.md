@@ -26,7 +26,7 @@ See `docs/design/posts-list-evolution.md` for the current design.
   `_data/redirects.yaml` point to `/posts`. Repoint them at the real tag pages
   when those are added.
 
-## Responsive header
+## Header re-style
 
 - Could also have more interesting styling aka border lines
 

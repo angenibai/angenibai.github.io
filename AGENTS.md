@@ -1,65 +1,47 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Docs index
-
-- [docs/DESIGN_LANGUAGE.md](docs/DESIGN_LANGUAGE.md) — the site's visual identity: color palette, typography pairing, borders-not-shadows, and where boldness vs. restraint belongs. Read before styling any new UI.
-- [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) — accessibility audit: current gaps ranked by severity, and what already works so it doesn't regress.
-- [docs/FUTURE_WORK.md](docs/FUTURE_WORK.md) — open items from a full-site review, not yet scheduled.
-- [docs/PUBLISHING.md](docs/PUBLISHING.md) — checklist for publishing a native or Substack post, and for changing the Firestore rules.
-- `docs/plan/` — working plans for a change in progress; not committed by default once the change ships (git history is the record of what actually happened).
-- `docs/design/` — design docs for larger changes; captures durable rationale, including any mid-implementation deviations, that a diff alone wouldn't explain.
-- `node_modules/next/dist/docs/` — the Next.js docs for the installed version; check them before relying on remembered Next APIs.
+Guidance for coding agents working in this repository.
 
 ## What this is
 
-Angeni Bai's personal website (angeni.me), a Next.js (Pages Router) + TypeScript site. Content (projects, bio, blog posts) is authored as YAML/Markdown in `_data/` rather than hardcoded in components.
+Angeni Bai's personal website (angeni.me): a Next.js (Pages Router) +
+TypeScript site, statically exported and deployed to GitHub Pages on push to
+`master` (see the [README](README.md#deploy)).
 
-## Commands
+## Where to look
 
-```
-npm run dev              # start dev server
-npm run build            # production build (also type-checks); prebuild writes public/sitemap.xml, public/feed.xml, and the redirect pages
-npm run sitemap          # regenerate public/sitemap.xml alone (gitignored, built from listed posts)
-npm run feed             # regenerate the RSS feed public/feed.xml alone (gitignored, built from listed posts)
-npm run redirects        # regenerate the redirect pages in public/ alone (gitignored, from _data/redirects.yaml)
-npm run start            # serve the static export in out/
-npm run lint             # eslint (flat config in eslint.config.mjs)
-npm run optimize-images  # resize/recompress oversized images under public/img (requires ImageMagick)
-npm run reacts:init      # create Firestore reacts docs for new native posts (needs gcloud auth)
-```
+- [docs/DESIGN_LANGUAGE.md](docs/DESIGN_LANGUAGE.md) — the site's visual
+  identity. Read before styling any new UI.
+- [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md) — accessibility gaps ranked by
+  severity, and what already works so it doesn't regress.
+- [docs/PUBLISHING.md](docs/PUBLISHING.md) — checklist for publishing a native
+  or Substack post, and for changing the Firestore rules.
+- [docs/FUTURE_WORK.md](docs/FUTURE_WORK.md) — open items, not yet scheduled.
+- `docs/design/` — design docs for larger changes, including mid-implementation
+  deviations a diff wouldn't explain.
+- `docs/plan/` — working plans for a change in progress; not committed by
+  default once the change ships.
+- `package.json` scripts — the commands. Some scripts (`optimize-images`,
+  `reacts:init`) document their flags and prerequisites in their source under
+  `scripts/`.
+- `node_modules/next/dist/docs/` — Next.js docs for the installed version; check
+  them before relying on remembered Next APIs.
 
-Run `optimize-images` before committing new screenshots — see `scripts/optimize-images.sh` for flags (`--dry-run`, `--max-width`).
+## Working in the codebase
 
-There is no test suite configured in this repo.
-
-## Architecture
-
-**Content lives in `_data/`, not in `src/`.** Pages read content at build time via `src/lib/api.ts`, which parses YAML (`_data/projects.yaml`, `_data/bio.yaml`) and Markdown-with-frontmatter blog posts (`_data/posts/*.md`, parsed with `gray-matter`). All post/project/bio content changes belong in `_data/`, not in page components.
-
-- `getAllProjects()` / `getBio()` — parse the corresponding YAML file.
-- `getAllPosts()`, `getPostBySlug()`, `getFileData()`, `getPaths()` — read and parse `_data/posts/*.md`. The filename (minus `.md`) is the post's slug and its route.
-- `getListedPosts()` — `getAllPosts()` minus `listed: false` posts; the one definition of "unlisted", used by the posts page and the sitemap and feed scripts.
-- `_data/site.json` — site origin, name, default description, author, Google Analytics ID, and social profile URLs. JSON rather than YAML so `_app.tsx` can import it directly; read it through `src/lib/site.ts`, which also provides `absoluteUrl()` for canonicals, OG images, the sitemap and the feed.
-- `_data/redirects.yaml` — old Jekyll URLs and where they go now. `scripts/generate-redirects.ts` (run in `prebuild`) writes each one as a static meta-refresh page in `public/`, because GitHub Pages can't send HTTP redirects. A new entry also needs its output path added to `.gitignore`.
-- Post frontmatter fields are documented inline in `_data/posts/2023-04-08-easter-show-value.md` (required: `layout`, `title`, `date`; recommended: `tags`, `splashImageSource`, `splashImageCaption`; optional: `updated`, `author`, `pin`, `listed`, `index`, `reacts`). The shape is typed in `src/types/index.tsx` (`PostMetadata`, `ProjectContent`).
-- `longDescription` fields in `projects.yaml` are raw HTML strings, not Markdown.
-
-**Post rendering**: `src/pages/posts/[slug].tsx` uses `getStaticProps`/`getStaticPaths` (SSG, `fallback: false`) and renders Markdown via `react-markdown` with `remark-gfm` and `rehype-raw` (so raw HTML in post bodies is allowed). Code blocks are rendered through the custom `src/components/markdown/Code.tsx` component (syntax highlighting via `react-syntax-highlighter`).
-
-**Reacts**: `src/components/Reacts.tsx` renders the "Reacc" bar under native posts (not Substack posts with `externalLink`, and not posts with `reacts: false`). Counts live in the `blog-reacts` Firebase project, collection `reacts`, one doc per post keyed `${slug}-html` (a Jekyll leftover, kept so old counts carry over; see `src/lib/reacts.ts`). Visitors can't create docs, so a new post needs `npm run reacts:init`, or its bar stays hidden with a console warning. Security rules are in `firestore.rules`; deploy them with `npx firebase-tools deploy --only firestore:rules`.
-
-**Layout split**: `src/components/Layout.tsx` is a bare wrapper used only by the home page (`src/pages/index.tsx`). `src/components/PageLayout.tsx` wraps `Nav` + content + `Footer` and is used by all other pages (posts, projects). Use `PageLayout` for any new top-level page other than the homepage.
-
-**Styling**: CSS Modules per-component under `src/styles/components/`, plus page-level modules directly under `src/styles/` (`Home.module.css`, `Post.module.css`, etc.) and global styles in `src/styles/globals.css`. Fonts (`Work Sans`, `Newsreader`, `IBM Plex Mono`) are loaded via `next/font/google` in `src/pages/_app.tsx` and exposed as CSS variables. See [docs/DESIGN_LANGUAGE.md](docs/DESIGN_LANGUAGE.md) for the color/typography/border conventions before adding new styles.
-
-**Path alias**: `@/*` maps to `src/*` (see `tsconfig.json`).
-
-**Deploy**: pushing to `master` builds the static export and publishes `out/` to GitHub Pages (see the [README](README.md#deploy)). Page URLs end in `/` (`trailingSlash` in `next.config.js`), so build absolute URLs with `absoluteUrl()` and write internal paths with the slash.
-
-**Images** referenced from `_data/` content live under `public/img/<project-or-post-slug>/`.
-
-## Leftover directories
-
-`vendor/`, `.bundle/`, and `_site/` are remnants of a prior Jekyll-based version of this site. They're gitignored and unused by the current Next.js app — ignore them.
+- **Content lives in `_data/`, not `src/`.** Posts, projects, bio, site config
+  and redirects are YAML/Markdown/JSON there; pages read them at build time
+  through `src/lib/`. Post frontmatter is documented in
+  `_data/posts/2023-04-08-easter-show-value.md`.
+- **Checks:** there is no test suite. `npm run build` (which type-checks) and
+  `npm run lint` are the checks to run.
+- **Generated files:** the sitemap, RSS feed and redirect pages in `public/` are
+  written by `prebuild` and gitignored. A new entry in `_data/redirects.yaml`
+  also needs its output path added to `.gitignore`.
+- **URLs end in `/`** (`trailingSlash`). Write internal paths with the slash and
+  build absolute URLs with `absoluteUrl()` from `src/lib/site.ts`.
+- **New pages** use `PageLayout`; `Layout` is for the home page only.
+- **Images** go under `public/img/<slug>/`; run `npm run optimize-images` before
+  committing them.
+- **Ignore** `vendor/`, `.bundle/` and `_site/`: gitignored leftovers from the
+  old Jekyll site.
