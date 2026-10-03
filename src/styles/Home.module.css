@@ -1,0 +1,47 @@
+.homePage {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  column-gap: 2rem;
+  align-items: center;
+  min-height: 96vh;
+}
+
+.bioDiv {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.bioDiv > div {
+  margin: auto;
+}
+
+.contentDiv {
+  max-width: 620px;
+  margin: 2rem auto;
+}
+
+@media (max-width: 1095px) {
+  .contentDiv {
+    width: 100%;
+    max-width: fit-content;
+  }
+}
+
+.bigText {
+  font-size: 3rem;
+  font-weight: bold;
+  line-height: 3.1rem;
+  margin-bottom: 1.2rem;
+}
+
+.text {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.navLinks {
+  margin-top: 1.5rem;
+}

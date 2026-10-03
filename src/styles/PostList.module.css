@@ -1,0 +1,58 @@
+.postList {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem; /* the gap between groups */
+  width: 90%;
+  max-width: 880px;
+}
+
+.group {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  column-gap: 1.25rem;
+  border-top: var(--border-width) solid var(--color-primary);
+  padding-top: 1.6rem;
+}
+
+/* Body serif in ink, so the year reads as a section label rather than
+   another green title. */
+.year {
+  font-family: var(--font-newsreader);
+  font-weight: 400;
+  color: var(--color-black);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Placed in the second column explicitly so the pinned group, which has no
+   visible year cell, lines up with the year groups. */
+.entries {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Still the containing block for PostEntry's absolutely-positioned .pin marker.
+   The preview panel no longer needs it - that's position: fixed now, placed
+   imperatively by usePostPreview. */
+.row {
+  position: relative;
+}
+
+@media (max-width: 560px) {
+  .group {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.9rem;
+  }
+
+  .entries {
+    grid-column: 1;
+  }
+
+  .year {
+    font-size: 1.1rem;
+    line-height: 1.4rem;
+  }
+}

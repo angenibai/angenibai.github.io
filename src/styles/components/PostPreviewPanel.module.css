@@ -1,0 +1,122 @@
+/* Placement layer. usePostPreview writes a translate3d() transform here on
+   every tracked cursor frame; there must be NO transition on this node or the
+   panel visibly trails the pointer. position: fixed so the hook's
+   viewport-relative placement math lands where it expects (no ancestor of
+   .postList creates a containing block). pointer-events: none is load-bearing:
+   the panel overlaps the rows below it, and without this it would steal hover
+   from the row underneath - lose :hover - hide - regain hover: a flicker loop.
+   It also keeps only one panel reachable at a time. */
+.anchor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Width follows the image (max-content) rather than being fixed, so a 16:9
+   splash makes a wider panel than a 4:3 one; the clamp stops a portrait image
+   squeezing the excerpt into a column of single words. */
+.panel {
+  /* Grid so the column can size to max-content while the text children below
+       opt out of that measurement - see .header / .excerpt / .with. */
+  display: grid;
+  grid-template-columns: max-content;
+  width: max-content;
+  min-width: 240px;
+  max-width: 360px;
+  padding: 9px;
+  border: var(--border-width) solid var(--color-primary);
+  box-shadow: 10px 10px var(--color-primary);
+  background-color: var(--color-bg-white);
+  opacity: 0;
+  /* Hidden this way rather than with display: none - a display: none panel
+       never fetches its lazy image, so the first hover on each row would show
+       an empty frame while it downloaded; and getBoundingClientRect() on
+       .anchor would measure zero, so the hook couldn't place it. */
+  visibility: hidden;
+  transform: translateY(4px);
+  transition:
+    opacity 0.12s ease,
+    transform 0.12s ease;
+}
+
+/* Reveal. Same module as .panel now, so the old cross-module data-post-panel
+   bridge in PostList.module.css is gone. data-visible is driven by
+   usePostPreview (hover, and focus for keyboard). */
+.anchor[data-visible="true"] .panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+/* width: 0 + min-width: 100% is what keeps the prose out of the panel's
+   max-content measurement: without it the excerpt's ~600px unwrapped width
+   drives the panel and every panel clamps to max-width, so the image ratio
+   stops showing. Zero width during intrinsic sizing, full width when painted. */
+.header,
+.excerpt,
+.with {
+  width: 0;
+  min-width: 100%;
+}
+
+.header {
+  background-color: var(--color-primary);
+  color: var(--color-bg-white);
+  text-align: center;
+  padding: 0.5rem 0.2rem;
+}
+
+.headerTitle {
+  font-size: 1rem;
+  color: var(--color-bg-white);
+}
+
+/* Fixed height with width: auto on the image is what preserves the native
+   ratio. Deliberately no object-fit: cover - cropping is what this avoids. */
+.imageFrame {
+  height: 180px;
+  margin: 10px 0;
+  border: var(--border-width) solid var(--color-primary);
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-bg-white);
+}
+
+.imageFrame img {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+}
+
+.excerpt {
+  font-size: 0.9rem;
+  line-height: 1.35rem;
+}
+
+.with {
+  display: flex;
+  gap: 5px;
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+
+.withLabel {
+  width: 44px;
+  font-weight: bold;
+}
+
+/* Touch devices never reveal the panel, so don't download the splash images. */
+@media (hover: none) {
+  .panel {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transform: none;
+    transition: none;
+  }
+}

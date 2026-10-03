@@ -1,0 +1,92 @@
+.entry {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 0.3rem;
+  /* The date sits on the title's last line. Browsers that reject
+     "last baseline" fall back to the first line. */
+  align-items: last baseline;
+}
+
+/* The right padding is room text can't wrap into but the leader still
+   paints into, so a title that fills its column keeps 2rem of dots. */
+.title {
+  font-size: 1.5rem;
+  line-height: 2rem; /* h2 got this from globals.css; h3 doesn't */
+  color: var(--color-primary);
+  overflow: hidden;
+  padding-right: 2rem;
+  text-wrap: pretty;
+}
+
+/* A negative margin cancels the leader's width, so it never causes a line
+   break and always starts where the title's last line ends. The title's
+   overflow clips it at the padding edge. The mask leaves a gap after the
+   last word. */
+.title::after {
+  content: "";
+  display: inline-block;
+  width: 200rem;
+  margin-right: -200rem;
+  border-bottom: var(--divider-width) dotted var(--color-primary);
+  mask-image: linear-gradient(to right, transparent 0.25em, #000 0.25em);
+}
+
+/* Tabular figures line the date column up across rows. */
+.date {
+  font-family: var(--font-newsreader);
+  font-size: 0.9rem;
+  color: var(--color-black);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.blurb {
+  font-family: var(--font-newsreader);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--color-black);
+  margin-top: 0.2rem;
+}
+
+.pin {
+  position: absolute;
+  left: -1.25rem;
+  top: 0.6rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--color-primary);
+}
+
+/* The site's own hover idiom (globals.css underlines every link), applied to
+   the two prose elements only - the date and the dotted leader stay clean, so
+   the underline is the single cue rather than two competing ones. */
+.entry:hover .title,
+.entry:hover .blurb {
+  text-decoration: underline;
+}
+
+/* The global a:hover underline would otherwise pass down to the date, because
+   a decoration on a link reaches its block children. */
+.entry:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 560px) {
+  .title {
+    font-size: 1.3rem;
+    line-height: 1.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry {
+    transition: none;
+  }
+}

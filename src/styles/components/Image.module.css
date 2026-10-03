@@ -1,0 +1,23 @@
+/* Centering is done with flex, not margin: auto, because a replaced element
+   only slightly wider than its containing block resolves auto margins
+   asymmetrically in Chrome (confirmed via computed styles: 0 / -14px
+   instead of an even split) — flex centers it correctly either way. */
+.imageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.75rem 0 2rem;
+}
+
+.imageWrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: var(--border-width) solid var(--color-primary);
+  box-shadow: 5px 5px var(--color-primary);
+}
+
+/* Inside a <figure>, the figure owns the outer spacing. */
+figure > .imageWrapper {
+  margin: 0;
+}

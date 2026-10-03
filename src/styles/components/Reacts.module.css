@@ -1,0 +1,162 @@
+/* The Reacc bar: a framed panel with a green header band and one compact cell
+ * per react. Pressed cells take the same green fill as a committed button.
+ * Sizes and colours are set on each element because globals.css styles every
+ * div and p (1.1rem Newsreader in black). */
+.reacts {
+  --hairline: rgba(13, 75, 55, 0.35);
+  /* Row heights. Content is centred vertically within each. */
+  --band-height: 2.1rem;
+  --cell-height: 3.3rem;
+
+  container-type: inline-size;
+  position: relative;
+  /* Same width and side padding as .postContent in Post.module.css, so the
+     panel lines up with the post text. */
+  width: 100%;
+  max-width: 720px;
+  padding: 0 2.75rem;
+}
+
+/* The post column's side borders continue down to the panel's midline, and
+   its bottom border runs along that midline, behind the panel. With no
+   panel (loading or missing doc), this is just the bottom border. */
+.reacts::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 50%;
+  border: var(--border-width) solid var(--color-primary);
+  border-top: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .reacts {
+    padding: 0;
+  }
+
+  /* The column has no side borders at this width. */
+  .reacts::before {
+    border-left: 0;
+    border-right: 0;
+  }
+}
+
+.panel {
+  position: relative;
+  border: var(--border-width) solid var(--color-primary);
+  box-shadow: 5px 5px var(--color-primary);
+  background: var(--color-bg-white);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 1rem;
+  min-height: var(--band-height);
+  padding: 0 1rem;
+  background: var(--color-primary);
+}
+
+.heading {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.8rem;
+  color: var(--color-bg-white);
+}
+
+.total {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-style: italic;
+  color: var(--color-bg-white);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 0;
+  min-height: var(--cell-height);
+  padding: 0 0.25rem;
+  color: var(--color-primary);
+  border: 0;
+  border-left: 1px solid var(--hairline);
+  cursor: var(--cursor-pointer);
+  transition:
+    background-color 120ms,
+    color 120ms;
+}
+
+.cell:first-child {
+  border-left: 0;
+}
+
+.emoji {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.count {
+  font-family: var(--font-newsreader);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.cell[aria-pressed="true"] {
+  background: var(--color-primary);
+  color: var(--color-bg-white);
+}
+
+.cell:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: -6px;
+}
+
+.cell[aria-pressed="true"]:focus-visible {
+  outline-color: var(--color-bg-white);
+}
+
+@media (hover: hover) {
+  .cell:not([aria-pressed="true"]):hover {
+    background: rgba(13, 75, 55, 0.08);
+  }
+}
+
+/* 3×2 below 480px of bar width, with the hairlines redrawn for the grid. */
+@container (max-width: 480px) {
+  .row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .cell {
+    border-top: 1px solid var(--hairline);
+  }
+
+  .cell:nth-child(3n + 1) {
+    border-left: 0;
+  }
+
+  .cell:nth-child(-n + 3) {
+    border-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell {
+    transition: none;
+  }
+}

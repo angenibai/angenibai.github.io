@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function withinOne(v1, v2) {
+      return (v1 - v2 == 1 || v2 - v1 == 1 || v1 - v2 == 0) && v1 >= 0;
+    }
+
+    // One react plus total per write, so a single request can't bump
+    // several reacts or add fields.
+    function isOneReact() {
+      let changed = request.resource.data.diff(resource.data).affectedKeys();
+      return changed.size() == 2
+        && changed.hasAll(['total'])
+        && changed.hasOnly(['total', 'like', 'laugh', 'love', 'surprised', 'angry', 'sad']);
+    }
+
+    function totalMatchesReacts() {
+      let d = request.resource.data;
+      return d.total == d.like + d.laugh + d.love + d.surprised + d.angry + d.sad;
+    }
+
+    match /reacts/{post} {
+      allow read: if true;
+      // Docs are created by scripts/reacts-init.mjs with owner credentials,
+      // which bypass these rules.
+      allow create, delete: if false;
+      allow update: if isOneReact() && totalMatchesReacts()
+        && withinOne(request.resource.data.total, resource.data.total)
+        && withinOne(request.resource.data.like, resource.data.like)
+        && withinOne(request.resource.data.laugh, resource.data.laugh)
+        && withinOne(request.resource.data.love, resource.data.love)
+        && withinOne(request.resource.data.surprised, resource.data.surprised)
+        && withinOne(request.resource.data.angry, resource.data.angry)
+        && withinOne(request.resource.data.sad, resource.data.sad);
+    }
+  }
+}

@@ -1,0 +1,14 @@
+# Entry values are raw HTML strings, like longDescription in projects.yaml.
+heading: "/ˌæn’dʒiːniː /"
+img: null
+sections:
+  - title: null
+    entries:
+      - label: aka
+        value: genie
+  - title: fun facts
+    entries:
+      - label: likes
+        value: <a class="sneakyLink" href="https://applerankings.com/kanzi-apple-review/" target="_blank" rel="noopener">kanzi apples</a>, bikeable cities, the colour green
+      - label: dislikes
+        value: hardback books

@@ -1,0 +1,88 @@
+.bioPanel {
+  border: var(--border-width) solid var(--color-primary);
+  box-shadow: 10px 10px var(--color-primary);
+  width: 290px;
+  height: fit-content;
+  padding: 9px;
+}
+
+.bioPanelContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.bioPanelContent > * {
+  width: 100%;
+}
+
+.bioPanelHeader {
+  background-color: var(--color-primary);
+  color: var(--color-bg-white);
+  text-align: center;
+}
+
+.bioPanelTitleHeader {
+  padding: 0.6rem 0.2rem;
+}
+
+.bioPanelTitleHeader > h2 {
+  font-size: 1.2rem;
+  /* Pinned to how the old h4 rendered: globals.css styles h1–h3 as
+     Work Sans 800 with their own line-heights. */
+  font-family: inherit;
+  font-weight: bold;
+  line-height: inherit;
+}
+
+.bioPanelImgFrame {
+  border: var(--border-width) solid var(--color-primary);
+  height: 320px;
+  width: 240px;
+  margin: 10px auto;
+}
+
+.bioPanelImgPlaceholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.bioPanelSection {
+  margin: 4px 0;
+}
+
+.bioPanelSectionHeader {
+  padding: 0.4rem 0.2rem;
+  margin: 10px 0 6px 0;
+  margin: 6px 0;
+}
+
+.bioPanelSectionHeader > h3 {
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: bold;
+}
+
+.bioPanelSectionEntry {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.bioPanelSectionEntry > div {
+  padding: 2px 0;
+}
+
+.bioPanelSectionEntryLabel {
+  width: 80px;
+  font-weight: bold;
+  hyphens: auto;
+}
+
+.bioPanelSectionEntryValue {
+  width: 185px;
+}

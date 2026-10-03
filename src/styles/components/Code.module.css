@@ -1,0 +1,68 @@
+/* No longer bleeds past the post frame's padding and border (Post.module.css
+   .postContent) - the frame is now unbroken, so the wrapper just sits inside
+   it like any other block. */
+.codeBlockWrapper {
+  margin: 1.75rem 0 2rem;
+  border: var(--border-width) solid var(--color-primary);
+}
+
+/* Two classes so this beats .postContent figcaption (Post.module.css), which
+   styles image captions; the resets below undo that rule. */
+.codeBlockWrapper > .caption {
+  margin: 0;
+  width: auto;
+  max-width: none;
+  align-self: stretch;
+  text-align: left;
+  font-style: normal;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  font-family: var(--font-work-sans);
+  font-weight: 600;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background-color: var(--color-bg-white);
+  background-image: url("/noise-2.svg");
+  background-size: 400px 400px;
+  border-bottom: var(--border-width) solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.captionSymbol {
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+  text-transform: none;
+  position: relative;
+  top: -0.5px;
+}
+
+.codeBlock {
+  /* --color-black at 90%, so the page grain shows faintly through. */
+  background-color: rgba(41, 41, 41, 0.9);
+  padding: 1rem 1.5rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(250, 248, 240, 0.4) transparent;
+}
+
+/* The global green selection disappears against the dark panel, so invert it. */
+.codeBlock::selection,
+.codeBlock *::selection {
+  background: var(--color-bg-white);
+  color: var(--color-black);
+}
+
+.inlineCode {
+  background-color: rgba(13, 75, 55, 0.3);
+  border: 1px solid rgba(13, 75, 55, 0.15);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 0.08em 0.3em;
+  border-radius: 0.6em;
+  color: var(--color-primary-darker);
+  white-space: nowrap;
+}
