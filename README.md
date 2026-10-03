@@ -16,7 +16,7 @@ See [AGENTS.md](AGENTS.md) for the full command list and architecture, and
 
 ## Deploy
 
-Pushing to `master` runs `.github/workflows/deploy.yml`, which builds the
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the
 static export and publishes `out/` to GitHub Pages. Check the Actions tab if a
 change doesn't appear. The Pages source must stay "GitHub Actions". The custom
 domain `angeni.me` is set in Settings → Pages, not a `CNAME` file. Page URLs

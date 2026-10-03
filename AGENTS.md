@@ -6,7 +6,7 @@ Guidance for coding agents working in this repository.
 
 Angeni Bai's personal website (angeni.me): a Next.js (Pages Router) +
 TypeScript site, statically exported and deployed to GitHub Pages on push to
-`master` (see the [README](README.md#deploy)).
+`main` (see the [README](README.md#deploy)).
 
 ## Where to look
 

@@ -12,7 +12,7 @@
    `blog-reacts` owner account, once per machine. Without this step the react
    bar stays hidden and the browser console warns about the missing doc.
 5. Run `npm run build` and `npm run lint`.
-6. Commit and merge to `master`. The deploy workflow publishes it; check the
+6. Commit and merge to `main`. The deploy workflow publishes it; check the
    Actions tab if the post doesn't appear.
 
 ## Substack post
