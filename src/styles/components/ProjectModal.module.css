@@ -1,6 +1,5 @@
-/* .modalOverlay is the <dialog> element. Its base rule doesn't set `display`,
-   so the browser's default `dialog:not([open]) { display: none }` keeps the
-   closed modal hidden from assistive tech (see ACCESSIBILITY.md Section 5). */
+/* The <dialog>, which leaves `display` to the browser default so a closed
+   modal is hidden from assistive tech (see ACCESSIBILITY.md Section 5). */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -16,9 +15,8 @@
   justify-content: center;
   align-items: center;
 
-  /* `display` keeps the dialog visible for 0.3s after close(), so the panel's
-     scale-out can play. `overlay` keeps it in the top layer for that time;
-     browsers without it ignore that line. */
+  /* Keeps the dialog shown and in the top layer for 0.3s after close(), so the
+     panel's scale-out can play. */
   transition:
     display 0.3s allow-discrete,
     overlay 0.3s allow-discrete;
